@@ -36,6 +36,16 @@ Route::group(['prefix' => 'messagerie'], function () {
 
 });
 
+Route::group(['prefix' => 'parish'], function () {
+    Route::group(['prefix' => 'parish_patrimonies'], function () {
+        Route::get('/', 'Setting\ParishPatrimonyController@index');
+        Route::delete('/{id}', 'Setting\ParishPatrimonyController@destroy');
+        Route::get('/{id}', 'Setting\ParishPatrimonyController@find');
+        Route::get('/search', 'Setting\ParishPatrimonyController@search');
+        Route::post('parishparimony', 'Setting\ParishPatrimonyController@create');
+    });
+
+});
 // Notification module : 'middleware' => 'auth:api',
 Route::group(['prefix' => 'notification'], function () {
 

@@ -19,11 +19,10 @@ class DatabaseSeeder extends Seeder
         // $this->call(CityAndCountrySeeder::class);
         $this->call(SettingSeeder::class);
         $this->call(LaratrustSeeder::class);
-        $this->call(ProfessionsSeeder::class);
-
 
         // module person
         $this->call([
+            ProfessionsSeeder::class,
             PriestSeeder::class,
             AlbumSeeder::class,
             ParishionalSeeder::class,
@@ -31,7 +30,9 @@ class DatabaseSeeder extends Seeder
         ]);
         
         // module setting
-        $this->call([]);
+        $this->call([
+            ParishPatrimonySeeder::class
+        ]);
 
         // module place
         $this->call([]);
