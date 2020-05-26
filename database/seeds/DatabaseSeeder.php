@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Schema;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,8 +19,24 @@ class DatabaseSeeder extends Seeder
         // $this->call(CityAndCountrySeeder::class);
         $this->call(SettingSeeder::class);
         $this->call(LaratrustSeeder::class);
-        $this->call(PriestSeeder::class);
-        $this->call(AlbumSeeder::class);
+
+        // module person
+        $this->call([
+            PriestSeeder::class,
+            AlbumSeeder::class,
+            ParishionalSeeder::class,
+            ParishSeeder::class
+        ]);
+        
+        // module setting
+        $this->call([]);
+
+        // module place
+        $this->call([]);
+
+        // module notification
+        $this->call([]);
+        
 
         Schema::enableForeignKeyConstraints();
         Model::reguard();
