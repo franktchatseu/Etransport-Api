@@ -60,9 +60,16 @@ Route::group(['prefix' => 'setting'], function () {
 Route::group(['prefix' => 'statistic'], function () {
 
     Route::group(['prefix' => 'finance'], function () {
-        Route::get('/', 'Statistic\FinanceController@getFinance');
+        Route::get('/', 'FinanceController@getFinance');
     });
 
 });
 
+Route::group(['prefix' => 'catechists'], function () {
+    Route::get('/', 'Person\CatechistController@get');
+    Route::get('/{id}', 'Person\CatechistController@find');
+    Route::delete('/{id}', 'Person\CatechistController@destroy');
+    Route::post('/{id}', 'Person\CatechistController@update');
+    Route::post('/', 'Person\CatechistController@create');
 
+});
