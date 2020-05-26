@@ -43,6 +43,12 @@ Route::group(['prefix' => 'notification'], function () {
 
 // Person module : 'middleware' => 'auth:api',
 Route::group(['prefix' => 'person'], function () {
+    Route::get('/', 'Person\PriestController@index');
+    Route::get('/find/{id}', 'Person\PriestController@find');
+    Route::get('/search', 'Person\PriestController@search');
+    Route::delete('/destroy/{id}', 'Person\PriestController@destroy');
+    Route::put('/update/{id}', 'Person\PriestController@update');
+    Route::post('/create', 'Person\PriestController@store');
 
 });
 
@@ -62,6 +68,17 @@ Route::group(['prefix' => 'statistic'], function () {
     Route::group(['prefix' => 'finance'], function () {
         Route::get('/', 'Statistic\FinanceController@getFinance');
     });
+
+});
+
+// Album module : 'middleware' => 'auth:api',
+Route::group(['prefix' => 'setting'], function () {
+    Route::get('/', 'Setting\AlbumController@index');
+    Route::get('/find/{id}', 'Setting\AlbumController@find');
+    Route::get('/search', 'Setting\AlbumController@search');
+    Route::delete('/destroy/{id}', 'Setting\AlbumController@destroy');
+    Route::put('/update/{id}', 'Setting\AlbumController@update');
+    Route::post('/create', 'Setting\AlbumController@store');
 
 });
 
