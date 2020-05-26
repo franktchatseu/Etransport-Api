@@ -43,6 +43,12 @@ Route::group(['prefix' => 'notification'], function () {
 
 // Person module : 'middleware' => 'auth:api',
 Route::group(['prefix' => 'person'], function () {
+    Route::get('/', 'Person\ProfessionsController@index');
+    Route::get('/search', 'Person\ProfessionsController@search');
+    Route::post('/store', 'Person\ProfessionsController@store');
+    Route::get('/{id}', 'Person\ProfessionsController@find');
+    Route::post('/{id}','Person\ProfessionsController@update');
+    Route::get('/destroy/{id}', 'Person\ProfessionsController@destroy');
 
 });
 
