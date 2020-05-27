@@ -13,7 +13,7 @@ class CreateParishsTable extends Migration
      */
     public function up()
     {
-        Schema::create('parishes', function (Blueprint $table) {
+        Schema::create('parishs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('decision_creation');
@@ -37,6 +37,6 @@ class CreateParishsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('parishes');
+        Schema::dropIfExists('parishs');
     }
 }

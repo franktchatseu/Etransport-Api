@@ -12,8 +12,10 @@ class ParishPatrimonySeeder extends Seeder
      */
     public function run(\Faker\Generator$faker)
     {
-        factory(ParishPatrimony::class, 10)->make()->each(function($ParishPatrimony) use ($faker){
-            $ParishPatrimony->save();
+        factory(ParishPatrimony::class, 10)->make()->each(function($parishPatrimony) use ($faker){
+            $parishs = App\Models\Setting\Parish::all();
+            $parishPatrimony->parish_id = $faker->randomElement($parishs)->id;
+            $parishPatrimony->save();
         });
     }
 }

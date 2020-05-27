@@ -135,7 +135,7 @@ class AlbumController extends Controller
         ]);
 
         $data = Album::where($req->field, 'like', "%$req->q%")
-            ->get();
+            ->simplePaginate($req->has('limit') ? $req->limit : 15);
 
         return response()->json($data);
     }

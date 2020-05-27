@@ -156,7 +156,7 @@ class ParishController extends Controller
         ]);
 
         $data = Parish::where($req->field, 'like', "%$req->q%")
-            ->get();
+            ->simplePaginate($req->has('limit') ? $req->limit : 15);
 
         return response()->json($data);
     }

@@ -42,7 +42,6 @@ class ProfessionsController extends Controller
         $this->validate($request->all(), [
             'name' => 'required',
             'description' => 'required',
-            
         ]);
 
             $professions = new Professions();
@@ -126,9 +125,8 @@ class ProfessionsController extends Controller
             'field' => 'present'
         ]);
 
-        $data = Professions::where($req->field, 'like', "%$req->q%")->get();
-
-           // ->simplePaginate($req->has('limit') ? $req->limit : 15)
+        $data = Professions::where($req->field, 'like', "%$req->q%")
+            ->simplePaginate($req->has('limit') ? $req->limit : 15);
 
         return response()->json($data);
     }

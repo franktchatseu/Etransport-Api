@@ -25,9 +25,9 @@ class ParishPatrimonyController extends Controller
         $this->validate($req->all(), [
             'q'=>'description',
             'field'=>'description'
-            ]);
+        ]);
     
-        $data = ParishPatrimony::where($req->field, 'like',"%$req->q%")->get()->simplePaginate($req->has('limit') ? $req->limit : 15);
+        $data = ParishPatrimony::where($req->field, 'like',"%$req->q%")->simplePaginate($req->has('limit') ? $req->limit : 15);
     
         return response()->json($data);
     }
@@ -44,9 +44,9 @@ class ParishPatrimonyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $req)
+    public function store(Request $req)
     {
-
+        $data = $req->except('files');
         $this->validate($data, [
             'description'=>'required',
             'value'=>'required'
@@ -59,39 +59,6 @@ class ParishPatrimonyController extends Controller
 
         return response()->json($parishPatrimony);
         
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Setting\ParishPatrimony  $parishPatrimony
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ParishPatrimony $parishPatrimony)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Setting\ParishPatrimony  $parishPatrimony
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ParishPatrimony $parishPatrimony)
-    {
-        //
     }
 
     /**
@@ -119,12 +86,12 @@ class ParishPatrimonyController extends Controller
      * @param  \App\Models\Setting\ParishPatrimony  $parishPatrimony
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ParishPatrimony $parishPatrimony)
+    public function destroy(ParishPatrimony $parishPatrimony, $id)
     {
         if(!$ParishPatrimony = ParishPatrimony::find($id)){
             abort(404, "No ParishPatrimony with id $id");
         }
         $ParishPatrimony->delete();
-        return respose()-json($ParishPatrimony);
+        return response()-json($ParishPatrimony);
     }
 }

@@ -17,11 +17,12 @@ class DatabaseSeeder extends Seeder
         Schema::disableForeignKeyConstraints();
 
         // $this->call(CityAndCountrySeeder::class);
-        $this->call(SettingSeeder::class);
-        $this->call(LaratrustSeeder::class);
+        // $this->call(SettingSeeder::class);
+        // $this->call(LaratrustSeeder::class);
 
         // module person
         $this->call([
+            UserSeeder::class,
             ProfessionsSeeder::class,
             PriestSeeder::class,
             AlbumSeeder::class,

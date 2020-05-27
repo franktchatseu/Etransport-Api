@@ -17,7 +17,7 @@ class AddRelationBetweenParishParishpatrimoniesTable extends Migration
             //
             $table->unsignedInteger('parish_id');
             $table->date('happen_date');
-            $table->foreign('parish_id')->references('id')->on('parishes');
+            $table->foreign('parish_id')->references('id')->on('parishs');
         });
     }
 

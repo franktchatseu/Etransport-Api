@@ -48,6 +48,7 @@ class PriestController extends Controller
             'ordination_place' => 'required',
             'ordination_godfather' => 'required',
             'career' => 'required',
+            'user_id' => 'required:exists:users,id'
         ]);
 
             $priest = new Priest();
@@ -55,6 +56,7 @@ class PriestController extends Controller
             $priest->ordination_place = $data['ordination_place'];
             $priest->ordination_godfather = $data['ordination_godfather'];
             $priest->career = $data['career'];
+            $priest->user_id = $data['user_id'];
             $priest->save();
        
         return response()->json($priest);
@@ -149,7 +151,7 @@ class PriestController extends Controller
         ]);
 
         $data = Priest::where($req->field, 'like', "%$req->q%")
-            ->get();
+        ->simplePaginate($req->has('limit') ? $req->limit : 15);
 
         return response()->json($data);
     }
