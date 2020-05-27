@@ -140,4 +140,13 @@ Route::group(['prefix' => 'statistics'], function () {
     Route::group(['prefix' => 'finance'], function () {
         Route::get('/', 'Statistic\FinanceController@getFinance');
     });
+
+    Route::group(['prefix' => 'finances'], function () {
+        Route::get('/', 'Statistic\RequestForMassController@index');
+        Route::get('/{id}', 'Statistic\RequestForMassController@find');
+        Route::get('/search', 'Statistic\RequestForMassController@search');
+        Route::delete('/{id}', 'Statistic\RequestForMassController@destroy');
+        Route::match(['post', 'put'], '/{id}', 'Statistic\RequestForMassController@update');
+        Route::post('/', 'Statistic\RequestForMassController@store');
+    });
 });

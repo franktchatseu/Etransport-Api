@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Finance\RequestForMass;
 
 class DatabaseSeeder extends Seeder
 {
@@ -43,7 +44,9 @@ class DatabaseSeeder extends Seeder
         $this->call([]);
 
         // module finance
-        $this->call([]);
+        $this->call([
+            RequestForMassSeeder::class
+        ]);
 
         // module association
         $this->call([]);
