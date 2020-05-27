@@ -41,13 +41,15 @@ class ParishionalController extends Controller
 
         $this->validate($data, [
             'quarter' => 'required',
-            'isBaptist' => 'required'
+            'isBaptist' => 'required',
+            'user_id' => 'required:exists:users,id'
          ]);
 
 
             $parishional = new Parishional();
             $parishional->quarter = $data['quarter'];
             $parishional->isBaptist = $data['isBaptist'];
+            $parishional->user_id = $data['user_id'];
             $parishional->save();
        
         return response()->json($parishional);
@@ -129,7 +131,7 @@ class ParishionalController extends Controller
         ]);
 
         $data = Parishional::where($req->field, 'like', "%$req->q%")
-            ->get();
+            ->simplePaginate($req->has('limit') ? $req->limit : 15);
 
         return response()->json($data);
     }

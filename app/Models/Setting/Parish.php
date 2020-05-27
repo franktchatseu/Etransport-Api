@@ -9,6 +9,8 @@ class Parish extends Model
 {
     use SoftDeletes;
 
+    protected $table = 'parishs';
+
     protected $guarded = [];
 
 }
