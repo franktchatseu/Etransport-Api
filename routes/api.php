@@ -53,6 +53,13 @@ Route::group(['prefix' => 'place'], function () {
 
 // Setting module : 'middleware' => 'auth:api',
 Route::group(['prefix' => 'setting'], function () {
+    Route::get('/', 'Setting\MassSheduleController@index'); 
+    Route::post('/', 'Setting\MassSheduleController@create');
+    Route::get('/', 'Setting\MassSheduleController@search');
+    Route::delete('/{id}', 'Setting\MassSheduleController@destroy');
+    Route::put('/{id}', 'Setting\MassSheduleController@update');
+    Route::get('/{id}', 'Setting\MassSheduleController@find');
+    
 
 });
 
