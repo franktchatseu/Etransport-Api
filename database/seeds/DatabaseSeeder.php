@@ -16,9 +16,9 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
         Schema::disableForeignKeyConstraints();
 
-        $this->call(CityAndCountrySeeder::class);
-        $this->call(SettingSeeder::class);
-        $this->call(LaratrustSeeder::class);
+        // $this->call(CityAndCountrySeeder::class);
+        // $this->call(SettingSeeder::class);
+        // $this->call(LaratrustSeeder::class);
 
         // module person
         $this->call([
@@ -32,7 +32,8 @@ class DatabaseSeeder extends Seeder
         
         // module setting
         $this->call([
-            ParishPatrimonySeeder::class
+            ParishPatrimonySeeder::class,
+            MassSheduleSeeder::class
         ]);
 
         // module place

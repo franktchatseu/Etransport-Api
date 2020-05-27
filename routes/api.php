@@ -33,16 +33,12 @@ Route::group(['prefix' => 'auth'], function () {
 Route::group(['prefix' => 'messageries'], function () { });
 
 Route::group(['prefix' => 'parish'], function () {
-    Route::group(['prefix' => 'parish_patrimonies'], function () {
-        Route::get('/', 'Setting\ParishPatrimonyController@index');
-        Route::delete('/{id}', 'Setting\ParishPatrimonyController@destroy');
-        Route::get('/{id}', 'Setting\ParishPatrimonyController@find');
-        Route::get('/search', 'Setting\ParishPatrimonyController@search');
-        Route::post('parishparimony', 'Setting\ParishPatrimonyController@create');
-    });
+    
 });
 // Notification module : 'middleware' => 'auth:api',
-Route::group(['prefix' => 'notifications'], function () { });
+Route::group(['prefix' => 'notifications'], function () { 
+
+});
 
 // Person module : 'middleware' => 'auth:api',
 Route::group(['prefix' => 'persons'], function () {
@@ -56,7 +52,7 @@ Route::group(['prefix' => 'persons'], function () {
         Route::delete('/{id}', 'Person\UserController@destroy');
     });
 
-    Route::group(['prefix' => 'profressions'], function () {
+    Route::group(['prefix' => 'professions'], function () {
         Route::get('/', 'Person\ProfessionsController@index');
         Route::get('/search', 'Person\ProfessionsController@search');
         Route::post('/', 'Person\ProfessionsController@store');
@@ -94,7 +90,9 @@ Route::group(['prefix' => 'persons'], function () {
 });
 
 // Place module : 'middleware' => 'auth:api',
-Route::group(['prefix' => 'place'], function () { });
+Route::group(['prefix' => 'place'], function () { 
+
+});
 
 // Setting module : 'middleware' => 'auth:api',
 Route::group(['prefix' => 'settings'], function () {
@@ -113,11 +111,11 @@ Route::group(['prefix' => 'settings'], function () {
         Route::post('/', 'Setting\MassSheduleController@create');
         Route::get('/search', 'Setting\MassSheduleController@search');
         Route::delete('/{id}', 'Setting\MassSheduleController@destroy');
-        match(['post', 'put'], '/{id}', 'Setting\MassSheduleController@update');
+        Route::match(['post', 'put'], '/{id}', 'Setting\MassSheduleController@update');
         Route::get('/{id}', 'Setting\MassSheduleController@find');
     });   
 
-    Route::group(['prefix' => 'parishs'], function () {
+    Route::group(['prefix' => 'parishpatrimonies'], function () {
         Route::get('/', 'Setting\ParishPatrimonyController@index');
         Route::get('/search', 'Setting\ParishPatrimonyController@search');
         Route::get('/{id}', 'Setting\ParishPatrimonyController@find');
