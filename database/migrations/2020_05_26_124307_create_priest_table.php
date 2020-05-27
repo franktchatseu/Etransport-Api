@@ -19,7 +19,6 @@ class CreatePriestTable extends Migration
             $table->text('ordination_place');
             $table->text('ordination_godfather');
             $table->text('career');
-            $table->unsignedInteger('parish_id');
             $table->timestamps();
             $table->softDeletes();
         });
