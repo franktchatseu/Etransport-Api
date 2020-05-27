@@ -17,11 +17,11 @@ class DatabaseSeeder extends Seeder
         Schema::disableForeignKeyConstraints();
 
         // $this->call(CityAndCountrySeeder::class);
-        // $this->call(SettingSeeder::class);
-        // $this->call(LaratrustSeeder::class);
-
+        
         // module person
         $this->call([
+            // $this->call(SettingSeeder::class);
+            // $this->call(LaratrustSeeder::class);
             UserSeeder::class,
             ProfessionsSeeder::class,
             PriestSeeder::class,
@@ -39,7 +39,16 @@ class DatabaseSeeder extends Seeder
         // module place
         $this->call([]);
 
-        // module notification
+        // module planification
+        $this->call([]);
+
+        // module finance
+        $this->call([]);
+
+        // module association
+        $this->call([]);
+
+        // module statistic
         $this->call([]);
 
         Schema::enableForeignKeyConstraints();
