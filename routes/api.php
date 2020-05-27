@@ -66,10 +66,10 @@ Route::group(['prefix' => 'statistic'], function () {
 });
 
 Route::group(['prefix' => 'catechists'], function () {
-    Route::get('/', 'Person\CatechistController@get');
+    Route::get('/','Person\CatechistController@get');
     Route::get('/{id}', 'Person\CatechistController@find');
     Route::delete('/{id}', 'Person\CatechistController@destroy');
-    Route::post('/{id}', 'Person\CatechistController@update');
+    Route::match(['post','put'],'/{id}', 'Person\CatechistController@update');
     Route::post('/', 'Person\CatechistController@create');
 
 });
