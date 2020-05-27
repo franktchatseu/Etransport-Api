@@ -46,7 +46,7 @@ Route::group(['prefix' => 'person'], function () {
     Route::group(['prefix' => 'parishional'], function () {
         Route::get('/', 'Person\ParishionalController@index');
         Route::get('/search', 'Person\ParishionalController@search');
-        Route::get('/find/{id}', 'Person\ParishionalController@find');
+        Route::get('/{id}', 'Person\ParishionalController@find');
         Route::delete('/{id}', 'Person\ParishionalController@find');
         Route::post('/', 'Person\ParishionalController@store');
         Route::match(['post','put'],'/{id}','Person\ParishionalController@update');
@@ -64,7 +64,7 @@ Route::group(['prefix' => 'setting'], function () {
    Route::group(['prefix' => 'parish'], function () {
     Route::get('/', 'Setting\ParishController@index');
     Route::get('/search', 'Setting\ParishController@search');
-    Route::get('/find/{id}', 'Setting\ParishController@find');
+    Route::get('/{id}', 'Setting\ParishController@find');
     Route::delete('/{id}', 'Setting\ParishController@find');
     Route::post('/', 'Setting\ParishController@store');
     Route::match(['post','put'],'/{id}','Setting\ParishController@update');
