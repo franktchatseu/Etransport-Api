@@ -108,6 +108,15 @@ Route::group(['prefix' => 'settings'], function () {
         Route::match(['post', 'put'], '/{id}', 'Setting\ParishController@update');
     });
 
+    Route::group(['prefix' => 'masschedules'], function () {
+        Route::get('/', 'Setting\MassSheduleController@index'); 
+        Route::post('/', 'Setting\MassSheduleController@create');
+        Route::get('/search', 'Setting\MassSheduleController@search');
+        Route::delete('/{id}', 'Setting\MassSheduleController@destroy');
+        match(['post', 'put'], '/{id}', 'Setting\MassSheduleController@update');
+        Route::get('/{id}', 'Setting\MassSheduleController@find');
+    });   
+
     Route::group(['prefix' => 'parishs'], function () {
         Route::get('/', 'Setting\ParishPatrimonyController@index');
         Route::get('/search', 'Setting\ParishPatrimonyController@search');
