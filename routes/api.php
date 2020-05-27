@@ -53,12 +53,24 @@ Route::group(['prefix' => 'notification'], function () {
 
 // Person module : 'middleware' => 'auth:api',
 Route::group(['prefix' => 'person'], function () {
-    Route::get('/', 'Person\ProfessionsController@index');
-    Route::get('/search', 'Person\ProfessionsController@search');
-    Route::post('/store', 'Person\ProfessionsController@store');
-    Route::get('/{id}', 'Person\ProfessionsController@find');
-    Route::post('/{id}','Person\ProfessionsController@update');
-    Route::get('/destroy/{id}', 'Person\ProfessionsController@destroy');
+
+    Route::group(['prefix' => 'profressions'], function () {
+        Route::get('/', 'Person\ProfessionsController@index');
+        Route::get('/search', 'Person\ProfessionsController@search');
+        Route::post('/store', 'Person\ProfessionsController@store');
+        Route::get('/{id}', 'Person\ProfessionsController@find');
+        Route::post('/{id}','Person\ProfessionsController@update');
+        Route::get('/destroy/{id}', 'Person\ProfessionsController@destroy');
+    });
+
+    Route::group(['prefix' => 'sacraments'], function () {
+        Route::get('/', 'Person\SacramentController@allSacrament');
+        Route::get('/search', 'Person\SacramentController@searchStatement');
+        Route::get('/{id}', 'Person\SacramentController@findStatement');
+        Route::delete('/{id}', 'Person\SacramentController@destroyStatement');
+        Route::post('/{id}', 'Person\SacramentController@updateStatement');
+        Route::post('/', 'Person\SacramentController@createStatement');
+    });
 
     Route::group(['prefix' => 'priest'], function () {
         Route::get('/', 'Person\PriestController@index');
