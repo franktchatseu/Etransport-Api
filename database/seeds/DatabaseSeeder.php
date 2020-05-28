@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
             PriestSeeder::class,
             AlbumSeeder::class,
             ParishionalSeeder::class,
-            ParishSeeder::class
+            ParishSeeder::class,
         ]);
         
         // module setting

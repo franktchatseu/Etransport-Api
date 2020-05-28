@@ -26,7 +26,7 @@ class MassSheduleController extends Controller
     {
         $this->validate($req->all(), [
             'q' => 'present',
-            'field' => 'present'
+            'field' => 'present'        
         ]);
 
         $data = MassShedule::where($req->field, 'like', "%$req->q%")->get();

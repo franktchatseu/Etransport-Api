@@ -40,6 +40,7 @@ Route::group(['prefix' => 'notifications'], function () {
 
 });
 
+
 // Person module : 'middleware' => 'auth:api',
 Route::group(['prefix' => 'persons'], function () {
 
@@ -50,6 +51,15 @@ Route::group(['prefix' => 'persons'], function () {
         Route::get('/{id}', 'Person\UserController@find');
         Route::match(['post', 'put'], '/{id}', 'Person\UserController@update');
         Route::delete('/{id}', 'Person\UserController@destroy');
+    });
+
+    Route::group(['prefix' => 'catechists'], function () {
+        Route::get('/','Person\CatechistController@get');
+        Route::get('/{id}', 'Person\CatechistController@find');
+        Route::delete('/{id}', 'Person\CatechistController@destroy');
+        Route::match(['post','put'],'/{id}', 'Person\CatechistController@update');
+        Route::post('/', 'Person\CatechistController@create');
+    
     });
 
     Route::group(['prefix' => 'professions'], function () {
@@ -138,15 +148,29 @@ Route::group(['prefix' => 'settings'], function () {
 Route::group(['prefix' => 'statistics'], function () {
 
     Route::group(['prefix' => 'finance'], function () {
-        Route::get('/', 'Statistic\FinanceController@getFinance');
+        Route::get('/', 'FinanceController@getFinance');
+    });
+});
+
+// Finance module : 'middleware' => 'auth:api',
+Route::group(['prefix' => 'finances'], function () {
+
+    Route::group(['prefix' => 'account'], function () {
+        Route::get('/', 'Finance\AccountController@index');
+        Route::get('/search', 'Finance\AccountController@search');
+        Route::get('/{id}', 'Finance\AccountController@find');
+        Route::delete('/{id}', 'Finance\AccountController@destroy');
+        Route::post('/', 'Finance\AccountController@store');
+        Route::match(['post', 'put'], '/{id}', 'Finance\AccountController@update');
     });
 
-    Route::group(['prefix' => 'finances'], function () {
-        Route::get('/', 'Statistic\RequestForMassController@index');
-        Route::get('/{id}', 'Statistic\RequestForMassController@find');
-        Route::get('/search', 'Statistic\RequestForMassController@search');
-        Route::delete('/{id}', 'Statistic\RequestForMassController@destroy');
-        Route::match(['post', 'put'], '/{id}', 'Statistic\RequestForMassController@update');
-        Route::post('/', 'Statistic\RequestForMassController@store');
+    Route::group(['prefix' => 'requests'], function () {
+        Route::get('/', 'Finance\RequestForMassController@index');
+        Route::get('/{id}', 'Finance\RequestForMassController@find');
+        Route::get('/search', 'Finance\RequestForMassController@search');
+        Route::delete('/{id}', 'Finance\RequestForMassController@destroy');
+        Route::match(['post', 'put'], '/{id}', 'Finance\RequestForMassController@update');
+        Route::post('/', 'Finance\RequestForMassController@store');
     });
+
 });
