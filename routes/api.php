@@ -52,6 +52,15 @@ Route::group(['prefix' => 'persons'], function () {
         Route::delete('/{id}', 'Person\UserController@destroy');
     });
 
+    Route::group(['prefix' => 'catechists'], function () {
+        Route::get('/','Person\CatechistController@get');
+        Route::get('/{id}', 'Person\CatechistController@find');
+        Route::delete('/{id}', 'Person\CatechistController@destroy');
+        Route::match(['post','put'],'/{id}', 'Person\CatechistController@update');
+        Route::post('/', 'Person\CatechistController@create');
+    
+    });
+
     Route::group(['prefix' => 'professions'], function () {
         Route::get('/', 'Person\ProfessionsController@index');
         Route::get('/search', 'Person\ProfessionsController@search');
@@ -138,6 +147,7 @@ Route::group(['prefix' => 'settings'], function () {
 Route::group(['prefix' => 'statistics'], function () {
 
     Route::group(['prefix' => 'finance'], function () {
-        Route::get('/', 'Statistic\FinanceController@getFinance');
+        Route::get('/', 'FinanceController@getFinance');
     });
 });
+
