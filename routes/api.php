@@ -164,4 +164,13 @@ Route::group(['prefix' => 'finances'], function () {
         Route::match(['post', 'put'], '/{id}', 'Finance\AccountController@update');
     });
 
+    Route::group(['prefix' => 'natureaccounts'], function () {
+        Route::get('/', 'Finance\NatureAccountController@index');
+        Route::get('/search', 'Finance\NatureAccountController@search');
+        Route::get('/{id}', 'Finance\NatureAccountController@find');
+        Route::delete('/{id}', 'Finance\NatureAccountController@destroy');
+        Route::post('/', 'Finance\NatureAccountController@store');
+        Route::match(['post', 'put'], '/{id}', 'Finance\NatureAccountController@update');
+    });
+
 });
