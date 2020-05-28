@@ -40,6 +40,7 @@ Route::group(['prefix' => 'notifications'], function () {
 
 });
 
+
 // Person module : 'middleware' => 'auth:api',
 Route::group(['prefix' => 'persons'], function () {
 
@@ -139,5 +140,17 @@ Route::group(['prefix' => 'statistics'], function () {
 
     Route::group(['prefix' => 'finance'], function () {
         Route::get('/', 'Statistic\FinanceController@getFinance');
+    });
+});
+
+// Finance module : 'middleware' => 'auth:api',
+Route::group(['prefix' => 'finances'], function () {
+    Route::group(['prefix' => 'account'], function () {
+        Route::get('/', 'Finance\AccountController@index');
+        Route::get('/search', 'Finance\AccountController@search');
+        Route::get('/find/{id}', 'Finance\AccountController@find');
+        Route::delete('/{id}', 'Finance\AccountController@destroy');
+        Route::post('/', 'Finance\AccountController@store');
+        Route::match(['post', 'put'], '/{id}', 'Finance\AccountController@update');
     });
 });
