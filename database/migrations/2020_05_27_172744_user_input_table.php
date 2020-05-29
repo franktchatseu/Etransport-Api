@@ -15,7 +15,7 @@ class UserInputTable extends Migration
     {
         Schema::create('user_inputs', function (Blueprint $table) {
                 $table->unsignedInteger('user_id');
-                $table->unsignedInteger('input_id');
+               // $table->unsignedInteger('input_id');
                 $table->unsignedInteger('transaction_id');
                 $table->unsignedInteger('amount');
                 $table->date('date');
@@ -24,7 +24,7 @@ class UserInputTable extends Migration
                 $table->string('country');
                 $table->string('pseudo');
                 $table->foreign('user_id')->references('id')->on('users');
-                $table->foreign('input_id')->references('id')->on('inputs');
+               // $table->foreign('input_id')->references('id')->on('inputs');
             });
     }
 

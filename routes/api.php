@@ -165,3 +165,25 @@ Route::group(['prefix' => 'finances'], function () {
     });
 
 });
+
+// Catechesis module : 'middleware' => 'auth:api',
+Route::group(['prefix' => 'Catechesis'], function () {
+    
+    Route::group(['prefix' => 'membres'], function () {
+        Route::get('/', 'Catechesis\MembreController@index');
+        Route::post('/', 'Catechesis\MembreController@create');
+        Route::get('/{id}', 'Catechesis\MembreController@find');
+        Route::delete('/{id}', 'Catechesis\MembreController@destroy');
+        Route::get('/', 'Catechesis\MembreController@search');
+        Route::put('/{id}', 'Catechesis\MembreController@update');
+    });
+
+    Route::group(['prefix' => 'membreAnnuelles'], function () {
+        Route::get('/', 'Catechesis\MembreAnnuelleController@index');
+        Route::get('/{id}', 'Catechesis\MembreAnnuelleController@find');
+        Route::post('/', 'Catechesis\MembreAnnuelleController@create');
+        Route::delete('/{id}', 'Catechesis\MembreAnnuelleController@destroy');
+        Route::get('/', 'Catechesis\MembreAnnuelleController@search');
+        Route::put('/{id}', 'Catechesis\MembreAnnuelleController@update');
+    });
+});

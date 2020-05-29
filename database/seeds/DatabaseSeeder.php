@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             AlbumSeeder::class,
             ParishionalSeeder::class,
             ParishSeeder::class,
+
         ]);
         
         // module setting
@@ -35,6 +36,12 @@ class DatabaseSeeder extends Seeder
             ParishPatrimonySeeder::class,
             MassSheduleSeeder::class
         ]);
+
+         // module catechesis
+         $this->call([
+            MembreAnnuelleSeeder::class,
+            MembreSeeder::class,
+         ]);
 
         // module place
         $this->call([]);
