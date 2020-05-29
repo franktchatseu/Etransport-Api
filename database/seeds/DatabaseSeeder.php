@@ -3,7 +3,6 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
-use App\Models\Finance\RequestForMass;
 
 class DatabaseSeeder extends Seeder
 {
@@ -39,6 +38,13 @@ class DatabaseSeeder extends Seeder
 
         // module place
         $this->call([]);
+
+          // module catechese
+          $this->call([
+              QuarterSeeder::class,
+              EvaluationSeeder::class
+          ]);
+
 
         // module planification
         $this->call([]);
