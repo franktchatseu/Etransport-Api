@@ -165,3 +165,16 @@ Route::group(['prefix' => 'finances'], function () {
     });
 
 });
+// Catechesis module : 'middleware' => 'auth:api',
+Route::group(['prefix' => 'catechesis'], function () {
+
+    Route::group(['prefix' => 'archiving'], function () {
+        Route::get('/', 'Catechesis\ArchivingController@index');
+        Route::get('/search', 'Catechesis\ArchivingController@search');
+        Route::get('/{id}', 'Catechesis\ArchivingController@find');
+        Route::delete('/{id}', 'Catechesis\ArchivingController@destroy');
+        Route::post('/', 'Catechesis\ArchivingController@store');
+        Route::match(['post', 'put'], '/{id}', 'Catechesis\ArchivingController@update');
+    });
+
+});

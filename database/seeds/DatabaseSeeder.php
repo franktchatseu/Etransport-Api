@@ -44,6 +44,10 @@ class DatabaseSeeder extends Seeder
 
         // module finance
         $this->call([]);
+        // module catechesis
+        $this->call([
+            ArchivingSeeder::class
+        ]);
 
         // module association
         $this->call([]);
@@ -53,5 +57,7 @@ class DatabaseSeeder extends Seeder
 
         Schema::enableForeignKeyConstraints();
         Model::reguard();
+
+        
     }
 }
