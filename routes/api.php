@@ -92,7 +92,7 @@ Route::group(['prefix' => 'persons'], function () {
     Route::group(['prefix' => 'parishionals'], function () {
         Route::get('/', 'Person\ParishionalController@index');
         Route::get('/search', 'Person\ParishionalController@search');
-        Route::get('/find/{id}', 'Person\ParishionalController@find');
+        Route::get('/{id}', 'Person\ParishionalController@find');
         Route::delete('/{id}', 'Person\ParishionalController@find');
         Route::post('/', 'Person\ParishionalController@store');
         Route::match(['post', 'put'], '/{id}', 'Person\ParishionalController@update');
@@ -162,6 +162,39 @@ Route::group(['prefix' => 'finances'], function () {
         Route::delete('/{id}', 'Finance\AccountController@destroy');
         Route::post('/', 'Finance\AccountController@store');
         Route::match(['post', 'put'], '/{id}', 'Finance\AccountController@update');
+    });
+
+});
+
+
+// Sanction module : 'middleware' => 'auth:api',
+Route::group(['prefix' => 'sanction'], function () {
+
+    Route::group(['prefix' => 'sanctions'], function () {
+        Route::get('/', 'Sanction\SanctionController@index');
+        Route::get('/search', 'Sanction\SanctionController@search');
+        Route::get('/{id}', 'Sanction\SanctionController@find');
+        Route::delete('/{id}', 'Sanction\SanctionController@destroy');
+        Route::post('/', 'Sanction\SanctionController@store');
+        Route::match(['post', 'put'], '/{id}', 'Sanction\SanctionController@update');
+    });
+
+    Route::group(['prefix' => 'punishment_types'], function () {
+        Route::get('/', 'Sanction\PunishmentTypeController@index');
+        Route::get('/search', 'Sanction\PunishmentTypeController@search');
+        Route::get('/{id}', 'Sanction\PunishmentTypeController@find');
+        Route::delete('/{id}', 'Sanction\PunishmentTypeController@destroy');
+        Route::post('/', 'Sanction\PunishmentTypeController@store');
+        Route::match(['post', 'put'], '/{id}', 'Sanction\PunishmentTypeController@update');
+    });
+
+    Route::group(['prefix' => 'user_sanctions'], function () {
+        Route::get('/', 'Sanction\UserSanctionController@index');
+        Route::get('/search', 'Sanction\UserSanctionController@search');
+        Route::get('/{id}', 'Sanction\UserSanctionController@find');
+        Route::delete('/{id}', 'Sanction\UserSanctionController@destroy');
+        Route::post('/', 'Sanction\UserSanctionController@store');
+        Route::match(['post', 'put'], '/{id}', 'Sanction\UserSanctionController@update');
     });
 
 });
