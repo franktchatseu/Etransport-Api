@@ -49,7 +49,14 @@ class DatabaseSeeder extends Seeder
         // module planification
         $this->call([]);
 
-        // module finance
+        
+        // module place
+        $this->call([
+            PlaceTypeSeeder::class,
+            PlaceSeeder::class
+        ]);
+
+       // module finance
         $this->call([]);
 
         // module association

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddRelationBetweenSanctionPunishmentstypesTable extends Migration
+class CreatePlacesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class AddRelationBetweenSanctionPunishmentstypesTable extends Migration
      */
     public function up()
     {
-        Schema::table('sanctions', function (Blueprint $table) {
-            $table->unsignedInteger('type_id');
-            $table->foreign('type_id')->references('id')->on('punishment_types')->onDelete('cascade');
+        Schema::create('places', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('description');
+            $table->timestamps();
         });
     }
 
@@ -26,7 +28,6 @@ class AddRelationBetweenSanctionPunishmentstypesTable extends Migration
      */
     public function down()
     {
-        Schema::table('sanctions', function (Blueprint $table) {
-        });
+        Schema::dropIfExists('places');
     }
 }
