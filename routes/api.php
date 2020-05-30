@@ -101,6 +101,24 @@ Route::group(['prefix' => 'persons'], function () {
 
 // Place module : 'middleware' => 'auth:api',
 Route::group(['prefix' => 'place'], function () { 
+     
+    Route::group(['prefix' => 'postes'], function () {
+        Route::get('/', 'Place\PosteController@index');
+        Route::get('/', 'Place\PosteController@search');
+        Route::post('/', 'Place\PosteController@create');
+        Route::match(['post', 'put'], '/{id}', 'Place\PosteController@update');
+        Route::get('/{id}', 'Place\PosteController@find');
+        Route::delete('/{id}', 'Place\PosteController@destroy');
+    });
+
+    Route::group(['prefix' => 'typePostes'], function () {
+        Route::get('/', 'Place\TypePosteController@index');
+        Route::get('/', 'Place\TypePosteController@search');
+        Route::post('/', 'Place\TypePosteController@create');
+        Route::match(['post', 'put'], '/{id}', 'Place\TypePosteController@update');
+        Route::get('/{id}', 'Place\TypePosteController@find');
+        Route::delete('/{id}', 'Place\TypePosteController@destroy');
+    });
 
 });
 
