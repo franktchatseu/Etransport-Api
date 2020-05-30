@@ -62,7 +62,8 @@ class ArchivingController extends Controller
             $archiv->motif = $data['motif'];
             $archiv->description = $data['description'];
             $archiv->files = $path;
-            $archiv = Archiving::create($archiv);
+            //$archiv = Archiving::create($archiv);
+            $archiv->save();
        
         return response()->json($archiv);
     }
