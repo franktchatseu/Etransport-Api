@@ -40,6 +40,7 @@ Route::group(['prefix' => 'notifications'], function () {
 
 });
 
+
 // Person module : 'middleware' => 'auth:api',
 Route::group(['prefix' => 'persons'], function () {
 
@@ -50,6 +51,15 @@ Route::group(['prefix' => 'persons'], function () {
         Route::get('/{id}', 'Person\UserController@find');
         Route::match(['post', 'put'], '/{id}', 'Person\UserController@update');
         Route::delete('/{id}', 'Person\UserController@destroy');
+    });
+
+    Route::group(['prefix' => 'catechists'], function () {
+        Route::get('/','Person\CatechistController@get');
+        Route::get('/{id}', 'Person\CatechistController@find');
+        Route::delete('/{id}', 'Person\CatechistController@destroy');
+        Route::match(['post','put'],'/{id}', 'Person\CatechistController@update');
+        Route::post('/', 'Person\CatechistController@create');
+    
     });
 
     Route::group(['prefix' => 'professions'], function () {
@@ -142,11 +152,16 @@ Route::group(['prefix' => 'statistics'], function () {
     });
 });
 
-Route::group(['prefix' => 'catechists'], function () {
-    Route::get('/','Person\CatechistController@get');
-    Route::get('/{id}', 'Person\CatechistController@find');
-    Route::delete('/{id}', 'Person\CatechistController@destroy');
-    Route::match(['post','put'],'/{id}', 'Person\CatechistController@update');
-    Route::post('/', 'Person\CatechistController@create');
+// Finance module : 'middleware' => 'auth:api',
+Route::group(['prefix' => 'finances'], function () {
+
+    Route::group(['prefix' => 'account'], function () {
+        Route::get('/', 'Finance\AccountController@index');
+        Route::get('/search', 'Finance\AccountController@search');
+        Route::get('/{id}', 'Finance\AccountController@find');
+        Route::delete('/{id}', 'Finance\AccountController@destroy');
+        Route::post('/', 'Finance\AccountController@store');
+        Route::match(['post', 'put'], '/{id}', 'Finance\AccountController@update');
+    });
 
 });

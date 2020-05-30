@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePriestTable extends Migration
+class CreateNatureAccountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,16 @@ class CreatePriestTable extends Migration
      */
     public function up()
     {
-        Schema::create('priests', function (Blueprint $table) {
+        Schema::create('nature_accounts', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('ordination_date')->nullable();
-            $table->text('ordination_place');
-            $table->text('ordination_godfather');
-            $table->text('career');
+            $table->unsignedInteger('account_id');
+            $table->unsignedInteger('nature_id');
             $table->timestamps();
-            $table->softDeletes();
+
+            /* $table->foreign('account_id')->references('id')->on('accounts');
+            $table->foreign('nature_id')->references('id')->on('natures'); */
         });
     }
-
 
     /**
      * Reverse the migrations.
@@ -32,6 +31,6 @@ class CreatePriestTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('priests');
+        Schema::dropIfExists('nature_accounts');
     }
 }
