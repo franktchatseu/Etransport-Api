@@ -164,4 +164,36 @@ Route::group(['prefix' => 'finances'], function () {
         Route::match(['post', 'put'], '/{id}', 'Finance\AccountController@update');
     });
 
+    Route::group(['prefix' => 'input'], function () {
+        Route::get('/', 'Finance\InputController@index');
+        Route::get('/search', 'Finance\InputController@search');
+        Route::get('/{id}', 'Finance\InputController@find');
+        Route::delete('/{id}', 'Finance\InputController@destroy');
+        Route::post('/', 'Finance\InputController@store');
+        Route::match(['post', 'put'], '/{id}', 'Finance\InputController@update');
+    });
+
 });
+
+    Route::group(['prefix' => 'association'], function () {
+
+        Route::group(['prefix' => 'event'], function () {
+            Route::get('/', 'Association\EventController@index');
+            Route::get('/search', 'Association\EventController@search');
+            Route::get('/{id}', 'Association\EventController@find');
+            Route::delete('/{id}', 'Association\EventController@destroy');
+            Route::post('/', 'Association\EventController@store');
+            Route::match(['post', 'put'], '/{id}', 'Association\EventController@update');
+        });
+
+        Route::group(['prefix' => 'status'], function () {
+            Route::get('/', 'Association\StatusController@index');
+            Route::get('/search', 'Association\StatusController@search');
+            Route::get('/{id}', 'Association\StatusController@find');
+            Route::delete('/{id}', 'Association\StatusController@destroy');
+            Route::post('/', 'Association\StatusController@store');
+            Route::match(['post', 'put'], '/{id}', 'Association\StatusController@update');
+        });
+    });
+
+

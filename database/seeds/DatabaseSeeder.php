@@ -28,25 +28,35 @@ class DatabaseSeeder extends Seeder
             AlbumSeeder::class,
             ParishionalSeeder::class,
             ParishSeeder::class,
+            
+            
         ]);
         
         // module setting
         $this->call([
+            
             ParishPatrimonySeeder::class,
             MassSheduleSeeder::class
         ]);
 
         // module place
-        $this->call([]);
+        $this->call([
+
+        ]);
 
         // module planification
         $this->call([]);
 
         // module finance
-        $this->call([]);
+        $this->call([
+            InputSeeder::class,
+        ]);
 
         // module association
-        $this->call([]);
+        $this->call([
+            EventSeeder::class,
+            StatusSeeder::class,
+        ]);
 
         // module statistic
         $this->call([]);
