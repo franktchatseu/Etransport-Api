@@ -14,7 +14,7 @@ class CreateParishsTable extends Migration
     public function up()
     {
         Schema::create('parishs', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name');
             $table->string('decision_creation');
             $table->date('Pattern_date');

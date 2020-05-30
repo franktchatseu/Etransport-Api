@@ -13,10 +13,10 @@ class CreateMembreannuellesTable extends Migration
      */
     public function up()
     {
-        Schema::create('membre_annuelles', function (Blueprint $table) {
+        Schema::create('annual_members', function (Blueprint $table) {
             $table->id();
             $table->string('class');
-            $table->boolean('is_admin');
+            $table->boolean('has_win');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateMembreannuellesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('membreannuelles');
+        Schema::dropIfExists('annual_members');
     }
 }

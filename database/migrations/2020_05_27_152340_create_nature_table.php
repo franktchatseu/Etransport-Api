@@ -13,14 +13,19 @@ class CreateNatureTable extends Migration
      */
     public function up()
     {
-        Schema::create('nature', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('natures', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->string('name');
             $table->string('description');
             $table->enum('status', ['ELEVE', 'ETUDIANT', 'HOMME', 'FEMME']);
             $table->double('amount');
             $table->timestamps();
             $table->softDeletes();
+        });
+
+        Schema::table('inputs', function (Blueprint $table) {
+            $table->unsignedBigInteger('nature_id');
+            $table->foreign('nature_id')->references('id')->on('natures');
         });
     }
 

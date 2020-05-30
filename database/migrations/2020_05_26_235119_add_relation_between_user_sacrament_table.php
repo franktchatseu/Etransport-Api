@@ -15,8 +15,8 @@ class AddRelationBetweenUserSacramentTable extends Migration
     {
         Schema::create('user_sacraments', function (Blueprint $table) {
             //
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('sacrament_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('sacrament_id');
             $table->date('taken_date');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('sacrament_id')->references('id')->on('sacraments');

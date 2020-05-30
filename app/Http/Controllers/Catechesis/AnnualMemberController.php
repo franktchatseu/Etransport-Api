@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Catechesis;
 
 use App\Http\Controllers\Controller;
-use App\Models\Catechesis\MembreAnnuelle;
+use App\Models\Catechesis\AnnualMember;
 use Illuminate\Http\Request;
 
-class MembreAnnuelleController extends Controller
+class AnnualMemberController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class MembreAnnuelleController extends Controller
     public function index(Request $req)
     {
         {
-            $data = MembreAnnuelle::simplePaginate($req->has('limit') ? $req->limit : 15);
+            $data = AnnualMember::simplePaginate($req->has('limit') ? $req->limit : 15);
             return response()->json($data);
         }
     }
@@ -28,7 +28,7 @@ class MembreAnnuelleController extends Controller
             'field' => 'present'        
         ]);
 
-        $data = MembreAnnuelle::where($req->field, 'like', "%$req->q%")->get();
+        $data = AnnualMember::where($req->field, 'like', "%$req->q%")->get();
 
         return response()->json($data);
     }
@@ -44,21 +44,21 @@ class MembreAnnuelleController extends Controller
 
         $data = $request->only([
             'class',
-            'is_admin'
+            'has_win'
         ]);
 
         $this->validate($data, [
             'class' => 'required|string|min:2',
-            'is_admin' => 'required'
+            'has_win' => 'required'
         ]);
 
-        $membreAnnuelle=new  MembreAnnuelle();
-        $membreAnnuelle->class=$data['class'];
-        $membreAnnuelle->is_admin=$data['is_admin'];
+        $annualMember = new AnnualMember();
+        $annualMember->class=$data['class'];
+        $annualMember->has_win=$data['has_win'];
 
-        $membreAnnuelle->save();
+        $annualMember->save();
 
-        return response()->json($membreAnnuelle);
+        return response()->json($annualMember);
     }
 
     /**
@@ -75,10 +75,10 @@ class MembreAnnuelleController extends Controller
     /**
      * Display the specified resource.
      **by richie:richie richienebou@gmail.com
-     * @param  \App\Models\Catechesis\MembreAnnuelle  $membreAnnuelle
+     * @param  \App\Models\Catechesis\AnnualMember  $AnnualMember
      * @return \Illuminate\Http\Response
      */
-    public function show(MembreAnnuelle $membreAnnuelle)
+    public function show(AnnualMember $AnnualMember)
     {
         //
     }
@@ -86,10 +86,10 @@ class MembreAnnuelleController extends Controller
     /**
      * Show the form for editing the specified resource.
      **by richie:richie richienebou@gmail.com
-     * @param  \App\Models\Catechesis\MembreAnnuelle  $membreAnnuelle
+     * @param  \App\Models\Catechesis\AnnualMember  $AnnualMember
      * @return \Illuminate\Http\Response
      */
-    public function edit(MembreAnnuelle $membreAnnuelle)
+    public function edit(AnnualMember $AnnualMember)
     {
         //
     }
@@ -98,37 +98,37 @@ class MembreAnnuelleController extends Controller
      * Update the specified resource in storage.
      **by richie:richie richienebou@gmail.com
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Catechesis\MembreAnnuelle  $membreAnnuelle
+     * @param  \App\Models\Catechesis\AnnualMember  $AnnualMember
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request,$id)
     {
-        $membreAnnuelle = MembreAnnuelle::find($id);
-        if (!$membreAnnuelle) {
-            abort(404, "No membreAnnuelle found with id $id");
+        $annualMember = AnnualMember::find($id);
+        if (!$annualMember) {
+            abort(404, "No AnnualMember found with id $id");
         }
 
         $data = $request->only([
             'context',
-            'is_admin'
+            'has_win'
         ]);
 
         $this->validate($data, [
             'class' => '',
-            'is_admin' => 'required'
+            'has_win' => 'required'
         ]);
 
-       if (null!==$data['class']){
-        $membreAnnuelle->class=$data['class'];
+       if (null !== $data['class']){
+        $annualMember->class=$data['class'];
        }
        if (null!==$data['is_admin']){
-        $membreAnnuelle->is_admin=$data['is_admin'];
+        $annualMember->has_win=$data['has_win'];
        }
        
 
-       $membreAnnuelle->update();
+       $annualMember->update();
 
-       return response()->json($membreAnnuelle);
+       return response()->json($annualMember);
 
     }
 
@@ -136,24 +136,24 @@ class MembreAnnuelleController extends Controller
     /**
      * Remove the specified resource from storage.
      **by richie:richie richienebou@gmail.com
-     * @param  \App\Models\Catechesis\MembreAnnuelle  $membreAnnuelle
+     * @param  \App\Models\Catechesis\AnnualMember  $AnnualMember
      * @return \Illuminate\Http\Response
      */
     public function find($id)
     {
-            if (!$membreAnnuelle = MembreAnnuelle::find($id)) {
-                abort(404, "No membreAnnuelle found with id $id");
+            if (!$annualMember = AnnualMember::find($id)) {
+                abort(404, "No AnnualMember found with id $id");
             }
-            return response()->json($membreAnnuelle);
+            return response()->json($annualMember);
         }
     
         public function destroy($id)
         {
-            if (!$membreAnnuelle = MembreAnnuelle::find($id)) {
-                abort(404, "No membreAnnuelle found with id $id");
+            if (!$annualMember = AnnualMember::find($id)) {
+                abort(404, "No annualMember found with id $id");
             }
     
-            $membreAnnuelle->delete();      
+            $annualMember->delete();      
             return response()->json();
         }
 }

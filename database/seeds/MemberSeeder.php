@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Catechesis\Membre;
+use App\Models\Catechesis\Member;
 
-class MembreSeeder extends Seeder
+class MemberSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,8 +12,8 @@ class MembreSeeder extends Seeder
      */
     public function run(\Faker\Generator $faker)
     {
-        factory(Membre::class, 100)->make()->each(function ($membre) use ($faker) {
-            $membre->save();
+        factory(Member::class, 100)->make()->each(function ($member) use ($faker) {
+            $member->save();
         });
     }
 }

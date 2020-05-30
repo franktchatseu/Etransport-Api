@@ -14,7 +14,7 @@ class AddRelationBetweenSanctionPunishmentstypesTable extends Migration
     public function up()
     {
         Schema::table('sanctions', function (Blueprint $table) {
-            $table->unsignedInteger('type_id');
+            $table->unsignedBigInteger('type_id');
             $table->foreign('type_id')->references('id')->on('punishment_types');
         });
     }

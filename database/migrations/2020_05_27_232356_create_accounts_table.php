@@ -15,7 +15,7 @@ class CreateAccountsTable extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('accounttype_id');
+            $table->unsignedBigInteger('accounttype_id');
             $table->double('basic_amount');
             $table->double('percentage');
             $table->double('final_amount');

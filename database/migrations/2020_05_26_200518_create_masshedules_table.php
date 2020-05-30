@@ -14,7 +14,7 @@ class CreateMasshedulesTable extends Migration
     public function up()
     {
         Schema::create('mass_shedules', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('context');
             $table->date('start_date');
             $table->string('day');

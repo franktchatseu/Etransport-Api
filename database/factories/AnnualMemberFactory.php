@@ -2,12 +2,12 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\Catechesis\MembreAnnuelle;
+use App\Models\Catechesis\AnnualMember;
 use Faker\Generator as Faker;
 
-$factory->define(MembreAnnuelle::class, function (Faker $faker) {
+$factory->define(AnnualMember::class, function (Faker $faker) {
     return [
         'class' => $faker->sentence,
-        'is_admin' => $faker->boolean(),
+        'has_win' => $faker->boolean(),
     ];
 });

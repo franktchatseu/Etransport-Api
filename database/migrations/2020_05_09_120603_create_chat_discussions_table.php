@@ -14,9 +14,9 @@ class CreateChatDiscussionsTable extends Migration
     public function up()
     {
         Schema::create('chat_discussions', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('user1_id');
-            $table->unsignedInteger('user2_id');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('user1_id');
+            $table->unsignedBigInteger('user2_id');
             $table->string('last_message');
             $table->timestamps();
         });

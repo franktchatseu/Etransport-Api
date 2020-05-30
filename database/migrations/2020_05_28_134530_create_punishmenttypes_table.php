@@ -14,7 +14,7 @@ class CreatePunishmenttypesTable extends Migration
     public function up()
     {
         Schema::create('punishment_types', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('title');
             $table->string('Description');
             $table->timestamps();

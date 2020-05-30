@@ -14,13 +14,12 @@ class CreateInputTable extends Migration
     public function up()
     {
         Schema::create('inputs', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->double('amount');
             $table->text('description')->nullable();
             $table->string('reason');
             $table->date('start_date');
             $table->date('end_date');
-            //$table->foreign('nature_id')->references('id')->on('natures');
             $table->timestamps();
         });
     }

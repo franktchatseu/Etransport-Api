@@ -13,13 +13,14 @@ class CreateMembresTable extends Migration
      */
     public function up()
     {
-        Schema::create('membres', function (Blueprint $table) {
+        Schema::create('members', function (Blueprint $table) {
             $table->id();
-            $table->text('file');
+            $table->text('files');
             $table->date('adhesion_date');
             $table->boolean('is_finish');
-            $table->string('matricule')->unique();
-            $table->enum('status',['Rejected','Painding','Accepted']);
+            $table->boolean('has_win');
+            $table->string('regnum')->unique(); # matricule
+            $table->enum('status',['REJECTED','PENDING','ACCEPTED']);
             $table->timestamps();
         });
     }

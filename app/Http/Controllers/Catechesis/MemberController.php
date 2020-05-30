@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Catechesis;
 
 use App\Http\Controllers\Controller;
-use App\Models\Catechesis\Membre;
+use App\Models\Catechesis\Member;
 use Illuminate\Http\Request;
 
-class MembreController extends Controller
+class MemberController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class MembreController extends Controller
     public function index(Request $req)
     {
         {
-            $data = Membre::simplePaginate($req->has('limit') ? $req->limit : 15);
+            $data = Member::simplePaginate($req->has('limit') ? $req->limit : 15);
             return response()->json($data);
         }
     }
@@ -28,7 +28,7 @@ class MembreController extends Controller
             'field' => 'present'        
         ]);
 
-        $data = Membre::where($req->field, 'like', "%$req->q%")->get();
+        $data = Member::where($req->field, 'like', "%$req->q%")->get();
 
         return response()->json($data);
     }
@@ -55,46 +55,48 @@ class MembreController extends Controller
             'file',
             'adhesion_date',
             'is_finish',
+            'regnum',
             'status'
         ]);
 
         $this->validate($data, [
             'is_finish' => 'required',
+            'regnum' => 'required',
             'adhesion_date' => 'min:2',
-            'status' => 'in:Rejected,Painding,Accepted',
+            'status' => 'in:REJECTED,PENDING,ACCEPTED',
         ]);
 
-        $chars='01234567abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $string='';
-        for($i=0;$i<5;$i++){
-           $string =$chars[rand(8,strlen($chars)-1)];
-        }
+        // $chars='01234567abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        // $string='';
+        // for($i=0;$i<5;$i++){
+        //    $string =$chars[rand(8,strlen($chars)-1)];
+        // }
 
         if(isset($request->file)){
-            $file = $request->file('file');
+            $file = $request->file('files');
             $path = null;
             if($file != null){
                 $extension = $file->getClientOriginalExtension();
-                $relativeDestination = "uploads/membres";
+                $relativeDestination = "uploads/members";
                 $destinationPath = public_path($relativeDestination);
                 $safeName = "document".time().'.'.$extension;
                 $file->move($destinationPath, $safeName);
                 $path = "$relativeDestination/$safeName";
             }
-            $data['file'] = $path;
+            $data['files'] = $path;
         }
 
-        $membre=new Membre();
-        $membre->matricule=$string;
-        $membre->adhesion_date=$data['adhesion_date'];
-        $membre->status=$data['status'];
-        $membre->file=$data['file'];
-        $membre->is_finish=$data['is_finish'];
+        $member=new Member();
+        $member->regnum = $data['regnum'];
+        $member->adhesion_date = $data['adhesion_date'];
+        $member->status = $data['status'];
+        $member->files = $data['files'];
+        $member->is_finish = $data['is_finish'];
         
 
-        $membre->save();
+        $member->save();
 
-        return response()->json($membre);
+        return response()->json($member);
     }
 
 

@@ -14,7 +14,7 @@ class CreateSacramentsTable extends Migration
     public function up()
     {
         Schema::create('sacraments', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name');
             $table->text('description')->nullable();
             $table->timestamps();

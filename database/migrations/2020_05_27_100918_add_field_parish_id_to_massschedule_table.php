@@ -15,7 +15,7 @@ class AddFieldParishIdToMassscheduleTable extends Migration
     {
         Schema::table('mass_shedules', function (Blueprint $table) {
             //
-            $table->unsignedInteger('parish_id');
+            $table->unsignedBigInteger('parish_id');
             $table->foreign('parish_id')->references('id')->on('parishs');
         });
     }

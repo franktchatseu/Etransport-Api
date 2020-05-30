@@ -14,7 +14,7 @@ class CreateSanctionsTable extends Migration
     public function up()
     {
         Schema::create('sanctions', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('title');
             $table->string('description');
             $table->timestamps();

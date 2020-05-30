@@ -15,8 +15,8 @@ class AddRelationBetweenUserParishTable extends Migration
     {
         Schema::create('user_parishs', function (Blueprint $table) {
             //
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('parish_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('parish_id');
             $table->date('happen_date');
             $table->boolean('is_active');
             $table->foreign('user_id')->references('id')->on('users');
