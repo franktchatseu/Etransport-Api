@@ -53,11 +53,20 @@ class DatabaseSeeder extends Seeder
             UserSanctionSeeder::class
         ]);
 
+          // module catechese
+          $this->call([
+              QuarterSeeder::class,
+              EvaluationSeeder::class
+          ]);
+
+
         // module planification
         $this->call([]);
 
         // module finance
-        $this->call([]);
+        $this->call([
+            RequestForMassSeeder::class
+        ]);
 
         // module association
         $this->call([]);

@@ -164,6 +164,38 @@ Route::group(['prefix' => 'finances'], function () {
         Route::match(['post', 'put'], '/{id}', 'Finance\AccountController@update');
     });
 
+    Route::group(['prefix' => 'requests'], function () {
+        Route::get('/', 'Finance\RequestForMassController@index');
+        Route::get('/{id}', 'Finance\RequestForMassController@find');
+        Route::get('/search', 'Finance\RequestForMassController@search');
+        Route::delete('/{id}', 'Finance\RequestForMassController@destroy');
+        Route::match(['post', 'put'], '/{id}', 'Finance\RequestForMassController@update');
+        Route::post('/', 'Finance\RequestForMassController@store');
+    });
+
+});
+
+// Catechesis module : 'middleware' => 'auth:api',
+Route::group(['prefix' => 'catechesis'], function () {
+
+    Route::group(['prefix' => 'quarters'], function () {
+        Route::get('/', 'Catechesis\QuarterController@index');
+        Route::get('/search', 'Catechesis\QuarterController@search');
+        Route::get('/{id}', 'Catechesis\QuarterController@find');
+        Route::delete('/{id}', 'Catechesis\QuarterController@destroy');
+        Route::post('/', 'Catechesis\QuarterController@store');
+        Route::match(['post', 'put'], '/{id}', 'Catechesis\QuarterController@update');
+    });
+
+
+    Route::group(['prefix' => 'evaluations'], function () {
+        Route::get('/', 'Catechesis\EvaluationController@index');
+        Route::get('/search', 'Catechesis\EvaluationController@search');
+        Route::get('/{id}', 'Catechesis\EvaluationController@find');
+        Route::delete('/{id}', 'Catechesis\EvaluationController@destroy');
+        Route::post('/', 'Catechesis\EvaluationController@store');
+        Route::match(['post', 'put'], '/{id}', 'Catechesis\EvaluationController@update');
+    });
 });
 
 // Sanction module : 'middleware' => 'auth:api',
