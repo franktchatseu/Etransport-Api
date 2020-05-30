@@ -14,7 +14,9 @@ class PriestSeeder extends Seeder
     {    
         factory(Priest::class, 100)->make()->each(function ($priest) use ($faker) {
             $users = App\Models\Person\User::all();
+            $parishs = App\Models\Setting\Parish::all();
             $priest->user_id = $faker->randomElement($users)->id;
+            $priest->parish_id = $faker->randomElement($parishs)->id;
             $priest->save();
         });
     }

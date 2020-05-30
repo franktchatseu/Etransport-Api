@@ -23,11 +23,11 @@ class DatabaseSeeder extends Seeder
             // $this->call(SettingSeeder::class);
             // $this->call(LaratrustSeeder::class);
             UserSeeder::class,
+            ParishSeeder::class,
             ProfessionsSeeder::class,
             PriestSeeder::class,
             AlbumSeeder::class,
             ParishionalSeeder::class,
-            ParishSeeder::class,
         ]);
         
         // module setting

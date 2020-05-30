@@ -32,7 +32,7 @@ Route::group(['prefix' => 'auth'], function () {
 // Messagerie module : 'middleware' => 'auth:api',
 Route::group(['prefix' => 'messageries'], function () { });
 
-Route::group(['prefix' => 'parish'], function () {
+Route::group(['prefix' => 'parishs'], function () {
     
 });
 // Notification module : 'middleware' => 'auth:api',
@@ -100,7 +100,7 @@ Route::group(['prefix' => 'persons'], function () {
 });
 
 // Place module : 'middleware' => 'auth:api',
-Route::group(['prefix' => 'place'], function () { 
+Route::group(['prefix' => 'places'], function () { 
 
 });
 
@@ -168,7 +168,7 @@ Route::group(['prefix' => 'finances'], function () {
 
 
 // Sanction module : 'middleware' => 'auth:api',
-Route::group(['prefix' => 'sanction'], function () {
+Route::group(['prefix' => 'sanctions'], function () {
 
     Route::group(['prefix' => 'sanctions'], function () {
         Route::get('/', 'Sanction\SanctionController@index');

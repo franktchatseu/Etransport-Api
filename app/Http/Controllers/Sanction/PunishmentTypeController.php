@@ -42,14 +42,13 @@ class PunishmentTypeController extends Controller
         $this->validate($data, [
             'title' => 'required',
             'description' => 'required',
-         ]);
+        ]);
 
+        $punishmentType = new PunishmentType();
+        $punishmentType->title = $data['title'];
+        $punishmentType->description = $data['description'];
+        $punishmentType->save();
 
-            $punishmentType = new PunishmentType();
-            $punishmentType->title = $data['title'];
-            $punishmentType->description = $data['description'];
-            $punishmentType->save();
-       
         return response()->json($punishmentType);
     }
 
@@ -94,13 +93,13 @@ class PunishmentTypeController extends Controller
         $this->validate($data, [
             'title' => 'required',
             'description' => 'required'
-         ]);
+        ]);
 
-        
+
         if (null !== $data['title']) $punishmentType->title = $data['title'];
         if (null !== $data['description']) $punishmentType->description = $data['description'];
 
-        
+
         $punishmentType->update();
 
         return response()->json($punishmentType);
@@ -117,7 +116,7 @@ class PunishmentTypeController extends Controller
             abort(404, "No user found with id $id");
         }
 
-        $punishmentType->delete();      
+        $punishmentType->delete();
         return response()->json();
     }
 
