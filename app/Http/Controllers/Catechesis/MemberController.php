@@ -14,8 +14,7 @@ class MemberController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $req)
-    {
-        {
+    { {
             $data = Member::simplePaginate($req->has('limit') ? $req->limit : 15);
             return response()->json($data);
         }
@@ -25,7 +24,7 @@ class MemberController extends Controller
     {
         $this->validate($req->all(), [
             'q' => 'present',
-            'field' => 'present'        
+            'field' => 'present'
         ]);
 
         $data = Member::where($req->field, 'like', "%$req->q%")->get();
@@ -40,11 +39,12 @@ class MemberController extends Controller
      *
      */
 
-    public function generateMatricule(){
-        $chars='01234567abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $string='';
-        for($i=0;$i<50;$i++){
-           $string =$chars[rand(0,strlen($chars)-1)];
+    public function generateMatricule()
+    {
+        $chars = '01234567abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $string = '';
+        for ($i = 0; $i < 50; $i++) {
+            $string = $chars[rand(0, strlen($chars) - 1)];
         }
         return string;
     }
@@ -72,27 +72,16 @@ class MemberController extends Controller
         //    $string =$chars[rand(8,strlen($chars)-1)];
         // }
 
-        if(isset($request->file)){
-            $file = $request->file('files');
-            $path = null;
-            if($file != null){
-                $extension = $file->getClientOriginalExtension();
-                $relativeDestination = "uploads/members";
-                $destinationPath = public_path($relativeDestination);
-                $safeName = "document".time().'.'.$extension;
-                $file->move($destinationPath, $safeName);
-                $path = "$relativeDestination/$safeName";
-            }
-            $data['files'] = $path;
-        }
+        $filePaths = $this->uploadMultipleFiles($request, 'files', 'members', ['file', 'mimes:pdf,doc,ppt,xls,rtf,jpg,png']);
+        $data['files'] = json_encode($filePaths);
 
-        $member=new Member();
+        $member = new Member();
         $member->regnum = $data['regnum'];
         $member->adhesion_date = $data['adhesion_date'];
         $member->status = $data['status'];
         $member->files = $data['files'];
         $member->is_finish = $data['is_finish'];
-        
+
 
         $member->save();
 
@@ -146,8 +135,8 @@ class MemberController extends Controller
         if (!$membre) {
             abort(404, "No Member found with id $id");
         }
-       
-        
+
+
         $data = $request->only([
             'file',
             'adhesion_date',
@@ -155,52 +144,38 @@ class MemberController extends Controller
             'status'
         ]);
 
-        
+
 
         $this->validate($data, [
             'is_finish' => 'required',
+            'has_win' => 'required',
             'adhesion_date' => 'required',
             'status' => 'in:Rejected,Painding,Accepted',
         ]);
 
         //upload image
-        if(isset($request->file)){
-            $file = $request->file('file');
-            $path = null;
+        $filePaths = $this->uploadMultipleFiles($request, 'files', 'members', ['file', 'mimes:pdf,doc,ppt,xls,rtf,jpg,png']);
+        $data['files'] = json_encode($filePaths);
 
-            if($file != null){
-                $extension = $file->getClientOriginalExtension();
-                $relativeDestination = "uploads/membres";
-                $destinationPath = public_path($relativeDestination);
-                $safeName = "document".time().'.'.$extension;
-                $file->move($destinationPath, $safeName);
-                $path = "$relativeDestination/$safeName";
-                if ($membres->file) {
-                    $oldImagePath = public_path($membres->file);
-                    if (file_exists($oldImagePath)) {
-                        @unlink($oldImagePath);
-                    }
-                }
-            }
-            $data['file'] = $path;
+        if (null !== $data['status']) {
+            $membre->status = $data['status'];
+        }
+        if (null !== $data['files']) {
+            $membre->files = $data['files'];
+        }
+        if (null !== $data['is_finish']) {
+            $membre->is_finish = $data['is_finish'];
+        }
+        if (null !== $data['has_win']) {
+            $membre->has_win = $data['has_win'];
+        }
+        if (null !== $data['adhesion_date']) {
+            $membre->adhesion_date = $data['adhesion_date'];
         }
 
-        if (null!==$data['status']){
-            $membre->status=$data['status'];
-           }
-        if (null!==$data['file']){
-            $membre->file=$data['file'];
-           }
-        if (null!==$data['is_finish']){
-            $membre->is_finish=$data['is_finish'];
-           }
-        if (null!==$data['adhesion_date']){
-            $membre->adhesion_date=$data['adhesion_date'];
-           }
+        $membre->update();
 
-           $membre->update();
-
-       return response()->json($membre);
+        return response()->json($membre);
     }
     /**
      * Remove the specified resource from storage.
@@ -223,7 +198,7 @@ class MemberController extends Controller
             abort(404, "No Membre found with id $id");
         }
 
-        $membre->delete();      
+        $membre->delete();
         return response()->json();
     }
 }

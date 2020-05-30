@@ -40,6 +40,7 @@ class DatabaseSeeder extends Seeder
          $this->call([
             AnnualMemberSeeder::class,
             MemberSeeder::class,
+            ArchivingSeeder::class
          ]);
 
         // module place
@@ -66,5 +67,7 @@ class DatabaseSeeder extends Seeder
 
         Schema::enableForeignKeyConstraints();
         Model::reguard();
+
+        
     }
 }
