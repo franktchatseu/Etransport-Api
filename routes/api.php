@@ -62,6 +62,26 @@ Route::group(['prefix' => 'persons'], function () {
     
     });
 
+    Route::group(['prefix' => 'cathechumenes'], function () {
+        Route::get('/','Person\CathechumeneController@index');
+        Route::get('/{id}', 'Person\CathechumeneController@find');
+        Route::get('/search', 'Person\CathechumeneController@search');
+        Route::delete('/{id}', 'Person\CathechumeneController@destroy');
+        Route::match(['post','put'],'/{id}', 'Person\CathechumeneController@update');
+        Route::post('/', 'Person\CathechumeneController@create');
+    
+    });
+
+    Route::group(['prefix' => 'contacts'], function () {
+        Route::get('/','Person\ContactController@get');
+        Route::get('/{id}', 'Person\ContactController@find');
+        Route::get('/search', 'Person\ContactController@search');
+        Route::delete('/{id}', 'Person\ContactController@destroy');
+        Route::match(['post','put'],'/{id}', 'Person\ContactController@update');
+        Route::post('/', 'Person\ContactController@create');
+    
+    });
+
     Route::group(['prefix' => 'professions'], function () {
         Route::get('/', 'Person\ProfessionsController@index');
         Route::get('/search', 'Person\ProfessionsController@search');
@@ -182,6 +202,13 @@ Route::group(['prefix' => 'finances'], function () {
         Route::match(['post', 'put'], '/{id}', 'Finance\NatureAccountController@update');
     });
 
+    Route::group(['prefix' => 'tarifs'], function () {
+        Route::get('/', 'Finance\TarifController@index');
+        Route::get('/search', 'Finance\TarifController@search');
+        Route::post('/', 'Finance\TarifController@store');
+        Route::match(['post', 'put'], '/{id}', 'Finance\TarifController@update');
+        Route::delete('/{id}', 'Finance\TarifController@destroy'); 
+    });
 });
 
 

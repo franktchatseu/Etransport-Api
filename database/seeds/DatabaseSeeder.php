@@ -28,6 +28,8 @@ class DatabaseSeeder extends Seeder
             PriestSeeder::class,
             AlbumSeeder::class,
             ParishionalSeeder::class,
+            CathechumeneSeeder::class,
+            ContactSeeder::class,
         ]);
         
         // module setting
@@ -65,7 +67,8 @@ class DatabaseSeeder extends Seeder
 
         // module finance
         $this->call([
-            RequestForMassSeeder::class
+            RequestForMassSeeder::class,
+            TarifSeeder::class,
         ]);
 
         // module association
