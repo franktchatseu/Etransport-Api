@@ -36,6 +36,12 @@ class DatabaseSeeder extends Seeder
             MassSheduleSeeder::class
         ]);
 
+         // module catechesis
+         $this->call([
+            AnnualMemberSeeder::class,
+            MemberSeeder::class,
+         ]);
+
         // module place
         $this->call([]);
         

@@ -166,7 +166,6 @@ Route::group(['prefix' => 'finances'], function () {
 
 });
 
-
 // Sanction module : 'middleware' => 'auth:api',
 Route::group(['prefix' => 'sanctions'], function () {
 
@@ -197,4 +196,26 @@ Route::group(['prefix' => 'sanctions'], function () {
         Route::match(['post', 'put'], '/{id}', 'Sanction\UserSanctionController@update');
     });
 
+});
+
+// Catechesis module : 'middleware' => 'auth:api',
+Route::group(['prefix' => 'catechesis'], function () {
+    
+    Route::group(['prefix' => 'members'], function () {
+        Route::get('/', 'Catechesis\MemberController@index');
+        Route::post('/', 'Catechesis\MemberController@create');
+        Route::get('/{id}', 'Catechesis\MemberController@find');
+        Route::delete('/{id}', 'Catechesis\MemberController@destroy');
+        Route::get('/search', 'Catechesis\MemberController@search');
+        Route::put('/{id}', 'Catechesis\MemberController@update');
+    });
+
+    Route::group(['prefix' => 'annual-members'], function () {
+        Route::get('/', 'Catechesis\AnnualMemberController@index');
+        Route::get('/{id}', 'Catechesis\AnnualMemberController@find');
+        Route::post('/', 'Catechesis\AnnualMemberController@create');
+        Route::delete('/{id}', 'Catechesis\AnnualMemberController@destroy');
+        Route::get('/', 'Catechesis\AnnualMemberController@search');
+        Route::put('/{id}', 'Catechesis\AnnualMemberController@update');
+    });
 });
