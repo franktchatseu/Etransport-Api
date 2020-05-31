@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Sanction;
+namespace App\Http\Controllers\Place;
 
 use App\Http\Controllers\Controller;
-use App\Models\Sanction\PunishmentType;
+use App\Models\Place\Place;
 use Illuminate\Http\Request;
 
-class PunishmentTypeController extends Controller
+class PlaceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class PunishmentTypeController extends Controller
      */
     public function index(Request $req)
     {
-        $data = PunishmentType::simplePaginate($req->has('limit') ? $req->limit : 15);
+        $data = Place::simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($data);
     }
 
@@ -40,25 +40,30 @@ class PunishmentTypeController extends Controller
         $data = $req->except('photo');
 
         $this->validate($data, [
-            'title' => 'required',
+            'name' => 'required',
             'description' => 'required',
-        ]);
+            'type_id' => 'required:exists:punishment_types,id',
+            'city_id' => 'required:exists:cities,id'
+         ]);
 
-        $punishmentType = new PunishmentType();
-        $punishmentType->title = $data['title'];
-        $punishmentType->description = $data['description'];
-        $punishmentType->save();
 
-        return response()->json($punishmentType);
+            $place = new Place();
+            $place->name = $data['name'];
+            $place->description = $data['description'];
+            $place->type_id = $data['type_id'];
+            $place->city_id = $data['city_id'];
+            $place->save();
+       
+        return response()->json($place);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Sanction\PunishmentType  $punishmentType
+     * @param  \App\Models\Place\Place  $place
      * @return \Illuminate\Http\Response
      */
-    public function show(PunishmentType $punishmentType)
+    public function show(Place $place)
     {
         //
     }
@@ -66,10 +71,10 @@ class PunishmentTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Sanction\PunishmentType  $punishmentType
+     * @param  \App\Models\Place\Place  $place
      * @return \Illuminate\Http\Response
      */
-    public function edit(PunishmentType $punishmentType)
+    public function edit(Place $place)
     {
         //
     }
@@ -78,45 +83,50 @@ class PunishmentTypeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Sanction\PunishmentType  $punishmentType
+     * @param  \App\Models\Place\Place  $place
      * @return \Illuminate\Http\Response
      */
     public function update(Request $req, $id)
     {
-        $punishmentType = PunishmentType::find($id);
-        if (!$punishmentType) {
-            abort(404, "No punishment type found with id $id");
+        $place = Place::find($id);
+        if (!$place) {
+            abort(404, "No place found with id $id");
         }
 
         $data = $req->except('photo');
 
         $this->validate($data, [
-            'title' => 'required',
-            'description' => 'required'
+            'name' => 'required',
+            'description' => 'required',
+            'type_id' => 'required:exists:punishment_types,id',
+            'city_id' => 'required:exists:cities,id'
         ]);
 
+        
+        if (null !== $data['name']) $place->name = $data['name'];
+        if (null !== $data['description']) $place->description = $data['description'];
+        if (null !== $data['type_id']) $place->type_id = $data['type_id'];
+        if (null !== $data['city_id']) $place->city_id = $data['city_id'];
 
-        if (null !== $data['title']) $punishmentType->title = $data['title'];
-        if (null !== $data['description']) $punishmentType->description = $data['description'];
+        
+        $place->update();
 
-
-        $punishmentType->update();
-
-        return response()->json($punishmentType);
+        return response()->json($place);
     }
+
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Sanction\PunishmentType  $punishmentType
+     * @param  \App\Models\Place\Place  $place
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        if (!$punishmentType = PunishmentType::find($id)) {
-            abort(404, "No user found with id $id");
+        if (!$place = Place::find($id)) {
+            abort(404, "No place found with id $id");
         }
 
-        $punishmentType->delete();
+        $place->delete();      
         return response()->json();
     }
 
@@ -127,7 +137,7 @@ class PunishmentTypeController extends Controller
             'field' => 'present'
         ]);
 
-        $data = PunishmentType::where($req->field, 'like', "%$req->q%")
+        $data = Place::where($req->field, 'like', "%$req->q%")
             ->simplePaginate($req->has('limit') ? $req->limit : 15);
 
         return response()->json($data);
@@ -135,9 +145,9 @@ class PunishmentTypeController extends Controller
 
     public function find($id)
     {
-        if (!$punishmentType = PunishmentType::find($id)) {
+        if (!$place = Place::find($id)) {
             abort(404, "No user found with id $id");
         }
-        return response()->json($punishmentType);
+        return response()->json($place);
     }
 }

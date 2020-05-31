@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddRelationBetweenSanctionPunishmentstypesTable extends Migration
+class AddRelationBetweenPlaceTypePlaceCities extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class AddRelationBetweenSanctionPunishmentstypesTable extends Migration
      */
     public function up()
     {
-        Schema::table('sanctions', function (Blueprint $table) {
+        Schema::table('places', function (Blueprint $table) {
             $table->unsignedBigInteger('type_id');
-            $table->foreign('type_id')->references('id')->on('punishment_types')->onDelete('cascade');
+            $table->unsignedBigInteger('city_id');
+
+            $table->foreign('type_id')->references('id')->on('type_places')->onDelete('cascade');
+            $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
         });
     }
 
@@ -26,7 +29,6 @@ class AddRelationBetweenSanctionPunishmentstypesTable extends Migration
      */
     public function down()
     {
-        Schema::table('sanctions', function (Blueprint $table) {
-        });
+        //
     }
 }

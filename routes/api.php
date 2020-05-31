@@ -292,3 +292,27 @@ Route::group(['prefix' => 'sanctions'], function () {
     });
 
 });
+
+// Finance module : 'middleware' => 'auth:api',
+Route::group(['prefix' => 'place'], function () {
+
+    Route::group(['prefix' => 'places'], function () {
+        Route::get('/', 'Place\PlaceController@index');
+        Route::get('/search', 'Place\PlaceController@search');
+        Route::get('/{id}', 'Place\PlaceController@find');
+        Route::delete('/{id}', 'Place\PlaceController@destroy');
+        Route::post('/', 'Place\PlaceController@store');
+        Route::match(['post', 'put'], '/{id}', 'Place\PlaceController@update');
+    });
+
+
+    Route::group(['prefix' => 'place_types'], function () {
+        Route::get('/', 'Place\TypePlaceController@index');
+        Route::get('/search', 'Place\TypePlaceController@search');
+        Route::get('/{id}', 'Place\TypePlaceController@find');
+        Route::delete('/{id}', 'Place\TypePlaceController@destroy');
+        Route::post('/', 'Place\TypePlaceController@store');
+        Route::match(['post', 'put'], '/{id}', 'Place\TypePlaceController@update');
+    });
+
+});

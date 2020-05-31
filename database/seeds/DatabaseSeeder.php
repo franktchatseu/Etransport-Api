@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
             MassSheduleSeeder::class
         ]);
 
-         // module catechesis
+        // module catechesis
          $this->call([
             AnnualMemberSeeder::class,
             MemberSeeder::class,
@@ -70,6 +70,15 @@ class DatabaseSeeder extends Seeder
             RequestForMassSeeder::class,
             TarifSeeder::class,
         ]);
+        
+        // module place
+        $this->call([
+            PlaceTypeSeeder::class,
+            PlaceSeeder::class
+        ]);
+
+       // module finance
+        $this->call([]);
 
         // module association
         $this->call([]);
