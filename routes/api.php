@@ -120,9 +120,7 @@ Route::group(['prefix' => 'persons'], function () {
 });
 
 // Place module : 'middleware' => 'auth:api',
-Route::group(['prefix' => 'places'], function () { 
 
-});
 
 // Setting module : 'middleware' => 'auth:api',
 Route::group(['prefix' => 'settings'], function () {
@@ -293,8 +291,8 @@ Route::group(['prefix' => 'sanctions'], function () {
 
 });
 
-// Finance module : 'middleware' => 'auth:api',
-Route::group(['prefix' => 'place'], function () {
+// Places module : 'middleware' => 'auth:api',
+Route::group(['prefix' => 'places'], function () {
 
     Route::group(['prefix' => 'places'], function () {
         Route::get('/', 'Place\PlaceController@index');
@@ -305,14 +303,31 @@ Route::group(['prefix' => 'place'], function () {
         Route::match(['post', 'put'], '/{id}', 'Place\PlaceController@update');
     });
 
-
-    Route::group(['prefix' => 'place_types'], function () {
+    Route::group(['prefix' => 'place-types'], function () {
         Route::get('/', 'Place\TypePlaceController@index');
         Route::get('/search', 'Place\TypePlaceController@search');
         Route::get('/{id}', 'Place\TypePlaceController@find');
         Route::delete('/{id}', 'Place\TypePlaceController@destroy');
         Route::post('/', 'Place\TypePlaceController@store');
         Route::match(['post', 'put'], '/{id}', 'Place\TypePlaceController@update');
+    });
+
+    Route::group(['prefix' => 'postes'], function () {
+        Route::get('/', 'Place\PosteController@index');
+        Route::get('/search', 'Place\PosteController@search');
+        Route::post('/', 'Place\PosteController@create');
+        Route::match(['post', 'put'], '/{id}', 'Place\PosteController@update');
+        Route::get('/{id}', 'Place\PosteController@find');
+        Route::delete('/{id}', 'Place\PosteController@destroy');
+    });
+
+    Route::group(['prefix' => 'type-postes'], function () {
+        Route::get('/', 'Place\TypePosteController@index');
+        Route::get('/search', 'Place\TypePosteController@search');
+        Route::post('/', 'Place\TypePosteController@create');
+        Route::match(['post', 'put'], '/{id}', 'Place\TypePosteController@update');
+        Route::get('/{id}', 'Place\TypePosteController@find');
+        Route::delete('/{id}', 'Place\TypePosteController@destroy');
     });
 
 });

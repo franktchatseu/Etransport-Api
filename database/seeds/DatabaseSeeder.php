@@ -61,7 +61,6 @@ class DatabaseSeeder extends Seeder
               EvaluationSeeder::class
           ]);
 
-
         // module planification
         $this->call([]);
 
@@ -74,7 +73,9 @@ class DatabaseSeeder extends Seeder
         // module place
         $this->call([
             PlaceTypeSeeder::class,
-            PlaceSeeder::class
+            PlaceSeeder::class,
+            TypePosteSeeder::class,
+            PosteSeeder::class,
         ]);
 
        // module finance
