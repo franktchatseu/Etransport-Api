@@ -43,6 +43,7 @@ class ArchivingController extends Controller
             'motif' => 'required',
             'description' => 'required',
         ]);
+        
         $filePaths = $this->uploadMultipleFiles($request, 'files', 'archivings', ['file', 'mimes:pdf,doc,ppt,xls,rtf,jpg,png']);
         $data['files'] = json_encode($filePaths);
 
