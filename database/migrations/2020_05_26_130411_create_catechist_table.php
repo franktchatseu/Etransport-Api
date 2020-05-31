@@ -14,10 +14,13 @@ class CreateCatechistTable extends Migration
     public function up()
     {
         Schema::create('catechists', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('catechist_date');
             $table->string('catechist_place');
             $table->timestamps();
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

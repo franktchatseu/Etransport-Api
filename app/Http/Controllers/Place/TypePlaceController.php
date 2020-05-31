@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Place;
 use App\Http\Controllers\Controller;
 use App\Models\Place\TypePlace;
 use Illuminate\Http\Request;
+use App\Models\Place\Place;
 
 class TypePlaceController extends Controller
 {
@@ -142,5 +143,15 @@ class TypePlaceController extends Controller
             abort(404, "No user found with id $id");
         }
         return response()->json($typePlace);
+    }
+
+    public function findPlaces($id)
+    {
+        if (!$typePlace = TypePlace::find($id)) {
+            abort(404, "No TypePlace found with id $id");
+        }
+
+        $places = Place::whereTypeId($typePlace->id)->get();
+        return response()->json($places);
     }
 }

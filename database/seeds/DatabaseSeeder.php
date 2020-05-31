@@ -22,27 +22,30 @@ class DatabaseSeeder extends Seeder
         $this->call([
             // $this->call(SettingSeeder::class);
             // $this->call(LaratrustSeeder::class);
-            UserSeeder::class,
-            ParishSeeder::class,
-            ProfessionsSeeder::class,
-            PriestSeeder::class,
-            AlbumSeeder::class,
-            ParishionalSeeder::class,
-            CathechumeneSeeder::class,
-            ContactSeeder::class,
+            // UserSeeder::class,
+            // ParishSeeder::class,
+            // ProfessionSeeder::class,
+            // PriestSeeder::class,
+            // AlbumSeeder::class,
+            // ParishionalSeeder::class,
+            // CathechumeneSeeder::class,
+            // ContactSeeder::class,
         ]);
+
+        // module sacrament
+        $this->call([]);
         
         // module setting
         $this->call([
-            ParishPatrimonySeeder::class,
-            MassSheduleSeeder::class
+            // ParishPatrimonySeeder::class,
+            // MassSheduleSeeder::class
         ]);
 
         // module catechesis
          $this->call([
-            AnnualMemberSeeder::class,
-            MemberSeeder::class,
-            ArchivingSeeder::class
+            // AnnualMemberSeeder::class,
+            // MemberSeeder::class,
+            // ArchivingSeeder::class
          ]);
 
         // module place
@@ -50,15 +53,15 @@ class DatabaseSeeder extends Seeder
         
         // module sanction
         $this->call([
-            PunishmentTypeSeeder::class,
-            SanctionSeeder::class,
-            UserSanctionSeeder::class
+            // PunishmentTypeSeeder::class,
+            // SanctionSeeder::class,
+            // UserSanctionSeeder::class
         ]);
 
           // module catechese
           $this->call([
-              QuarterSeeder::class,
-              EvaluationSeeder::class
+            //   QuarterSeeder::class,
+            //   EvaluationSeeder::class
           ]);
 
         // module planification
@@ -66,8 +69,8 @@ class DatabaseSeeder extends Seeder
 
         // module finance
         $this->call([
-            RequestForMassSeeder::class,
-            TarifSeeder::class,
+            // RequestForMassSeeder::class,
+            // TarifSeeder::class,
         ]);
         
         // module place

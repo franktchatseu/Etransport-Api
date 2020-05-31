@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Person;
 
 use App\Http\Controllers\Controller;
-use App\Models\Person\professions;
+use App\Models\Person\profession;
 use Illuminate\Http\Request;
 
-class ProfessionsController extends Controller
+class ProfessionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class ProfessionsController extends Controller
      */
     public function index(Request $req)
     {
-        $data = Professions::simplePaginate($req->has('limit') ? $req->limit : 15);
+        $data = Profession::simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($data);
     }
 
@@ -44,7 +44,7 @@ class ProfessionsController extends Controller
             'description' => 'required',
         ]);
 
-            $professions = new Professions();
+            $professions = new Profession();
             $professions->name = 'name';
             $professions->description = 'description';
             
@@ -56,14 +56,14 @@ class ProfessionsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Person\professions  $professions
+     * @param  \App\Models\Person\profession  $professions
      * @return \Illuminate\Http\Response
      */
     public function find($id)
     {
-        $professions = Professions::find($id);
-        if (!$professions = Professions::find($id)) {
-            abort(404, "No professions found with id $id");
+        $professions = Profession::find($id);
+        if (!$professions = Profession::find($id)) {
+            abort(404, "No profession found with id $id");
         }
         return $professions;
     }
@@ -71,7 +71,7 @@ class ProfessionsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Person\professions  $professions
+     * @param  \App\Models\Person\Profession  $professions
      * @return \Illuminate\Http\Response
      */
     public function edit(professions $professions)
@@ -83,14 +83,14 @@ class ProfessionsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Person\professions  $professions
+     * @param  \App\Models\Person\Profession  $professions
      * @return \Illuminate\Http\Response
      */
     public function update(Request $req, $id)
     {
-        $professions = Professions::find($id);
-        if (!$professions) {
-            abort(404, "No professions found with id $id");
+        $profession = Profession::find($id);
+        if (!$profession) {
+            abort(404, "No profession found with id $id");
         }
 
         $data = $req->except('photo');
@@ -101,15 +101,9 @@ class ProfessionsController extends Controller
             
         ]);
 
-        //upload image
-        if ($file = $req->file('photo')) {
-            $photo = app()->make('UploadService')->saveSingleImage($this, $req, 'photo', 'users');
-            $data['photo'] =  $photo;
-        }
+        $profession->update();
 
-        $professions->update();
-
-        return response()->json($professions);
+        return response()->json($profession);
     }
 
     /**
@@ -125,7 +119,7 @@ class ProfessionsController extends Controller
             'field' => 'present'
         ]);
 
-        $data = Professions::where($req->field, 'like', "%$req->q%")
+        $data = Profession::where($req->field, 'like', "%$req->q%")
             ->simplePaginate($req->has('limit') ? $req->limit : 15);
 
         return response()->json($data);
@@ -133,11 +127,11 @@ class ProfessionsController extends Controller
 
     public function destroy($id)
     {
-        if (!$professions = Professions::find($id)) {
+        if (!$profession = Profession::find($id)) {
             abort(404, "No profession found with id $id");
         }
 
-        $professions->delete();      
+        $profession->delete();      
         return response()->json();
     }
 
