@@ -261,7 +261,7 @@ Route::group(['prefix' => 'catechesis'], function () {
 
 // Sanction module : 'middleware' => 'auth:api',
 Route::group(['prefix' => 'sanctions'], function () {
-
+    
     Route::group(['prefix' => 'sanctions'], function () {
         Route::get('/', 'Sanction\SanctionController@index');
         Route::get('/search', 'Sanction\SanctionController@search');
@@ -275,6 +275,7 @@ Route::group(['prefix' => 'sanctions'], function () {
         Route::get('/', 'Sanction\PunishmentTypeController@index');
         Route::get('/search', 'Sanction\PunishmentTypeController@search');
         Route::get('/{id}', 'Sanction\PunishmentTypeController@find');
+        Route::get('/{id}/sanctions', 'Sanction\PunishmentTypeController@findSanctions');
         Route::delete('/{id}', 'Sanction\PunishmentTypeController@destroy');
         Route::post('/', 'Sanction\PunishmentTypeController@store');
         Route::match(['post', 'put'], '/{id}', 'Sanction\PunishmentTypeController@update');
@@ -284,6 +285,7 @@ Route::group(['prefix' => 'sanctions'], function () {
         Route::get('/', 'Sanction\UserSanctionController@index');
         Route::get('/search', 'Sanction\UserSanctionController@search');
         Route::get('/{id}', 'Sanction\UserSanctionController@find');
+        Route::get('/{id}/users', 'Sanction\UserSanctionController@findUserSanctions');
         Route::delete('/{id}', 'Sanction\UserSanctionController@destroy');
         Route::post('/', 'Sanction\UserSanctionController@store');
         Route::match(['post', 'put'], '/{id}', 'Sanction\UserSanctionController@update');

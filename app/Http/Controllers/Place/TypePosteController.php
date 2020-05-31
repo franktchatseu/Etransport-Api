@@ -104,7 +104,7 @@ class TypePosteController extends Controller
     {
         $typePoste = TypePoste::find($id);
         if (!$typePoste) {
-            abort(404, "No typePostefound with id $id");
+            abort(404, "No typePoste found with id $id");
         }
 
         $data = $request->only([
@@ -144,13 +144,9 @@ class TypePosteController extends Controller
         return response()->json($typePoste);
     }
 
-    public function findPostes($id)
+    public function findPostes(Request $req, $id)
     {
-        if (!$typePoste = TypePoste::find($id)) {
-            abort(404, "No typePoste  found with id $id");
-        }
-
-        $postes = Poste::whereTypePosteId($typePoste->id)->get();
+        $postes = Poste::whereTypePosteId($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($postes);
     }
 

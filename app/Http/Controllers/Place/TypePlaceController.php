@@ -145,13 +145,9 @@ class TypePlaceController extends Controller
         return response()->json($typePlace);
     }
 
-    public function findPlaces($id)
+    public function findPlaces(Request $req, $id)
     {
-        if (!$typePlace = TypePlace::find($id)) {
-            abort(404, "No TypePlace found with id $id");
-        }
-
-        $places = Place::whereTypeId($typePlace->id)->get();
+        $places = Place::whereTypeId($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($places);
     }
 }
