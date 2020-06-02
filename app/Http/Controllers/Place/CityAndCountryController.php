@@ -39,6 +39,14 @@ class CityAndCountryController extends Controller
     }
 
     public function findCitiesByCountries($id) {
+
+        $country = Country::find($id);
+        if (!$country) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("COUNTRY_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
        
         $cities = City::whereCountryId($id)->get();
         return response()->json($cities);

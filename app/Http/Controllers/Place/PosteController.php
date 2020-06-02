@@ -55,7 +55,7 @@ class PosteController extends Controller
         $this->validate($data, [
             'place' => 'string|min:2',
             'name' => 'required',
-            'type_poste_id'=>'integer|required'
+            'type_poste_id'=>'required:exists:type_postes,id'
         ]);
 
         $poste=new  Poste();
@@ -111,7 +111,10 @@ class PosteController extends Controller
     {
         $poste = Poste::find($id);
         if (!$poste) {
-            abort(404, "No poste found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("POSTE_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $data = $request->only([
@@ -123,7 +126,7 @@ class PosteController extends Controller
         $this->validate($data, [
             'place' => 'string|min:2',
             'name' => 'required',
-            'type_poste_id'=>'integer|required'
+            'type_poste_id'=>'required:exists:type_postes,id'
         ]);
 
        if (null!==$data['name']){
@@ -148,16 +151,24 @@ class PosteController extends Controller
      */
     public function find($id)
     {
-            if (!$poste = Poste::find($id)) {
-                abort(404, "No poste found with id $id");
-            }
+        $poste = Poste::find($id);
+        if (!$poste) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("POSTE_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
             return response()->json($poste);
         }
     
         public function destroy($id)
         {
-            if (!$poste = Poste::find($id)) {
-                abort(404, "No poste found with id $id");
+            $poste = Poste::find($id);
+            if (!$poste) {
+                $apiError = new APIError;
+                $apiError->setStatus("404");
+                $apiError->setCode("POSTE_NOT_FOUND");
+                return response()->json($apiError, 404);
             }
     
             $poste->delete();      

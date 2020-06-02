@@ -90,7 +90,10 @@ class PlaceController extends Controller
     {
         $place = Place::find($id);
         if (!$place) {
-            abort(404, "No place found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PLACE_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $data = $req->except('photo');
@@ -122,8 +125,12 @@ class PlaceController extends Controller
      */
     public function destroy($id)
     {
-        if (!$place = Place::find($id)) {
-            abort(404, "No place found with id $id");
+        $place = Place::find($id);
+        if (!$place) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PLACE_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $place->delete();      
@@ -145,8 +152,12 @@ class PlaceController extends Controller
 
     public function find($id)
     {
-        if (!$place = Place::find($id)) {
-            abort(404, "No user found with id $id");
+        $place = Place::find($id);
+        if (!$place) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PLACE_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
         return response()->json($place);
     }

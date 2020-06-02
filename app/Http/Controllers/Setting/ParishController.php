@@ -97,9 +97,12 @@ class ParishController extends Controller
      */
     public function update(Request $req, $id)
     {
-        $parish = parish::find($id);
+        $parish = Parish::find($id);
         if (!$parish) {
-            abort(404, "No parish found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PARISH_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $data = $req->except('photo');
@@ -140,8 +143,12 @@ class ParishController extends Controller
      */
     public function destroy($id)
     {
-        if (!$parish = Parish::find($id)) {
-            abort(404, "Nousr  found with id $id");
+        $parish = Parish::find($id);
+        if (!$parish) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PARISH_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $parish->delete();      
@@ -163,9 +170,14 @@ class ParishController extends Controller
 
     public function find($id)
     {
-        if (!$parish =parish::find($id)) {
-            abort(404, "No user found with id $id");
+        $parish = Parish::find($id);
+        if (!$parish) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PARISH_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
+        
         return response()->json($parish);
     }
 

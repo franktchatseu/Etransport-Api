@@ -131,9 +131,12 @@ class MemberController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $membre = Membre::find($id);
-        if (!$membre) {
-            abort(404, "No Member found with id $id");
+        $member = Member::find($id);
+        if (!$member) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("MEMBER_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
 
@@ -186,16 +189,24 @@ class MemberController extends Controller
 
     public function find($id)
     {
-        if (!$membre = Membre::find($id)) {
-            abort(404, "No membre found with id $id");
+        $member = Member::find($id);
+        if (!$member) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("MEMBER_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
         return response()->json($membre);
     }
 
     public function destroy($id)
     {
-        if (!$membre = Membre::find($id)) {
-            abort(404, "No Membre found with id $id");
+        $member = Member::find($id);
+        if (!$member) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("MEMBER_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $membre->delete();

@@ -87,7 +87,10 @@ class AlbumController extends Controller
     {
         $album = Album::find($id);
         if (!$album) {
-            abort(404, "No album found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("ALBUM_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $data = $req->except('photo');
@@ -112,8 +115,12 @@ class AlbumController extends Controller
      */
     public function destroy($id)
     {
-        if (!$album = Album::find($id)) {
-            abort(404, "No album found with id $id");
+        $album = Album::find($id);
+        if (!$album) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("ALBUM_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $album->delete();      
@@ -149,8 +156,12 @@ class AlbumController extends Controller
      */
     public function find($id)
     {
-        if (!$album = Album::find($id)) {
-            abort(404, "No album found with id $id");
+        $album = Album::find($id);
+        if (!$album) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("ALBUM_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
         return response()->json($album);
     }

@@ -104,7 +104,10 @@ class TypePosteController extends Controller
     {
         $typePoste = TypePoste::find($id);
         if (!$typePoste) {
-            abort(404, "No typePoste found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("TYPEPOSTE_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $data = $request->only([
@@ -138,22 +141,46 @@ class TypePosteController extends Controller
      */
     public function find($id)
     {
-        if (!$typePoste = TypePoste::find($id)) {
-            abort(404, "No typePoste  found with id $id");
+        $typePoste = TypePoste::find($id);
+        if (!$typePoste) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("TYPEPOSTE_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
         return response()->json($typePoste);
     }
 
+
+
+
+
     public function findPostes(Request $req, $id)
     {
+
+        $typePoste = TypePoste::find($id);
+        if (!$typePoste) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("TYPEPOSTE_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+        
         $postes = Poste::whereTypePosteId($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($postes);
     }
 
+
+
+
     public function destroy($id)
     {
-        if (!$typePoste  = TypePoste::find($id)) {
-            abort(404, "No typePoste  found with id $id");
+      $typePoste = TypePoste::find($id);
+        if (!$typePoste) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("TYPEPOSTE_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $typePoste->delete();

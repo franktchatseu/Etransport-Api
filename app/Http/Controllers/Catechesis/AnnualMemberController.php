@@ -103,9 +103,12 @@ class AnnualMemberController extends Controller
      */
     public function update(Request $request,$id)
     {
-        $annualMember = AnnualMember::find($id);
-        if (!$annualMember) {
-            abort(404, "No AnnualMember found with id $id");
+        $annualMember = AnnuelMember::find($id);
+        if (!$annuelMember) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("AnnuelMEMBER_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $data = $request->only([
@@ -141,17 +144,25 @@ class AnnualMemberController extends Controller
      */
     public function find($id)
     {
-            if (!$annualMember = AnnualMember::find($id)) {
-                abort(404, "No AnnualMember found with id $id");
-            }
+        $annualMember = AnnuelMember::find($id);
+        if (!$annuelMember) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("AnnuelMEMBER_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
             return response()->json($annualMember);
         }
     
         public function destroy($id)
         {
-            if (!$annualMember = AnnualMember::find($id)) {
-                abort(404, "No annualMember found with id $id");
-            }
+            $annualMember = AnnuelMember::find($id);
+        if (!$annuelMember) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("AnnuelMEMBER_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
     
             $annualMember->delete();      
             return response()->json();
