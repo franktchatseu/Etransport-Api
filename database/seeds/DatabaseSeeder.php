@@ -46,6 +46,7 @@ class DatabaseSeeder extends Seeder
             // AnnualMemberSeeder::class,
             // MemberSeeder::class,
             // ArchivingSeeder::class
+            ProgrammeSeeder::class
          ]);
 
         // module place
@@ -75,10 +76,10 @@ class DatabaseSeeder extends Seeder
         
         // module place
         $this->call([
-            PlaceTypeSeeder::class,
-            PlaceSeeder::class,
-            TypePosteSeeder::class,
-            PosteSeeder::class,
+            // PlaceTypeSeeder::class,
+            // PlaceSeeder::class,
+            // TypePosteSeeder::class,
+            // PosteSeeder::class,
         ]);
 
        // module finance
