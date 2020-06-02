@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             // $this->call(SettingSeeder::class);
             // $this->call(LaratrustSeeder::class);
-            // UserSeeder::class,
+             UserSeeder::class,
             // ParishSeeder::class,
             // ProfessionSeeder::class,
             // PriestSeeder::class,
@@ -75,10 +75,10 @@ class DatabaseSeeder extends Seeder
         
         // module place
         $this->call([
-            PlaceTypeSeeder::class,
-            PlaceSeeder::class,
-            TypePosteSeeder::class,
-            PosteSeeder::class,
+            //PlaceTypeSeeder::class,
+            //PlaceSeeder::class,
+           // TypePosteSeeder::class,
+            //PosteSeeder::class,
         ]);
 
        // module finance
@@ -89,6 +89,13 @@ class DatabaseSeeder extends Seeder
 
         // module statistic
         $this->call([]);
+
+        // module sacrament
+        $this->call([
+            SacramentCategorySeeder::class,
+            SacramentSeeder::class,
+            UserSacramentSeeder::class,
+        ]);
 
         Schema::enableForeignKeyConstraints();
         Model::reguard();
