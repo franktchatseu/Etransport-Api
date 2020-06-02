@@ -88,7 +88,10 @@ class UserSanctionController extends Controller
     {
         $usersanction = UserSanction::find($id);
         if (!$usersanction) {
-            abort(404, "No user$usersanction found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("USERSANCTION_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $data = $req->except('photo');
@@ -104,9 +107,7 @@ class UserSanctionController extends Controller
         if (null !== $data['user_id']) $usersanction->user_id = $data['user_id'];
         if (null !== $data['sanction_id']) $usersanction->sanction_id = $data['sanction_id'];
 
-        
         $usersanction->update();
-
         return response()->json($usersanction);
     }
 
@@ -120,9 +121,11 @@ class UserSanctionController extends Controller
     public function destroy($id)
     {
         if (!$usersanction = UserSanction::find($id)) {
-            abort(404, "No user found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("USERSANCTION_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
-
         $usersanction->delete();      
         return response()->json();
     }
@@ -143,7 +146,10 @@ class UserSanctionController extends Controller
     public function find($id)
     {
         if (!$sanction = UserSanction::find($id)) {
-            abort(404, "No user found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("USERSANCTION_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
         return response()->json($sanction);
     }
