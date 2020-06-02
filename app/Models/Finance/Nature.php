@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Nature extends Model
 {
-    protected $table = 'nature';
+    protected $table = 'natures';
     protected $guarded = [];
 }

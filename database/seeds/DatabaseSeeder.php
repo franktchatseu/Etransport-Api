@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
         Schema::disableForeignKeyConstraints();
 
-        // $this->call(CityAndCountrySeeder::class);
+        //$this->call(CityAndCountrySeeder::class);
         
         // module person
         $this->call([
@@ -82,7 +82,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
        // module finance
-        $this->call([]);
+        $this->call([
+            NatureSeeder::class
+        ]);
 
         // module association
         $this->call([

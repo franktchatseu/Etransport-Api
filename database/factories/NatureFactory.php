@@ -10,6 +10,6 @@ $factory->define(Nature::class, function (Faker $faker) {
         'name' =>  $faker->text(20),
         'description' => $faker->text(100),
         'status' => $faker->randomElement(['ELEVE', 'ETUDIANT', 'HOMME', 'FEMME']),
-        'amount' => $faker->double(),
+        'amount' => $faker->numberBetween(0, 100),
     ];
 });
