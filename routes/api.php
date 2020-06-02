@@ -422,3 +422,24 @@ Route::group(['prefix' => 'associations'], function () {
     });
 
 });
+
+
+Route::group(['prefix' => 'planifications'],function (){
+    Route::group(['prefix' => 'planing'],function (){
+        Route::get('/', 'Planification\PlaningController@index');
+        Route::get('/search', 'Planification\PlaningController@search');
+        Route::post('/{id}', 'Planification\PlaningController@update');
+        Route::post('/', 'Planification\PlaningController@create');
+        Route::delete('/{id}', 'Planification\PlaningController@destroy');
+    }); 
+
+    Route::group(['prefix' => 'types'],function (){
+        Route::get('/', 'Planification\TypePlaningController@index');
+        Route::get('/search', 'Planification\TypePlaningController@search');
+        Route::post('/{id}', 'Planification\TypePlaningController@update');
+        Route::post('/', 'Planification\TypePlaningController@create');
+        Route::delete('/{id}', 'Planification\TypePlaningController@destroy');
+    }); 
+
+    
+}); 

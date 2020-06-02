@@ -26,7 +26,7 @@ $factory->define(User::class, function (Faker $faker) {
         'language' => $faker->languageCode(),
         'gender' => $faker->randomElement(['F', 'M']),
         'password' => bcrypt('pwd'),
-        // 'email_verified_at' => now(),
+        'user_type' => $faker->randomElement(['PRIEST', 'CATECHIST', 'CATECHUMEN', 'PARISHIONER', 'OTHER']),
         'remember_token' => Str::random(10),
     ];
 
