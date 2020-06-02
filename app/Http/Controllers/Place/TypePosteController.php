@@ -10,7 +10,7 @@ class TypePosteController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     *by richie richienebou@gmail.com
      * @return \Illuminate\Http\Response
      */
 
@@ -35,7 +35,7 @@ class TypePosteController extends Controller
     }
     /**
      * Show the form for creating a new resource.
-     *
+     *by richie richienebou@gmail.com
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
@@ -95,7 +95,7 @@ class TypePosteController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
+     *by richie richienebou@gmail.com
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Place\TypePoste  $typePoste
      * @return \Illuminate\Http\Response
@@ -133,7 +133,7 @@ class TypePosteController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
+     *by richie richienebou@gmail.com
      * @param  \App\Models\Place\TypePoste  $typePoste
      * @return \Illuminate\Http\Response
      */
