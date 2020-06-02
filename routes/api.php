@@ -281,7 +281,7 @@ Route::group(['prefix' => 'sanctions'], function () {
     });
 
     Route::group(['prefix' => 'punishment-types'], function () {
-        Route::get('/', 'Sanction\PunishmentTypeController@index');
+        Route::get('/', 'Sanction\SacramentCategorieController@index');
         Route::get('/search', 'Sanction\PunishmentTypeController@search');
         Route::get('/{id}', 'Sanction\PunishmentTypeController@find');
         Route::get('/{id}/sanctions', 'Sanction\PunishmentTypeController@findSanctions');
@@ -349,6 +349,41 @@ Route::group(['prefix' => 'places'], function () {
         Route::get('/{id}', 'Place\TypePosteController@find');
         Route::get('/{id}/postes', 'Place\TypePosteController@findPostes');
         Route::delete('/{id}', 'Place\TypePosteController@destroy');
+    });
+
+});
+
+
+// Sacrament module : 'middleware' => 'auth:api',
+Route::group(['prefix' => 'sacrament'], function () {
+    
+    Route::group(['prefix' => 'sacraments'], function () {
+        Route::get('/', 'Sacrament\SacramentController@index');
+        Route::get('/search', 'Sacrament\SacramentController@search');
+        Route::get('/{id}', 'Sacrament\SacramentController@find');
+        Route::delete('/{id}', 'Sacrament\SacramentController@destroy');
+        Route::post('/', 'Sacrament\SacramentController@store');
+        Route::match(['post', 'put'], '/{id}', 'Sacrament\SacramentController@update');
+    });
+
+    Route::group(['prefix' => 'sacrament_categories'], function () {
+        Route::get('/', 'Sacrament\SacramentCategorieController@index');
+        Route::get('/search', 'Sacrament\SacramentCategorieController@search');
+        Route::get('/{id}', 'Sacrament\SacramentCategorieController@find');
+        Route::get('/{id}/sacraments', 'Sacrament\SacramentCategorieController@findSacrament');
+        Route::delete('/{id}', 'Sacrament\SacramentCategorieController@destroy');
+        Route::post('/', 'Sacrament\SacramentCategorieController@store');
+        Route::match(['post', 'put'], '/{id}', 'Sacrament\SacramentCategorieController@update');
+    });
+
+    Route::group(['prefix' => 'user_sacraments'], function () {
+        Route::get('/', 'Sacrament\UserSacramentController@index');
+        Route::get('/search', 'Sacrament\UserSacramentController@search');
+        Route::get('/{id}', 'Sacrament\UserSacramentController@find');
+        Route::get('/{id}/users', 'Sacrament\UserSacramentController@findUserSacrament');
+        Route::delete('/{id}', 'Sacrament\UserSacramentController@destroy');
+        Route::post('/', 'Sacrament\UserSacramentController@store');
+        Route::match(['post', 'put'], '/{id}', 'Sacrament\UserSacramentController@update');
     });
 
 });
