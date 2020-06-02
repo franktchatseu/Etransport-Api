@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Catechesis\Catechesis;
 
 class DatabaseSeeder extends Seeder
 {
@@ -62,7 +63,9 @@ class DatabaseSeeder extends Seeder
           // module catechese
           $this->call([
             //   QuarterSeeder::class,
-            //   EvaluationSeeder::class
+            //   EvaluationSeeder::class,
+            CatechesisSeeder::class,
+            TimeCardSeeder::class
           ]);
 
         // module planification

@@ -439,7 +439,5 @@ Route::group(['prefix' => 'planifications'],function (){
         Route::post('/{id}', 'Planification\TypePlaningController@update');
         Route::post('/', 'Planification\TypePlaningController@create');
         Route::delete('/{id}', 'Planification\TypePlaningController@destroy');
-    }); 
-
-    
+    });
 }); 
