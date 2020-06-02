@@ -20,16 +20,6 @@ class ArchivingController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -54,28 +44,6 @@ class ArchivingController extends Controller
         $archiv->save();
               
         return response()->json($archiv);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Catechesis\Archiving  $archiving
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Archiving $archiving)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Catechesis\Archiving  $archiving
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Archiving $archiving)
-    {
-        //
     }
 
     /**

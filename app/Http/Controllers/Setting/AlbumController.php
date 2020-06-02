@@ -22,16 +22,6 @@ class AlbumController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Create an album on database
      * @author Brell Sanwouo
      * @email sanwouobrell@gmail.com
@@ -52,29 +42,7 @@ class AlbumController extends Controller
        
         return response()->json($album);
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Setting\Album  $album
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Album $album)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Setting\Album  $album
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Album $album)
-    {
-        //
-    }
-
+    
     /**
      * Update an album on database
      * @author Brell Sanwouo

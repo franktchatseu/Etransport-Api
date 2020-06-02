@@ -17,17 +17,6 @@ class EvaluationController extends Controller
         $data = Evaluation::simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($data);
     }
-    
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Create a request For Mass on database
@@ -51,30 +40,6 @@ class EvaluationController extends Controller
             $evaluation->save();
        
         return response()->json($evaluation);
-    }
-
-    /**
-     * Create a request For Mass on database
-     * @author jiozang theophane
-     * @email jiozangtheophane@gmail.com
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Evaluation $evaluation)
-    {
-        //
-    }
-
-    /**
-     * Create a request For Mass on database
-     * @author jiozang theophane
-     * @email jiozangtheophane@gmail.com
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Evaluation $evaluation)
-    {
-        //
     }
 
     

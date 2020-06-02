@@ -20,16 +20,6 @@ class ParishController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -64,28 +54,6 @@ class ParishController extends Controller
             $parish->save();
        
         return response()->json($parish);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Person\Parish  $parish
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Parish $parish)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Person\Parish  $parish
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Parish $parish)
-    {
-        //
     }
 
     /**

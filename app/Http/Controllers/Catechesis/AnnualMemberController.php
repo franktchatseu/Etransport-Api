@@ -62,39 +62,6 @@ class AnnualMemberController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     **by richie:richie richienebou@gmail.com
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     **by richie:richie richienebou@gmail.com
-     * @param  \App\Models\Catechesis\AnnualMember  $AnnualMember
-     * @return \Illuminate\Http\Response
-     */
-    public function show(AnnualMember $AnnualMember)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     **by richie:richie richienebou@gmail.com
-     * @param  \App\Models\Catechesis\AnnualMember  $AnnualMember
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(AnnualMember $AnnualMember)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      **by richie:richie richienebou@gmail.com
      * @param  \Illuminate\Http\Request  $request

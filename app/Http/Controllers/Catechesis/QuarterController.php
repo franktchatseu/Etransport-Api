@@ -17,17 +17,6 @@ class QuarterController extends Controller
         $data = Quarter::simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($data);
     }
-    
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Create a request For Mass on database
@@ -57,31 +46,6 @@ class QuarterController extends Controller
         return response()->json($quarter);
     }
 
-    /**
-     * Create a request For Mass on database
-     * @author jiozang theophane
-     * @email jiozangtheophane@gmail.com
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Quarter $quarter)
-    {
-        //
-    }
-
-    /**
-     * Create a request For Mass on database
-     * @author jiozang theophane
-     * @email jiozangtheophane@gmail.com
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Quarter $quarter)
-    {
-        //
-    }
-
-    
    /**
      * Create a request For Mass on database
      * @author jiozang theophane

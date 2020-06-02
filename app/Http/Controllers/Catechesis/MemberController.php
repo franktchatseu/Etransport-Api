@@ -39,15 +39,6 @@ class MemberController extends Controller
      *
      */
 
-    public function generateMatricule()
-    {
-        $chars = '01234567abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $string = '';
-        for ($i = 0; $i < 50; $i++) {
-            $string = $chars[rand(0, strlen($chars) - 1)];
-        }
-        return string;
-    }
     public function create(Request $request)
     {
 
@@ -86,40 +77,6 @@ class MemberController extends Controller
         $member->save();
 
         return response()->json($member);
-    }
-
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Catechesis\Membre  $membre
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Membre $membre)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Catechesis\Membre  $membre
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Membre $membre)
-    {
-        //
     }
 
     /**

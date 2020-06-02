@@ -18,17 +18,7 @@ class PlaceController extends Controller
         $data = Place::simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($data);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -55,28 +45,6 @@ class PlaceController extends Controller
             $place->save();
        
         return response()->json($place);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Place\Place  $place
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Place $place)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Place\Place  $place
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Place $place)
-    {
-        //
     }
 
     /**
