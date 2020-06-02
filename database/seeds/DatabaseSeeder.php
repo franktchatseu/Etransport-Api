@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
         Schema::disableForeignKeyConstraints();
 
-        // $this->call(CityAndCountrySeeder::class);
+        //$this->call(CityAndCountrySeeder::class);
         
         // module person
         $this->call([
