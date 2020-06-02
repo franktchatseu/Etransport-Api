@@ -200,6 +200,15 @@ Route::group(['prefix' => 'finances'], function () {
         Route::match(['post', 'put'], '/{id}', 'Finance\NatureAccountController@update');
     });
 
+    Route::group(['prefix' => 'natures'], function () {
+        Route::get('/', 'Finance\NatureController@index');
+        Route::get('/search', 'Finance\NatureController@search');
+        Route::get('/{id}', 'Finance\NatureController@find');
+        Route::delete('/{id}', 'Finance\NatureController@destroy');
+        Route::post('/', 'Finance\NatureController@store');
+        Route::match(['post', 'put'], '/{id}', 'Finance\NatureController@update');
+    });
+
     Route::group(['prefix' => 'tarifs'], function () {
         Route::get('/', 'Finance\TarifController@index');
         Route::get('/search', 'Finance\TarifController@search');
