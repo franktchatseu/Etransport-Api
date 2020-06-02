@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Place;
 use App\Http\Controllers\Controller;
 use App\Models\Place\TypePlace;
 use Illuminate\Http\Request;
+use App\Models\Place\Place;
 
 class TypePlaceController extends Controller
 {
@@ -142,5 +143,11 @@ class TypePlaceController extends Controller
             abort(404, "No user found with id $id");
         }
         return response()->json($typePlace);
+    }
+
+    public function findPlaces(Request $req, $id)
+    {
+        $places = Place::whereTypeId($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($places);
     }
 }

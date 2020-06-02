@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Place;
 use App\Http\Controllers\Controller;
 use App\Models\Place\TypePoste;
 use Illuminate\Http\Request;
+use App\Models\Place\Poste;
 
 class TypePosteController extends Controller
 {
@@ -15,8 +16,7 @@ class TypePosteController extends Controller
      */
 
     public function index(Request $req)
-    {
-        {
+    { {
             $data = TypePoste::simplePaginate($req->has('limit') ? $req->limit : 15);
             return response()->json($data);
         }
@@ -26,7 +26,7 @@ class TypePosteController extends Controller
     {
         $this->validate($req->all(), [
             'q' => 'present',
-            'field' => 'present'        
+            'field' => 'present'
         ]);
 
         $data = TypePoste::where($req->field, 'like', "%$req->q%")->get();
@@ -51,9 +51,9 @@ class TypePosteController extends Controller
             'description' => 'string|min:4'
         ]);
 
-        $typePoste=new  TypePoste();
-        $typePoste->description=$data['description'];
-        $typePoste->name=$data['name'];
+        $typePoste = new  TypePoste();
+        $typePoste->description = $data['description'];
+        $typePoste->name = $data['name'];
 
         $typePoste->save();
 
@@ -100,11 +100,11 @@ class TypePosteController extends Controller
      * @param  \App\Models\Place\TypePoste  $typePoste
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         $typePoste = TypePoste::find($id);
         if (!$typePoste) {
-            abort(404, "No typePostefound with id $id");
+            abort(404, "No typePoste found with id $id");
         }
 
         $data = $request->only([
@@ -117,18 +117,17 @@ class TypePosteController extends Controller
             'name' => 'required|min:2'
         ]);
 
-       if (null!==$data['name']){
-        $typePoste->name=$data['name'];
-       }
-       if (null!==$data['description']){
-        $typePoste->description=$data['description'];
-       }
-       
+        if (null !== $data['name']) {
+            $typePoste->name = $data['name'];
+        }
+        if (null !== $data['description']) {
+            $typePoste->description = $data['description'];
+        }
 
-       $typePoste->update();
 
-       return response()->json($typePoste);
+        $typePoste->update();
 
+        return response()->json($typePoste);
     }
 
     /**
@@ -139,19 +138,25 @@ class TypePosteController extends Controller
      */
     public function find($id)
     {
-            if (!$typePoste = TypePoste::find($id)) {
-                abort(404, "No typePoste  found with id $id");
-            }
-            return response()->json($typePoste );
+        if (!$typePoste = TypePoste::find($id)) {
+            abort(404, "No typePoste  found with id $id");
         }
-    
-        public function destroy($id)
-        {
-            if (!$typePoste  = TypePoste::find($id)) {
-                abort(404, "No typePoste  found with id $id");
-            }
-    
-            $typePoste ->delete();      
-            return response()->json();
+        return response()->json($typePoste);
+    }
+
+    public function findPostes(Request $req, $id)
+    {
+        $postes = Poste::whereTypePosteId($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($postes);
+    }
+
+    public function destroy($id)
+    {
+        if (!$typePoste  = TypePoste::find($id)) {
+            abort(404, "No typePoste  found with id $id");
         }
+
+        $typePoste->delete();
+        return response()->json();
+    }
 }

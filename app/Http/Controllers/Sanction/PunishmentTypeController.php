@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Sanction;
 use App\Http\Controllers\Controller;
 use App\Models\Sanction\PunishmentType;
 use Illuminate\Http\Request;
+use App\Models\Sanction\Sanction;
 
 class PunishmentTypeController extends Controller
 {
@@ -136,8 +137,16 @@ class PunishmentTypeController extends Controller
     public function find($id)
     {
         if (!$punishmentType = PunishmentType::find($id)) {
-            abort(404, "No user found with id $id");
+            abort(404, "No Pushnishment found with id $id");
         }
         return response()->json($punishmentType);
+    }
+
+    public function findSanctions(Request $req, $id)
+    {
+        if (!$sanctions = Sanction::whereTypeId($id)->simplePaginate($req->has('limit') ? $req->limit : 15)) {
+            abort(404, "No Sanctions for pushnishmentType with id $id found ");
+        }
+        return response()->json($sanctions);
     }
 }

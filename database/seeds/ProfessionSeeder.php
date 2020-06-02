@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder; 
-use App\Models\Person\Professions;
+use App\Models\Person\Profession;
 
-class ProfessionsSeeder extends Seeder
+class ProfessionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,7 @@ class ProfessionsSeeder extends Seeder
     
         public function run(\Faker\Generator $faker)
     {
-        factory(Professions::class, 21)->make()->each(function ($professions) use ($faker) {
+        factory(Profession::class, 21)->make()->each(function ($professions) use ($faker) {
             $professions->save();
         });
     }

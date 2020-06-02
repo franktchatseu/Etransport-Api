@@ -19,7 +19,6 @@ class UserSanctionController extends Controller
         return response()->json($data);
     }
 
-
     /**
      * Show the form for creating a new resource.
      *
@@ -147,5 +146,14 @@ class UserSanctionController extends Controller
             abort(404, "No user found with id $id");
         }
         return response()->json($sanction);
+    }
+
+    public function findUserSanctions(Request $req, $id)
+    {
+        $sanctions = UserSanction::select('user_sanctions.*', 'user_sanctions.id as usanction_id', 'sanctions.*', 'sanctions.id as id_sanction')
+        ->join('sanctions', 'user_sanctions.sanction_id', '=', 'sanctions.id')
+        ->where(['user_sanctions.user_id' => $id])
+        ->simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($sanctions);
     }
 }

@@ -83,12 +83,12 @@ Route::group(['prefix' => 'persons'], function () {
     });
 
     Route::group(['prefix' => 'professions'], function () {
-        Route::get('/', 'Person\ProfessionsController@index');
-        Route::get('/search', 'Person\ProfessionsController@search');
-        Route::post('/', 'Person\ProfessionsController@store');
-        Route::get('/{id}', 'Person\ProfessionsController@find');
-        Route::match(['post', 'put'], '/{id}', 'Person\ProfessionsController@update');
-        Route::delete('/{id}', 'Person\ProfessionsController@destroy');
+        Route::get('/', 'Person\ProfessionController@index');
+        Route::get('/search', 'Person\ProfessionController@search');
+        Route::post('/', 'Person\ProfessionController@store');
+        Route::get('/{id}', 'Person\ProfessionController@find');
+        Route::match(['post', 'put'], '/{id}', 'Person\ProfessionController@update');
+        Route::delete('/{id}', 'Person\ProfessionController@destroy');
     });
 
     Route::group(['prefix' => 'sacraments'], function () {
@@ -261,7 +261,7 @@ Route::group(['prefix' => 'catechesis'], function () {
 
 // Sanction module : 'middleware' => 'auth:api',
 Route::group(['prefix' => 'sanctions'], function () {
-
+    
     Route::group(['prefix' => 'sanctions'], function () {
         Route::get('/', 'Sanction\SanctionController@index');
         Route::get('/search', 'Sanction\SanctionController@search');
@@ -275,6 +275,7 @@ Route::group(['prefix' => 'sanctions'], function () {
         Route::get('/', 'Sanction\PunishmentTypeController@index');
         Route::get('/search', 'Sanction\PunishmentTypeController@search');
         Route::get('/{id}', 'Sanction\PunishmentTypeController@find');
+        Route::get('/{id}/sanctions', 'Sanction\PunishmentTypeController@findSanctions');
         Route::delete('/{id}', 'Sanction\PunishmentTypeController@destroy');
         Route::post('/', 'Sanction\PunishmentTypeController@store');
         Route::match(['post', 'put'], '/{id}', 'Sanction\PunishmentTypeController@update');
@@ -284,6 +285,7 @@ Route::group(['prefix' => 'sanctions'], function () {
         Route::get('/', 'Sanction\UserSanctionController@index');
         Route::get('/search', 'Sanction\UserSanctionController@search');
         Route::get('/{id}', 'Sanction\UserSanctionController@find');
+        Route::get('/{id}/users', 'Sanction\UserSanctionController@findUserSanctions');
         Route::delete('/{id}', 'Sanction\UserSanctionController@destroy');
         Route::post('/', 'Sanction\UserSanctionController@store');
         Route::match(['post', 'put'], '/{id}', 'Sanction\UserSanctionController@update');
@@ -293,6 +295,14 @@ Route::group(['prefix' => 'sanctions'], function () {
 
 // Places module : 'middleware' => 'auth:api',
 Route::group(['prefix' => 'places'], function () {
+
+    Route::group(['prefix' => 'countries'], function () {
+        Route::get('/', 'Place\CityAndCountryController@countries');
+        Route::get('/search-countries', 'Place\CityAndCountryController@searchCountries');
+        Route::get('/search-cities', 'Place\CityAndCountryController@searchCities');
+        Route::get('/{id}/cities', 'Place\CityAndCountryController@findCitiesByCountries');
+        Route::get('/cities', 'Place\CityAndCountryController@cities');
+    });
 
     Route::group(['prefix' => 'places'], function () {
         Route::get('/', 'Place\PlaceController@index');
@@ -307,6 +317,7 @@ Route::group(['prefix' => 'places'], function () {
         Route::get('/', 'Place\TypePlaceController@index');
         Route::get('/search', 'Place\TypePlaceController@search');
         Route::get('/{id}', 'Place\TypePlaceController@find');
+        Route::get('/{id}/places', 'Place\TypePlaceController@findPlaces');
         Route::delete('/{id}', 'Place\TypePlaceController@destroy');
         Route::post('/', 'Place\TypePlaceController@store');
         Route::match(['post', 'put'], '/{id}', 'Place\TypePlaceController@update');
@@ -327,6 +338,7 @@ Route::group(['prefix' => 'places'], function () {
         Route::post('/', 'Place\TypePosteController@create');
         Route::match(['post', 'put'], '/{id}', 'Place\TypePosteController@update');
         Route::get('/{id}', 'Place\TypePosteController@find');
+        Route::get('/{id}/postes', 'Place\TypePosteController@findPostes');
         Route::delete('/{id}', 'Place\TypePosteController@destroy');
     });
 
