@@ -85,7 +85,10 @@ class DatabaseSeeder extends Seeder
         $this->call([]);
 
         // module association
-        $this->call([]);
+        $this->call([
+            TypeAssociationSeeder::class,
+            AssociationSeeder::class,
+        ]);
 
         // module statistic
         $this->call([]);

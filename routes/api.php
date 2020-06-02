@@ -378,3 +378,26 @@ Route::group(['prefix' => 'sacrament'], function () {
     });
 
 });
+
+// associations module : 'middleware' => 'auth:api',
+Route::group(['prefix' => 'associations'], function () {
+
+    Route::group(['prefix' => 'associations'], function () {
+        Route::get('/', 'Association\AssociationController@index');
+        Route::get('/search', 'Association\AssociationController@search');
+        Route::get('/{id}', 'Association\AssociationController@find');
+        Route::delete('/{id}', 'Association\AssociationController@destroy');
+        Route::post('/', 'Association\AssociationController@store');
+        Route::match(['post', 'put'], '/{id}', 'Association\AssociationController@update');
+    });
+
+    Route::group(['prefix' => 'types'], function () {
+        Route::get('/', 'Association\TypeAssociationController@index');
+        Route::get('/search', 'Association\TypeAssociationController@search');
+        Route::get('/{id}', 'Association\TypeAssociationController@find');
+        Route::delete('/{id}', 'Association\TypeAssociationController@destroy');
+        Route::post('/', 'Association\TypeAssociationController@store');
+        Route::match(['post', 'put'], '/{id}', 'Association\TypeAssociationController@update');
+    });
+
+});

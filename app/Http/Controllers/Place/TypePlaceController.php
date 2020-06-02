@@ -140,6 +140,7 @@ class TypePlaceController extends Controller
     public function find($id)
     {
         if (!$typePlace = TypePlace::find($id)) {
+            
             abort(404, "No user found with id $id");
         }
         return response()->json($typePlace);
