@@ -266,6 +266,18 @@ Route::group(['prefix' => 'catechesis'], function () {
         Route::post('/', 'Catechesis\EvaluationController@store');
         Route::match(['post', 'put'], '/{id}', 'Catechesis\EvaluationController@update');
     });
+
+    
+    Route::group(['prefix' => 'programme'], function () {
+        Route::get('/','Catechesis\ProgrammeController@index');
+        Route::get('/{id}', 'Catechesis\ProgrammeController@find');
+        Route::delete('/{id}', 'Catechesis\ProgrammeController@destroy');
+        Route::match(['post','put'],'/{id}', 'Catechesis\ProgrammeController@update');
+        Route::post('/', 'Catechesis\ProgrammeController@create');
+    
+    });
+
+
 });
 
 // Sanction module : 'middleware' => 'auth:api',

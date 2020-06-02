@@ -46,6 +46,7 @@ class DatabaseSeeder extends Seeder
             // AnnualMemberSeeder::class,
             // MemberSeeder::class,
             // ArchivingSeeder::class
+            ProgrammeSeeder::class
          ]);
 
         // module place
