@@ -2,29 +2,20 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Model\Person\parish as PersonParish;
-use App\Models\Person\parish;
+use App\Models\Setting\Parish;
 use Faker\Generator as Faker;
 
-$factory->define(PersonParish::class, function (Faker $faker) {
+$factory->define(Parish::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'location' => $faker->statement(),
-        'curé' => $faker->name,
-        'creation_decision' => $faker->name,
-        'mass_horary' => $faker->name,
-        'confession_days' => $faker->name,
-        'confession_horary' => $faker->name,
-        'saint_patron_date' => $faker->name,
-        'parish_structures' => $faker->name,
-        'pastoral_services' => $faker->name,
-        'number_of_groupes' => $faker->name,
-        'number_of_ceb' => $faker->name,
-        'number_of_post' => $faker->name,
-        'patrimony' => $faker->paragraph(),
-        'contact' => $faker->name,
-        'seminarist_number' => $faker->name,
-
+        'name' =>  $faker->text(20),
+        'decision_creation' => $faker->text(100),
+        'Pattern_date' => $faker->date(),
+        'nbr_of_structure' => $faker->numberBetween(1,100),
+        'nbr_of_service' => $faker->numberBetween(1,100),
+        'nbr_of_group' => $faker->numberBetween(1,100),
+        'nbr_of_ceb' => $faker->numberBetween(1,100),
+        'nbr_of_station' => $faker->numberBetween(1,100),
+        'nbr_of_seminarist' => $faker->numberBetween(1,100),
     ];
 });
+          
