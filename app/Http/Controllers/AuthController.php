@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use DB;
 use App\Models\APIError;
 use App\Models\Person\Role;
-use App\Models\person\User;
+use App\Models\Person\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Auth;
 use \Carbon\Carbon;
+use App\Models\Person\Parishional;
+use App\Models\person\Priest;
+use App\Models\Person\Cathechumene;
+use App\Models\Person\Catechist;
 
 class AuthController extends Controller
 {
@@ -37,6 +41,27 @@ class AuthController extends Controller
                 $token->expires_at = Carbon::now()->addMonth();
             }
             $token->save();
+
+            // who really
+            if ($user->user_type == 'PARISHIONER') {
+                // find permissions
+                $user->parishional = Parishional::where(['user_id' => $user->id])->first();
+            }
+
+            if ($user->user_type == 'PRIEST') {
+                // find permissions
+                $user->priest = Priest::where(['user_id' => $user->id])->first();
+            }
+
+            if ($user->user_type == 'CATECHIST') {
+                // find permissions
+                $user->catechist = Catechist::where(['user_id' => $user->id])->first();
+            }
+
+            if ($user->user_type == 'CATECHUMEN') {
+                // find permissions
+                $user->catechumene = Cathechumene::where(['user_id' => $user->id])->first();
+            }
 
             return response()->json([
                 'token' => [
