@@ -55,7 +55,7 @@ class PosteController extends Controller
         $this->validate($data, [
             'place' => 'string|min:2',
             'name' => 'required',
-            'type_poste_id'=>'integer|required'
+            'type_poste_id'=>'required:exists:type_postes,id'
         ]);
 
         $poste=new  Poste();
@@ -66,38 +66,6 @@ class PosteController extends Controller
         $poste->save();
 
         return response()->json($poste);
-    }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Place\Poste  $poste
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Poste $poste)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Place\Poste  $poste
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Poste $poste)
-    {
-        //
     }
 
     /**
@@ -111,7 +79,10 @@ class PosteController extends Controller
     {
         $poste = Poste::find($id);
         if (!$poste) {
-            abort(404, "No poste found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("POSTE_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $data = $request->only([
@@ -123,7 +94,7 @@ class PosteController extends Controller
         $this->validate($data, [
             'place' => 'string|min:2',
             'name' => 'required',
-            'type_poste_id'=>'integer|required'
+            'type_poste_id'=>'required:exists:type_postes,id'
         ]);
 
        if (null!==$data['name']){
@@ -148,16 +119,24 @@ class PosteController extends Controller
      */
     public function find($id)
     {
-            if (!$poste = Poste::find($id)) {
-                abort(404, "No poste found with id $id");
-            }
+        $poste = Poste::find($id);
+        if (!$poste) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("POSTE_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
             return response()->json($poste);
         }
     
         public function destroy($id)
         {
-            if (!$poste = Poste::find($id)) {
-                abort(404, "No poste found with id $id");
+            $poste = Poste::find($id);
+            if (!$poste) {
+                $apiError = new APIError;
+                $apiError->setStatus("404");
+                $apiError->setCode("POSTE_NOT_FOUND");
+                return response()->json($apiError, 404);
             }
     
             $poste->delete();      

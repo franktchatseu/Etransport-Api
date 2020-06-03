@@ -21,16 +21,6 @@ class TypePlaceController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -53,30 +43,7 @@ class TypePlaceController extends Controller
        
         return response()->json($typePlace);
     }
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Place\TypePlace  $typePlace
-     * @return \Illuminate\Http\Response
-     */
-    public function show(TypePlace $typePlace)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Place\TypePlace  $typePlace
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(TypePlace $typePlace)
-    {
-        //
-    }
-
+    
     /**
      * Update the specified resource in storage.
      *
@@ -88,7 +55,10 @@ class TypePlaceController extends Controller
     {
         $typePlace = TypePlace::find($id);
         if (!$typePlace) {
-            abort(404, "No type of place found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("TYPEPLACE_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $data = $req->except('photo');
@@ -116,8 +86,12 @@ class TypePlaceController extends Controller
      */
     public function destroy($id)
     {
-        if (!$typePlace = TypePlace::find($id)) {
-            abort(404, "No type of place found with id $id");
+        $typePlace = TypePlace::find($id);
+        if (!$typePlace) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("TYPEPLACE_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $typePlace->delete();      
@@ -139,15 +113,28 @@ class TypePlaceController extends Controller
 
     public function find($id)
     {
-        if (!$typePlace = TypePlace::find($id)) {
-            
-            abort(404, "No user found with id $id");
+        $typePlace = TypePlace::find($id);
+        if (!$typePlace) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("TYPEPLACE_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
         return response()->json($typePlace);
     }
 
+
+
     public function findPlaces(Request $req, $id)
     {
+        $typePlace = TypePlace::find($id);
+        if (!$typePlace) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("TYPEPLACE_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+
         $places = Place::whereTypeId($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($places);
     }

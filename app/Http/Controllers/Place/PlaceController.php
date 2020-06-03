@@ -18,17 +18,7 @@ class PlaceController extends Controller
         $data = Place::simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($data);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -58,28 +48,6 @@ class PlaceController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Place\Place  $place
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Place $place)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Place\Place  $place
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Place $place)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -90,7 +58,10 @@ class PlaceController extends Controller
     {
         $place = Place::find($id);
         if (!$place) {
-            abort(404, "No place found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PLACE_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $data = $req->except('photo');
@@ -122,8 +93,12 @@ class PlaceController extends Controller
      */
     public function destroy($id)
     {
-        if (!$place = Place::find($id)) {
-            abort(404, "No place found with id $id");
+        $place = Place::find($id);
+        if (!$place) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PLACE_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $place->delete();      
@@ -145,8 +120,12 @@ class PlaceController extends Controller
 
     public function find($id)
     {
-        if (!$place = Place::find($id)) {
-            abort(404, "No user found with id $id");
+        $place = Place::find($id);
+        if (!$place) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PLACE_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
         return response()->json($place);
     }

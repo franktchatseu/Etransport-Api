@@ -17,17 +17,6 @@ class QuarterController extends Controller
         $data = Quarter::simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($data);
     }
-    
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Create a request For Mass on database
@@ -57,31 +46,6 @@ class QuarterController extends Controller
         return response()->json($quarter);
     }
 
-    /**
-     * Create a request For Mass on database
-     * @author jiozang theophane
-     * @email jiozangtheophane@gmail.com
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Quarter $quarter)
-    {
-        //
-    }
-
-    /**
-     * Create a request For Mass on database
-     * @author jiozang theophane
-     * @email jiozangtheophane@gmail.com
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Quarter $quarter)
-    {
-        //
-    }
-
-    
    /**
      * Create a request For Mass on database
      * @author jiozang theophane
@@ -93,7 +57,10 @@ class QuarterController extends Controller
     {
         $quarter = Quarter::find($id);
         if (!$quarter) {
-            abort(404, "No priest found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("QUARTER_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $data = $req->except('photo');
@@ -121,8 +88,12 @@ class QuarterController extends Controller
      */
     public function destroy($id)
     {
-        if (!$quarter = Quarter::find($id)) {
-            abort(404, "No priest found with id $id");
+        $quarter = Quarter::find($id);
+        if (!$quarter) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("QUARTER_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $quarter->delete();      
@@ -157,8 +128,12 @@ class QuarterController extends Controller
      */
     public function find($id)
     {
-        if (!$quarter = Quarter::find($id)) {
-            abort(404, "No priest found with id $id");
+        $quarter = Quarter::find($id);
+        if (!$quarter) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("QUARTER_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
         return response()->json($quarter);
     }

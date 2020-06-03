@@ -17,17 +17,6 @@ class EvaluationController extends Controller
         $data = Evaluation::simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($data);
     }
-    
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Create a request For Mass on database
@@ -53,30 +42,6 @@ class EvaluationController extends Controller
         return response()->json($evaluation);
     }
 
-    /**
-     * Create a request For Mass on database
-     * @author jiozang theophane
-     * @email jiozangtheophane@gmail.com
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Evaluation $evaluation)
-    {
-        //
-    }
-
-    /**
-     * Create a request For Mass on database
-     * @author jiozang theophane
-     * @email jiozangtheophane@gmail.com
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Evaluation $evaluation)
-    {
-        //
-    }
-
     
    /**
      * Create a request For Mass on database
@@ -89,7 +54,10 @@ class EvaluationController extends Controller
     {
         $evaluation = Evaluation::find($id);
         if (!$evaluation) {
-            abort(404, "No priest found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("EVALUATION_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $data = $req->except('photo');
@@ -113,8 +81,12 @@ class EvaluationController extends Controller
      */
     public function destroy($id)
     {
-        if (!$evaluation = evaluation::find($id)) {
-            abort(404, "No priest found with id $id");
+        $evaluation = Evaluation::find($id);
+        if (!$evaluation) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("EVALUATION_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $evaluation->delete();      
@@ -149,8 +121,12 @@ class EvaluationController extends Controller
      */
     public function find($id)
     {
-        if (!$evaluation = Evaluation::find($id)) {
-            abort(404, "No priest found with id $id");
+        $evaluation = Evaluation::find($id);
+        if (!$evaluation) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("EVALUATION_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
         return response()->json($evaluation);
     }

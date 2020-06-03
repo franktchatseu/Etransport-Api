@@ -39,15 +39,6 @@ class MemberController extends Controller
      *
      */
 
-    public function generateMatricule()
-    {
-        $chars = '01234567abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $string = '';
-        for ($i = 0; $i < 50; $i++) {
-            $string = $chars[rand(0, strlen($chars) - 1)];
-        }
-        return string;
-    }
     public function create(Request $request)
     {
 
@@ -55,12 +46,14 @@ class MemberController extends Controller
             'file',
             'adhesion_date',
             'is_finish',
+            'has_win',
             'regnum',
             'status'
         ]);
 
         $this->validate($data, [
             'is_finish' => 'required',
+            'has_win' => 'required',
             'regnum' => 'required',
             'adhesion_date' => 'min:2',
             'status' => 'in:REJECTED,PENDING,ACCEPTED',
@@ -80,46 +73,13 @@ class MemberController extends Controller
         $member->adhesion_date = $data['adhesion_date'];
         $member->status = $data['status'];
         $member->files = $data['files'];
+        $member->has_win = $data['has_win'];
         $member->is_finish = $data['is_finish'];
 
 
         $member->save();
 
         return response()->json($member);
-    }
-
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Catechesis\Membre  $membre
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Membre $membre)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Catechesis\Membre  $membre
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Membre $membre)
-    {
-        //
     }
 
     /**
@@ -131,9 +91,12 @@ class MemberController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $membre = Membre::find($id);
-        if (!$membre) {
-            abort(404, "No Member found with id $id");
+        $member = Member::find($id);
+        if (!$member) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("MEMBER_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
 
@@ -186,16 +149,24 @@ class MemberController extends Controller
 
     public function find($id)
     {
-        if (!$membre = Membre::find($id)) {
-            abort(404, "No membre found with id $id");
+        $member = Member::find($id);
+        if (!$member) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("MEMBER_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
         return response()->json($membre);
     }
 
     public function destroy($id)
     {
-        if (!$membre = Membre::find($id)) {
-            abort(404, "No Membre found with id $id");
+        $member = Member::find($id);
+        if (!$member) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("MEMBER_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $membre->delete();

@@ -73,39 +73,6 @@ class MassSheduleController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Setting\Masshedule  $masshedule
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Masshedule $masshedule)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Setting\Masshedule  $masshedule
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Masshedule $masshedule)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -114,9 +81,12 @@ class MassSheduleController extends Controller
      */
     public function update(Request $request,$id)
     {
-        $massShedule = MassShedule::find($id);
+        $massShedule  = MassShedule::find($id);
         if (!$massShedule) {
-            abort(404, "No massShedule found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("MASSSHEDULE_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $data = $request->only([
@@ -166,16 +136,24 @@ class MassSheduleController extends Controller
 
     public function find($id)
     {
-        if (!$massShedule = MassShedule::find($id)) {
-            abort(404, "No massShedule found with id $id");
+        $massShedule  = MassShedule::find($id);
+        if (!$massShedule) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("MASSSHEDULE_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
         return response()->json($massShedule);
     }
 
     public function destroy($id)
     {
-        if (!$massShedule = MassShedule::find($id)) {
-            abort(404, "No MassShedule found with id $id");
+        $massShedule  = MassShedule::find($id);
+        if (!$massShedule) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("MASSSHEDULE_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $massShedule->delete();      

@@ -11,7 +11,7 @@ class TypePosteController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     *by richie richienebou@gmail.com
      * @return \Illuminate\Http\Response
      */
 
@@ -35,7 +35,7 @@ class TypePosteController extends Controller
     }
     /**
      * Show the form for creating a new resource.
-     *
+     *by richie richienebou@gmail.com
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
@@ -61,41 +61,8 @@ class TypePosteController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Place\TypePoste  $typePoste
-     * @return \Illuminate\Http\Response
-     */
-    public function show(TypePoste $typePoste)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Place\TypePoste  $typePoste
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(TypePoste $typePoste)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
-     *
+     *by richie richienebou@gmail.com
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Place\TypePoste  $typePoste
      * @return \Illuminate\Http\Response
@@ -104,7 +71,10 @@ class TypePosteController extends Controller
     {
         $typePoste = TypePoste::find($id);
         if (!$typePoste) {
-            abort(404, "No typePoste found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("TYPEPOSTE_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $data = $request->only([
@@ -132,28 +102,52 @@ class TypePosteController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
+     *by richie richienebou@gmail.com
      * @param  \App\Models\Place\TypePoste  $typePoste
      * @return \Illuminate\Http\Response
      */
     public function find($id)
     {
-        if (!$typePoste = TypePoste::find($id)) {
-            abort(404, "No typePoste  found with id $id");
+        $typePoste = TypePoste::find($id);
+        if (!$typePoste) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("TYPEPOSTE_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
         return response()->json($typePoste);
     }
 
+
+
+
+
     public function findPostes(Request $req, $id)
     {
+
+        $typePoste = TypePoste::find($id);
+        if (!$typePoste) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("TYPEPOSTE_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+        
         $postes = Poste::whereTypePosteId($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($postes);
     }
 
+
+
+
     public function destroy($id)
     {
-        if (!$typePoste  = TypePoste::find($id)) {
-            abort(404, "No typePoste  found with id $id");
+      $typePoste = TypePoste::find($id);
+        if (!$typePoste) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("TYPEPOSTE_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $typePoste->delete();

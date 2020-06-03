@@ -20,16 +20,6 @@ class ArchivingController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -57,28 +47,6 @@ class ArchivingController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Catechesis\Archiving  $archiving
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Archiving $archiving)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Catechesis\Archiving  $archiving
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Archiving $archiving)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -102,10 +70,14 @@ class ArchivingController extends Controller
     public function update(Request $req, $id)
     {
         $archiv = Archiving::find($id);
-        
         if (!$archiv) {
-            abort(404, "No archiving found with id $id");
-        }   
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("ARCHIV_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }  
+
+
         $data =$req->all();
 
         $this->validate($data, [
@@ -146,8 +118,12 @@ class ArchivingController extends Controller
      */
     public function destroy($id)
     {
-        if (!$archiv = Archiving::find($id)) {
-            abort(404, "No archiving found with id $id");
+        $archiv = Archiving::find($id);
+        if (!$archiv) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("ARCHIV_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $archiv->delete();      
@@ -156,8 +132,12 @@ class ArchivingController extends Controller
 
     public function find($id)
     {
-        if (!$archiv =Archiving::find($id)) {
-            abort(404, "No archiving found with id $id");
+        $archiv = Archiving::find($id);
+        if (!$archiv) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("ARCHIV_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
         return response()->json($archiv);
     }
