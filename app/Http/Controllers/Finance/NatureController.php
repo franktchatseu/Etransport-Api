@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Finance;
 use App\Http\Controllers\Controller;
 use App\Models\Finance\Nature;
 use Illuminate\Http\Request;
+use App\Models\APIError;
 
 class NatureController extends Controller
 {
@@ -93,8 +94,13 @@ class NatureController extends Controller
     public function update(Request $request, $id)
     {
         $nature = Nature::find($id);
-        if (!$nature) {
-            abort(404, "No nature found with id $id");
+        if($nature == null) {
+            $notFound = new APIError;
+            $notFound->setStatus("404");
+            $notFound->setCode("NATURE_NOT_FOUND");
+            $notFound->setMessage("nature with id " . $id . " not found");
+
+            return response()->json($notFound, 404);
         }
 
         $data = $req->except('photo');
@@ -125,8 +131,14 @@ class NatureController extends Controller
      */
     public function destroy($id)
     {
-        if (!$nature = Nature::find($id)) {
-            abort(404, "No nature found with id $id");
+        $nature = Nature::find($id);
+        if($nature == null) {
+            $notFound = new APIError;
+            $notFound->setStatus("404");
+            $notFound->setCode("NATURE_NOT_FOUND");
+            $notFound->setMessage("nature with id " . $id . " not found");
+
+            return response()->json($notFound, 404);
         }
 
         $nature->delete();      
@@ -134,7 +146,7 @@ class NatureController extends Controller
     }
 
     /**
-     * Search a nature account from database
+     * Search a nature nature from database
      * @author Arleon Zemtsop
      * @email arleonzemtsop@gmail.com
      * @param  \Illuminate\Http\Request  $req
@@ -154,7 +166,7 @@ class NatureController extends Controller
     }
 
     /**
-     * Find a nature account from database
+     * Find a nature nature from database
      * @author Arleon Zemtsop
      * @email arleonzemtsop@gmail.com
      * @param  \Illuminate\Http\Request  $req
@@ -162,8 +174,14 @@ class NatureController extends Controller
      */
     public function find($id)
     {
-        if (!$nature = Nature::find($id)) {
-            abort(404, "No nature found with id $id");
+        $nature = Nature::find($id);
+        if($nature == null) {
+            $notFound = new APIError;
+            $notFound->setStatus("404");
+            $notFound->setCode("NATURE_NOT_FOUND");
+            $notFound->setMessage("nature with id " . $id . " not found");
+
+            return response()->json($notFound, 404);
         }
         return response()->json($nature);
     }
