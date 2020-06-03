@@ -4,7 +4,7 @@ namespace App\Models\Planification;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TypePlaning extends Model
+class AssociationPlanning extends Model
 {
     protected $guarded = [];
 }

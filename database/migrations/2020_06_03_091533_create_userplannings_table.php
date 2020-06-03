@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTypeplaningsTable extends Migration
+class CreateUserplanningsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateTypeplaningsTable extends Migration
      */
     public function up()
     {
-        Schema::create('type_planings', function (Blueprint $table) {
+        Schema::create('user_plannings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('description');
-            $table->softDeletes();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('planing_id');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('planing_id')->references('id')->on('planings');
         });
     }
 
@@ -29,6 +30,6 @@ class CreateTypeplaningsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('type_planings');
+        Schema::dropIfExists('user_plannings');
     }
 }

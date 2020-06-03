@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Planification;
 
 use App\Http\Controllers\Controller;
+use App\Models\Planification\Planing;
 use App\Models\Planification\TypePlaning;
 use Illuminate\Http\Request;
 
@@ -134,5 +135,13 @@ class TypePlaningController extends Controller
 
         $typeplaning->delete();
         return response()->json();
+    }
+
+    public function findPlaning(Request $req, $id)
+    {
+        if (!$planing = Planing::whereCategoryId($id)->simplePaginate($req->has('limit') ? $req->limit : 15)) {
+            abort(404, "No planing for category with id $id found ");
+        }
+        return response()->json($planing);
     }
 }

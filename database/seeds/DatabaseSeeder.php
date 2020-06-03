@@ -106,6 +106,14 @@ class DatabaseSeeder extends Seeder
             UserSacramentSeeder::class,
         ]);
 
+         // module Planification
+         $this->call([
+          TypePlaningSeeder::class,
+          PlaningSeeder::class,
+          AssociationPlaningSeeder::class,
+          UserPlaningSeeder::class
+        ]);
+
         Schema::enableForeignKeyConstraints();
         Model::reguard();
 

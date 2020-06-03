@@ -424,20 +424,43 @@ Route::group(['prefix' => 'associations'], function () {
 });
 
 
-Route::group(['prefix' => 'planifications'],function (){
-    Route::group(['prefix' => 'planing'],function (){
+Route::group(['prefix' => 'planification'],function (){
+    Route::group(['prefix' => 'planings'],function (){
         Route::get('/', 'Planification\PlaningController@index');
+        Route::get('/{id}', 'Planification\PlaningController@find');
         Route::get('/search', 'Planification\PlaningController@search');
         Route::post('/{id}', 'Planification\PlaningController@update');
         Route::post('/', 'Planification\PlaningController@create');
         Route::delete('/{id}', 'Planification\PlaningController@destroy');
     }); 
 
-    Route::group(['prefix' => 'types'],function (){
+    Route::group(['prefix' => 'type_planings'],function (){
         Route::get('/', 'Planification\TypePlaningController@index');
         Route::get('/search', 'Planification\TypePlaningController@search');
+        Route::get('/{id}/planings', 'Planification\TypePlaningController@findPlaning');
+        Route::get('/{id}', 'Planification\TypePlaningController@find');
         Route::post('/{id}', 'Planification\TypePlaningController@update');
         Route::post('/', 'Planification\TypePlaningController@create');
         Route::delete('/{id}', 'Planification\TypePlaningController@destroy');
+    });
+
+    Route::group(['prefix' => 'association_planings'],function (){
+        Route::get('/', 'Planification\AssociationPlanningController@index');
+        Route::get('/search', 'Planification\AssociationPlanningController@search');
+        Route::get('/{id}/users', 'Planification\UserPlanningController@findAssociationPlaning');
+        Route::get('/{id}', 'Planification\AssociationPlanningController@find');
+        Route::post('/{id}', 'Planification\AssociationPlanningController@update');
+        Route::post('/', 'Planification\AssociationPlanningController@create');
+        Route::delete('/{id}', 'Planification\AssociationPlanningController@destroy');
+    });
+
+    Route::group(['prefix' => 'user_planings'],function (){
+        Route::get('/', 'Planification\UserPlanningController@index');
+        Route::get('/search', 'Planification\UserPlanningController@search');
+        Route::get('/{id}/users', 'Planification\UserPlanningController@findUserPlaning');
+        Route::get('/{id}', 'Planification\UserPlanningController@find');
+        Route::post('/{id}', 'Planification\UserPlanningController@update');
+        Route::post('/', 'Planification\UserPlanningController@store');
+        Route::delete('/{id}', 'Planification\UserPlanningController@destroy');
     });
 }); 
