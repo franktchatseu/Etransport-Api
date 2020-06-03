@@ -87,7 +87,10 @@ class UserController extends Controller
     public function find($id)
     {
         if (!$user = User::find($id)) {
-            abort(404, "No user found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("USER_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $type = Priest::where('user_id', $id)->first()
@@ -102,7 +105,10 @@ class UserController extends Controller
     {
         $user = User::find($id);
         if (!$user) {
-            abort(404, "No user found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("USER_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $data = $req->except('files');
@@ -147,7 +153,10 @@ class UserController extends Controller
     public function destroy($id)
     {
         if (!$user = User::find($id)) {
-            abort(404, "No user found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("USER_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
         $user->delete();
 

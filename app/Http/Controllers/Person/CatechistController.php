@@ -59,16 +59,24 @@ class CatechistController extends Controller
 
     public function find($id)
     {
-        if (!$user = Catechist::find($id)) {
-            abort(404, "No catechist found with id $id");
+        $catechist = Catechist::find($id);
+        if (!$catechist) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("CATHECHIST_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
         return response()->json($user);
     }
 
     public function destroy($id)
     {
-        if (!$user = Catechist::find($id)) {
-            abort(404, "No catechist found with id $id");
+        $catechist = Catechist::find($id);
+        if (!$catechist) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("CATHECHIST_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $user->delete();      
@@ -78,6 +86,12 @@ class CatechistController extends Controller
     public function update(Request $req, $id)
     {
         $catechist = Catechist::find($id);
+        if (!$catechist) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("CATHECHIST_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
         
         if (!$catechist) {
             abort(404, "No user found with id $id");
