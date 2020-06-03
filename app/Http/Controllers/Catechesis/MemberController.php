@@ -46,12 +46,14 @@ class MemberController extends Controller
             'file',
             'adhesion_date',
             'is_finish',
+            'has_win',
             'regnum',
             'status'
         ]);
 
         $this->validate($data, [
             'is_finish' => 'required',
+            'has_win' => 'required',
             'regnum' => 'required',
             'adhesion_date' => 'min:2',
             'status' => 'in:REJECTED,PENDING,ACCEPTED',
@@ -71,6 +73,7 @@ class MemberController extends Controller
         $member->adhesion_date = $data['adhesion_date'];
         $member->status = $data['status'];
         $member->files = $data['files'];
+        $member->has_win = $data['has_win'];
         $member->is_finish = $data['is_finish'];
 
 
