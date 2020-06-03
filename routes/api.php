@@ -64,5 +64,12 @@ Route::group(['prefix' => 'statistic'], function () {
     });
 
 });
+Route::group(['prefix' => 'person'], function () {
+
+
+        Route::get('/', 'ParishController@index');
+        Route::get('/search', 'ParishController@search');
+
+});
 
 
