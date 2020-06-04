@@ -129,6 +129,9 @@ Route::group(['prefix' => 'settings'], function () {
         Route::get('/', 'Setting\ParishController@index');
         Route::get('/search', 'Setting\ParishController@search');
         Route::get('/{id}', 'Setting\ParishController@find');
+        Route::get('/{id}/masschedules', 'Setting\ParishController@findmassSchedules');
+        Route::get('/{id}/parishpatrimonies', 'Setting\ParishController@findParishPatrimonies');
+        Route::get('/{id}/contact', 'Setting\ParishController@findContacts');
         Route::delete('/{id}', 'Setting\ParishController@delete');
         Route::post('/', 'Setting\ParishController@store');
         Route::match(['post', 'put'], '/{id}', 'Setting\ParishController@update');
@@ -143,7 +146,7 @@ Route::group(['prefix' => 'settings'], function () {
         Route::get('/{id}', 'Setting\MassSheduleController@find');
     });   
 
-    Route::group(['prefix' => 'parishpatrimonies'], function () {
+    Route::group(['prefix' => 'parish_patrimonies'], function () {
         Route::get('/', 'Setting\ParishPatrimonyController@index');
         Route::get('/search', 'Setting\ParishPatrimonyController@search');
         Route::get('/{id}', 'Setting\ParishPatrimonyController@find');
@@ -155,11 +158,43 @@ Route::group(['prefix' => 'settings'], function () {
     Route::group(['prefix' => 'albums'], function () {
         Route::get('/', 'Setting\AlbumController@index');
         Route::get('/{id}', 'Setting\AlbumController@find');
+        Route::get('/{id}/albums', 'Setting\AlbumController@findPhoto');
         Route::get('/search', 'Setting\AlbumController@search');
         Route::delete('/{id}', 'Setting\AlbumController@destroy');
         Route::match(['post', 'put'], '/{id}', 'Setting\AlbumController@update');
         Route::post('/', 'Setting\AlbumController@store');
     });
+
+    Route::group(['prefix' => 'photos'], function () {
+        Route::get('/', 'Setting\PhotoController@index');
+        Route::get('/{id}', 'Setting\PhotoController@find');
+        Route::get('/search', 'Setting\PhotoController@search');
+        Route::delete('/{id}', 'Setting\PhotoController@destroy');
+        Route::match(['post', 'put'], '/{id}', 'Setting\PhotoController@update');
+        Route::post('/', 'Setting\PhotoController@store');
+    });
+
+    Route::group(['prefix' => 'user_parishs'], function () {
+        Route::get('/', 'Setting\UserParishController@index');
+        Route::get('/search', 'Setting\UserParishController@search');
+        Route::get('/{id}', 'Setting\UserParishController@find');
+        Route::get('/{id}/users', 'Setting\UserParishController@findUserParish');
+        Route::delete('/{id}', 'Setting\UserParishController@destroy');
+        Route::post('/', 'Setting\UserParishController@store');
+        Route::match(['post', 'put'], '/{id}', 'Setting\UserParishController@update');
+    });
+
+
+    Route::group(['prefix' => 'parish_albums'], function () {
+        Route::get('/', 'Setting\ParishAlbumController@index');
+        Route::get('/search', 'Setting\ParishAlbumController@search');
+        Route::get('/{id}', 'Setting\ParishAlbumController@find');
+        Route::get('/{id}/parishs', 'Setting\ParishAlbumController@findParishAlbum');
+        Route::delete('/{id}', 'Setting\ParishAlbumController@destroy');
+        Route::post('/', 'Setting\ParishAlbumController@store');
+        Route::match(['post', 'put'], '/{id}', 'Setting\ParishAlbumController@update');
+    });
+
 });
 
 // statistic module : 'middleware' => 'auth:api',

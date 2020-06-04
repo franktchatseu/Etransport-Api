@@ -4,6 +4,8 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 use App\Models\Catechesis\Catechesis;
+use App\Models\Setting\ParishAlbum;
+use App\Models\Setting\UserParish;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,13 +26,10 @@ class DatabaseSeeder extends Seeder
             // $this->call(SettingSeeder::class);
             // $this->call(LaratrustSeeder::class);
              UserSeeder::class,
-            // ParishSeeder::class,
             // ProfessionSeeder::class,
             // PriestSeeder::class,
-            // AlbumSeeder::class,
             // ParishionalSeeder::class,
             // CathechumeneSeeder::class,
-            // ContactSeeder::class,
         ]);
 
         // module sacrament
@@ -38,8 +37,14 @@ class DatabaseSeeder extends Seeder
         
         // module setting
         $this->call([
-            // ParishPatrimonySeeder::class,
-            // MassSheduleSeeder::class
+             ParishSeeder::class,
+             AlbumSeeder::class,
+             ContactSeeder::class,
+             ParishPatrimonySeeder::class,
+             MassSheduleSeeder::class,
+             PhotoSeeder::class,
+             UserParishSeeder::class,
+             ParishAlbumSeeder::class
         ]);
 
         // module catechesis
@@ -47,7 +52,7 @@ class DatabaseSeeder extends Seeder
             // AnnualMemberSeeder::class,
             // MemberSeeder::class,
             // ArchivingSeeder::class
-            ProgrammeSeeder::class
+           // ProgrammeSeeder::class
          ]);
 
         // module place
@@ -87,13 +92,13 @@ class DatabaseSeeder extends Seeder
 
        // module finance
         $this->call([
-            NatureSeeder::class
+          //  NatureSeeder::class
         ]);
 
         // module association
         $this->call([
-            TypeAssociationSeeder::class,
-            AssociationSeeder::class,
+            // TypeAssociationSeeder::class,
+            // AssociationSeeder::class,
         ]);
 
         // module statistic
@@ -101,18 +106,19 @@ class DatabaseSeeder extends Seeder
 
         // module sacrament
         $this->call([
-            SacramentCategorySeeder::class,
-            SacramentSeeder::class,
-            UserSacramentSeeder::class,
+            // SacramentCategorySeeder::class,
+            // SacramentSeeder::class,
+            // UserSacramentSeeder::class,
         ]);
 
          // module Planification
          $this->call([
-          TypePlaningSeeder::class,
-          PlaningSeeder::class,
-          AssociationPlaningSeeder::class,
-          UserPlaningSeeder::class
+        //   TypePlaningSeeder::class,
+        //   PlaningSeeder::class,
+        //   AssociationPlaningSeeder::class,
+        //   UserPlaningSeeder::class
         ]);
+
 
         Schema::enableForeignKeyConstraints();
         Model::reguard();

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddRelationBetweenParishParishpatrimoniesTable extends Migration
+class AddRelationBetweenParishContact extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class AddRelationBetweenParishParishpatrimoniesTable extends Migration
      */
     public function up()
     {
-        Schema::table('parish_patrimonies', function (Blueprint $table) {
-            //
+        Schema::table('contacts', function (Blueprint $table) {
             $table->unsignedBigInteger('parish_id');
-            $table->foreign('parish_id')->references('id')->on('parishs');
+            $table->foreign('parish_id')->references('id')->on('parishs')->onDelete('cascade');
         });
     }
 
@@ -27,8 +26,6 @@ class AddRelationBetweenParishParishpatrimoniesTable extends Migration
      */
     public function down()
     {
-        Schema::table('parishparishpatrimonys', function (Blueprint $table) {
-            //
-        });
+        //
     }
 }
