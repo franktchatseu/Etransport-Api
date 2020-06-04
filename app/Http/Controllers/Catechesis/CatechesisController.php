@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Catechesis;
 use App\Http\Controllers\Controller;
 use App\Models\Catechesis\catechesis;    
 use Illuminate\Http\Request;
+use App\Models\APIError;
 
 class CatechesisController extends Controller
 {
