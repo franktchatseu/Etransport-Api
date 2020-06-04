@@ -63,9 +63,12 @@ class DatabaseSeeder extends Seeder
           // module catechese
           $this->call([
             //   QuarterSeeder::class,
-            //   EvaluationSeeder::class,
-            CatechesisSeeder::class,
-            TimeCardSeeder::class
+               EvaluationSeeder::class,
+            //CatechesisSeeder::class,
+            TimeCardSeeder::class,
+            PatternSeeder::class,
+            PlugSeeder::class
+            
           ]);
 
         // module planification
