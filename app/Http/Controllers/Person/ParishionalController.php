@@ -19,15 +19,6 @@ class ParishionalController extends Controller
         return response()->json($data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -55,27 +46,6 @@ class ParishionalController extends Controller
         return response()->json($parishional);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Person\Parishional  $parishional
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Parishional $parishional)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Person\Parishional  $parishional
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Parishional $parishional)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -86,9 +56,11 @@ class ParishionalController extends Controller
      */
     public function update(Request $req, $id)
     {
-        $parishional = Parishional::find($id);
-        if (!$parishional) {
-            abort(404, "No parishional found with id $id");
+        if (!$parishional = Parishional::find($id)){
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PARISHIONAL_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $data = $req->except('photo');
@@ -116,7 +88,10 @@ class ParishionalController extends Controller
     public function destroy($id)
     {
         if (!$parishional = Parishional::find($id)) {
-            abort(404, "No user found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PARISHIONAL_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $parishional->delete();      
@@ -139,7 +114,10 @@ class ParishionalController extends Controller
     public function find($id)
     {
         if (!$parishional =Parishional::find($id)) {
-            abort(404, "No user found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PARISHIONAL_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
         return response()->json($parishional);
     }

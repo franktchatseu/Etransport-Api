@@ -80,8 +80,11 @@ class CathechumeneController extends Controller
     }
     public function find($id)
     {
-        if(!$cathechumene = Cathechumene::find($id)){
-            abort(404,"No cathechumene found with id $id");
+        if(!$cathechumene = Cathechumene::find($id)){    
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("CATHECHUMENE_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
         return response()->json($cathechumene);
     }
@@ -110,7 +113,10 @@ class CathechumeneController extends Controller
     
         $cathechumene = Cathechumene::find($id);
         if (!$cathechumene) {
-            abort(404, "No catechumene found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("CATHECHUMENE_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $data = $req->except('birth_certificate');
@@ -149,8 +155,11 @@ class CathechumeneController extends Controller
      */
     public function destroy($id)
     {
-        if(!$cathechumene = Cathechumene::find($id)){
-            abort(404,"No cathechumene found wiht id $id");
+        if(!$cathechumene = Cathechumene::find($id)){            
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("CATHECHUMENE_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
         $cathechumene->delete();
         return response()->json();
