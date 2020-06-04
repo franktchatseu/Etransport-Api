@@ -277,6 +277,24 @@ Route::group(['prefix' => 'catechesis'], function () {
     
     });
 
+    Route::group(['prefix' => 'patterns'], function () {
+        Route::get('/', 'Catechesis\PatternController@index');
+        Route::get('/search', 'Catechesis\PatternController@search');
+        Route::get('/{id}', 'Catechesis\PatternController@find');
+        Route::delete('/{id}', 'Catechesis\PatternController@destroy');
+        Route::post('/', 'Catechesis\PatternController@store');
+        Route::match(['post', 'put'], '/{id}', 'Catechesis\PatternController@update');
+    });
+
+    Route::group(['prefix' => 'plugs'], function () {
+        Route::get('/', 'Catechesis\PlugController@index');
+        Route::get('/search', 'Catechesis\PlugController@search');
+        Route::get('/{id}', 'Catechesis\PlugController@find');
+        Route::delete('/{id}', 'Catechesis\PlugController@destroy');
+        Route::post('/', 'Catechesis\PlugController@store');
+        Route::match(['post', 'put'], '/{id}', 'Catechesis\PlugController@update');
+    });
+
 
 });
 
