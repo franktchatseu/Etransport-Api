@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Catechesis;
 use App\Http\Controllers\Controller;
 use App\Models\Catechesis\Member;
 use Illuminate\Http\Request;
+use App\APIError;
 
 class MemberController extends Controller
 {
