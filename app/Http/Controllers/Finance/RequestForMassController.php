@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Finance;
 use App\Http\Controllers\Controller;
 use App\Models\Finance\RequestForMass;
 use Illuminate\Http\Request;
+use App\Models\APIError;
 
 class RequestForMassController extends Controller
 {
@@ -88,8 +89,13 @@ class RequestForMassController extends Controller
     public function update(Request $req, $id)
     {
         $requestForMass = RequestForMass::find($id);
-        if (!$requestForMass) {
-            abort(404, "No priest found with id $id");
+        if($requestForMass == null) {
+            $notFound = new APIError;
+            $notFound->setStatus("404");
+            $notFound->setCode("REQUESTFORMASS_NOT_FOUND");
+            $notFound->setMessage("requestForMass with id " . $id . " not found");
+
+            return response()->json($notFound, 404);
         }
 
         $data = $req->except('photo');
@@ -113,8 +119,14 @@ class RequestForMassController extends Controller
      */
     public function destroy($id)
     {
-        if (!$requestForMass = RequestForMass::find($id)) {
-            abort(404, "No priest found with id $id");
+        $requestForMass = RequestForMass::find($id);
+        if($requestForMass == null) {
+            $notFound = new APIError;
+            $notFound->setStatus("404");
+            $notFound->setCode("REQUESTFORMASS_NOT_FOUND");
+            $notFound->setMessage("requestForMass with id " . $id . " not found");
+
+            return response()->json($notFound, 404);
         }
 
         $requestForMass->delete();      
@@ -149,8 +161,14 @@ class RequestForMassController extends Controller
      */
     public function find($id)
     {
-        if (!$requestForMass = RequestForMass::find($id)) {
-            abort(404, "No priest found with id $id");
+        $requestForMass = RequestForMass::find($id);
+        if($requestForMass == null) {
+            $notFound = new APIError;
+            $notFound->setStatus("404");
+            $notFound->setCode("REQUESTFORMASS_NOT_FOUND");
+            $notFound->setMessage("requestForMass with id " . $id . " not found");
+
+            return response()->json($notFound, 404);
         }
         return response()->json($requestForMass);
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Finance;
 use App\Http\Controllers\Controller;
 use App\Models\Finance\NatureAccount;
 use Illuminate\Http\Request;
+use App\Models\APIError;
 
 class NatureAccountController extends Controller
 {
