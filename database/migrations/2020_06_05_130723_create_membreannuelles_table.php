@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateQuartersTable extends Migration
+class CreateMembreannuellesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateQuartersTable extends Migration
      */
     public function up()
     {
-        Schema::create('quarters', function (Blueprint $table) {
+        Schema::create('annual_members', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title');
-            $table->string('description');
-            $table->date('debut_date');
-            $table->date('end_date');
+            $table->string('class');
+            $table->boolean('has_win');
             $table->timestamps();
-            $table->softDeletes();
+            $table->unsignedBigInteger('quarter_id');
+            
+            $table->foreign('quarter_id')->references('id')->on('quarters')->onDelete('cascade');
         });
     }
 
@@ -31,6 +31,6 @@ class CreateQuartersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quarters');
+        Schema::dropIfExists('annual_members');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMembreannuellesTable extends Migration
+class CreateTrimestresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateMembreannuellesTable extends Migration
      */
     public function up()
     {
-        Schema::create('annual_members', function (Blueprint $table) {
-            $table->id();
-            $table->string('class');
-            $table->boolean('has_win');
+        Schema::create('trimestres', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->date('begin_date');
+            $table->Integer('number'); //quantieme trimestre
+            $table->date('end_date');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateMembreannuellesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('annual_members');
+        Schema::dropIfExists('trimestres');
     }
 }

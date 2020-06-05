@@ -44,10 +44,13 @@ class DatabaseSeeder extends Seeder
 
         // module catechesis
          $this->call([
-            // AnnualMemberSeeder::class,
             // MemberSeeder::class,
             // ArchivingSeeder::class
-            ProgrammeSeeder::class
+            ProgrammeSeeder::class,
+            TrimestreSeeder::class,
+            QuarterSeeder::class,
+            QuarterTrimestreSeeder::class,
+            AnnualMemberSeeder::class,
          ]);
 
         // module place
@@ -63,7 +66,7 @@ class DatabaseSeeder extends Seeder
           // module catechese
           $this->call([
             //   QuarterSeeder::class,
-            //   EvaluationSeeder::class,
+            EvaluationSeeder::class,
             CatechesisSeeder::class,
             TimeCardSeeder::class
           ]);
