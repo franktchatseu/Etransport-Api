@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Catechesis;
 
 use App\Http\Controllers\Controller;
 use App\Models\Catechesis\Quarter;
+use App\Models\Catechesis\AnnuelMember;
 use Illuminate\Http\Request;
 use App\Models\APIError;
 
@@ -138,4 +139,18 @@ class QuarterController extends Controller
         }
         return response()->json($quarter);
     }
+
+    public function findAnnuelMembers(Request $req, $id)
+    {
+        $quarter = Quarter::find($id);
+        if (!$quarter) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("QUARTER_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+        $quarters = AnnuelMember::whereAnnuelMemberId($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($quarters);
+    } 
+
 }

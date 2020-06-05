@@ -48,19 +48,19 @@ class AnnualMemberController extends Controller
         $data = $request->only([
             'class',
             'has_win',
-            'quarter_trimestre_id'
+            'quarter_id'
         ]);
 
         $this->validate($data, [
             'class' => 'required|string|min:2',
             'has_win' => 'required',
-            'quarter_trimestre_id' => 'required:exists:quarter_trimestres,id'
+            'quarter_id' => 'required:exists:quarters,id'
         ]);
 
         $annualMember = new AnnualMember();
         $annualMember->class=$data['class'];
         $annualMember->has_win=$data['has_win'];
-        $annualMember->quarter_trimestre_id =$data['quarter_trimestre_id'];
+        $annualMember->quarter_trimestre_id =$data['quarter_id'];
 
         $annualMember->save();
 
@@ -87,20 +87,20 @@ class AnnualMemberController extends Controller
         $data = $request->only([
             'context',
             'has_win',
-            'quarter_trimestres_id'
+            'quarter_id'
         ]);
 
         $this->validate($data, [
             'class' => 'required|string|min:2',
             'has_win' => 'required',
-            'quarter_trimestres_id' => 'required:exists:quarter_trimestres,id'
+            'quarter_id' => 'required:exists:quarters,id'
         ]);
 
        if (null !== $data['class']){
         $annualMember->class=$data['class'];
        }
-       if (null!==$data['periode_annuelle__trimestre_id']){
-        $annualMember->quarter_trimestre_id =$data['quarter_trimestre_id'];
+       if (null!==$data['quarter_id']){
+        $annualMember->quarter_id =$data['quarter_id'];
        }
        if (null!==$data['has_win']){
         $annualMember->has_win=$data['has_win'];
@@ -148,7 +148,7 @@ class AnnualMemberController extends Controller
         }
 
 
-    public function findAnnuelMembers(Request $req, $id)
+    public function findEvaluations(Request $req, $id)
     {
         $annualMember = AnnuelMember::find($id);
         if (!$evaluation) {

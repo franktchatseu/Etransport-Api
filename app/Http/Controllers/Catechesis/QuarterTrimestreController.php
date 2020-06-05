@@ -125,18 +125,6 @@ class QuarterTrimestreController extends Controller
         return response()->json($quarter_Trimestres);
     }
     
-    public function findAnnuelMembers(Request $req, $id)
-    {
-       
-        $quarter_Trimestre = QuarterTrimestre::find($id);
-        if (!$quarter_Trimestre) {
-            $apiError = new APIError;
-            $apiError->setStatus("404");
-            $apiError->setCode("QUARTER_TRIMESTRE_NOT_FOUND");
-            return response()->json($apiError, 404);
-        }
-        $quarter_Trimestres = AnnuelMember::whereTypeId($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
-        return response()->json($quarter_Trimestres);
-    }
+ 
 
 }
