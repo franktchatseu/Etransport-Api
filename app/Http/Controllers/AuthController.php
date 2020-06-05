@@ -14,6 +14,7 @@ use App\Models\Person\Parishional;
 use App\Models\person\Priest;
 use App\Models\Person\Cathechumene;
 use App\Models\Person\Catechist;
+use App\Models\Person\UserUtype;
 
 class AuthController extends Controller
 {
@@ -42,34 +43,31 @@ class AuthController extends Controller
             }
             $token->save();
 
-            // who really
-            if ($user->user_type == 'PARISHIONER') {
-                // find permissions
-                $user->parishional = Parishional::where(['user_id' => $user->id])->first();
-            }
+            // fetch all type
+            $types = UserUtype::select('utypes.value', 'user_utypes.id')
+            ->join('utypes', 'user_utypes.type_id', '=', 'utypes.id')
+            ->where('user_utypes.user_id', '=', $user->id)
+            ->get();
 
-            if ($user->user_type == 'PRIEST') {
-                // find permissions
-                $user->priest = Priest::where(['user_id' => $user->id])->first();
+            $allTypes = [];
+            $profiles = [];
+            foreach($types as $key => $value) {
+                if ( !in_array($value->value, $allTypes) ) {
+                    $allTypes[] = $value->value;
+                }
+                if (in_array($value->value, $allTypes)) {
+                    $profiles[strtolower($value->value)] = Parishional::where(['user_id' => $user->id])->first();
+                    $profiles[strtolower($value->value)]['identifiant'] = $value->id;
+                }
             }
-
-            if ($user->user_type == 'CATECHIST') {
-                // find permissions
-                $user->catechist = Catechist::where(['user_id' => $user->id])->first();
-            }
-
-            if ($user->user_type == 'CATECHUMEN') {
-                // find permissions
-                $user->catechumene = Cathechumene::where(['user_id' => $user->id])->first();
-            }
-
+            
             return response()->json([
                 'token' => [
                     'access_token' => $tokenResult->accessToken,
                     'token_type' => 'Bearer',
                     'expires_at'   => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString()
                 ],
-                'user' => $user,
+                'user' => ['infos' => $user, 'profiles' => $profiles, 'types' => $allTypes],
                 'roles' => $user->roles,
                 'permissions' => $user->allPermissions()
             ]);
