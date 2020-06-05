@@ -295,6 +295,25 @@ Route::group(['prefix' => 'catechesis'], function () {
         Route::match(['post', 'put'], '/{id}', 'Catechesis\PlugController@update');
     });
 
+    Route::group(['prefix' => 'catechesis'], function () {
+        Route::get('/', 'Catechesis\CatechesisController@index');
+        Route::get('/search', 'Catechesis\CatechesisController@search');
+        Route::get('/{id}', 'Catechesis\CatechesisController@find');
+        Route::delete('/{id}', 'Catechesis\CatechesisController@destroy');
+        Route::post('/', 'Catechesis\CatechesisController@store');
+        Route::match(['post', 'put'], '/{id}', 'Catechesis\CatechesisController@update');
+    });
+
+    Route::group(['prefix' => 'cathedralPesences'], function () {
+        Route::get('/', 'Catechesis\CathedralPresenceController@index');
+        Route::get('/search', 'Catechesis\CathedralPresenceController@search');
+        Route::get('/{id}', 'Catechesis\CathedralPresenceController@find');
+        Route::get('/{id}/annualmember', 'Catechesis\CathedralPresenceController@findCathedralPesences');
+        Route::delete('/{id}', 'Catechesis\CathedralPresenceController@destroy');
+        Route::post('/', 'Catechesis\CathedralPresenceController@store');
+        Route::match(['post', 'put'], '/{id}', 'Catechesis\CathedralPresenceController@update');
+    });
+
 
 });
 
