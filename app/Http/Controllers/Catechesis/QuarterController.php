@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Catechesis;
 
 use App\Http\Controllers\Controller;
 use App\Models\Catechesis\Quarter;
-use App\Models\Catechesis\AnnuelMember;
+use App\Models\Catechesis\AnnualMember;
 use Illuminate\Http\Request;
 use App\Models\APIError;
 
@@ -149,7 +149,7 @@ class QuarterController extends Controller
             $apiError->setCode("QUARTER_NOT_FOUND");
             return response()->json($apiError, 404);
         }
-        $quarters = AnnuelMember::whereAnnuelMemberId($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
+        $quarters = AnnualMember::whereQuarterId($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($quarters);
     } 
 

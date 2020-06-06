@@ -122,7 +122,7 @@ class AnnualMemberController extends Controller
      */
     public function find($id)
     {
-        $annualMember = AnnuelMember::find($id);
+        $annualMember = AnnualMember::find($id);
         if (!$annuelMember) {
             $apiError = new APIError;
             $apiError->setStatus("404");
@@ -135,7 +135,7 @@ class AnnualMemberController extends Controller
         public function destroy($id)
         {
         
-        $annualMember = AnnuelMember::find($id);
+        $annualMember = AnnualMember::find($id);
         if (!$annuelMember) {
             $apiError = new APIError;
             $apiError->setStatus("404");
@@ -150,14 +150,14 @@ class AnnualMemberController extends Controller
 
     public function findEvaluations(Request $req, $id)
     {
-        $annualMember = AnnuelMember::find($id);
-        if (!$evaluation) {
+        $annualMember = AnnualMember::find($id);
+        if (!$annualMember) {
             $apiError = new APIError;
             $apiError->setStatus("404");
             $apiError->setCode("_NOT_FOUND");
             return response()->json($apiError, 404);
         }
-        $evaluations =  Evaluation::whereEvaluationId($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
+        $evaluations =  Evaluation::whereAnnualMemberId($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($evaluations);
     }
 }

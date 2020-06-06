@@ -272,6 +272,7 @@ Route::group(['prefix' => 'catechesis'], function () {
         Route::get('/', 'Catechesis\QuarterController@index');
         Route::get('/search', 'Catechesis\QuarterController@search');
         Route::get('/{id}', 'Catechesis\QuarterController@find');
+        Route::get('/{id}/AnnuelMembers', 'Catechesis\QuarterController@findAnnuelMembers');
         Route::delete('/{id}', 'Catechesis\QuarterController@destroy');
         Route::post('/', 'Catechesis\QuarterController@store');
         Route::match(['post', 'put'], '/{id}', 'Catechesis\QuarterController@update');

@@ -135,7 +135,7 @@ class TrimestreController extends Controller
             $apiError->setCode("EVALUATION_NOT_FOUND");
             return response()->json($apiError, 404);
         }
-        $evaluations = Evaluation::whereEvaluationId($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
+        $evaluations = Evaluation::whereTrimestresId($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($evaluations);
     }
 }
