@@ -17,6 +17,8 @@ use App\Models\Person\UserUtype;
 */
 
 $factory->define(UserUtype::class, function (Faker $faker) {
-    return [];
+    return [
+        'is_active' => $faker->boolean(),
+    ];
 
 });

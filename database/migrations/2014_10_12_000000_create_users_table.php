@@ -46,6 +46,8 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('type_id');
+            $table->boolean('is_active')->default(true);
+
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('type_id')->references('id')->on('utypes');

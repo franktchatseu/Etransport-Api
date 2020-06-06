@@ -28,6 +28,13 @@ class CreateParishsTable extends Migration
             $table->softDeletes();
         });
 
+        Schema::table('user_utypes', function (Blueprint $table) {
+            
+            $table->unsignedBigInteger('parish_id');
+
+            $table->foreign('parish_id')->references('id')->on('parishs');
+        });
+
     }
 
     /**

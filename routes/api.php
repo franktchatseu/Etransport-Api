@@ -53,6 +53,17 @@ Route::group(['prefix' => 'persons'], function () {
         Route::delete('/{id}', 'Person\UserController@destroy');
     });
 
+    Route::group(['prefix' => 'user-utypes'], function () {
+        Route::get('/', 'Person\UserUtypeController@index');
+        Route::get('/search', 'Person\UserUtypeController@search');
+        Route::post('/', 'Person\UserUtypeController@create');
+        Route::get('/{id}', 'Person\UserUtypeController@find');
+        Route::get('/{id}/parishs', 'Person\UserUtypeController@findUserParishsWithStatus');
+        Route::match(['post', 'put'],'/{id}/activate-parishs', 'Person\UserUtypeController@activateUserParish');
+        Route::match(['post', 'put'], '/{id}', 'Person\UserUtypeController@update');
+        Route::delete('/{id}', 'Person\UserUtypeController@destroy');
+    });
+
     Route::group(['prefix' => 'catechists'], function () {
         Route::get('/','Person\CatechistController@get');
         Route::get('/{id}', 'Person\CatechistController@find');

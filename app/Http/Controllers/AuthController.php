@@ -44,10 +44,13 @@ class AuthController extends Controller
             $token->save();
 
             // fetch all type
-            $types = UserUtype::select('utypes.value', 'user_utypes.id')
+            $types = UserUtype::select('utypes.value', 'user_utypes.id', 'parishs.name as parish_name', 'parishs.id as parish_id', 'user_utypes.is_active as parish_is_active')
             ->join('utypes', 'user_utypes.type_id', '=', 'utypes.id')
-            ->where('user_utypes.user_id', '=', $user->id)
-            ->get();
+            ->join('parishs', 'user_utypes.parish_id', '=', 'parishs.id')
+            ->where([
+                    'user_utypes.user_id' => $user->id, 
+                    'user_utypes.is_active' => true
+            ])->get();
 
             $allTypes = [];
             $profiles = [];
@@ -58,6 +61,11 @@ class AuthController extends Controller
                 if (in_array($value->value, $allTypes)) {
                     $profiles[strtolower($value->value)] = Parishional::where(['user_id' => $user->id])->first();
                     $profiles[strtolower($value->value)]['identifiant'] = $value->id;
+                    $profiles[strtolower($value->value)]['parish'] = [
+                        'parish_name' => $value->parish_name, 
+                        'parish_id'=> $value->parish_id,
+                        'parish_is_active' => $value->parish_is_active
+                    ];
                 }
             }
             

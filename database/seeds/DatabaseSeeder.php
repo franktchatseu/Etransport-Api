@@ -18,6 +18,13 @@ class DatabaseSeeder extends Seeder
 
         //$this->call(CityAndCountrySeeder::class);
         
+        // module setting
+        $this->call([
+            ParishSeeder::class,
+            // ParishPatrimonySeeder::class,
+            // MassSheduleSeeder::class
+        ]);
+
         // module person
         $this->call([
             // $this->call(SettingSeeder::class);
@@ -37,12 +44,6 @@ class DatabaseSeeder extends Seeder
         // module sacrament
         $this->call([]);
         
-        // module setting
-        $this->call([
-            // ParishPatrimonySeeder::class,
-            // MassSheduleSeeder::class
-        ]);
-
         // module catechesis
          $this->call([
             // AnnualMemberSeeder::class,
