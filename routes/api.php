@@ -53,6 +53,17 @@ Route::group(['prefix' => 'persons'], function () {
         Route::delete('/{id}', 'Person\UserController@destroy');
     });
 
+    Route::group(['prefix' => 'user-utypes'], function () {
+        Route::get('/', 'Person\UserUtypeController@index');
+        Route::get('/search', 'Person\UserUtypeController@search');
+        Route::post('/', 'Person\UserUtypeController@create');
+        Route::get('/{id}', 'Person\UserUtypeController@find');
+        Route::get('/{id}/parishs', 'Person\UserUtypeController@findUserParishsWithStatus');
+        Route::match(['post', 'put'],'/{id}/activate-parishs', 'Person\UserUtypeController@activateUserParish');
+        Route::match(['post', 'put'], '/{id}', 'Person\UserUtypeController@update');
+        Route::delete('/{id}', 'Person\UserUtypeController@destroy');
+    });
+
     Route::group(['prefix' => 'catechists'], function () {
         Route::get('/','Person\CatechistController@get');
         Route::get('/{id}', 'Person\CatechistController@find');
@@ -294,6 +305,24 @@ Route::group(['prefix' => 'catechesis'], function () {
         Route::match(['post','put'],'/{id}', 'Catechesis\ProgrammeController@update');
         Route::post('/', 'Catechesis\ProgrammeController@create');
     
+    });
+
+    Route::group(['prefix' => 'patterns'], function () {
+        Route::get('/', 'Catechesis\PatternController@index');
+        Route::get('/search', 'Catechesis\PatternController@search');
+        Route::get('/{id}', 'Catechesis\PatternController@find');
+        Route::delete('/{id}', 'Catechesis\PatternController@destroy');
+        Route::post('/', 'Catechesis\PatternController@store');
+        Route::match(['post', 'put'], '/{id}', 'Catechesis\PatternController@update');
+    });
+
+    Route::group(['prefix' => 'plugs'], function () {
+        Route::get('/', 'Catechesis\PlugController@index');
+        Route::get('/search', 'Catechesis\PlugController@search');
+        Route::get('/{id}', 'Catechesis\PlugController@find');
+        Route::delete('/{id}', 'Catechesis\PlugController@destroy');
+        Route::post('/', 'Catechesis\PlugController@store');
+        Route::match(['post', 'put'], '/{id}', 'Catechesis\PlugController@update');
     });
 
 

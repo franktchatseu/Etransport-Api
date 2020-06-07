@@ -28,13 +28,30 @@ class CreateUsersTable extends Migration
             $table->string('language');
             $table->string('state')->nullable();
             $table->string('tel')->nullable();
-            $table->enum('user_type', ['PRIEST', 'CATECHIST', 'CATECHUMEN', 'PARISHIONER', 'OTHER'])->default('PARISHIONER');
             $table->enum('gender',['F', 'M']);
 
             $table->timestamp('last_login')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
+        });
+
+        Schema::create('utypes', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->enum('value', ['PRIEST', 'CATECHIST', 'CATECHUMEN', 'PARISHIONAL', 'OTHER']);
+            $table->timestamps();
+        });
+
+        Schema::create('user_utypes', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('type_id');
+            $table->boolean('is_active')->default(true);
+
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('type_id')->references('id')->on('utypes');
+            $table->timestamps();
         });
     }
 

@@ -1,13 +1,11 @@
 <?php
-
 namespace App\Http\Controllers\Catechesis;
 
 use App\Http\Controllers\Controller;
-use App\Models\Catechesis\Quarter;
+use App\Models\Catechesis\Pattern;
 use Illuminate\Http\Request;
-use App\Models\APIError;
 
-class QuarterController extends Controller
+class PatternController extends Controller
 {
     /**
      * @param  \Illuminate\Http\Request  $req
@@ -15,7 +13,7 @@ class QuarterController extends Controller
      */
     public function index (Request $req)
     {
-        $data = Quarter::simplePaginate($req->has('limit') ? $req->limit : 15);
+        $data = Pattern::simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($data);
     }
 
@@ -31,22 +29,19 @@ class QuarterController extends Controller
         $data = $request->except('photo');
 
         $this->validate($data, [
-            'title' => 'required',
-            'description' => 'required',
-            'debut_date' => 'required',
-            'end_date' => 'required'
+            'reason' => 'required',
+            'description' => 'required'
         ]);
 
-            $quarter = new Quarter();
-            $quarter->title = $data['title'];
-            $quarter->description = $data['description'];
-            $quarter->debut_date = $data['debut_date'];
-            $quarter->end_date = $data['end_date'];
-            $quarter->save();
+            $pattern = new Pattern();
+            $pattern->reason = $data['reason'];
+            $pattern->description = $data['description'];
+            $pattern->save();
        
-        return response()->json($quarter);
+        return response()->json($pattern);
     }
 
+    
    /**
      * Create a request For Mass on database
      * @author jiozang theophane
@@ -56,31 +51,27 @@ class QuarterController extends Controller
      */
     public function update(Request $req, $id)
     {
-        $quarter = Quarter::find($id);
-        if (!$quarter) {
+        $pattern = Pattern::find($id);
+        if (!$pattern) {
             $apiError = new APIError;
             $apiError->setStatus("404");
-            $apiError->setCode("QUARTER_NOT_FOUND");
+            $apiError->setCode("PATTERN_NOT_FOUND");
             return response()->json($apiError, 404);
         }
 
         $data = $req->except('photo');
 
         $this->validate($data, [
-            'title' => 'required',
-            'description' => 'required',
-            'debut_date' => 'required',
-            'end_date' => 'required'
+            'reason' => 'required',
+            'description' => 'required'
         ]);
 
-        if (null !== $data['title']) $quarter->title = $data['title'];
-        if (null !== $data['description']) $quarter->description = $data['description'];
-        if (null !== $data['debut_date']) $quarter->debut_date = $data['debut_date'];
-        if (null !== $data['end_date']) $quarter->end_date = $data['end_date'];
+        if (null !== $data['reason']) $pattern->reason = $data['reason'];
+        if (null !== $data['description']) $pattern->description = $data['description'];
+        
+        $pattern->update();
 
-        $quarter->update();
-
-        return response()->json($quarter);
+        return response()->json($pattern);
     }
 
     /**
@@ -89,15 +80,15 @@ class QuarterController extends Controller
      */
     public function destroy($id)
     {
-        $quarter = Quarter::find($id);
-        if (!$quarter) {
+        $pattern = Pattern::find($id);
+        if (!$pattern) {
             $apiError = new APIError;
             $apiError->setStatus("404");
-            $apiError->setCode("QUARTER_NOT_FOUND");
+            $apiError->setCode("PATTERN_NOT_FOUND");
             return response()->json($apiError, 404);
         }
 
-        $quarter->delete();      
+        $pattern->delete();      
         return response()->json();
     }
 /**
@@ -114,7 +105,7 @@ class QuarterController extends Controller
             'field' => 'present'
         ]);
 
-        $data = Quarter::where($req->field, 'like', "%$req->q%")
+        $data = Pattern::where($req->field, 'like', "%$req->q%")
         ->simplePaginate($req->has('limit') ? $req->limit : 15);
 
         return response()->json($data);
@@ -129,13 +120,13 @@ class QuarterController extends Controller
      */
     public function find($id)
     {
-        $quarter = Quarter::find($id);
-        if (!$quarter) {
+        $pattern = Pattern::find($id);
+        if (!$pattern) {
             $apiError = new APIError;
             $apiError->setStatus("404");
-            $apiError->setCode("QUARTER_NOT_FOUND");
+            $apiError->setCode("PATTERN_NOT_FOUND");
             return response()->json($apiError, 404);
         }
-        return response()->json($quarter);
+        return response()->json($pattern);
     }
 }

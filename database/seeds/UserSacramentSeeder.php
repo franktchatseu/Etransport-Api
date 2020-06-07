@@ -13,9 +13,9 @@ class UserSacramentSeeder extends Seeder
     public function run(\Faker\Generator $faker)
     {
         factory(UserSacrament::class, 100)->make()->each(function ($usersacrment) use ($faker) {
-            $users = App\Models\Person\User::all();
+            $user_utypes = App\Models\Person\UserUtype::all();
             $sanction = App\Models\Sacrament\Sacrament::all();
-            $usersacrment->user_id = $faker->randomElement($users)->id;
+            $usersacrment->user_utype_id = $faker->randomElement($user_utypes)->id;
             $usersacrment->sacrament_id = $faker->randomElement($sanction)->id;
             $usersacrment->save();
         });

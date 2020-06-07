@@ -15,12 +15,12 @@ class CreateUsersacramentsTable extends Migration
     {
         Schema::create('user_sacraments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_utype_id');
             $table->unsignedBigInteger('sacrament_id');
             $table->string('request');
             $table->boolean('isAspire');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_utype_id')->references('id')->on('user_utypes');
             $table->foreign('sacrament_id')->references('id')->on('sanctions');
         });
     }

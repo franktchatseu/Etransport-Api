@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Place;
 use App\Http\Controllers\Controller;
 use App\Models\Place\Poste;
 use Illuminate\Http\Request;
+use App\Models\APIError;
 
 class PosteController extends Controller
 {

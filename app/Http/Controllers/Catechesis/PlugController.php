@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Catechesis;
 
 use App\Http\Controllers\Controller;
-use App\Models\Catechesis\Quarter;
+use App\Models\Catechesis\Plug;
 use Illuminate\Http\Request;
-use App\Models\APIError;
 
-class QuarterController extends Controller
+class PlugController extends Controller
 {
     /**
      * @param  \Illuminate\Http\Request  $req
@@ -15,7 +14,7 @@ class QuarterController extends Controller
      */
     public function index (Request $req)
     {
-        $data = Quarter::simplePaginate($req->has('limit') ? $req->limit : 15);
+        $data = Plug::simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($data);
     }
 
@@ -31,22 +30,21 @@ class QuarterController extends Controller
         $data = $request->except('photo');
 
         $this->validate($data, [
-            'title' => 'required',
-            'description' => 'required',
-            'debut_date' => 'required',
-            'end_date' => 'required'
+            'name' => 'required',
+            'date' => 'required',
+            'pattern_id' => 'required'
         ]);
 
-            $quarter = new Quarter();
-            $quarter->title = $data['title'];
-            $quarter->description = $data['description'];
-            $quarter->debut_date = $data['debut_date'];
-            $quarter->end_date = $data['end_date'];
-            $quarter->save();
+            $plug = new Plug();
+            $plug->name = $data['name'];
+            $plug->date = $data['date'];
+            $plug->pattern_id = $data['pattern_id'];
+            $plug->save();
        
-        return response()->json($quarter);
+        return response()->json($plug);
     }
 
+    
    /**
      * Create a request For Mass on database
      * @author jiozang theophane
@@ -56,31 +54,29 @@ class QuarterController extends Controller
      */
     public function update(Request $req, $id)
     {
-        $quarter = Quarter::find($id);
-        if (!$quarter) {
+        $plug = Plug::find($id);
+        if (!$plug) {
             $apiError = new APIError;
             $apiError->setStatus("404");
-            $apiError->setCode("QUARTER_NOT_FOUND");
+            $apiError->setCode("Plug_NOT_FOUND");
             return response()->json($apiError, 404);
         }
 
         $data = $req->except('photo');
 
         $this->validate($data, [
-            'title' => 'required',
-            'description' => 'required',
-            'debut_date' => 'required',
-            'end_date' => 'required'
+            'name' => 'required',
+            'date' => 'required',
+            'pattern_id' => 'required'
         ]);
 
-        if (null !== $data['title']) $quarter->title = $data['title'];
-        if (null !== $data['description']) $quarter->description = $data['description'];
-        if (null !== $data['debut_date']) $quarter->debut_date = $data['debut_date'];
-        if (null !== $data['end_date']) $quarter->end_date = $data['end_date'];
+        if (null !== $data['name']) $plug->name = $data['name'];
+        if (null !== $data['date']) $plug->date = $data['date'];
+        if (null !== $data['pattern_id']) $plug->pattern_id = $data['pattern_id'];
+        
+        $plug->update();
 
-        $quarter->update();
-
-        return response()->json($quarter);
+        return response()->json($plug);
     }
 
     /**
@@ -89,15 +85,15 @@ class QuarterController extends Controller
      */
     public function destroy($id)
     {
-        $quarter = Quarter::find($id);
-        if (!$quarter) {
+        $plug = Plug::find($id);
+        if (!$plug) {
             $apiError = new APIError;
             $apiError->setStatus("404");
-            $apiError->setCode("QUARTER_NOT_FOUND");
+            $apiError->setCode("Plug_NOT_FOUND");
             return response()->json($apiError, 404);
         }
 
-        $quarter->delete();      
+        $plug->delete();      
         return response()->json();
     }
 /**
@@ -114,7 +110,7 @@ class QuarterController extends Controller
             'field' => 'present'
         ]);
 
-        $data = Quarter::where($req->field, 'like', "%$req->q%")
+        $data = Plug::where($req->field, 'like', "%$req->q%")
         ->simplePaginate($req->has('limit') ? $req->limit : 15);
 
         return response()->json($data);
@@ -129,13 +125,13 @@ class QuarterController extends Controller
      */
     public function find($id)
     {
-        $quarter = Quarter::find($id);
-        if (!$quarter) {
+        $plug = Plug::find($id);
+        if (!$plug) {
             $apiError = new APIError;
             $apiError->setStatus("404");
-            $apiError->setCode("QUARTER_NOT_FOUND");
+            $apiError->setCode("Plug_NOT_FOUND");
             return response()->json($apiError, 404);
         }
-        return response()->json($quarter);
+        return response()->json($plug);
     }
 }

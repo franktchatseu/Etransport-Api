@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Place\TypePoste;
 use Illuminate\Http\Request;
 use App\Models\Place\Poste;
+use App\Models\APIError;
 
 class TypePosteController extends Controller
 {
