@@ -1,0 +1,7 @@
+################ ADRIENNE #################
+
+1- Création des migrations create_transport et create_member_transport
+2- Création des modèles Transport et MemberTransport
+3- Création des seeds et factory
+4- Création du controlleur de la table association MemberTransport + jointures
+5- Définition des routes + tests

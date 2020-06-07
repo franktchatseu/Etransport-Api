@@ -231,6 +231,25 @@ Route::group(['prefix' => 'catechesis'], function () {
         Route::put('/{id}', 'Catechesis\MemberController@update');
     });
 
+    Route::group(['prefix' => 'transferts'], function () {
+        Route::get('/', 'Catechesis\TransfertController@index');
+        Route::post('/', 'Catechesis\TransfertController@create');
+        Route::get('/{id}', 'Catechesis\TransfertController@find');
+        Route::delete('/{id}', 'Catechesis\TransfertController@destroy');
+        Route::get('/search', 'Catechesis\TransfertController@search');
+        Route::put('/{id}', 'Catechesis\TransfertController@update');
+    });
+
+    Route::group(['prefix' => 'member-transferts'], function () {
+        Route::get('/', 'Catechesis\MemberTransfertController@index');
+        Route::get('/search', 'Catechesis\MemberTransfertController@search');
+        Route::get('/{id}', 'Catechesis\MemberTransfertController@find');
+        Route::get('/{id}/members', 'Catechesis\MemberTransfertController@findMemberTransferts');
+        Route::delete('/{id}', 'Catechesis\MemberTransfertController@destroy');
+        Route::post('/', 'Catechesis\MemberTransfertController@store');
+        Route::match(['post', 'put'], '/{id}', 'Catechesis\MemberTransfertController@update');
+    });
+
     Route::group(['prefix' => 'annual-members'], function () {
         Route::get('/', 'Catechesis\AnnualMemberController@index');
         Route::get('/{id}', 'Catechesis\AnnualMemberController@find');

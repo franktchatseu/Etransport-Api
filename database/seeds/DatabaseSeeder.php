@@ -45,7 +45,9 @@ class DatabaseSeeder extends Seeder
         // module catechesis
          $this->call([
             // AnnualMemberSeeder::class,
-            // MemberSeeder::class,
+             MemberSeeder::class,
+             TransfertSeeder::class,
+             MemberTransfertSeeder::class,
             // ArchivingSeeder::class
             ProgrammeSeeder::class
          ]);

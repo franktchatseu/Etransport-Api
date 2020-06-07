@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\Cathechesis\Transfert;
+use App\Models\Catechesis\Transfert;
 use Faker\Generator as Faker;
 
 $factory->define(Transfert::class, function (Faker $faker) {

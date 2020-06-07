@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Cathechesis\Transfert;
+use App\Models\Catechesis\Transfert;
 
-class TansfertSeeder extends Seeder
+class TransfertSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,6 +13,7 @@ class TansfertSeeder extends Seeder
     public function run(\Faker\Generator $faker)
     {
         factory(Transfert::class,100)->make()->each(function($transfert) use ($faker){
+           // $transfert = App\Models\Catechesis\Transfert::all();
             $transfert->save();
         });
     }
