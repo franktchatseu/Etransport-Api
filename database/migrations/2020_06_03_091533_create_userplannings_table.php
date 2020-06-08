@@ -15,10 +15,10 @@ class CreateUserplanningsTable extends Migration
     {
         Schema::create('user_plannings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_utype_id');
             $table->unsignedBigInteger('planing_id');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_utype_id')->references('id')->on('user_utypes');
             $table->foreign('planing_id')->references('id')->on('planings');
         });
     }

@@ -3,8 +3,7 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use Faker\Generator as Faker;
-use Illuminate\Support\Str;
-use App\Models\Person\User;
+use App\Models\Person\Utype;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,16 +16,9 @@ use App\Models\Person\User;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
+$factory->define(Utype::class, function (Faker $faker) {
     return [
-        'login' => $faker->unique()->name(),
-        'email' => $faker->unique()->safeEmail(),
-        'first_name' => $faker->firstName(),
-        'last_name' => $faker->firstName(),
-        'language' => $faker->languageCode(),
-        'gender' => $faker->randomElement(['F', 'M']),
-        'password' => bcrypt('pwd'),
-        'remember_token' => Str::random(10),
+        // 'user_type' => $faker->randomElement(['PRIEST', 'CATECHIST', 'CATECHUMEN', 'PARISHIONER', 'OTHER']),
     ];
 
 });

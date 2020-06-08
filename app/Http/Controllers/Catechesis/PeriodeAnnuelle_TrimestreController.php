@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Catechesis;
 
 use App\Http\Controllers\Controller;
-use App\Models\Catechesis\Timecard;
+use App\Models\Catechesis\PeriodeAnnuelle_Trimestre;
 use Illuminate\Http\Request;
-use App\Models\APIError;
 
-class TimeCardController extends Controller
+class PeriodeAnnuelle_TrimestreController extends Controller
 {
-    /**                                
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -43,10 +42,10 @@ class TimeCardController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Catechesis\Timecard  $timecard
+     * @param  \App\Models\Catechesis\PeriodeAnnuelle_Trimestre  $periodeAnnuelle_Trimestre
      * @return \Illuminate\Http\Response
      */
-    public function show(Timecard $timecard)
+    public function show(PeriodeAnnuelle_Trimestre $periodeAnnuelle_Trimestre)
     {
         //
     }
@@ -54,10 +53,10 @@ class TimeCardController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Catechesis\Timecard  $timecard
+     * @param  \App\Models\Catechesis\PeriodeAnnuelle_Trimestre  $periodeAnnuelle_Trimestre
      * @return \Illuminate\Http\Response
      */
-    public function edit(Timecard $timecard)
+    public function edit(PeriodeAnnuelle_Trimestre $periodeAnnuelle_Trimestre)
     {
         //
     }
@@ -66,10 +65,10 @@ class TimeCardController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Catechesis\Timecard  $timecard
+     * @param  \App\Models\Catechesis\PeriodeAnnuelle_Trimestre  $periodeAnnuelle_Trimestre
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Timecard $timecard)
+    public function update(Request $request, PeriodeAnnuelle_Trimestre $periodeAnnuelle_Trimestre)
     {
         //
     }
@@ -77,10 +76,10 @@ class TimeCardController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Catechesis\Timecard  $timecard
+     * @param  \App\Models\Catechesis\PeriodeAnnuelle_Trimestre  $periodeAnnuelle_Trimestre
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Timecard $timecard)
+    public function destroy(PeriodeAnnuelle_Trimestre $periodeAnnuelle_Trimestre)
     {
         //
     }

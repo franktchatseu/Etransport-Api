@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Catechesis;
 use App\Http\Controllers\Controller;
 use App\Models\Catechesis\AnnualMember;
 use Illuminate\Http\Request;
+use App\Models\APIError;
 
 class AnnualMemberController extends Controller
 {
@@ -70,8 +71,8 @@ class AnnualMemberController extends Controller
      */
     public function update(Request $request,$id)
     {
-        $annualMember = AnnuelMember::find($id);
-        if (!$annuelMember) {
+        $annualMember = AnnualMember::find($id);
+        if (!$annualMember) {
             $apiError = new APIError;
             $apiError->setStatus("404");
             $apiError->setCode("AnnuelMEMBER_NOT_FOUND");

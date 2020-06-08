@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Setting;
 use App\Http\Controllers\Controller;
 use App\Models\Setting\ParishPatrimony;
 use Illuminate\Http\Request;
+use App\Models\APIError;
 
 class ParishPatrimonyController extends Controller
 {
