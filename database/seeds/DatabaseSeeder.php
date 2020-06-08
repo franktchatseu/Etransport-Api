@@ -68,7 +68,9 @@ class DatabaseSeeder extends Seeder
             //TimeCardSeeder::class,
             PatternSeeder::class,
             PlugSeeder::class,
-            CathedralPresenceSeeder::class,
+         //   CathedralPresenceSeeder::class,
+            UserCatechesisSeeder::class,
+            CatechesisPresenceSeeder::class,
 
             
           ]);

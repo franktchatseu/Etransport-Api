@@ -1,0 +1,15 @@
+// travail de theophane
+
+relisation des controlleur des classes 
+
+CatechesisController.php
+EvaluationController.php
+QuarterController.php
+PatternController.php
+PlugController.php
+
+relisation des controlleur des classes relation avec jointure
+
+CatechesisPresenceController.php
+CathedralPresenceController.php
+UserCatechesisController.php
