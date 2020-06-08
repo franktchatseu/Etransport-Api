@@ -29,15 +29,15 @@ class DatabaseSeeder extends Seeder
         $this->call([
             // $this->call(SettingSeeder::class);
             // $this->call(LaratrustSeeder::class);
-             UserSeeder::class,
-             UtypeSeeder::class,
-             UserUtypeSeeder::class,
-             ParishSeeder::class,
-             ProfessionSeeder::class,
-             PriestSeeder::class,
+          //  UtypeSeeder::class,
+            UserSeeder::class,
+           //  UserUtypeSeeder::class,
+           //  ParishSeeder::class,
+            // ProfessionSeeder::class,
+            // PriestSeeder::class,
             // AlbumSeeder::class,
-             ParishionalSeeder::class,
-             CathechumeneSeeder::class,
+            // ParishionalSeeder::class,
+           //  CathechumeneSeeder::class,
             // ContactSeeder::class,
         ]);
 
@@ -46,9 +46,10 @@ class DatabaseSeeder extends Seeder
         
         // module catechesis
          $this->call([
+            CatechesisSeeder::class,
              //AnnualMemberSeeder::class,
             // MemberSeeder::class,
-            // ArchivingSeeder::class
+             ArchivingSeeder::class
             //ProgrammeSeeder::class
             // ProgrammeSeeder::class
          ]);
@@ -67,7 +68,6 @@ class DatabaseSeeder extends Seeder
           $this->call([
             //   QuarterSeeder::class,
               // EvaluationSeeder::class,
-            CatechesisSeeder::class,
             //TimeCardSeeder::class,
             PatternSeeder::class,
             PlugSeeder::class,

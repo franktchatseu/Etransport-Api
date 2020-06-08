@@ -41,13 +41,13 @@ class UserPlanningController extends Controller
         $data = $req->except('photo');
 
         $this->validate($data, [
-            'user_id' => 'required:exists:users,id',
+            'identifiant' => 'required:exists:user_utypes,id',
             'planing_id' => 'required:exists:planings,id'           
          ]);
 
 
             $userPlanning = new UserPlanning();
-            $userPlanning->user_id = $data['user_id'];
+            $userPlanning->user_utype_id = $data['identifiant'];
             $userPlanning->planing_id = $data['planing_id'];
             $userPlanning->save();
        
@@ -93,17 +93,15 @@ class UserPlanningController extends Controller
         $data = $req->except('photo');
 
         $this->validate($data, [
-           'user_id' => 'required:exists:users,id',
+           'identifiant' => 'required:exists:user_utypes,id',
             'planing_id' => 'required:exists:planings,id'
          ]);
-
         
-        if (null !== $data['user_id']) $userPlanning->user_id = $data['user_id'];
+        if (null !== $data['identifiant']) $userPlanning->user_utype_id = $data['identifiant'];
         if (null !== $data['planing_id']) $userPlanning->planing_id = $data['planing_id'];
 
         
         $userPlanning->update();
-
         return response()->json($userPlanning);
     }
 
@@ -148,7 +146,7 @@ class UserPlanningController extends Controller
     {
         $planing = UserPlanning::select('user_planings.*', 'user_planings.id as uplaning_id', 'planings.*', 'planings.id as id_planing')
         ->join('planings', 'user_planings.planing_id', '=', 'planings.id')
-        ->where(['user_planings.user_id' => $id])
+        ->where(['user_planings.user_utype_id' => $id])
         ->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($planing);
     }
