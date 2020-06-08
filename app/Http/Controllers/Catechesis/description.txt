@@ -1,7 +1,10 @@
-################ ADRIENNE #################
+********************** ADRIENNE ***********************
+Les tables manipulées sont : members, transports, member_tsransport, authorizations, annualmember_authorizations
 
-1- Création des migrations create_transport et create_member_transport
+1- Création des migrations 
 2- Création des modèles Transport et MemberTransport
 3- Création des seeds et factory
-4- Création du controlleur de la table association MemberTransport + jointures
+4- Création du controlleur + jointures (cas des tables associations)
 5- Définition des routes + tests
+
+-------------------------------------------------------

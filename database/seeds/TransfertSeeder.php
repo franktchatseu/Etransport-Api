@@ -13,7 +13,6 @@ class TransfertSeeder extends Seeder
     public function run(\Faker\Generator $faker)
     {
         factory(Transfert::class,100)->make()->each(function($transfert) use ($faker){
-           // $transfert = App\Models\Catechesis\Transfert::all();
             $transfert->save();
         });
     }

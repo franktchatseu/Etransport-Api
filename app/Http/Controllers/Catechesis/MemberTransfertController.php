@@ -33,7 +33,7 @@ class MemberTransfertController extends Controller
 
         $this->validate($data, [
             'member_id' => 'required:exists:members,id',
-            'transfert_id' => 'required:exists:transferts,id'
+            'transfert_id' => 'required:exists:transferts,id',
         ]);
 
         $membertransfert = new MemberTransfert();

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTransfertsTable extends Migration
+class CreateAnnualmemberAuthorizationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateTransfertsTable extends Migration
      */
     public function up()
     {
-        Schema::create('transferts', function (Blueprint $table) {
+        Schema::create('annualmember_authorizations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('motif');
+            $table->unsignedBigInteger('annualmember_id');
+            $table->unsignedBigInteger('authorization_id');
             $table->date('date');
-            $table->text('documents');
             $table->enum('status',['PENDING','REJECTED','ACCEPTED']);
-            $table->softDeletes();
             $table->timestamps();
+            $table->foreign('annualmember_id')->references('id')->on('annual_members');
+            $table->foreign('authorization_id')->references('id')->on('authorizations');
         });
     }
 
@@ -31,6 +32,6 @@ class CreateTransfertsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transferts');
+        Schema::dropIfExists('member_transferts');
     }
 }

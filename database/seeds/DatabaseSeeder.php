@@ -32,12 +32,12 @@ class DatabaseSeeder extends Seeder
              UserSeeder::class,
              UtypeSeeder::class,
              UserUtypeSeeder::class,
-             ParishSeeder::class,
-             ProfessionSeeder::class,
-             PriestSeeder::class,
+           //  ParishSeeder::class,
+             //ProfessionSeeder::class,
+            // PriestSeeder::class,
             // AlbumSeeder::class,
-             ParishionalSeeder::class,
-             CathechumeneSeeder::class,
+           //  ParishionalSeeder::class,
+            // CathechumeneSeeder::class,
             // ContactSeeder::class,
         ]);
 
@@ -46,11 +46,12 @@ class DatabaseSeeder extends Seeder
         
         // module catechesis
          $this->call([
-            // AnnualMemberSeeder::class,
-             MemberSeeder::class,
-             TransfertSeeder::class,
-             AuthorizationSeeder::class,
-             MemberTransfertSeeder::class,
+            MemberSeeder::class,
+            AnnualMemberSeeder::class,
+            // TransfertSeeder::class,
+            AuthorizationSeeder::class,
+            // MemberTransfertSeeder::class,
+            AnnualmemberAuthorizationSeeder::class,
             // ArchivingSeeder::class
             // ProgrammeSeeder::class
          ]);

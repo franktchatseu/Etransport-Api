@@ -2,14 +2,12 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\Catechesis\Transfert;
+use App\Models\Catechesis\AnnualmemberAuthorization;
 use Faker\Generator as Faker;
 
-$factory->define(Transfert::class, function (Faker $faker) {
+$factory->define(AnnualmemberAuthorization::class, function (Faker $faker) {
     return [
-        'motif' => $faker->sentence(),
         'date' => $faker->date(),
-        'documents' => json_encode(['https://picsum.photos/200/300']),
         'status' => $faker->randomElement(['PENDING', 'REJECTED', 'ACCEPTED']),
     ];
 });
