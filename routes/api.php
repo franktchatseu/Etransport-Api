@@ -261,6 +261,15 @@ Route::group(['prefix' => 'catechesis'], function () {
         Route::match(['post', 'put'], '/{id}', 'Catechesis\MemberTransfertController@update');
     });
 
+    Route::group(['prefix' => 'authorizations'], function () {
+        Route::get('/', 'Catechesis\AuthorizationController@index');
+        Route::post('/', 'Catechesis\AuthorizationController@create');
+        Route::get('/{id}', 'Catechesis\AuthorizationController@find');
+        Route::delete('/{id}', 'Catechesis\AuthorizationController@destroy');
+        Route::get('/search', 'Catechesis\AuthorizationController@search');
+        Route::put('/{id}', 'Catechesis\AuthorizationController@update');
+    });
+
     Route::group(['prefix' => 'annual-members'], function () {
         Route::get('/', 'Catechesis\AnnualMemberController@index');
         Route::get('/{id}', 'Catechesis\AnnualMemberController@find');

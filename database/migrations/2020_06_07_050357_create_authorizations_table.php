@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMemberTransfertsTable extends Migration
+class CreateAuthorizationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateMemberTransfertsTable extends Migration
      */
     public function up()
     {
-        Schema::create('member_transferts', function (Blueprint $table) {
+        Schema::create('authorizations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('member_id');
-            $table->unsignedBigInteger('transfert_id');
+            $table->string('name');
+            $table->text('description');
+            $table->text('documents');
             $table->timestamps();
-            $table->foreign('member_id')->references('id')->on('members');
-            $table->foreign('transfert_id')->references('id')->on('transferts');
         });
     }
 
@@ -30,6 +29,6 @@ class CreateMemberTransfertsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('member_transferts');
+        Schema::dropIfExists('authorizations');
     }
 }

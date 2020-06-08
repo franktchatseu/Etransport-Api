@@ -49,6 +49,7 @@ class DatabaseSeeder extends Seeder
             // AnnualMemberSeeder::class,
              MemberSeeder::class,
              TransfertSeeder::class,
+             AuthorizationSeeder::class,
              MemberTransfertSeeder::class,
             // ArchivingSeeder::class
             // ProgrammeSeeder::class

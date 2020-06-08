@@ -14,14 +14,16 @@ class CreateMembersTable extends Migration
     public function up()
     {
         Schema::create('members', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->text('files');
             $table->date('adhesion_date');
             $table->boolean('is_finish');
             $table->boolean('has_win');
             $table->string('regnum')->unique(); # matricule
             $table->enum('status',['REJECTED','PENDING','ACCEPTED']);
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

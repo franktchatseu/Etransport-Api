@@ -9,7 +9,7 @@ $factory->define(Transfert::class, function (Faker $faker) {
     return [
         'motif' => $faker->sentence(),
         'date' => $faker->date(),
-        'documents' => $faker->sentence(),
+        'documents' => json_encode(['https://picsum.photos/200/300']),
         'status' => $faker->randomElement(['PENDING', 'REFUSED', 'ACCEPTED']),
     ];
 });
