@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Sanction;
 
 use App\Http\Controllers\Controller;
+use App\Models\APIError;
 use App\Models\Sanction\UserSanction;
 use Illuminate\Http\Request;
 

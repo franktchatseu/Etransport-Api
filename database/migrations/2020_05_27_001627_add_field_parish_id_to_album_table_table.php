@@ -14,10 +14,10 @@ class AddFieldParishIdToAlbumTableTable extends Migration
     public function up()
     {
         Schema::create('parish_albums', function (Blueprint $table) {
-            //
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('album_id');
             $table->unsignedBigInteger('parish_id');
-            $table->date('happen_date');
+            $table->timestamps();
             $table->foreign('album_id')->references('id')->on('albums');
             $table->foreign('parish_id')->references('id')->on('parishs');
         });

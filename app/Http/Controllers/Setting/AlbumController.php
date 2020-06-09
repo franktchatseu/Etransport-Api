@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Setting;
 
 use App\Http\Controllers\Controller;
+use App\Models\APIError;
 use App\Models\Setting\Album;
+use App\Models\Setting\Photo;
 use Illuminate\Http\Request;
 use App\Models\APIError;
 
@@ -133,5 +135,12 @@ class AlbumController extends Controller
             return response()->json($apiError, 404);
         }
         return response()->json($album);
+    }
+
+    public function findPhoto(Request $req, $id){
+        if (!$photo = Photo::whereAlbumId($id)->simplePaginate($req->has('limit') ? $req->limit : 15)) {
+            abort(404, "No photo with id $id found ");
+        }
+        return response()->json($photo);
     }
 }

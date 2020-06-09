@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Setting;
 
 use App\Http\Controllers\Controller;
+use App\Models\APIError;
 use App\Models\Setting\ParishPatrimony;
 use Illuminate\Http\Request;
 use App\Models\APIError;
@@ -103,6 +104,6 @@ class ParishPatrimonyController extends Controller
             return response()->json($apiError, 404);
         }
         $parishPatrimony->delete();
-        return response()-json($parishPatrimony);
+        return response()->json($parishPatrimony);
     }
 }

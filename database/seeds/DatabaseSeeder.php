@@ -3,6 +3,9 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Catechesis\Catechesis;
+use App\Models\Setting\ParishAlbum;
+use App\Models\Setting\UserParish;
 
 class DatabaseSeeder extends Seeder
 {
@@ -51,6 +54,18 @@ class DatabaseSeeder extends Seeder
         // module sacrament
         $this->call([]);
         
+        // module setting
+        $this->call([
+             ParishSeeder::class,
+             AlbumSeeder::class,
+             ContactSeeder::class,
+             ParishPatrimonySeeder::class,
+             MassSheduleSeeder::class,
+             PhotoSeeder::class,
+             UserParishSeeder::class,
+             ParishAlbumSeeder::class
+        ]);
+
         // module catechesis
          $this->call([
             // AnnualMemberSeeder::class,
@@ -124,6 +139,7 @@ class DatabaseSeeder extends Seeder
         //   AssociationPlaningSeeder::class,
         //   UserPlaningSeeder::class
         ]);
+
 
         Schema::enableForeignKeyConstraints();
         Model::reguard();

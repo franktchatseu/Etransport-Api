@@ -13,7 +13,10 @@ class ContactSeeder extends Seeder
     public function run(\Faker\Generator $faker)
     {
         factory(Contact::class,21)->make()->each(function ($contact) use ($faker){
+            $parishs = App\Models\Setting\Parish::all();
+            $contact->parish_id = $faker->randomElement($parishs)->id;
             $contact->save();
+
         });
     }
 }
