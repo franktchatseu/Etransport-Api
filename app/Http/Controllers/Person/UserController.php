@@ -38,7 +38,8 @@ class UserController extends Controller
             'last_name' => 'required|min:2',
             'district' => 'required',
             // 'password' => 'required|min:4',
-	        'profession_id' => ['required', 'exists:professions,id'],
+	     //   'profession_id' => ['required', 'exists:professions,id'],
+	    'profession' => ['required'],
             // 'email' => ['required', 'email', Rule::unique('users', 'email')],
         ]);
 
@@ -71,7 +72,8 @@ class UserController extends Controller
         $user->baptist_date = $data['baptist_date'];
         $user->baptist_place = $data['baptist_place'];
         $user->language = $data['language'];
-        $user->profession_id = $data['profession_id'];
+        // $user->profession_id = $data['profession_id'];
+	$user->profession = $data['profession'];
         $user->ceb = $data['ceb'];
         $user->group = $data['group'];
         $user->post = $data['post'];
