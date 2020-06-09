@@ -406,6 +406,42 @@ Route::group(['prefix' => 'catechesis'], function () {
         Route::match(['post', 'put'], '/{id}', 'Catechesis\PlugController@update');
     });
 
+    Route::group(['prefix' => 'catechesis'], function () {
+        Route::get('/', 'Catechesis\CatechesisController@index');
+        Route::get('/search', 'Catechesis\CatechesisController@search');
+        Route::get('/{id}', 'Catechesis\CatechesisController@find');
+        Route::delete('/{id}', 'Catechesis\CatechesisController@destroy');
+        Route::post('/', 'Catechesis\CatechesisController@store');
+        Route::match(['post', 'put'], '/{id}', 'Catechesis\CatechesisController@update');
+    });
+
+    Route::group(['prefix' => 'cathedralPesences'], function () {
+        Route::get('/', 'Catechesis\CathedralPresenceController@index');
+        Route::get('/search', 'Catechesis\CathedralPresenceController@search');
+        Route::get('/{id}', 'Catechesis\CathedralPresenceController@find');
+        Route::get('/{id}/annualmember', 'Catechesis\CathedralPresenceController@findCathedralPesences');
+        Route::delete('/{id}', 'Catechesis\CathedralPresenceController@destroy');
+        Route::post('/', 'Catechesis\CathedralPresenceController@store');
+        Route::match(['post', 'put'], '/{id}', 'Catechesis\CathedralPresenceController@update');
+    });
+    Route::group(['prefix' => 'catechesisPresences'], function () {
+        Route::get('/', 'Catechesis\CatechesisPresenceController@index');
+        Route::get('/search', 'Catechesis\CatechesisPresenceController@search');
+        Route::get('/{id}', 'Catechesis\CatechesisPresenceController@find');
+        Route::get('/{id}/user_catechesis', 'Catechesis\CatechesisPresenceController@findcatechesisPresences');
+        Route::delete('/{id}', 'Catechesis\CatechesisPresenceController@destroy');
+        Route::post('/', 'Catechesis\CatechesisPresenceController@store');
+        Route::match(['post', 'put'], '/{id}', 'Catechesis\CatechesisPresenceController@update');
+    });
+    Route::group(['prefix' => 'userCatechesis'], function () {
+        Route::get('/', 'Catechesis\UserCatechesisController@index');
+        Route::get('/search', 'Catechesis\UserCatechesisController@search');
+        Route::get('/{id}', 'Catechesis\UserCatechesisController@find');
+        Route::get('/{id}/user', 'Catechesis\UserCatechesisController@findCatechesisPresences');
+        Route::delete('/{id}', 'Catechesis\UserCatechesisController@destroy');
+        Route::post('/', 'Catechesis\UserCatechesisController@store');
+        Route::match(['post', 'put'], '/{id}', 'Catechesis\UserCatechesisController@update');
+    });
 
 });
 

@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Catechesis;
 
 use App\Http\Controllers\Controller;
-use App\Models\Catechesis\Catechesis;
+use App\Models\Catechesis\UserCatechesis;
 use Illuminate\Http\Request;
-use App\Models\APIError;
 
-class CatechesisController extends Controller
+class UserCatechesisController extends Controller
 {
     /**
      * @param  \Illuminate\Http\Request  $req
@@ -15,7 +14,7 @@ class CatechesisController extends Controller
      */
     public function index (Request $req)
     {
-        $data = Catechesis::simplePaginate($req->has('limit') ? $req->limit : 15);
+        $data = UserCatechesis::simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($data);
     }
 
@@ -31,16 +30,16 @@ class CatechesisController extends Controller
         $data = $request->except('photo');
 
         $this->validate($data, [
-            'name' => 'required',
-            'description' => 'required'
+            'user_id' => 'required',
+            'catechesis_id' => 'required'
         ]);
 
-            $catechesis = new Catechesis();
-            $catechesis->name = $data['name'];
-            $catechesis->description = $data['description'];
-            $catechesis->save();
+            $userCatechesis = new UserCatechesis();
+            $userCatechesis->user_id = $data['user_id'];
+            $userCatechesis->catechesis_id = $data['catechesis_id'];
+            $userCatechesis->save();
        
-        return response()->json($catechesis);
+        return response()->json($userCatechesis);
     }
 
    /**
@@ -52,27 +51,26 @@ class CatechesisController extends Controller
      */
     public function update(Request $req, $id)
     {
-        $catechesis = Catechesis::find($id);
-        if (!$catechesis) {
+        $userCatechesis = UserCatechesis::find($id);
+        if (!$userCatechesis) {
             $apiError = new APIError;
             $apiError->setStatus("404");
-            $apiError->setCode("CATECHESIS_NOT_FOUND");
+            $apiError->setCode("USERCATECHESIS_NOT_FOUND");
             return response()->json($apiError, 404);
         }
 
         $data = $req->except('photo');
 
         $this->validate($data, [
-            'name' => 'required',
-            'description' => 'required'
+            'user_id' => 'required',
+            'catechesis_id' => 'required'
         ]);
 
-        if (null !== $data['name']) $catechesis->name = $data['name'];
-        if (null !== $data['description']) $catechesis->description = $data['description'];
+        if (null !== $data['user_id']) $userCatechesis->user_id = $data['user_id'];
+        if (null !== $data['catechesis_id']) $userCatechesis->catechesis_id = $data['catechesis_id'];
+        $userCatechesis->update();
 
-        $catechesis->update();
-
-        return response()->json($catechesis);
+        return response()->json($userCatechesis);
     }
 
     /**
@@ -81,15 +79,15 @@ class CatechesisController extends Controller
      */
     public function destroy($id)
     {
-        $catechesis = Catechesis::find($id);
-        if (!$catechesis) {
+        $userCatechesis = UserCatechesis::find($id);
+        if (!$userCatechesis) {
             $apiError = new APIError;
             $apiError->setStatus("404");
-            $apiError->setCode("CATECHESIS_NOT_FOUND");
+            $apiError->setCode("USERCATECHESIS_NOT_FOUND");
             return response()->json($apiError, 404);
         }
 
-        $catechesis->delete();      
+        $userCatechesis->delete();      
         return response()->json();
     }
 /**
@@ -106,7 +104,7 @@ class CatechesisController extends Controller
             'field' => 'present'
         ]);
 
-        $data = Catechesis::where($req->field, 'like', "%$req->q%")
+        $data = UserCatechesis::where($req->field, 'like', "%$req->q%")
         ->simplePaginate($req->has('limit') ? $req->limit : 15);
 
         return response()->json($data);
@@ -121,13 +119,22 @@ class CatechesisController extends Controller
      */
     public function find($id)
     {
-        $catechesis = Catechesis::find($id);
-        if (!$catechesis) {
+        $userCatechesis = UserCatechesis::find($id);
+        if (!$userCatechesis) {
             $apiError = new APIError;
             $apiError->setStatus("404");
-            $apiError->setCode("CATECHESIS_NOT_FOUND");
+            $apiError->setCode("USERCATECHESIS_NOT_FOUND");
             return response()->json($apiError, 404);
         }
-        return response()->json($catechesis);
+        return response()->json($userCatechesis);
+    }
+
+    public function findUserCatechesis(Request $req, $id)
+    {
+        $userCatechesis = UserCatechesis::select('user_catechesis.*','user_catechesis.id as user_catechesis_id','catechesis.*')
+        ->join('catechesis', 'user_catechesis.catechesis_id', '=', 'catechesis.id' )
+        ->where(['user_catechesis.user_id' => $id])
+        ->simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($userCatechesis);
     }
 }

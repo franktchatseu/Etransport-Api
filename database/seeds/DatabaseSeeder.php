@@ -75,6 +75,11 @@ class DatabaseSeeder extends Seeder
             // MemberTransfertSeeder::class,
             AnnualmemberAuthorizationSeeder::class,
             // ArchivingSeeder::class
+            CatechesisSeeder::class,
+             //AnnualMemberSeeder::class,
+            // MemberSeeder::class,
+             ArchivingSeeder::class
+            //ProgrammeSeeder::class
             // ProgrammeSeeder::class
             // MemberSeeder::class,
             // ArchivingSeeder::class
@@ -98,11 +103,15 @@ class DatabaseSeeder extends Seeder
           // module catechese
           $this->call([
             //   QuarterSeeder::class,
-            // EvaluationSeeder::class,
-            // CatechesisSeeder::class,
-            // TimeCardSeeder::class,
-            // PatternSeeder::class,
-            // PlugSeeder::class
+              // EvaluationSeeder::class,
+            //TimeCardSeeder::class,
+            PatternSeeder::class,
+            PlugSeeder::class,
+         //   CathedralPresenceSeeder::class,
+            UserCatechesisSeeder::class,
+            CatechesisPresenceSeeder::class,
+
+            
           ]);
 
         // module planification
