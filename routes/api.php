@@ -19,6 +19,7 @@ Route::pattern('id', '[0-9]+');
 Route::group(['prefix' => 'auth'], function () {
 
     Route::post('token', 'AuthController@login');
+    Route::post('persons/users', 'Person\UserController@create');
 
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('user', 'AuthController@user');
@@ -28,6 +29,13 @@ Route::group(['prefix' => 'auth'], function () {
         Route::get('teams', 'AuthController@teams');
     });
 });
+
+Route::group(['prefix' => 'extras'], function () {
+    Route::get('postes', 'Extra\ExtraController@getPosts');
+    Route::get('groupes', 'Extra\ExtraController@getGroups');
+    Route::get('cebs', 'Extra\ExtraController@getCebs');
+});
+
 
 // Messagerie module : 'middleware' => 'auth:api',
 Route::group(['prefix' => 'messageries'], function () { });
@@ -47,7 +55,6 @@ Route::group(['prefix' => 'persons'], function () {
     Route::group(['prefix' => 'users'], function () {
         Route::get('/', 'Person\UserController@index');
         Route::get('/search', 'Person\UserController@search');
-        Route::post('/', 'Person\UserController@create');
         Route::get('/{id}', 'Person\UserController@find');
         Route::match(['post', 'put'], '/{id}', 'Person\UserController@update');
         Route::delete('/{id}', 'Person\UserController@destroy');

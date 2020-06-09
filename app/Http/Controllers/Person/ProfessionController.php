@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Person;
 
 use App\Http\Controllers\Controller;
-use App\Models\Person\profession;
+use App\Models\Person\Profession;
 use Illuminate\Http\Request;
 
 class ProfessionController extends Controller

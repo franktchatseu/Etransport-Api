@@ -33,54 +33,52 @@ class UserController extends Controller
         $data = $req->except('files');
 
         $this->validate($data, [
+            // 'login' => ['required', Rule::unique('users', 'login')],
             'first_name' => 'required|min:2',
             'last_name' => 'required|min:2',
-            'password' => 'required|min:4',
-            'email' => ['required', 'email', Rule::unique('users', 'email')],
-            'user_type' => 'required',
+            'district' => 'required',
+            // 'password' => 'required|min:4',
+	        'profession_id' => ['required', 'exists:professions,id'],
+            // 'email' => ['required', 'email', Rule::unique('users', 'email')],
         ]);
 
-        $data['password'] = bcrypt($data['password']);
         $data['avatar'] = '';
         //upload image
         if ($file = $req->file('files')) {
-            $filePaths = $this->uploadMultipleFiles($req, 'files', 'users', ['file', 'mimes:jpg,png,gif']);
-            $data['avatar'] = json_encode($filePaths);
+            /* $filePaths = $this->uploadMultipleFiles($req, 'files', 'users', ['file', 'mimes:jpg,png,gif']); */
+                $extension = $file->getClientOriginalExtension();
+                $relativeDestination = "uploads/users";
+                $destinationPath = public_path($relativeDestination);
+                $safeName = "document".time().'.'.$extension;
+                $file->move($destinationPath, $safeName);
+                $path = "$relativeDestination/$safeName";
+            	$data['avatar'] = json_encode($path);
         }
 
-        if ($req->has('user_type')) {
-            $user = new User();
-            $user->login = $data['login'];
-            $user->email = $data['email'];
-            $user->password = $data['password'];
-            $user->avatar = $data['avatar'];
-            // $user->email_verified_at = null;
-            $user->gender = $data['gender'];
-            $user->first_name = $data['first_name'];
-            $user->last_name = $data['last_name'];
-            $user->birth_date = $data['birth_date'];
-            $user->birth_place = $data['birth_place'];
-            $user->baptist_date = $data['baptist_date'];
-            $user->baptist_place = $data['baptist_place'];
-            $user->state = $data['state'];
-            $user->user_type = $data['user_type'];
-            $user->save();
-
-            // $data['user_id'] = $user->id;
-            // if ($data['user_type'] == 'student') {
-            //     $student = new Student();
-            //     $student->level = $data['level'];
-            //     $student->user_id = $data['user_id'];
-            //     $student->save();
-            //     $user[$data['user_type']] = $student;
-            // } else if ($data['user_type'] == 'teacher') {
-            //     $teacher = new Teacher();
-            //     $teacher->grade = $data['grade'];
-            //     $teacher->user_id = $data['user_id'];
-            //     $teacher->save();
-            //     $user[$data['user_type']] = $teacher;
-            // }
-        }
+        
+        $user = new User();
+        // $user->login = $data['login'];
+        $user->email = $data['email'];
+        // $user->password = bcrypt($data['password']);
+        $user->avatar = $data['avatar'];
+        $user->gender = $data['gender'];
+        $user->first_name = $data['first_name'];
+        $user->last_name = $data['last_name'];
+        $user->birth_date = $data['birth_date'];
+        $user->birth_place = $data['birth_place'];
+        $user->district = $data['district'];
+        $user->is_baptisted = $data['is_baptisted'];
+        $user->baptist_date = $data['baptist_date'];
+        $user->baptist_place = $data['baptist_place'];
+        $user->language = $data['language'];
+        $user->profession_id = $data['profession_id'];
+        $user->ceb = $data['ceb'];
+        $user->group = $data['group'];
+        $user->post = $data['post'];
+        $user->tel = $data['tel'];
+        $user->is_married = $data['is_married'];
+        $user->save();
+        
         return response()->json($user);
     }
 
