@@ -32,8 +32,8 @@ class CreateUsersTable extends Migration
             $table->string('group')->nullable();
             $table->string('post')->nullable();
             $table->boolean('is_married');
-	    // $table->bigInteger('profession_id');
-	    $table->string('profession');
+	        // $table->bigInteger('profession_id');
+	        $table->string('profession');
             $table->string('tel')->nullable();
             $table->enum('gender',['F', 'M']);
 
