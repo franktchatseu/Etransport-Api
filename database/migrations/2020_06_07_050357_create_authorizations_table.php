@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTransfertsTable extends Migration
+class CreateAuthorizationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateTransfertsTable extends Migration
      */
     public function up()
     {
-        Schema::create('transferts', function (Blueprint $table) {
+        Schema::create('authorizations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('motif');
-            $table->date('date');
+            $table->string('name');
+            $table->text('description');
             $table->text('documents');
-            $table->enum('status',['PENDING','REJECTED','ACCEPTED']);
-            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ class CreateTransfertsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transferts');
+        Schema::dropIfExists('authorizations');
     }
 }

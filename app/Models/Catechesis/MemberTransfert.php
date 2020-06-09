@@ -4,7 +4,8 @@ namespace App\Models\Catechesis;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Member extends Model
+class MemberTransfert extends Model
 {
-    protected $guarded = [];
+    protected $table='member_transferts';
+    
 }

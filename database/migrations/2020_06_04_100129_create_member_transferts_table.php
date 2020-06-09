@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTransfertsTable extends Migration
+class CreateMemberTransfertsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateTransfertsTable extends Migration
      */
     public function up()
     {
-        Schema::create('transferts', function (Blueprint $table) {
+        Schema::create('member_transferts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('motif');
-            $table->date('date');
-            $table->text('documents');
-            $table->enum('status',['PENDING','REJECTED','ACCEPTED']);
-            $table->softDeletes();
+            $table->unsignedBigInteger('member_id');
+            $table->unsignedBigInteger('transfert_id');
             $table->timestamps();
+            $table->foreign('member_id')->references('id')->on('members');
+            $table->foreign('transfert_id')->references('id')->on('transferts');
         });
     }
 
@@ -31,6 +30,6 @@ class CreateTransfertsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transferts');
+        Schema::dropIfExists('member_transferts');
     }
 }
