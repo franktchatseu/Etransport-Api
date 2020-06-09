@@ -43,7 +43,7 @@ class DatabaseSeeder extends Seeder
              UserSeeder::class,
              UtypeSeeder::class,
              UserUtypeSeeder::class,
-             ParishSeeder::class,
+            //  ParishSeeder::class,
              PriestSeeder::class,
             // AlbumSeeder::class,
            //  ParishionalSeeder::class,
@@ -56,29 +56,29 @@ class DatabaseSeeder extends Seeder
         
         // module setting
         $this->call([
-             ParishSeeder::class,
-             AlbumSeeder::class,
-             ContactSeeder::class,
-             ParishPatrimonySeeder::class,
-             MassSheduleSeeder::class,
-             PhotoSeeder::class,
-             UserParishSeeder::class,
-             ParishAlbumSeeder::class
+            //  ParishSeeder::class,
+            //  AlbumSeeder::class,
+            //  ContactSeeder::class,
+            //  ParishPatrimonySeeder::class,
+            //  MassSheduleSeeder::class,
+            //  PhotoSeeder::class,
+            //  UserParishSeeder::class,
+            //  ParishAlbumSeeder::class
         ]);
 
         // module catechesis
          $this->call([
-            MemberSeeder::class,
-            AnnualMemberSeeder::class,
+            // MemberSeeder::class,
+            // AnnualMemberSeeder::class,
             // TransfertSeeder::class,
-            AuthorizationSeeder::class,
+            // AuthorizationSeeder::class,
             // MemberTransfertSeeder::class,
-            AnnualmemberAuthorizationSeeder::class,
+            // AnnualmemberAuthorizationSeeder::class,
             // ArchivingSeeder::class
-            CatechesisSeeder::class,
+            // CatechesisSeeder::class,
              //AnnualMemberSeeder::class,
             // MemberSeeder::class,
-             ArchivingSeeder::class
+            //  ArchivingSeeder::class
             //ProgrammeSeeder::class
             // ProgrammeSeeder::class
             // MemberSeeder::class,
@@ -105,11 +105,11 @@ class DatabaseSeeder extends Seeder
             //   QuarterSeeder::class,
               // EvaluationSeeder::class,
             //TimeCardSeeder::class,
-            PatternSeeder::class,
-            PlugSeeder::class,
+            // PatternSeeder::class,
+            // PlugSeeder::class,
          //   CathedralPresenceSeeder::class,
-            UserCatechesisSeeder::class,
-            CatechesisPresenceSeeder::class,
+            // UserCatechesisSeeder::class,
+            // CatechesisPresenceSeeder::class,
 
             
           ]);

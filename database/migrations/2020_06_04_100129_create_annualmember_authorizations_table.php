@@ -20,8 +20,8 @@ class CreateAnnualmemberAuthorizationsTable extends Migration
             $table->date('date');
             $table->enum('status',['PENDING','REJECTED','ACCEPTED']);
             $table->timestamps();
-            $table->foreign('annualmember_id')->references('id')->on('annual_members');
-            $table->foreign('authorization_id')->references('id')->on('authorizations');
+            // $table->foreign('annualmember_id')->references('id')->on('annual_members');
+            // $table->foreign('authorization_id')->references('id')->on('authorizations');
         });
     }
 
