@@ -18,8 +18,11 @@ class CreateMembreannuellesTable extends Migration
             $table->string('class');
             $table->boolean('has_win');
             $table->unsignedBigInteger('member_id');
+            $table->unsignedBigInteger('quarter_id');
             $table->timestamps();
+
             $table->foreign('member_id')->references('id')->on('members');
+            $table->foreign('quarter_id')->references('id')->on('quarters')->onDelete('cascade');
         });
     }
 

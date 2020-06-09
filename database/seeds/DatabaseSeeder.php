@@ -76,6 +76,13 @@ class DatabaseSeeder extends Seeder
             AnnualmemberAuthorizationSeeder::class,
             // ArchivingSeeder::class
             // ProgrammeSeeder::class
+            // MemberSeeder::class,
+            // ArchivingSeeder::class
+            // ProgrammeSeeder::class,
+            // TrimestreSeeder::class,
+            // QuarterSeeder::class,
+            // QuarterTrimestreSeeder::class,
+            // AnnualMemberSeeder::class,
          ]);
 
         // module place

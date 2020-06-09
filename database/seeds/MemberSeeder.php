@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\Catechesis\Member;
+use App\Models\Catechesis\Quarter_Trimestre;
 
 class MemberSeeder extends Seeder
 {

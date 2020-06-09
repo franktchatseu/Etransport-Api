@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePeriodeannuelleTrimestresTable extends Migration
+class CreateTrimestresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class CreatePeriodeannuelleTrimestresTable extends Migration
      */
     public function up()
     {
-        Schema::create('periodeannuelle_trimestres', function (Blueprint $table) {
-            $table->id();
+        Schema::create('trimestres', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->date('begin_date');
+            $table->Integer('number'); //quantieme trimestre
+            $table->date('end_date');
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ class CreatePeriodeannuelleTrimestresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('periodeannuelle_trimestres');
+        Schema::dropIfExists('trimestres');
     }
 }

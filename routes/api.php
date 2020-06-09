@@ -281,7 +281,26 @@ Route::group(['prefix' => 'catechesis'], function () {
         Route::get('/{id}', 'Catechesis\MemberController@find');
         Route::delete('/{id}', 'Catechesis\MemberController@destroy');
         Route::get('/search', 'Catechesis\MemberController@search');
-        Route::put('/{id}', 'Catechesis\MemberController@update');
+        Route::match(['post', 'put'], '/{id}', 'Catechesis\MemberController@update');
+    });
+
+    Route::group(['prefix' => 'trimestres'], function () {
+        Route::get('/', 'Catechesis\TrimestreController@index');
+        Route::post('/', 'Catechesis\TrimestreController@create');
+        Route::get('/{id}', 'Catechesis\TrimestreController@find');
+        Route::delete('/{id}', 'Catechesis\TrimestreController@destroy');
+        Route::get('/search', 'Catechesis\TrimestreController@search');
+        Route::match(['post', 'put'], '/{id}', 'Catechesis\TrimestreController@update');
+    });
+
+    Route::group(['prefix' => 'quarter_trimestres'], function () {
+        Route::get('/', 'Catechesis\QuarterTrimestreController@index');
+        Route::post('/', 'Catechesis\QuarterTrimestreController@store');
+        Route::get('/{id}', 'Catechesis\QuarterTrimestreController@find');
+        Route::delete('/{id}', 'Catechesis\QuarterTrimestreController@destroy');
+        Route::get('/search', 'Catechesis\QuarterTrimestreController@search');
+        Route::get('/{id}/quarters', 'Catechesis\QuarterTrimestreController@findQuarterTrimestres');
+        Route::match(['post', 'put'], '/{id}', 'Catechesis\QuarterTrimestreController@update');
     });
 
     Route::group(['prefix' => 'transferts'], function () {
@@ -317,7 +336,7 @@ Route::group(['prefix' => 'catechesis'], function () {
         Route::get('/{id}', 'Catechesis\AnnualMemberController@find');
         Route::post('/', 'Catechesis\AnnualMemberController@create');
         Route::delete('/{id}', 'Catechesis\AnnualMemberController@destroy');
-        Route::get('/', 'Catechesis\AnnualMemberController@search');
+        Route::get('/search', 'Catechesis\AnnualMemberController@search');
         Route::put('/{id}', 'Catechesis\AnnualMemberController@update');
     });
 
@@ -344,6 +363,7 @@ Route::group(['prefix' => 'catechesis'], function () {
         Route::get('/', 'Catechesis\QuarterController@index');
         Route::get('/search', 'Catechesis\QuarterController@search');
         Route::get('/{id}', 'Catechesis\QuarterController@find');
+        Route::get('/{id}/AnnuelMembers', 'Catechesis\QuarterController@findAnnuelMembers');
         Route::delete('/{id}', 'Catechesis\QuarterController@destroy');
         Route::post('/', 'Catechesis\QuarterController@store');
         Route::match(['post', 'put'], '/{id}', 'Catechesis\QuarterController@update');

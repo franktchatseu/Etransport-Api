@@ -56,28 +56,6 @@ class UserSanctionController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Sanction\UserSanction  $userSanction
-     * @return \Illuminate\Http\Response
-     */
-    public function show(UserSanction $userSanction)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Sanction\UserSanction  $userSanction
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(UserSanction $userSanction)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

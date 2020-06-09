@@ -18,6 +18,11 @@ class CreateEvaluationsTable extends Migration
             $table->string('evaluation_type');
             $table->double('note');
             $table->timestamps();
+            $table->unsignedBigInteger('trimestres_id');
+            $table->unsignedBigInteger('annual_member_id');
+
+            $table->foreign('trimestres_id')->references('id')->on('trimestres');
+            $table->foreign('annual_member_id')->references('id')->on('annual_members');
         });
     }
 

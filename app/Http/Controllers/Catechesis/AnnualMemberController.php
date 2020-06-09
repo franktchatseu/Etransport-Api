@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Catechesis;
 use App\Http\Controllers\Controller;
 use App\Models\Catechesis\AnnualMember;
 use Illuminate\Http\Request;
+use App\Models\Catechesis\Evaluation;
+use App\Models\Catechesis\Quarter;
 use App\Models\APIError;
 
 class AnnualMemberController extends Controller
@@ -45,17 +47,20 @@ class AnnualMemberController extends Controller
 
         $data = $request->only([
             'class',
-            'has_win'
+            'has_win',
+            'quarter_id'
         ]);
 
         $this->validate($data, [
             'class' => 'required|string|min:2',
-            'has_win' => 'required'
+            'has_win' => 'required',
+            'quarter_id' => 'required:exists:quarters,id'
         ]);
 
         $annualMember = new AnnualMember();
         $annualMember->class=$data['class'];
         $annualMember->has_win=$data['has_win'];
+        $annualMember->quarter_trimestre_id =$data['quarter_id'];
 
         $annualMember->save();
 
@@ -81,18 +86,23 @@ class AnnualMemberController extends Controller
 
         $data = $request->only([
             'context',
-            'has_win'
+            'has_win',
+            'quarter_id'
         ]);
 
         $this->validate($data, [
-            'class' => '',
-            'has_win' => 'required'
+            'class' => 'required|string|min:2',
+            'has_win' => 'required',
+            'quarter_id' => 'required:exists:quarters,id'
         ]);
 
        if (null !== $data['class']){
         $annualMember->class=$data['class'];
        }
-       if (null!==$data['is_admin']){
+       if (null!==$data['quarter_id']){
+        $annualMember->quarter_id =$data['quarter_id'];
+       }
+       if (null!==$data['has_win']){
         $annualMember->has_win=$data['has_win'];
        }
        
@@ -112,7 +122,7 @@ class AnnualMemberController extends Controller
      */
     public function find($id)
     {
-        $annualMember = AnnuelMember::find($id);
+        $annualMember = AnnualMember::find($id);
         if (!$annuelMember) {
             $apiError = new APIError;
             $apiError->setStatus("404");
@@ -124,7 +134,8 @@ class AnnualMemberController extends Controller
     
         public function destroy($id)
         {
-            $annualMember = AnnuelMember::find($id);
+        
+        $annualMember = AnnualMember::find($id);
         if (!$annuelMember) {
             $apiError = new APIError;
             $apiError->setStatus("404");
@@ -135,6 +146,20 @@ class AnnualMemberController extends Controller
             $annualMember->delete();      
             return response()->json();
         }
+
+
+    public function findEvaluations(Request $req, $id)
+    {
+        $annualMember = AnnualMember::find($id);
+        if (!$annualMember) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+        $evaluations =  Evaluation::whereAnnualMemberId($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($evaluations);
+    }
 }
 
 
