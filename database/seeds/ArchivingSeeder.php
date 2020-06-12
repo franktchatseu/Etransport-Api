@@ -13,6 +13,8 @@ class ArchivingSeeder extends Seeder
     public function run(\Faker\Generator $faker)
     {
         factory(Archiving::class, 100)->make()->each(function ($archiv) use ($faker) {
+            $catechesis = App\Models\Catechesis\Catechesis::all();
+            $archiv->catechesis_id = $faker->randomElement($catechesis)->id;
             $archiv->save();
         });
 

@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Cathechesis\Transfert;
+use App\Models\Catechesis\Transfert;
 
-class TansfertSeeder extends Seeder
+class TransfertSeeder extends Seeder
 {
     /**
      * Run the database seeds.

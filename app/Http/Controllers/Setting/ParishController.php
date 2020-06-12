@@ -10,6 +10,7 @@ use App\Models\Setting\MassShedule;
 use App\Models\Setting\Parish;
 use App\Models\Setting\ParishPatrimony;
 use Illuminate\Http\Request;
+use App\Models\APIError;
 
 class ParishController extends Controller
 {

@@ -14,7 +14,7 @@ class CreateQuartersTable extends Migration
     public function up()
     {
         Schema::create('quarters', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('title');
             $table->string('description');
             $table->date('debut_date');

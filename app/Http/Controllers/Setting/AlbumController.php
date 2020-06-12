@@ -7,6 +7,7 @@ use App\Models\APIError;
 use App\Models\Setting\Album;
 use App\Models\Setting\Photo;
 use Illuminate\Http\Request;
+use App\Models\APIError;
 
 class AlbumController extends Controller
 {

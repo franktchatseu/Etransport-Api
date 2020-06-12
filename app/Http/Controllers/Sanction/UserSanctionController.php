@@ -42,40 +42,17 @@ class UserSanctionController extends Controller
 
         $this->validate($data, [
             'reason' => 'required',
-            'user_id' => 'required:exists:users,id',
+            'identifiant' => 'required:exists:user_utypes,id',
             'sanction_id' => 'required:exists:sanctions,id'
          ]);
 
-
             $usersanction = new UserSanction();
             $usersanction->reason = $data['reason'];
-            $usersanction->user_id = $data['user_id'];
+            $usersanction->user_utypes = $data['identifiant'];
             $usersanction->sanction_id = $data['sanction_id'];
             $usersanction->save();
        
         return response()->json($usersanction);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Sanction\UserSanction  $userSanction
-     * @return \Illuminate\Http\Response
-     */
-    public function show(UserSanction $userSanction)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Sanction\UserSanction  $userSanction
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(UserSanction $userSanction)
-    {
-        //
     }
 
     /**
@@ -99,13 +76,13 @@ class UserSanctionController extends Controller
 
         $this->validate($data, [
             'reason' => 'required',
-            'user_id' => 'required:exists:users,id',
+            'identifiant' => 'required:exists:user_utypes,id',
             'sanction_id' => 'required:exists:sanctions,id'
          ]);
 
         
         if (null !== $data['reason']) $usersanction->reason = $data['reason'];
-        if (null !== $data['user_id']) $usersanction->user_id = $data['user_id'];
+        if (null !== $data['identifiant']) $usersanction->user_utype_id = $data['identifiant'];
         if (null !== $data['sanction_id']) $usersanction->sanction_id = $data['sanction_id'];
 
         $usersanction->update();
@@ -159,7 +136,7 @@ class UserSanctionController extends Controller
     {
         $sanctions = UserSanction::select('user_sanctions.*', 'user_sanctions.id as usanction_id', 'sanctions.*', 'sanctions.id as id_sanction')
         ->join('sanctions', 'user_sanctions.sanction_id', '=', 'sanctions.id')
-        ->where(['user_sanctions.user_id' => $id])
+        ->where(['user_sanctions.user_utype_id' => $id])
         ->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($sanctions);
     }

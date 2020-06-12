@@ -14,9 +14,23 @@ class ProfessionSeeder extends Seeder
     
         public function run(\Faker\Generator $faker)
     {
-        factory(Profession::class, 21)->make()->each(function ($professions) use ($faker) {
-            $professions->save();
-        });
+        $list = [
+            'Banki',
+            'Mvoh',
+            'Maka',
+            'Nzindeng'
+        ];
+
+        DB::table('professions')->delete();
+        foreach ($list as $key => $value) {
+            DB::table('professions')->insert([
+                'name' => $value,
+            ]);
+        }
+
+        // factory(Profession::class, 21)->make()->each(function ($professions) use ($faker) {
+        //     $professions->save();
+        // });
     }
     
 }

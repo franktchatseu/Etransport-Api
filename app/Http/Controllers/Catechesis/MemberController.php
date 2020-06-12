@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Catechesis;
 use App\Http\Controllers\Controller;
 use App\Models\Catechesis\Member;
 use Illuminate\Http\Request;
-use App\APIError;
+use App\Models\APIError;
 
 class MemberController extends Controller
 {
@@ -15,7 +15,8 @@ class MemberController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $req)
-    { {
+    { 
+        {
             $data = Member::simplePaginate($req->has('limit') ? $req->limit : 15);
             return response()->json($data);
         }
@@ -87,7 +88,7 @@ class MemberController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Catechesis\Membre  $membre
+     * @param  \App\Models\Catechesis\Member  $member
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -122,29 +123,29 @@ class MemberController extends Controller
         $data['files'] = json_encode($filePaths);
 
         if (null !== $data['status']) {
-            $membre->status = $data['status'];
+            $member->status = $data['status'];
         }
         if (null !== $data['files']) {
-            $membre->files = $data['files'];
+            $member->files = $data['files'];
         }
         if (null !== $data['is_finish']) {
-            $membre->is_finish = $data['is_finish'];
+            $member->is_finish = $data['is_finish'];
         }
         if (null !== $data['has_win']) {
-            $membre->has_win = $data['has_win'];
+            $member->has_win = $data['has_win'];
         }
         if (null !== $data['adhesion_date']) {
-            $membre->adhesion_date = $data['adhesion_date'];
+            $member->adhesion_date = $data['adhesion_date'];
         }
 
-        $membre->update();
+        $member->update();
 
-        return response()->json($membre);
+        return response()->json($member);
     }
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Catechesis\Membre  $membre
+     * @param  \App\Models\Catechesis\Member  $member
      * @return \Illuminate\Http\Response
      */
 
@@ -157,7 +158,7 @@ class MemberController extends Controller
             $apiError->setCode("MEMBER_NOT_FOUND");
             return response()->json($apiError, 404);
         }
-        return response()->json($membre);
+        return response()->json($member);
     }
 
     public function destroy($id)
@@ -170,7 +171,7 @@ class MemberController extends Controller
             return response()->json($apiError, 404);
         }
 
-        $membre->delete();
+        $member->delete();
         return response()->json();
     }
 }

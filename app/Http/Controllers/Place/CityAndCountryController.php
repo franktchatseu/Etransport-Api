@@ -6,6 +6,7 @@ use App\Models\Place\City;
 use Illuminate\Http\Request;
 use App\Models\Place\Country;
 use App\Http\Controllers\Controller;
+use App\Models\APIError;
 
 class CityAndCountryController extends Controller
 {

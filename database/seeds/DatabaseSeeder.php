@@ -19,17 +19,36 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
         Schema::disableForeignKeyConstraints();
 
+        // module extra
+        $this->call([
+            _CebSeeder::class,
+            _PostSeeder::class,
+            _GroupSeeder::class,
+        ]);
+
         //$this->call(CityAndCountrySeeder::class);
         
+        // module setting
+        $this->call([
+            ParishSeeder::class,
+            // ParishPatrimonySeeder::class,
+            // MassSheduleSeeder::class
+        ]);
+
         // module person
         $this->call([
             // $this->call(SettingSeeder::class);
             // $this->call(LaratrustSeeder::class);
+             ProfessionSeeder::class,
              UserSeeder::class,
-            // ProfessionSeeder::class,
-            // PriestSeeder::class,
-            // ParishionalSeeder::class,
+             UtypeSeeder::class,
+             UserUtypeSeeder::class,
+            //  ParishSeeder::class,
+             PriestSeeder::class,
+            // AlbumSeeder::class,
+           //  ParishionalSeeder::class,
             // CathechumeneSeeder::class,
+            // ContactSeeder::class,
         ]);
 
         // module sacrament
@@ -40,22 +59,38 @@ class DatabaseSeeder extends Seeder
         
         // module setting
         $this->call([
-             ParishSeeder::class,
-             AlbumSeeder::class,
-             ContactSeeder::class,
-             ParishPatrimonySeeder::class,
-             MassSheduleSeeder::class,
-             PhotoSeeder::class,
-             UserParishSeeder::class,
-             ParishAlbumSeeder::class
+            //  ParishSeeder::class,
+            //  AlbumSeeder::class,
+            //  ContactSeeder::class,
+            //  ParishPatrimonySeeder::class,
+            //  MassSheduleSeeder::class,
+            //  PhotoSeeder::class,
+            //  UserParishSeeder::class,
+            //  ParishAlbumSeeder::class
         ]);
 
         // module catechesis
          $this->call([
+            // MemberSeeder::class,
             // AnnualMemberSeeder::class,
+            // TransfertSeeder::class,
+            // AuthorizationSeeder::class,
+            // MemberTransfertSeeder::class,
+            // AnnualmemberAuthorizationSeeder::class,
+            // ArchivingSeeder::class
+            // CatechesisSeeder::class,
+             //AnnualMemberSeeder::class,
+            // MemberSeeder::class,
+            //  ArchivingSeeder::class
+            //ProgrammeSeeder::class
+            // ProgrammeSeeder::class
             // MemberSeeder::class,
             // ArchivingSeeder::class
-           // ProgrammeSeeder::class
+            // ProgrammeSeeder::class,
+            // TrimestreSeeder::class,
+            // QuarterSeeder::class,
+            // QuarterTrimestreSeeder::class,
+            // AnnualMemberSeeder::class,
          ]);
 
         // module place
@@ -71,9 +106,15 @@ class DatabaseSeeder extends Seeder
           // module catechese
           $this->call([
             //   QuarterSeeder::class,
-            //   EvaluationSeeder::class,
-            CatechesisSeeder::class,
-            TimeCardSeeder::class
+              // EvaluationSeeder::class,
+            //TimeCardSeeder::class,
+            // PatternSeeder::class,
+            // PlugSeeder::class,
+         //   CathedralPresenceSeeder::class,
+            // UserCatechesisSeeder::class,
+            // CatechesisPresenceSeeder::class,
+
+            
           ]);
 
         // module planification
@@ -87,15 +128,15 @@ class DatabaseSeeder extends Seeder
         
         // module place
         $this->call([
-            //PlaceTypeSeeder::class,
-            //PlaceSeeder::class,
+            // PlaceTypeSeeder::class,
+            // PlaceSeeder::class,
            // TypePosteSeeder::class,
-            //PosteSeeder::class,
+            // PosteSeeder::class,
         ]);
 
        // module finance
         $this->call([
-          //  NatureSeeder::class
+            // NatureSeeder::class
         ]);
 
         // module association

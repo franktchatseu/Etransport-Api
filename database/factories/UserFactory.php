@@ -19,14 +19,22 @@ use App\Models\Person\User;
 
 $factory->define(User::class, function (Faker $faker) {
     return [
-        'login' => $faker->unique()->name,
-        'email' => $faker->unique()->safeEmail,
+        'login' => $faker->unique()->name(),
+        'email' => $faker->unique()->safeEmail(),
         'first_name' => $faker->firstName(),
         'last_name' => $faker->firstName(),
+        'district' => $faker->streetName(),
+        'birth_date' => $faker->date(),
+        'birth_place' => $faker->streetName(),
+        'baptist_date' => $faker->date(),
+        'is_baptisted' => $faker->boolean(),
+        'is_married' => $faker->boolean(),
+        'baptist_place' => $faker->streetName(),
+        'tel' => $faker->phoneNumber(),
         'language' => $faker->languageCode(),
+	'profession' => $faker->firstName(),
         'gender' => $faker->randomElement(['F', 'M']),
         'password' => bcrypt('pwd'),
-        'user_type' => $faker->randomElement(['PRIEST', 'CATECHIST', 'CATECHUMEN', 'PARISHIONER', 'OTHER']),
         'remember_token' => Str::random(10),
     ];
 

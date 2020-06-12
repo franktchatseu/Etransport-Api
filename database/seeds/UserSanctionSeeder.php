@@ -13,9 +13,9 @@ class UserSanctionSeeder extends Seeder
     public function run(\Faker\Generator $faker)
     {
         factory(UserSanction::class, 100)->make()->each(function ($usersanction) use ($faker) {
-            $users = App\Models\Person\User::all();
+            $user_utypes = App\Models\Person\User::all();
             $sanction = App\Models\Sanction\Sanction::all();
-            $usersanction->user_id = $faker->randomElement($users)->id;
+            $usersanction->user_utype_id = $faker->randomElement($user_utypes)->id;
             $usersanction->sanction_id = $faker->randomElement($sanction)->id;
             $usersanction->save();
         });

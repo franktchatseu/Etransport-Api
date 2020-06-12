@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Catechesis;
 
 use App\Http\Controllers\Controller;
 use App\Models\Catechesis\Evaluation;
+use App\Models\Catechesis\AnnualMember;
+use App\Models\Catechesis\Trimestre;
 use Illuminate\Http\Request;
+use App\Models\APIError;
 
 class EvaluationController extends Controller
 {
@@ -31,12 +34,14 @@ class EvaluationController extends Controller
 
         $this->validate($data, [
             'evaluation_type' => 'required',
-            'note' => 'required'
+            'note' => 'required',
+            'trimestres_id' => 'required:exists:trimestres,id'
         ]);
 
             $evaluation = new Evaluation();
             $evaluation->evaluation_type = $data['evaluation_type'];
             $evaluation->note = $data['note'];
+            $evaluation->trimestres_id = $data['trimestres_id'];
             $evaluation->save();
        
         return response()->json($evaluation);
@@ -64,11 +69,13 @@ class EvaluationController extends Controller
 
         $this->validate($data, [
             'evaluation_type' => 'required',
-            'note' => 'required'
+            'note' => 'required',
+            'trimestres_id' => 'required:exists:trimestres,id'
         ]);
 
         if (null !== $data['evaluation_type']) $evaluation->evaluation_type = $data['evaluation_type'];
         if (null !== $data['note']) $evaluation->note = $data['note'];
+        if (null !== $data['trimestres_id']) $evaluation->trimestres_id = $data['trimestres_id'];
         
         $evaluation->update();
 
@@ -130,4 +137,6 @@ class EvaluationController extends Controller
         }
         return response()->json($evaluation);
     }
+
+
 }
