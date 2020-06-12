@@ -33,7 +33,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // module sacrament
-        $this->call([]);
+        $this->call([
+            SacramentCategorySeeder::class,
+            SacramentSeeder::class
+        ]);
         
         // module setting
         $this->call([
