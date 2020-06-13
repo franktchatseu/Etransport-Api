@@ -3,8 +3,14 @@
 namespace App\Http\Controllers\Setting;
 
 use App\Http\Controllers\Controller;
+use App\Models\APIError;
+use App\Models\Setting\Album;
+use App\Models\Setting\Contact;
+use App\Models\Setting\MassShedule;
 use App\Models\Setting\Parish;
+use App\Models\Setting\ParishPatrimony;
 use Illuminate\Http\Request;
+use App\Models\APIError;
 
 class ParishController extends Controller
 {
@@ -147,6 +153,36 @@ class ParishController extends Controller
         }
         
         return response()->json($parish);
+    }
+
+    public function findParishAlbum(Request $req, $id)
+    {
+        if (!$album = Album::whereParishId($id)->simplePaginate($req->has('limit') ? $req->limit : 15)) {
+            abort(404, "No album for category with id $id found ");
+        }
+        return response()->json($album);
+    }
+    
+    public function findmassSchedules(Request $req, $id)
+    {
+        if (!$masschedule = MassShedule::whereParishId($id)->simplePaginate($req->has('limit') ? $req->limit : 15)) {
+            abort(404, "No masschedule for category with id $id found ");
+        }
+        return response()->json($masschedule);
+    }
+    public function findParishPatrimonies(Request $req, $id)
+    {
+        if (!$parishpatrimony = ParishPatrimony::whereParishId($id)->simplePaginate($req->has('limit') ? $req->limit : 15)) {
+            abort(404, "No parishpatrimony for category with id $id found ");
+        }
+        return response()->json($parishpatrimony);
+    }
+    public function findContacts(Request $req, $id)
+    {
+        if (!$contact = Contact::whereParishId($id)->simplePaginate($req->has('limit') ? $req->limit : 15)) {
+            abort(404, "No contact for category with id $id found ");
+        }
+        return response()->json($contact);
     }
 
 }

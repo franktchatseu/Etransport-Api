@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Person;
 
 use App\Http\Controllers\Controller;
-use App\Models\Person\profession;
+use App\Models\Person\Profession;
 use Illuminate\Http\Request;
 
 class ProfessionController extends Controller
@@ -63,7 +63,10 @@ class ProfessionController extends Controller
     {
         $professions = Profession::find($id);
         if (!$professions = Profession::find($id)) {
-            abort(404, "No profession found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PROFESSION_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
         return $professions;
     }
@@ -90,7 +93,10 @@ class ProfessionController extends Controller
     {
         $profession = Profession::find($id);
         if (!$profession) {
-            abort(404, "No profession found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PROFESSION_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $data = $req->except('photo');
@@ -128,7 +134,10 @@ class ProfessionController extends Controller
     public function destroy($id)
     {
         if (!$profession = Profession::find($id)) {
-            abort(404, "No profession found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PROFESSION_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $profession->delete();      

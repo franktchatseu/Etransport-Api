@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Finance;
 use App\Http\Controllers\Controller;
 use App\Models\Finance\Tarif;
 use Illuminate\Http\Request;
+use App\Models\APIError;
 
 class TarifController extends Controller
 {
@@ -57,8 +58,14 @@ class TarifController extends Controller
      */
     public function find($id)
     {
-        if (!$tarif = Tarif::find($id)) {
-            abort(404, "No Tarif found with id $id");
+        $tarif = Tarif::find($id);
+        if($tarif == null) {
+            $notFound = new APIError;
+            $notFound->setStatus("404");
+            $notFound->setCode("TARIF_NOT_FOUND");
+            $notFound->setMessage("tarif with id " . $id . " not found");
+
+            return response()->json($notFound, 404);
         }
         return response()->json($tarif);
     }
@@ -84,8 +91,13 @@ class TarifController extends Controller
     public function update(Request $req, $id)
     {
         $tarif = Tarif::find($id);
-        if (!$tarif) {
-            abort(404, "No tarif found with id $id");
+        if($tarif == null) {
+            $notFound = new APIError;
+            $notFound->setStatus("404");
+            $notFound->setCode("TARIF_NOT_FOUND");
+            $notFound->setMessage("tarif with id " . $id . " not found");
+
+            return response()->json($notFound, 404);
         }
 
         $data = $req->only([
@@ -118,8 +130,14 @@ class TarifController extends Controller
      */
     public function destroy($id)
     {
-        if (!$tarif = Tarif::find($id)) {
-            abort(404, "No tarif found with id $id");
+        $tarif = Tarif::find($id);
+        if($tarif == null) {
+            $notFound = new APIError;
+            $notFound->setStatus("404");
+            $notFound->setCode("TARIF_NOT_FOUND");
+            $notFound->setMessage("tarif with id " . $id . " not found");
+
+            return response()->json($notFound, 404);
         }
 
         $tarif->delete();      

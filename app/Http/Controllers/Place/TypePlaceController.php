@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Place\TypePlace;
 use Illuminate\Http\Request;
 use App\Models\Place\Place;
+use App\Models\APIError;
 
 class TypePlaceController extends Controller
 {

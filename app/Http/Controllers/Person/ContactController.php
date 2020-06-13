@@ -54,8 +54,11 @@ class ContactController extends Controller
 
     public function find($id)
     {
-        if(!$contact = Contact::find($id)){
-            abort(404,"No contact found with id $id");
+        if(!$contact = Contact::find($id)){      
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("CONTACT_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
         return response()->json($contact);
     }
@@ -115,7 +118,10 @@ class ContactController extends Controller
     
         $contact = contact::find($id);
         if (!$contact) {
-            abort(404, "No contact found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("CONTACT_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         /* $data = $req->except('birth_certificate'); */
@@ -161,7 +167,10 @@ class ContactController extends Controller
     public function destroy($id)
     {
         if(!$contact = Contact::find($id)){
-            abort(404,"No contact found wiht id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("CONTACT_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
         $contact->delete();
         return response()->json();

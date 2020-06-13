@@ -1,7 +1,7 @@
 <?php
 
+use App\Models\Planification\TypePlaning;
 use Illuminate\Database\Seeder;
-use App\Modls\Planification\TypePlaning;
 
 class TypePlaningSeeder extends Seeder
 {

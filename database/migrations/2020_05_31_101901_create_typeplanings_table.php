@@ -13,7 +13,7 @@ class CreateTypeplaningsTable extends Migration
      */
     public function up()
     {
-        Schema::create('typeplanings', function (Blueprint $table) {
+        Schema::create('type_planings', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('description');
@@ -29,6 +29,6 @@ class CreateTypeplaningsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('typeplanings');
+        Schema::dropIfExists('type_planings');
     }
 }

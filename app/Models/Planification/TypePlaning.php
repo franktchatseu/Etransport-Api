@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class TypePlaning extends Model
 {
-    protected $table = 'typeplanings';
+    protected $guarded = [];
 }

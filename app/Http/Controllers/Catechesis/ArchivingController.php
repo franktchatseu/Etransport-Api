@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Catechesis;
 use App\Http\Controllers\Controller;
 use App\Models\Catechesis\Archiving;
 use Illuminate\Http\Request;
+use App\Models\APIError;
 
 class ArchivingController extends Controller
 {
@@ -32,6 +33,7 @@ class ArchivingController extends Controller
         $this->validate($data, [
             'motif' => 'required',
             'description' => 'required',
+            'catechesis_id'=> 'required'
         ]);
         
         $filePaths = $this->uploadMultipleFiles($request, 'files', 'archivings', ['file', 'mimes:pdf,doc,ppt,xls,rtf,jpg,png']);
@@ -40,6 +42,7 @@ class ArchivingController extends Controller
         $archiv = new Archiving();
         $archiv->motif = $data['motif'];
         $archiv->description = $data['description'];
+        $archiv->catechesis_id = $data['catechesis_id'];
         $archiv->files = $data['files'];
         $archiv->save();
               
@@ -61,7 +64,7 @@ class ArchivingController extends Controller
             'field' => 'present'
         ]);
 
-        $data = Arhiving::where($req->field, 'like', "%$req->q%")
+        $data = Archiving::where($req->field, 'like', "%$req->q%")
         ->simplePaginate($req->has('limit') ? $req->limit : 15);
 
         return response()->json($data);
@@ -81,9 +84,9 @@ class ArchivingController extends Controller
         $data =$req->all();
 
         $this->validate($data, [
-            //'motif' => 'required',
-            //'description' => 'required',
-            
+            'motif' => 'required',
+            'description' => 'required',
+            'catechesis_id'=>'required'
         ]); 
         if(isset($req->files)){
             $file = $req->file('files');
@@ -96,12 +99,13 @@ class ArchivingController extends Controller
                 $file->move($destinationPath, $safeName);
                 $path = "$relativeDestination/$safeName";
             }
-           // $data['files'] = $path;     
+            $data['files'] = $path;     
         }
-            dd($path);
+            //dd($path);
             $archiv = new Archiving();
             $archiv->motif = $data['motif'];
             $archiv->description = $data['description'];
+            $archiv->catechesis_id = $data['catechesis_id'];
             $archiv->files = $path;
             $archiv->save(); 
 

@@ -19,6 +19,7 @@ Route::pattern('id', '[0-9]+');
 Route::group(['prefix' => 'auth'], function () {
 
     Route::post('token', 'AuthController@login');
+    Route::post('persons/users', 'Person\UserController@create');
 
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('user', 'AuthController@user');
@@ -28,6 +29,13 @@ Route::group(['prefix' => 'auth'], function () {
         Route::get('teams', 'AuthController@teams');
     });
 });
+
+Route::group(['prefix' => 'extras'], function () {
+    Route::get('postes', 'Extra\ExtraController@getPosts');
+    Route::get('groupes', 'Extra\ExtraController@getGroups');
+    Route::get('cebs', 'Extra\ExtraController@getCebs');
+});
+
 
 // Messagerie module : 'middleware' => 'auth:api',
 Route::group(['prefix' => 'messageries'], function () { });
@@ -47,10 +55,20 @@ Route::group(['prefix' => 'persons'], function () {
     Route::group(['prefix' => 'users'], function () {
         Route::get('/', 'Person\UserController@index');
         Route::get('/search', 'Person\UserController@search');
-        Route::post('/', 'Person\UserController@create');
         Route::get('/{id}', 'Person\UserController@find');
         Route::match(['post', 'put'], '/{id}', 'Person\UserController@update');
         Route::delete('/{id}', 'Person\UserController@destroy');
+    });
+
+    Route::group(['prefix' => 'user-utypes'], function () {
+        Route::get('/', 'Person\UserUtypeController@index');
+        Route::get('/search', 'Person\UserUtypeController@search');
+        Route::post('/', 'Person\UserUtypeController@create');
+        Route::get('/{id}', 'Person\UserUtypeController@find');
+        Route::get('/{id}/parishs', 'Person\UserUtypeController@findUserParishsWithStatus');
+        Route::match(['post', 'put'],'/{id}/activate-parishs', 'Person\UserUtypeController@activateUserParish');
+        Route::match(['post', 'put'], '/{id}', 'Person\UserUtypeController@update');
+        Route::delete('/{id}', 'Person\UserUtypeController@destroy');
     });
 
     Route::group(['prefix' => 'catechists'], function () {
@@ -129,6 +147,9 @@ Route::group(['prefix' => 'settings'], function () {
         Route::get('/', 'Setting\ParishController@index');
         Route::get('/search', 'Setting\ParishController@search');
         Route::get('/{id}', 'Setting\ParishController@find');
+        Route::get('/{id}/masschedules', 'Setting\ParishController@findmassSchedules');
+        Route::get('/{id}/parishpatrimonies', 'Setting\ParishController@findParishPatrimonies');
+        Route::get('/{id}/contact', 'Setting\ParishController@findContacts');
         Route::delete('/{id}', 'Setting\ParishController@delete');
         Route::post('/', 'Setting\ParishController@store');
         Route::match(['post', 'put'], '/{id}', 'Setting\ParishController@update');
@@ -143,7 +164,7 @@ Route::group(['prefix' => 'settings'], function () {
         Route::get('/{id}', 'Setting\MassSheduleController@find');
     });   
 
-    Route::group(['prefix' => 'parishpatrimonies'], function () {
+    Route::group(['prefix' => 'parish_patrimonies'], function () {
         Route::get('/', 'Setting\ParishPatrimonyController@index');
         Route::get('/search', 'Setting\ParishPatrimonyController@search');
         Route::get('/{id}', 'Setting\ParishPatrimonyController@find');
@@ -155,11 +176,43 @@ Route::group(['prefix' => 'settings'], function () {
     Route::group(['prefix' => 'albums'], function () {
         Route::get('/', 'Setting\AlbumController@index');
         Route::get('/{id}', 'Setting\AlbumController@find');
+        Route::get('/{id}/albums', 'Setting\AlbumController@findPhoto');
         Route::get('/search', 'Setting\AlbumController@search');
         Route::delete('/{id}', 'Setting\AlbumController@destroy');
         Route::match(['post', 'put'], '/{id}', 'Setting\AlbumController@update');
         Route::post('/', 'Setting\AlbumController@store');
     });
+
+    Route::group(['prefix' => 'photos'], function () {
+        Route::get('/', 'Setting\PhotoController@index');
+        Route::get('/{id}', 'Setting\PhotoController@find');
+        Route::get('/search', 'Setting\PhotoController@search');
+        Route::delete('/{id}', 'Setting\PhotoController@destroy');
+        Route::match(['post', 'put'], '/{id}', 'Setting\PhotoController@update');
+        Route::post('/', 'Setting\PhotoController@store');
+    });
+
+    Route::group(['prefix' => 'user_parishs'], function () {
+        Route::get('/', 'Setting\UserParishController@index');
+        Route::get('/search', 'Setting\UserParishController@search');
+        Route::get('/{id}', 'Setting\UserParishController@find');
+        Route::get('/{id}/users', 'Setting\UserParishController@findUserParish');
+        Route::delete('/{id}', 'Setting\UserParishController@destroy');
+        Route::post('/', 'Setting\UserParishController@store');
+        Route::match(['post', 'put'], '/{id}', 'Setting\UserParishController@update');
+    });
+
+
+    Route::group(['prefix' => 'parish_albums'], function () {
+        Route::get('/', 'Setting\ParishAlbumController@index');
+        Route::get('/search', 'Setting\ParishAlbumController@search');
+        Route::get('/{id}', 'Setting\ParishAlbumController@find');
+        Route::get('/{id}/parishs', 'Setting\ParishAlbumController@findParishAlbum');
+        Route::delete('/{id}', 'Setting\ParishAlbumController@destroy');
+        Route::post('/', 'Setting\ParishAlbumController@store');
+        Route::match(['post', 'put'], '/{id}', 'Setting\ParishAlbumController@update');
+    });
+
 });
 
 // statistic module : 'middleware' => 'auth:api',
@@ -235,7 +288,54 @@ Route::group(['prefix' => 'catechesis'], function () {
         Route::get('/{id}', 'Catechesis\MemberController@find');
         Route::delete('/{id}', 'Catechesis\MemberController@destroy');
         Route::get('/search', 'Catechesis\MemberController@search');
-        Route::put('/{id}', 'Catechesis\MemberController@update');
+        Route::match(['post', 'put'], '/{id}', 'Catechesis\MemberController@update');
+    });
+
+    Route::group(['prefix' => 'trimestres'], function () {
+        Route::get('/', 'Catechesis\TrimestreController@index');
+        Route::post('/', 'Catechesis\TrimestreController@create');
+        Route::get('/{id}', 'Catechesis\TrimestreController@find');
+        Route::delete('/{id}', 'Catechesis\TrimestreController@destroy');
+        Route::get('/search', 'Catechesis\TrimestreController@search');
+        Route::match(['post', 'put'], '/{id}', 'Catechesis\TrimestreController@update');
+    });
+
+    Route::group(['prefix' => 'quarter_trimestres'], function () {
+        Route::get('/', 'Catechesis\QuarterTrimestreController@index');
+        Route::post('/', 'Catechesis\QuarterTrimestreController@store');
+        Route::get('/{id}', 'Catechesis\QuarterTrimestreController@find');
+        Route::delete('/{id}', 'Catechesis\QuarterTrimestreController@destroy');
+        Route::get('/search', 'Catechesis\QuarterTrimestreController@search');
+        Route::get('/{id}/quarters', 'Catechesis\QuarterTrimestreController@findQuarterTrimestres');
+        Route::match(['post', 'put'], '/{id}', 'Catechesis\QuarterTrimestreController@update');
+    });
+
+    Route::group(['prefix' => 'transferts'], function () {
+        Route::get('/', 'Catechesis\TransfertController@index');
+        Route::post('/', 'Catechesis\TransfertController@create');
+        Route::get('/{id}', 'Catechesis\TransfertController@find');
+        Route::delete('/{id}', 'Catechesis\TransfertController@destroy');
+        Route::get('/search', 'Catechesis\TransfertController@search');
+        Route::put('/{id}', 'Catechesis\TransfertController@update');
+    });
+
+    Route::group(['prefix' => 'member-transferts'], function () {
+        Route::get('/', 'Catechesis\MemberTransfertController@index');
+        Route::get('/search', 'Catechesis\MemberTransfertController@search');
+        Route::get('/{id}', 'Catechesis\MemberTransfertController@find');
+        Route::get('/{id}/members', 'Catechesis\MemberTransfertController@findMemberTransferts');
+        Route::delete('/{id}', 'Catechesis\MemberTransfertController@destroy');
+        Route::post('/', 'Catechesis\MemberTransfertController@store');
+        Route::match(['post', 'put'], '/{id}', 'Catechesis\MemberTransfertController@update');
+    });
+
+    Route::group(['prefix' => 'authorizations'], function () {
+        Route::get('/', 'Catechesis\AuthorizationController@index');
+        Route::post('/', 'Catechesis\AuthorizationController@create');
+        Route::get('/{id}', 'Catechesis\AuthorizationController@find');
+        Route::delete('/{id}', 'Catechesis\AuthorizationController@destroy');
+        Route::get('/search', 'Catechesis\AuthorizationController@search');
+        Route::put('/{id}', 'Catechesis\AuthorizationController@update');
     });
 
     Route::group(['prefix' => 'annual-members'], function () {
@@ -243,8 +343,18 @@ Route::group(['prefix' => 'catechesis'], function () {
         Route::get('/{id}', 'Catechesis\AnnualMemberController@find');
         Route::post('/', 'Catechesis\AnnualMemberController@create');
         Route::delete('/{id}', 'Catechesis\AnnualMemberController@destroy');
-        Route::get('/', 'Catechesis\AnnualMemberController@search');
+        Route::get('/search', 'Catechesis\AnnualMemberController@search');
         Route::put('/{id}', 'Catechesis\AnnualMemberController@update');
+    });
+
+    Route::group(['prefix' => 'annualmember-auths'], function () {
+        Route::get('/', 'Catechesis\AnnualmemberAuthorizationController@index');
+        Route::get('/search', 'Catechesis\AnnualmemberAuthorizationController@search');
+        Route::get('/{id}', 'Catechesis\AnnualmemberAuthorizationController@find');
+        Route::get('/{id}/annual-members', 'Catechesis\AnnualmemberAuthorizationController@findAnnualmemberAuthorization');
+        Route::delete('/{id}', 'Catechesis\AnnualmemberAuthorizationController@destroy');
+        Route::post('/', 'Catechesis\AnnualmemberAuthorizationController@store');
+        Route::match(['post', 'put'], '/{id}', 'Catechesis\AnnualmemberAuthorizationController@update');
     });
 
     Route::group(['prefix' => 'archiving'], function () {
@@ -260,6 +370,7 @@ Route::group(['prefix' => 'catechesis'], function () {
         Route::get('/', 'Catechesis\QuarterController@index');
         Route::get('/search', 'Catechesis\QuarterController@search');
         Route::get('/{id}', 'Catechesis\QuarterController@find');
+        Route::get('/{id}/AnnuelMembers', 'Catechesis\QuarterController@findAnnuelMembers');
         Route::delete('/{id}', 'Catechesis\QuarterController@destroy');
         Route::post('/', 'Catechesis\QuarterController@store');
         Route::match(['post', 'put'], '/{id}', 'Catechesis\QuarterController@update');
@@ -284,6 +395,60 @@ Route::group(['prefix' => 'catechesis'], function () {
     
     });
 
+    Route::group(['prefix' => 'patterns'], function () {
+        Route::get('/', 'Catechesis\PatternController@index');
+        Route::get('/search', 'Catechesis\PatternController@search');
+        Route::get('/{id}', 'Catechesis\PatternController@find');
+        Route::delete('/{id}', 'Catechesis\PatternController@destroy');
+        Route::post('/', 'Catechesis\PatternController@store');
+        Route::match(['post', 'put'], '/{id}', 'Catechesis\PatternController@update');
+    });
+
+    Route::group(['prefix' => 'plugs'], function () {
+        Route::get('/', 'Catechesis\PlugController@index');
+        Route::get('/search', 'Catechesis\PlugController@search');
+        Route::get('/{id}', 'Catechesis\PlugController@find');
+        Route::delete('/{id}', 'Catechesis\PlugController@destroy');
+        Route::post('/', 'Catechesis\PlugController@store');
+        Route::match(['post', 'put'], '/{id}', 'Catechesis\PlugController@update');
+    });
+
+    Route::group(['prefix' => 'catechesis'], function () {
+        Route::get('/', 'Catechesis\CatechesisController@index');
+        Route::get('/search', 'Catechesis\CatechesisController@search');
+        Route::get('/{id}', 'Catechesis\CatechesisController@find');
+        Route::delete('/{id}', 'Catechesis\CatechesisController@destroy');
+        Route::post('/', 'Catechesis\CatechesisController@store');
+        Route::match(['post', 'put'], '/{id}', 'Catechesis\CatechesisController@update');
+    });
+
+    Route::group(['prefix' => 'cathedralPesences'], function () {
+        Route::get('/', 'Catechesis\CathedralPresenceController@index');
+        Route::get('/search', 'Catechesis\CathedralPresenceController@search');
+        Route::get('/{id}', 'Catechesis\CathedralPresenceController@find');
+        Route::get('/{id}/annualmember', 'Catechesis\CathedralPresenceController@findCathedralPesences');
+        Route::delete('/{id}', 'Catechesis\CathedralPresenceController@destroy');
+        Route::post('/', 'Catechesis\CathedralPresenceController@store');
+        Route::match(['post', 'put'], '/{id}', 'Catechesis\CathedralPresenceController@update');
+    });
+    Route::group(['prefix' => 'catechesisPresences'], function () {
+        Route::get('/', 'Catechesis\CatechesisPresenceController@index');
+        Route::get('/search', 'Catechesis\CatechesisPresenceController@search');
+        Route::get('/{id}', 'Catechesis\CatechesisPresenceController@find');
+        Route::get('/{id}/user_catechesis', 'Catechesis\CatechesisPresenceController@findcatechesisPresences');
+        Route::delete('/{id}', 'Catechesis\CatechesisPresenceController@destroy');
+        Route::post('/', 'Catechesis\CatechesisPresenceController@store');
+        Route::match(['post', 'put'], '/{id}', 'Catechesis\CatechesisPresenceController@update');
+    });
+    Route::group(['prefix' => 'userCatechesis'], function () {
+        Route::get('/', 'Catechesis\UserCatechesisController@index');
+        Route::get('/search', 'Catechesis\UserCatechesisController@search');
+        Route::get('/{id}', 'Catechesis\UserCatechesisController@find');
+        Route::get('/{id}/user', 'Catechesis\UserCatechesisController@findCatechesisPresences');
+        Route::delete('/{id}', 'Catechesis\UserCatechesisController@destroy');
+        Route::post('/', 'Catechesis\UserCatechesisController@store');
+        Route::match(['post', 'put'], '/{id}', 'Catechesis\UserCatechesisController@update');
+    });
 
 });
 
@@ -431,20 +596,43 @@ Route::group(['prefix' => 'associations'], function () {
 });
 
 
-Route::group(['prefix' => 'planifications'],function (){
-    Route::group(['prefix' => 'planing'],function (){
+Route::group(['prefix' => 'planification'],function (){
+    Route::group(['prefix' => 'planings'],function (){
         Route::get('/', 'Planification\PlaningController@index');
+        Route::get('/{id}', 'Planification\PlaningController@find');
         Route::get('/search', 'Planification\PlaningController@search');
         Route::post('/{id}', 'Planification\PlaningController@update');
         Route::post('/', 'Planification\PlaningController@create');
         Route::delete('/{id}', 'Planification\PlaningController@destroy');
     }); 
 
-    Route::group(['prefix' => 'types'],function (){
+    Route::group(['prefix' => 'type_planings'],function (){
         Route::get('/', 'Planification\TypePlaningController@index');
         Route::get('/search', 'Planification\TypePlaningController@search');
+        Route::get('/{id}/planings', 'Planification\TypePlaningController@findPlaning');
+        Route::get('/{id}', 'Planification\TypePlaningController@find');
         Route::post('/{id}', 'Planification\TypePlaningController@update');
         Route::post('/', 'Planification\TypePlaningController@create');
         Route::delete('/{id}', 'Planification\TypePlaningController@destroy');
+    });
+
+    Route::group(['prefix' => 'association_planings'],function (){
+        Route::get('/', 'Planification\AssociationPlanningController@index');
+        Route::get('/search', 'Planification\AssociationPlanningController@search');
+        Route::get('/{id}/users', 'Planification\UserPlanningController@findAssociationPlaning');
+        Route::get('/{id}', 'Planification\AssociationPlanningController@find');
+        Route::post('/{id}', 'Planification\AssociationPlanningController@update');
+        Route::post('/', 'Planification\AssociationPlanningController@create');
+        Route::delete('/{id}', 'Planification\AssociationPlanningController@destroy');
+    });
+
+    Route::group(['prefix' => 'user_planings'],function (){
+        Route::get('/', 'Planification\UserPlanningController@index');
+        Route::get('/search', 'Planification\UserPlanningController@search');
+        Route::get('/{id}/users', 'Planification\UserPlanningController@findUserPlaning');
+        Route::get('/{id}', 'Planification\UserPlanningController@find');
+        Route::post('/{id}', 'Planification\UserPlanningController@update');
+        Route::post('/', 'Planification\UserPlanningController@store');
+        Route::delete('/{id}', 'Planification\UserPlanningController@destroy');
     });
 }); 

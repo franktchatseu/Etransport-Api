@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEvaluationsTable extends Migration
+class AddRelationBetweenAlbumPhoto extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateEvaluationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('evaluations', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('evaluation_type');
-            $table->double('note');
-            $table->timestamps();
+        Schema::table('photos', function (Blueprint $table) {
+            $table->unsignedBigInteger('album_id');
+            $table->foreign('album_id')->references('id')->on('albums')->onDelete('cascade');
         });
     }
 
@@ -28,6 +26,6 @@ class CreateEvaluationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('evaluations');
+        //
     }
 }

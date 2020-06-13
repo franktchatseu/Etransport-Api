@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddRelationBetweenUserParishTable extends Migration
+class CreateUserCatechesisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class AddRelationBetweenUserParishTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_parishs', function (Blueprint $table) {
-            //
+        Schema::create('user_catechesis', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('parish_id');
-            $table->date('happen_date');
-            $table->boolean('is_active');
+            $table->unsignedBigInteger('catechesis_id');
+            $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('parish_id')->references('id')->on('parishs');
+            $table->foreign('catechesis_id')->references('id')->on('catechesis');
         });
     }
 
@@ -31,8 +30,6 @@ class AddRelationBetweenUserParishTable extends Migration
      */
     public function down()
     {
-        Schema::table('userparishs', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('user_catechesis');
     }
 }

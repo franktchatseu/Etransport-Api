@@ -18,7 +18,7 @@ class CreateTransfertsTable extends Migration
             $table->string('motif');
             $table->date('date');
             $table->text('documents');
-            $table->enum('status',['PENDING','REFUSED','ACCEPTED']);
+            $table->enum('status',['PENDING','REJECTED','ACCEPTED']);
             $table->softDeletes();
             $table->timestamps();
         });
