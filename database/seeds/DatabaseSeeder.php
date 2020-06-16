@@ -4,8 +4,6 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 use App\Models\Catechesis\Catechesis;
-use App\Models\Setting\ParishAlbum;
-use App\Models\Setting\UserParish;
 
 class DatabaseSeeder extends Seeder
 {
@@ -43,7 +41,7 @@ class DatabaseSeeder extends Seeder
              UserSeeder::class,
              UtypeSeeder::class,
              UserUtypeSeeder::class,
-             ParishSeeder::class,
+            //  ParishSeeder::class,
              PriestSeeder::class,
             // AlbumSeeder::class,
            //  ParishionalSeeder::class,
@@ -88,6 +86,7 @@ class DatabaseSeeder extends Seeder
              //AnnualMemberSeeder::class,
             // MemberSeeder::class,
             // ArchivingSeeder::class
+            //  ArchivingSeeder::class
             //ProgrammeSeeder::class
             // ProgrammeSeeder::class
             // MemberSeeder::class,
