@@ -10,7 +10,6 @@ use App\Models\Setting\MassShedule;
 use App\Models\Setting\Parish;
 use App\Models\Setting\ParishPatrimony;
 use Illuminate\Http\Request;
-use App\Models\APIError;
 
 class ParishController extends Controller
 {
@@ -94,15 +93,15 @@ class ParishController extends Controller
          ]);
 
         
-         if (null !== $data['name']) $parish->name = $data['name'];
-         if (null !== $data['decision_creation']) $parish->decision_creation = $data['decision_creation'];
-         if (null !== $data['Pattern_date']) $parish->Pattern_date = $data['Pattern_date'];
-         if (null !== $data['nbr_of_structure']) $parish->nbr_of_structure = $data['nbr_of_structure'];
-         if (null !== $data['nbr_of_service']) $parish->nbr_of_service = $data['nbr_of_service'];
-         if (null !== $data['nbr_of_group']) $parish->nbr_of_group = $data['nbr_of_group'];
-         if (null !== $data['nbr_of_ceb']) $parish->nbr_of_ceb = $data['nbr_of_ceb'];
-         if (null !== $data['nbr_of_station']) $parish->nbr_of_station = $data['nbr_of_station'];
-         if (null !== $data['nbr_of_seminarist']) $parish->nbr_of_seminarist = $data['nbr_of_seminarist'];
+         if ( $data['name'] ?? null) $parish->name = $data['name'];
+         if ( $data['decision_creation'] ?? null) $parish->decision_creation = $data['decision_creation'];
+         if ( $data['Pattern_date']?? null) $parish->Pattern_date = $data['Pattern_date'];
+         if ( $data['nbr_of_structure'] ?? null) $parish->nbr_of_structure = $data['nbr_of_structure'];
+         if ( $data['nbr_of_service'] ?? null) $parish->nbr_of_service = $data['nbr_of_service'];
+         if ( $data['nbr_of_group'] ?? null) $parish->nbr_of_group = $data['nbr_of_group'];
+         if ( $data['nbr_of_ceb'] ?? null) $parish->nbr_of_ceb = $data['nbr_of_ceb'];
+         if ( $data['nbr_of_station'] ?? null) $parish->nbr_of_station = $data['nbr_of_station'];
+         if ( $data['nbr_of_seminarist'] ?? null) $parish->nbr_of_seminarist = $data['nbr_of_seminarist'];
         
         $parish->update();
 

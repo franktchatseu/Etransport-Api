@@ -28,12 +28,8 @@ class CreateUsersTable extends Migration
             $table->boolean('is_baptisted');
             $table->string('baptist_place')->nullable();
             $table->string('language');
-            $table->string('ceb')->nullable();
-            $table->string('group')->nullable();
-            $table->string('post')->nullable();
             $table->boolean('is_married');
-	        // $table->bigInteger('profession_id');
-	        $table->string('profession');
+	        $table->unsignedBigInteger('profession_id');
             $table->string('tel')->nullable();
             $table->enum('gender',['F', 'M']);
 

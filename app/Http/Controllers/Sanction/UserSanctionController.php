@@ -81,9 +81,9 @@ class UserSanctionController extends Controller
          ]);
 
         
-        if (null !== $data['reason']) $usersanction->reason = $data['reason'];
-        if (null !== $data['identifiant']) $usersanction->user_utype_id = $data['identifiant'];
-        if (null !== $data['sanction_id']) $usersanction->sanction_id = $data['sanction_id'];
+        if ( $data['reason']) $usersanction->reason = $data['reason'];
+        if ( $data['identifiant']) $usersanction->user_utype_id = $data['identifiant'];
+        if ( $data['sanction_id']) $usersanction->sanction_id = $data['sanction_id'];
 
         $usersanction->update();
         return response()->json($usersanction);

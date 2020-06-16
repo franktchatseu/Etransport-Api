@@ -99,8 +99,8 @@ class MemberTransfertController extends Controller
             'transfert_id' => 'required:exists:transferts,id'
         ]);
 
-        if (null !== $data['member_id']) $membertransfert->member_id = $data['member_id'];
-        if (null !== $data['transfert_id']) $membertransfert->transfert_id = $data['transfert_id'];
+        if ( $data['member_id']) $membertransfert->member_id = $data['member_id'];
+        if ( $data['transfert_id']) $membertransfert->transfert_id = $data['transfert_id'];
 
         $membertransfert->update();
         return response()->json($membertransfert);

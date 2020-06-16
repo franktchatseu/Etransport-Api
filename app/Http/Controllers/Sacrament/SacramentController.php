@@ -100,9 +100,9 @@ class SacramentController extends Controller
          ]);
 
         
-        if (null !== $data['title']) $sacrament->title = $data['title'];
-        if (null !== $data['description']) $sacrament->description = $data['description'];
-        if (null !== $data['category_id']) $sacrament->category_id = $data['category_id'];
+        if ( $data['title']) $sacrament->title = $data['title'];
+        if ( $data['description']) $sacrament->description = $data['description'];
+        if ( $data['category_id']) $sacrament->category_id = $data['category_id'];
 
         
         $sacrament->update();

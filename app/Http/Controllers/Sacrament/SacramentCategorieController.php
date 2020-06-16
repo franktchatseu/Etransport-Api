@@ -98,8 +98,8 @@ class SacramentCategorieController extends Controller
         ]);
 
 
-        if (null !== $data['title']) $category->title = $data['title'];
-        if (null !== $data['description']) $category->description = $data['description'];
+        if ( $data['title']) $category->title = $data['title'];
+        if ( $data['description']) $category->description = $data['description'];
 
 
         $category->update();

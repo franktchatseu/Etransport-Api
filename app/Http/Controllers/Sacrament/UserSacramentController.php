@@ -104,10 +104,10 @@ class UserSacramentController extends Controller
          ]);
 
         
-         if (null !== $data['request']) $userSacrament->request = $data['request'];
-         if (null !== $data['isAspire']) $userSacrament->isAspire = $data['isAspire'];
-         if (null !== $data['user_id']) $userSacrament->user_id = $data['user_id'];
-        if (null !== $data['sacrament_id']) $userSacrament->sacrament_id = $data['sacrament_id'];
+         if ( $data['request']) $userSacrament->request = $data['request'];
+         if ( $data['isAspire']) $userSacrament->isAspire = $data['isAspire'];
+         if ( $data['user_id']) $userSacrament->user_id = $data['user_id'];
+        if ( $data['sacrament_id']) $userSacrament->sacrament_id = $data['sacrament_id'];
 
         
         $userSacrament->update();

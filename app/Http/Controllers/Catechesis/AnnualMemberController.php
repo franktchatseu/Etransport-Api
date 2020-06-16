@@ -96,13 +96,13 @@ class AnnualMemberController extends Controller
             'quarter_id' => 'required:exists:quarters,id'
         ]);
 
-       if (null !== $data['class']){
+       if ( $data['class'] ?? null){
         $annualMember->class=$data['class'];
        }
-       if (null!==$data['quarter_id']){
+       if (null!==$data['quarter_id'] ?? null){
         $annualMember->quarter_id =$data['quarter_id'];
        }
-       if (null!==$data['has_win']){
+       if (null!==$data['has_win'] ?? null){
         $annualMember->has_win=$data['has_win'];
        }
        

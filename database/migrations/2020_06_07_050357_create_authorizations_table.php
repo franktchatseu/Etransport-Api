@@ -20,6 +20,15 @@ class CreateAuthorizationsTable extends Migration
             $table->text('documents');
             $table->timestamps();
         });
+
+        Schema::table('annualmember_authorizations', function (Blueprint $table) {
+            $table->foreign('annualmember_id')->references('id')->on('annual_members');
+            $table->foreign('authorization_id')->references('id')->on('authorizations');
+        });
+
+        Schema::table('cathedral_presences', function (Blueprint $table) {
+            $table->foreign('annual_member_id')->references('id')->on('annual_members');
+        });
     }
 
     /**
