@@ -98,10 +98,10 @@ class PosteController extends Controller
             'type_poste_id'=>'required:exists:type_postes,id'
         ]);
 
-       if (null!==$data['name']){
+       if (null!==$data['name'] ?? null){
         $poste->name=$data['name'];
        }
-       if (null!==$data['place']){
+       if (null!==$data['place'] ?? null){
         $poste->place=$data['place'];
        }
        

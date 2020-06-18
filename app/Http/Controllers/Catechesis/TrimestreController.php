@@ -85,9 +85,9 @@ class TrimestreController extends Controller
             'number'=>''
         ]);
 
-        if (null !== $data['debut_date'])  $trimestre->begin_date = $data['begin_date'];
-        if (null !== $data['end_date'])  $trimestre->end_date = $data['end_date'];
-        if (null !== $data['number'])  $trimestre->number = $data['number'];
+        if ( $data['debut_date'])  $trimestre->begin_date = $data['begin_date'];
+        if ( $data['end_date'])  $trimestre->end_date = $data['end_date'];
+        if ( $data['number'])  $trimestre->number = $data['number'];
 
          $trimestre->update();
 

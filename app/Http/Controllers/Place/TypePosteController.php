@@ -88,10 +88,10 @@ class TypePosteController extends Controller
             'name' => 'required|min:2'
         ]);
 
-        if (null !== $data['name']) {
+        if ( $data['name'] ?? null) {
             $typePoste->name = $data['name'];
         }
-        if (null !== $data['description']) {
+        if ( $data['description'] ?? null) {
             $typePoste->description = $data['description'];
         }
 

@@ -67,8 +67,8 @@ class CatechesisController extends Controller
             'description' => 'required'
         ]);
 
-        if (null !== $data['name']) $catechesis->name = $data['name'];
-        if (null !== $data['description']) $catechesis->description = $data['description'];
+        if ( $data['name']) $catechesis->name = $data['name'];
+        if ( $data['description']) $catechesis->description = $data['description'];
 
         $catechesis->update();
 

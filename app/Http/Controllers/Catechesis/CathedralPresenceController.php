@@ -72,10 +72,10 @@ class CathedralPresenceController extends Controller
             'date_days' => ''
         ]);
 
-        if (null !== $data['plug_id']) $cathedralPresence->plug_id = $data['plug_id'];
-        if (null !== $data['cathechesis_id']) $cathedralPresence->cathechesis_id = $data['cathechesis_id'];
-        if (null !== $data['annual_member_id']) $cathedralPresence->annual_member_id = $data['annual_member_id'];
-        if (null !== $data['date_days']) $cathedralPresence->date_days = $data['date_days'];
+        if ( $data['plug_id']) $cathedralPresence->plug_id = $data['plug_id'];
+        if ( $data['cathechesis_id']) $cathedralPresence->cathechesis_id = $data['cathechesis_id'];
+        if ( $data['annual_member_id']) $cathedralPresence->annual_member_id = $data['annual_member_id'];
+        if ( $data['date_days']) $cathedralPresence->date_days = $data['date_days'];
 
         $cathedralPresence->update();
 

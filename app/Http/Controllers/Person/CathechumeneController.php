@@ -130,14 +130,14 @@ class CathechumeneController extends Controller
         ]);
 
         //upload image
-        $filePaths = $this->uploadMultipleFiles($req, 'birth_certificate', 'cathechumenes', ['file', 'mimes:pdf,doc,ppt,xls,rtf,jpg,png']);
-        $data['birth_certificate'] = json_encode($filePaths);
+        $filePaths = $this->saveMultipleImages($this, $req, 'birth_certificate', 'cathechumenes');
+        $data['birth_certificate'] = json_encode(['images' => $filePaths]);
 
-        if (null !== $data['father_tel']) $cathechumene->father_tel = $data['father_tel'];
-        if (null !== $data['godfather_tel']) $cathechumene->godfather_tel = $data['godfather_tel'];
-        if (null !== $data['profession_id']) $cathechumene->profession_id = $data['profession_id'];
-        if (null !== $data['catechese_level']) $cathechumene->catechese_level = $data['catechese_level'];
-        if (null !== $data['catechese_place']) $cathechumene->catechese_place = $data['catechese_place'];
+        if ( $data['father_tel']) $cathechumene->father_tel = $data['father_tel'];
+        if ( $data['godfather_tel']) $cathechumene->godfather_tel = $data['godfather_tel'];
+        if ( $data['profession_id']) $cathechumene->profession_id = $data['profession_id'];
+        if ( $data['catechese_level']) $cathechumene->catechese_level = $data['catechese_level'];
+        if ( $data['catechese_place']) $cathechumene->catechese_place = $data['catechese_place'];
     
         
         

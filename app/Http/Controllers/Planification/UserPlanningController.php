@@ -97,8 +97,8 @@ class UserPlanningController extends Controller
             'planing_id' => 'required:exists:planings,id'
          ]);
         
-        if (null !== $data['identifiant']) $userPlanning->user_utype_id = $data['identifiant'];
-        if (null !== $data['planing_id']) $userPlanning->planing_id = $data['planing_id'];
+        if ( $data['identifiant']) $userPlanning->user_utype_id = $data['identifiant'];
+        if ( $data['planing_id']) $userPlanning->planing_id = $data['planing_id'];
 
         
         $userPlanning->update();

@@ -112,10 +112,10 @@ class NatureController extends Controller
             'amount' => 'required'
         ]);
 
-        if (null !== $data['name']) $nature->name = $data['name'];
-        if (null !== $data['description']) $nature->description = $data['description'];
-        if (null !== $data['status']) $nature->status = $data['status'];
-        if (null !== $data['amount']) $nature->amount = $data['amount'];
+        if ( $data['name']) $nature->name = $data['name'];
+        if ( $data['description']) $nature->description = $data['description'];
+        if ( $data['status']) $nature->status = $data['status'];
+        if ( $data['amount']) $nature->amount = $data['amount'];
         
         $nature->update();
 

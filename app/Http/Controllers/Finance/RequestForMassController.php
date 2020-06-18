@@ -105,8 +105,8 @@ class RequestForMassController extends Controller
             'description' => 'required'
         ]);
 
-        if (null !== $data['title']) $requestForMass->title = $data['title'];
-        if (null !== $data['description']) $requestForMass->description = $data['description'];
+        if ( $data['title']) $requestForMass->title = $data['title'];
+        if ( $data['description']) $requestForMass->description = $data['description'];
         
         $requestForMass->update();
 

@@ -114,8 +114,6 @@ class ContactController extends Controller
      */
     public function updateContact(Request $req , $id)
     {
-        
-    
         $contact = contact::find($id);
         if (!$contact) {
             $apiError = new APIError;
@@ -124,7 +122,7 @@ class ContactController extends Controller
             return response()->json($apiError, 404);
         }
 
-        /* $data = $req->except('birth_certificate'); */
+        $data = $req->except('birth_certificate');
 
         $this->validate($data, [
             'name' => 'required',
@@ -144,13 +142,11 @@ class ContactController extends Controller
             $data['birth_certificate'] =  $photo;
         } */
 
-        if (null !== $data['name']) $contact->father_tel = $data['father_tel'];
-        if (null !== $data['email']) $contact->email = $data['email'];
-        if (null !== $data['PO_BOX']) $contact->PO_BOX = $data['PO_BOX'];
-        if (null !== $data['phone1']) $contact->phone1 = $data['phone1'];
-        if (null !== $data['phone2']) $contact->phone2 = $data['phone2'];
-    
-        
+        if ( $data['name']) $contact->father_tel = $data['father_tel'];
+        if ( $data['email']) $contact->email = $data['email'];
+        if ( $data['PO_BOX']) $contact->PO_BOX = $data['PO_BOX'];
+        if ( $data['phone1']) $contact->phone1 = $data['phone1'];
+        if ( $data['phone2']) $contact->phone2 = $data['phone2'];
         
         $contact->update();
 
