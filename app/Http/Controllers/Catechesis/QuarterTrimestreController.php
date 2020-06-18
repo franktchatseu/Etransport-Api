@@ -64,8 +64,8 @@ class QuarterTrimestreController extends Controller
          ]);
 
         
-        if (null !== $data['quarter_id']) $quarter_Trimestre->quarter_id= $data['quarter_id'];
-        if (null !== $data['trimestre_id']) $quarter_Trimestre->trimestre_id = $data['trimestre_id'];
+        if ( $data['quarter_id']) $quarter_Trimestre->quarter_id= $data['quarter_id'];
+        if ( $data['trimestre_id']) $quarter_Trimestre->trimestre_id = $data['trimestre_id'];
 
         $quarter_Trimestre->update();
         return response()->json($quarter_Trimestre);

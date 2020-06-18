@@ -43,9 +43,9 @@ class TransfertController extends Controller
             'documents' => 'required',
             'status' => 'in:REJECTED,PENDING,ACCEPTED',
         ]);
-
-        $documentsPaths = $this->uploadMultipleFiles($request, 'documents', 'transferts', ['file', 'mimes:pdf,doc,ppt,xls,rtf,jpg,png']);
-        $data['documents'] = json_encode($documentsPaths);
+        
+        $filePaths = $this->saveMultipleImages($this, $request, 'documents', 'transferts');
+        $data['documents'] = json_encode(['images' => $filePaths]);
 
         $transfert = new Transfert();
         $transfert->motif = $data['motif'];
@@ -121,19 +121,19 @@ class TransfertController extends Controller
         ]);
 
         //upload document
-        $documentPaths = $this->uploadMultipleFiles($request, 'documents', 'transferts', ['file', 'mimes:pdf,doc,ppt,xls,rtf,jpg,png']);
-        $data['documents'] = json_encode($documentPaths);
+        $filePaths = $this->saveMultipleImages($this, $request, 'documents', 'transferts');
+        $data['documents'] = json_encode(['images' => $filePaths]);
 
-        if (null !== $data['motif']) {
+        if ( $data['motif'] ?? null) {
             $transfert->motif = $data['motif'];
         }
-        if (null !== $data['date']) {
+        if ( $data['date'] ?? null) {
             $transfert->date = $data['date'];
         }
-        if (null !== $data['documents']) {
+        if ( $data['documents'] ?? null) {
             $transfert->documents = $data['documents'];
         }
-        if (null !== $data['status']) {
+        if ( $data['status'] ?? null) {
             $transfert->status = $data['status'];
         }
 

@@ -73,9 +73,9 @@ class EvaluationController extends Controller
             'trimestres_id' => 'required:exists:trimestres,id'
         ]);
 
-        if (null !== $data['evaluation_type']) $evaluation->evaluation_type = $data['evaluation_type'];
-        if (null !== $data['note']) $evaluation->note = $data['note'];
-        if (null !== $data['trimestres_id']) $evaluation->trimestres_id = $data['trimestres_id'];
+        if ( $data['evaluation_type']) $evaluation->evaluation_type = $data['evaluation_type'];
+        if ( $data['note']) $evaluation->note = $data['note'];
+        if ( $data['trimestres_id']) $evaluation->trimestres_id = $data['trimestres_id'];
         
         $evaluation->update();
 

@@ -4,8 +4,6 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 use App\Models\Catechesis\Catechesis;
-use App\Models\Setting\ParishAlbum;
-use App\Models\Setting\UserParish;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,11 +18,11 @@ class DatabaseSeeder extends Seeder
         Schema::disableForeignKeyConstraints();
 
         // module extra
-        $this->call([
-            _CebSeeder::class,
-            _PostSeeder::class,
-            _GroupSeeder::class,
-        ]);
+        // $this->call([
+        //     _CebSeeder::class,
+        //     _PostSeeder::class,
+        //     _GroupSeeder::class,
+        // ]);
 
         //$this->call(CityAndCountrySeeder::class);
         
@@ -49,6 +47,15 @@ class DatabaseSeeder extends Seeder
            //  ParishionalSeeder::class,
             // CathechumeneSeeder::class,
             // ContactSeeder::class,
+        ]);
+
+        // module messagerie
+        $this->call([
+            ChatGroupSeeder::class,
+            ChatMemberGroupSeeder::class,
+            ChatMessageGroupSeeder::class,
+            ChatDiscussionSeeder::class,
+            ChatMessageDuoSeeder::class
         ]);
 
         // module sacrament
@@ -81,6 +88,7 @@ class DatabaseSeeder extends Seeder
             // CatechesisSeeder::class,
              //AnnualMemberSeeder::class,
             // MemberSeeder::class,
+            // ArchivingSeeder::class
             //  ArchivingSeeder::class
             //ProgrammeSeeder::class
             // ProgrammeSeeder::class

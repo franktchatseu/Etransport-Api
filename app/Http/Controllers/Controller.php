@@ -58,60 +58,37 @@ class Controller extends BaseController
     }
 
 
-    /**
-     * Uploads multiple files from request into uploads/directory
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param string $key_validator
-     * @param string $directory
-     * @return array saved files paths
-     */
-    public function uploadMultipleFiles(Request $request, string $key_validator, string $directory, array $rules = [])
+    public function saveMultipleImages($parent, $request, $key_validator, $directory)
     {
-        $savedFilePaths = [];
-        $fileRules = array_merge(['file'], $rules);
-        $fileRules = array_unique($fileRules);
-
-        if ($files = $request->file($key_validator)) {
-            foreach ($files as $file) {
-                $this->validate($request->all(), [$key_validator . '[]' => $fileRules]);
+        $photos = [];
+        if( $files = $request->file('photos') ){
+            $i = 1;
+            foreach($files as $file){
+                $parent->validate($request->all(), [ $key_validator.'[]' => 'image|mimes:jpeg,png,jpg,gif,svg']);
                 $extension = $file->getClientOriginalExtension();
-                $relativeDestinationPath = 'uploads/' . $directory;
-                $destinationPath = public_path($relativeDestinationPath);
-                $safeName =  uniqid(substr($directory, 0, 15) . '.', true) . '.' . $extension;
+                $destinationPath = public_path('uploads/'.$directory);
+                $safeName =  uniqid(substr($directory,0,3).'.',true) . '.' . $extension;
                 $file->move($destinationPath, $safeName);
-                $savedFilePaths[] = $relativeDestinationPath . '/' . $safeName;
+                $photos[] = str_replace('\\','',url('/uploads/'.$directory.'/'.$safeName));
+                $i++;
             }
         }
 
-        return $savedFilePaths;
+        return $photos;
     }
 
-
-    /**
-     * Uploads file from request into uploads/directory
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param string $key_validator
-     * @param string $directory
-     * @param array $rules
-     * @return array saved file path
-     */
-    public function uploadSingleFile(Request $request, string $key_validator, string $directory, array $rules = [])
+    public function saveSingleImage($parent, $request, $key_validator, $directory)
     {
-        $savedFilePath = null;
-        $fileRules = array_merge(['file'], $rules);
-        $fileRules = array_unique($fileRules);
-        if ($file = $request->file($key_validator)) {
-            $this->validate($request->all(), [$key_validator => $fileRules]);
+        $photo = '';
+        if( $file = $request->file($key_validator) ){
+            $parent->validate($request->all(), [ $key_validator => 'image|mimes:jpeg,png,jpg,gif,svg']);
             $extension = $file->getClientOriginalExtension();
-            $relativeDestinationPath = 'uploads/' . $directory;
-            $destinationPath = public_path($relativeDestinationPath);
-            $safeName =  uniqid(substr($directory, 0, 15) . '.', true) . '.' . $extension;
+            $destinationPath = public_path('uploads/'.$directory);
+            $safeName =  uniqid(substr($directory,0,3).'.',true) . '.' . $extension;
             $file->move($destinationPath, $safeName);
-            $savedFilePath = $relativeDestinationPath . '/' . $safeName;
+            $photo = str_replace('\\','',url('/uploads/'.$directory.'/'.$safeName));
         }
 
-        return $savedFilePath;
+        return $photo;
     }
 }

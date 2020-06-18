@@ -99,9 +99,9 @@ class PhotoController extends Controller
             'album_id' => 'required'
         ]);
 
-        if (null !== $data['picture']) $photo->picture = $this->uploadSingleFile($req, 'picture', 'photos', ['image', 'mimes:jpeg,png,jpg']);;
-        if (null !== $data['description']) $photo->description = $data['description'];
-        if (null !== $data['album_id']) $photo->album_id = $data['album_id'];
+        if ( $data['picture']) $photo->picture = $this->uploadSingleFile($req, 'picture', 'photos', ['image', 'mimes:jpeg,png,jpg']);;
+        if ( $data['description']) $photo->description = $data['description'];
+        if ( $data['album_id']) $photo->album_id = $data['album_id'];
 
 
         $photo->update();

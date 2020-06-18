@@ -68,8 +68,8 @@ class CatechesisPresenceController extends Controller
            
         ]);
 
-        if (null !== $data['plug_id']) $catechesisPresence->plug_id = $data['plug_id'];
-        if (null !== $data['user_catechesis_id']) $catechesisPresence->user_catechesis_id = $data['user_catechesis_id'];
+        if ( $data['plug_id']) $catechesisPresence->plug_id = $data['plug_id'];
+        if ( $data['user_catechesis_id']) $catechesisPresence->user_catechesis_id = $data['user_catechesis_id'];
         $catechesisPresence->update();
 
         return response()->json($catechesisPresence);

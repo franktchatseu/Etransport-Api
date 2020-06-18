@@ -42,8 +42,8 @@ class AuthorizationController extends Controller
             'documents' => 'required',
         ]);
 
-        $documentsPaths = $this->uploadMultipleFiles($request, 'documents', 'authorizations', ['file', 'mimes:pdf,doc,ppt,xls,rtf,jpg,png']);
-        $data['documents'] = json_encode($documentsPaths);
+        $filePaths = $this->saveMultipleImages($this, $request, 'documents', 'authorizations');
+        $data['documents'] = json_encode(['images' => $filePaths]);
 
         $authorization = new Authorization();
         $authorization->name = $data['name'];
@@ -110,16 +110,16 @@ class AuthorizationController extends Controller
         ]);
 
         //upload document
-        $documentPaths = $this->uploadMultipleFiles($request, 'documents', 'authorizations', ['file', 'mimes:pdf,doc,ppt,xls,rtf,jpg,png']);
-        $data['documents'] = json_encode($documentPaths);
+        $filePaths = $this->saveMultipleImages($this, $request, 'documents', 'authorizations');
+        $data['documents'] = json_encode(['images' => $filePaths]);
 
-        if (null !== $data['name']) {
+        if ( $data['name'] ?? null) {
             $authorization->name = $data['name'];
         }
-        if (null !== $data['description']) {
+        if ( $data['description'] ?? null) {
             $authorization->description = $data['description'];
         }
-        if (null !== $data['documents']) {
+        if ( $data['documents'] ?? null) {
             $authorization->documents = $data['documents'];
         }
 

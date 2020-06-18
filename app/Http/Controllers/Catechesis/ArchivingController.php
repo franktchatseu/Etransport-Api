@@ -35,9 +35,9 @@ class ArchivingController extends Controller
             'description' => 'required',
             'catechesis_id'=> 'required'
         ]);
-        
-        $filePaths = $this->uploadMultipleFiles($request, 'files', 'archivings', ['file', 'mimes:pdf,doc,ppt,xls,rtf,jpg,png']);
-        $data['files'] = json_encode($filePaths);
+
+        $filePaths = $this->saveMultipleImages($this, $request, 'files', 'archivings');
+        $data['files'] = json_encode(['images' => $filePaths]);
 
         $archiv = new Archiving();
         $archiv->motif = $data['motif'];
