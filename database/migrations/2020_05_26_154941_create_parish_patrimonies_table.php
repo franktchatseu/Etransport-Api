@@ -14,7 +14,7 @@ class CreateParishPatrimoniesTable extends Migration
     public function up()
     {
         Schema::create('parish_patrimonies', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->text('description');
             $table->double('value');
             $table->timestamps();

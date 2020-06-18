@@ -15,8 +15,8 @@ class AddRelationBetweenUserProfessionTableTable extends Migration
     {
         Schema::create('user_profressions', function (Blueprint $table) {
             //
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('profession_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('profession_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('profession_id')->references('id')->on('professions');
         });

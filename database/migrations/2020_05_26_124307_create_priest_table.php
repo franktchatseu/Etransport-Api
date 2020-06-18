@@ -14,7 +14,7 @@ class CreatePriestTable extends Migration
     public function up()
     {
         Schema::create('priests', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->date('ordination_date')->nullable();
             $table->text('ordination_place');
             $table->text('ordination_godfather');

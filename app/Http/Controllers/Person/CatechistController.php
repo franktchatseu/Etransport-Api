@@ -8,7 +8,6 @@ use App\Models\Person\Catechist;
 
 class CatechistController extends Controller
 {
-    //
     // public function index(Request $req){
     //     $data = Catechist::simplePaginate($req->has('limit') ? $req-limit : 15);
     // }
@@ -59,34 +58,40 @@ class CatechistController extends Controller
 
     public function find($id)
     {
-        if (!$user = Catechist::find($id)) {
-            abort(404, "No catechist found with id $id");
+        $catechist = Catechist::find($id);
+        if (!$catechist) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("CATHECHIST_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
-        return response()->json($user);
+        return response()->json($catechist);
     }
 
     public function destroy($id)
     {
-        if (!$user = Catechist::find($id)) {
-            abort(404, "No catechist found with id $id");
+        $catechist = Catechist::find($id);
+        if (!$catechist) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("CATHECHIST_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
-        $user->delete();      
+        $catechist->delete();      
         return response()->json();
     }
 
     public function update(Request $req, $id)
     {
         $catechist = Catechist::find($id);
-        
         if (!$catechist) {
-            abort(404, "No user found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("CATHECHIST_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
-
-        $this->validate([
-            'catechist_date' => 'required',
-        ]);   
-
+        
         $catechist->update();
         return response()->json($catechist);
     }

@@ -14,7 +14,7 @@ class CreateParishionalsTable extends Migration
     public function up()
     {
         Schema::create('parishionals', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('quarter');
             $table->boolean('isBaptist');
             $table->timestamps();

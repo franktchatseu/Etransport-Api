@@ -68,7 +68,7 @@ class User extends Authenticatable
     function __call($method, $parameters)
     {
         if (Str::startsWith($method, 'getPermitted')) {
-            $model = 'App\\' . str_replace('getPermitted', '', $method);
+            $model = 'App\\Models\\' . str_replace('getPermitted', '', $method);
             return $this->getPermittedInstances($model, ...$parameters);
         }
 

@@ -2,12 +2,12 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\Person\Sacrament;
+use App\Models\Sacrament\Sacrament;
 use Faker\Generator as Faker;
 
 $factory->define(Sacrament::class, function (Faker $faker) {
     return [
-        'name' => $name = $faker->sentence,
-        'description' => $faker->paragraph(),
+        'title' => $faker->unique()->text(50),
+        'description' => $faker->sentence,
     ];
 });

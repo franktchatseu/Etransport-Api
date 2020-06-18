@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\Setting;
 
 use App\Http\Controllers\Controller;
+use App\Models\APIError;
+use App\Models\Setting\Album;
+use App\Models\Setting\Contact;
+use App\Models\Setting\MassShedule;
 use App\Models\Setting\Parish;
+use App\Models\Setting\ParishPatrimony;
 use Illuminate\Http\Request;
 
 class ParishController extends Controller
@@ -17,16 +22,6 @@ class ParishController extends Controller
     {
         $data = Parish::simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($data);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -67,28 +62,6 @@ class ParishController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Person\Parish  $parish
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Parish $parish)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Person\Parish  $parish
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Parish $parish)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -97,9 +70,12 @@ class ParishController extends Controller
      */
     public function update(Request $req, $id)
     {
-        $parish = parish::find($id);
+        $parish = Parish::find($id);
         if (!$parish) {
-            abort(404, "No parish found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PARISH_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $data = $req->except('photo');
@@ -117,15 +93,15 @@ class ParishController extends Controller
          ]);
 
         
-         if (null !== $data['name']) $parish->name = $data['name'];
-         if (null !== $data['decision_creation']) $parish->decision_creation = $data['decision_creation'];
-         if (null !== $data['Pattern_date']) $parish->Pattern_date = $data['Pattern_date'];
-         if (null !== $data['nbr_of_structure']) $parish->nbr_of_structure = $data['nbr_of_structure'];
-         if (null !== $data['nbr_of_service']) $parish->nbr_of_service = $data['nbr_of_service'];
-         if (null !== $data['nbr_of_group']) $parish->nbr_of_group = $data['nbr_of_group'];
-         if (null !== $data['nbr_of_ceb']) $parish->nbr_of_ceb = $data['nbr_of_ceb'];
-         if (null !== $data['nbr_of_station']) $parish->nbr_of_station = $data['nbr_of_station'];
-         if (null !== $data['nbr_of_seminarist']) $parish->nbr_of_seminarist = $data['nbr_of_seminarist'];
+         if ( $data['name'] ?? null) $parish->name = $data['name'];
+         if ( $data['decision_creation'] ?? null) $parish->decision_creation = $data['decision_creation'];
+         if ( $data['Pattern_date']?? null) $parish->Pattern_date = $data['Pattern_date'];
+         if ( $data['nbr_of_structure'] ?? null) $parish->nbr_of_structure = $data['nbr_of_structure'];
+         if ( $data['nbr_of_service'] ?? null) $parish->nbr_of_service = $data['nbr_of_service'];
+         if ( $data['nbr_of_group'] ?? null) $parish->nbr_of_group = $data['nbr_of_group'];
+         if ( $data['nbr_of_ceb'] ?? null) $parish->nbr_of_ceb = $data['nbr_of_ceb'];
+         if ( $data['nbr_of_station'] ?? null) $parish->nbr_of_station = $data['nbr_of_station'];
+         if ( $data['nbr_of_seminarist'] ?? null) $parish->nbr_of_seminarist = $data['nbr_of_seminarist'];
         
         $parish->update();
 
@@ -140,8 +116,12 @@ class ParishController extends Controller
      */
     public function destroy($id)
     {
-        if (!$parish = Parish::find($id)) {
-            abort(404, "Nousr  found with id $id");
+        $parish = Parish::find($id);
+        if (!$parish) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PARISH_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $parish->delete();      
@@ -163,10 +143,45 @@ class ParishController extends Controller
 
     public function find($id)
     {
-        if (!$parish =parish::find($id)) {
-            abort(404, "No user found with id $id");
+        $parish = Parish::find($id);
+        if (!$parish) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PARISH_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
+        
         return response()->json($parish);
+    }
+
+    public function findParishAlbum(Request $req, $id)
+    {
+        if (!$album = Album::whereParishId($id)->simplePaginate($req->has('limit') ? $req->limit : 15)) {
+            abort(404, "No album for category with id $id found ");
+        }
+        return response()->json($album);
+    }
+    
+    public function findmassSchedules(Request $req, $id)
+    {
+        if (!$masschedule = MassShedule::whereParishId($id)->simplePaginate($req->has('limit') ? $req->limit : 15)) {
+            abort(404, "No masschedule for category with id $id found ");
+        }
+        return response()->json($masschedule);
+    }
+    public function findParishPatrimonies(Request $req, $id)
+    {
+        if (!$parishpatrimony = ParishPatrimony::whereParishId($id)->simplePaginate($req->has('limit') ? $req->limit : 15)) {
+            abort(404, "No parishpatrimony for category with id $id found ");
+        }
+        return response()->json($parishpatrimony);
+    }
+    public function findContacts(Request $req, $id)
+    {
+        if (!$contact = Contact::whereParishId($id)->simplePaginate($req->has('limit') ? $req->limit : 15)) {
+            abort(404, "No contact for category with id $id found ");
+        }
+        return response()->json($contact);
     }
 
 }

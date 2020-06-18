@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Finance;
 use App\Http\Controllers\Controller;
 use App\Models\Finance\Account;
 use Illuminate\Http\Request;
+use App\Models\APIError;
 
 class AccountController extends Controller
 {
@@ -60,8 +61,14 @@ class AccountController extends Controller
      */
     public function find($id)
     {
-        if (!$account =Account::find($id)) {
-            abort(404, "No account found with id $id");
+        $account = Account::find($id);
+        if($account == null) {
+            $notFound = new APIError;
+            $notFound->setStatus("404");
+            $notFound->setCode("ACCOUNT_NOT_FOUND");
+            $notFound->setMessage("account with id " . $id . " not found");
+
+            return response()->json($notFound, 404);
         }
         return response()->json($account);
     }
@@ -89,8 +96,13 @@ class AccountController extends Controller
     public function update(Request $req, $id)
     {
         $account = Account::find($id);
-        if (!$account) {
-            abort(404, "No account found with id $id");
+        if($account == null) {
+            $notFound = new APIError;
+            $notFound->setStatus("404");
+            $notFound->setCode("ACCOUNT_NOT_FOUND");
+            $notFound->setMessage("account with id " . $id . " not found");
+
+            return response()->json($notFound, 404);
         }
 
         $data = $req->only([
@@ -108,10 +120,10 @@ class AccountController extends Controller
          ]);
 
         
-        if (null !== $data['basic_amount']) $account->basic_amount = $data['basic_amount'];
-        if (null !== $data['percentage']) $account->percentage = $data['percentage'];
-        if (null !== $data['final_amount']) $account->final_amount = $data['final_amount'];
-        if (null !== $data['accounttype_id']) $account->accounttype_id = $data['accounttype_id'];
+        if ( $data['basic_amount']) $account->basic_amount = $data['basic_amount'];
+        if ( $data['percentage']) $account->percentage = $data['percentage'];
+        if ( $data['final_amount']) $account->final_amount = $data['final_amount'];
+        if ( $data['accounttype_id']) $account->accounttype_id = $data['accounttype_id'];
         
         $account->update();
 
@@ -126,8 +138,14 @@ class AccountController extends Controller
      */
     public function destroy($id)
     {
-        if (!$account = Account::find($id)) {
-            abort(404, "No account found with id $id");
+        $account = Account::find($id);
+        if($account == null) {
+            $notFound = new APIError;
+            $notFound->setStatus("404");
+            $notFound->setCode("ACCOUNT_NOT_FOUND");
+            $notFound->setMessage("account id not found");
+
+            return response()->json($notFound, 404);
         }
 
         $account->delete();      

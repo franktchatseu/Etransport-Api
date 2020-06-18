@@ -1,0 +1,25 @@
+********************** ADRIENNE ***********************
+Les tables manipulées sont : members, transports, member_tsransport, authorizations, annualmember_authorizations
+
+1- Création des migrations 
+2- Création des modèles Transport et MemberTransport
+3- Création des seeds et factory
+4- Création du controlleur + jointures (cas des tables associations)
+5- Définition des routes + tests
+
+-------------------------------------------------------
+// travail de theophane
+
+relisation des controlleur des classes 
+
+CatechesisController.php
+EvaluationController.php
+QuarterController.php
+PatternController.php
+PlugController.php
+
+relisation des controlleur des classes relation avec jointure
+
+CatechesisPresenceController.php
+CathedralPresenceController.php
+UserCatechesisController.php

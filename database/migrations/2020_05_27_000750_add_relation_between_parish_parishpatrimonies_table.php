@@ -15,8 +15,7 @@ class AddRelationBetweenParishParishpatrimoniesTable extends Migration
     {
         Schema::table('parish_patrimonies', function (Blueprint $table) {
             //
-            $table->unsignedInteger('parish_id');
-            $table->date('happen_date');
+            $table->unsignedBigInteger('parish_id');
             $table->foreign('parish_id')->references('id')->on('parishs');
         });
     }

@@ -14,9 +14,9 @@ class CreateNatureAccountsTable extends Migration
     public function up()
     {
         Schema::create('nature_accounts', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('account_id');
-            $table->unsignedInteger('nature_id');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('account_id');
+            $table->unsignedBigInteger('nature_id');
             $table->timestamps();
 
             /* $table->foreign('account_id')->references('id')->on('accounts');

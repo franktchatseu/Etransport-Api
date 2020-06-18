@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Setting;
 
 use App\Http\Controllers\Controller;
+use App\Models\APIError;
 use App\Models\Setting\ParishPatrimony;
 use Illuminate\Http\Request;
+use App\Models\APIError;
 
 class ParishPatrimonyController extends Controller
 {
@@ -33,10 +35,14 @@ class ParishPatrimonyController extends Controller
     }
     
     public function find($id){
-        if(!$ParishPatrimony = ParishPatrimony::find($id)){
-            abort(404, "No ParishPatrimony with id $id");
+        $parishPatrimony = ParishPatrimony::find($id);
+        if (!$parishPatrimony) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PARISHPATRIMONY_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
-        return response()->json($ParishPatrimony);
+        return response()->json($parishPatrimony);
     }
         
     /**
@@ -71,9 +77,11 @@ class ParishPatrimonyController extends Controller
     public function update(Request $request, ParishPatrimony $parishPatrimony, $id)
     {
         $parishPatrimony = ParishPatrimony::find($id);
-
-        if(!$parishPatrimony){
-            abort(404, "No parishPatrimony found with id $id");
+        if (!$parishPatrimony) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PARISHPATRIMONY_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $parishPatrimony->update();
@@ -88,10 +96,14 @@ class ParishPatrimonyController extends Controller
      */
     public function destroy(ParishPatrimony $parishPatrimony, $id)
     {
-        if(!$ParishPatrimony = ParishPatrimony::find($id)){
-            abort(404, "No ParishPatrimony with id $id");
+        $parishPatrimony = ParishPatrimony::find($id);
+        if (!$parishPatrimony) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PARISHPATRIMONY_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
-        $ParishPatrimony->delete();
-        return response()-json($ParishPatrimony);
+        $parishPatrimony->delete();
+        return response()->json($parishPatrimony);
     }
 }

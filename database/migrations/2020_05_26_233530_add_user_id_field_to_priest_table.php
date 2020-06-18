@@ -15,8 +15,10 @@ class AddUserIdFieldToPriestTable extends Migration
     {
         Schema::table('priests', function (Blueprint $table) {
             //
-            $table->unsignedInteger('user_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('parish_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('parish_id')->references('id')->on('parishs');
         });
     }
 

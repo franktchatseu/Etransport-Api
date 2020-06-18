@@ -14,7 +14,7 @@ class CreateParishsTable extends Migration
     public function up()
     {
         Schema::create('parishs', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name');
             $table->string('decision_creation');
             $table->date('Pattern_date');
@@ -26,6 +26,13 @@ class CreateParishsTable extends Migration
             $table->integer('nbr_of_seminarist');
             $table->timestamps();
             $table->softDeletes();
+        });
+
+        Schema::table('user_utypes', function (Blueprint $table) {
+            
+            $table->unsignedBigInteger('parish_id');
+
+            $table->foreign('parish_id')->references('id')->on('parishs');
         });
 
     }

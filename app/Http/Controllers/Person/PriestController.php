@@ -62,27 +62,7 @@ class PriestController extends Controller
         return response()->json($priest);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\person\Priest  $priest
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Priest $priest)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\person\Priest  $priest
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Priest $priest)
-    {
-        //
-    }
+ 
 
     
     /**
@@ -97,7 +77,10 @@ class PriestController extends Controller
     {
         $priest = Priest::find($id);
         if (!$priest) {
-            abort(404, "No priest found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PRIEST_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $data = $req->except('photo');
@@ -109,10 +92,10 @@ class PriestController extends Controller
             'career' => 'required',
         ]);
 
-        if (null !== $data['ordination_date']) $priest->ordination_date = $data['ordination_date'];
-        if (null !== $data['ordination_place']) $priest->ordination_place = $data['ordination_place'];
-        if (null !== $data['ordination_godfather']) $priest->ordination_godfather = $data['ordination_godfather'];
-        if (null !== $data['career']) $priest->career = $data['career'];
+        if ( $data['ordination_date']) $priest->ordination_date = $data['ordination_date'];
+        if ( $data['ordination_place']) $priest->ordination_place = $data['ordination_place'];
+        if ( $data['ordination_godfather']) $priest->ordination_godfather = $data['ordination_godfather'];
+        if ( $data['career']) $priest->career = $data['career'];
         
         $priest->update();
 
@@ -129,7 +112,10 @@ class PriestController extends Controller
     public function destroy($id)
     {
         if (!$priest = Priest::find($id)) {
-            abort(404, "No priest found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PRIEST_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $priest->delete();      
@@ -166,7 +152,10 @@ class PriestController extends Controller
     public function find($id)
     {
         if (!$priest = Priest::find($id)) {
-            abort(404, "No priest found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PRIEST_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
         return response()->json($priest);
     }

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Setting;
 
 use App\Http\Controllers\Controller;
+use App\Models\APIError;
 use App\Models\Setting\Album;
+use App\Models\Setting\Photo;
 use Illuminate\Http\Request;
 
 class AlbumController extends Controller
@@ -22,16 +24,6 @@ class AlbumController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Create an album on database
      * @author Brell Sanwouo
      * @email sanwouobrell@gmail.com
@@ -46,35 +38,13 @@ class AlbumController extends Controller
             'description' => 'required',
         ]);
 
-            $album = new Album();
-            $album->description = $data['description'];
-            $album->save();
+        $album = new Album();
+        $album->description = $data['description'];
+        $album->save();
        
         return response()->json($album);
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Setting\Album  $album
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Album $album)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Setting\Album  $album
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Album $album)
-    {
-        //
-    }
-
+    
     /**
      * Update an album on database
      * @author Brell Sanwouo
@@ -87,7 +57,10 @@ class AlbumController extends Controller
     {
         $album = Album::find($id);
         if (!$album) {
-            abort(404, "No album found with id $id");
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("ALBUM_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $data = $req->except('photo');
@@ -96,7 +69,7 @@ class AlbumController extends Controller
             'description' => 'required',
         ]);
 
-        if (null !== $data['description']) $album->description = $data['description'];
+        if ($data['description'] ?? null) $album->description = $data['description'];
         
         $album->update();
 
@@ -112,8 +85,12 @@ class AlbumController extends Controller
      */
     public function destroy($id)
     {
-        if (!$album = Album::find($id)) {
-            abort(404, "No album found with id $id");
+        $album = Album::find($id);
+        if (!$album) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("ALBUM_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
         $album->delete();      
@@ -149,9 +126,20 @@ class AlbumController extends Controller
      */
     public function find($id)
     {
-        if (!$album = Album::find($id)) {
-            abort(404, "No album found with id $id");
+        $album = Album::find($id);
+        if (!$album) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("ALBUM_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
         return response()->json($album);
+    }
+
+    public function findPhoto(Request $req, $id){
+        if (!$photo = Photo::whereAlbumId($id)->simplePaginate($req->has('limit') ? $req->limit : 15)) {
+            abort(404, "No photo with id $id found ");
+        }
+        return response()->json($photo);
     }
 }
