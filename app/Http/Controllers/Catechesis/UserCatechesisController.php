@@ -137,4 +137,12 @@ class UserCatechesisController extends Controller
         ->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($userCatechesis);
     }
+    public function findNameUserCatechesis(Request $req, $id)
+    {
+        $userNameCatechesis = UserCatechesis::select('user_catechesis.*','user_catechesis.id as user_catechesis_id','users.*')
+        ->join('users', 'user_catechesis.user_id', '=', 'users.id' )
+        ->where(['user_catechesis.catechesis_id' => $id])
+        ->simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($userNameCatechesis);
+    }
 }

@@ -437,7 +437,8 @@ Route::group(['prefix' => 'catechesis'], function () {
         Route::get('/', 'Catechesis\UserCatechesisController@index');
         Route::get('/search', 'Catechesis\UserCatechesisController@search');
         Route::get('/{id}', 'Catechesis\UserCatechesisController@find');
-        Route::get('/{id}/user', 'Catechesis\UserCatechesisController@findCatechesisPresences');
+        Route::get('/{id}/user', 'Catechesis\UserCatechesisController@findUserCatechesis');
+        Route::get('/{id}/catechesis', 'Catechesis\UserCatechesisController@findNameUserCatechesis');
         Route::delete('/{id}', 'Catechesis\UserCatechesisController@destroy');
         Route::post('/', 'Catechesis\UserCatechesisController@store');
         Route::match(['post', 'put'], '/{id}', 'Catechesis\UserCatechesisController@update');
@@ -584,6 +585,39 @@ Route::group(['prefix' => 'associations'], function () {
         Route::delete('/{id}', 'Association\TypeAssociationController@destroy');
         Route::post('/', 'Association\TypeAssociationController@store');
         Route::match(['post', 'put'], '/{id}', 'Association\TypeAssociationController@update');
+    });
+    Route::group(['prefix' => 'evenements'], function () {
+        Route::get('/', 'Association\EvenementController@index');
+        Route::get('/search', 'Association\EvenementController@search');
+        Route::get('/{id}', 'Association\EvenementController@find');
+        Route::delete('/{id}', 'Association\EvenementController@destroy');
+        Route::post('/', 'Association\EvenementController@store');
+        Route::match(['post', 'put'], '/{id}', 'Association\EvenementController@update');
+    });
+    Route::group(['prefix' => 'member_association'], function () {
+        Route::get('/', 'Association\MemberAssociationController@index');
+        Route::get('/search', 'Association\MemberAssociationController@search');
+        Route::get('/{id}', 'Association\MemberAssociationController@find');
+        Route::delete('/{id}', 'Association\MemberAssociationController@destroy');
+        Route::post('/', 'Association\MemberAssociationController@store');
+        Route::match(['post', 'put'], '/{id}', 'Association\MemberAssociationController@update');
+    });
+    Route::group(['prefix' => 'statut'], function () {
+        Route::get('/', 'Association\StatusController@index');
+        Route::get('/search', 'Association\StatusController@search');
+        Route::get('/{id}', 'Association\StatusController@find');
+        Route::delete('/{id}', 'Association\StatusController@destroy');
+        Route::post('/', 'Association\StatusController@store');
+        Route::match(['post', 'put'], '/{id}', 'Association\StatusController@update');
+    });
+    Route::group(['prefix' => 'presences'], function () {
+        Route::get('/', 'Association\EventPresenceMemberAssociationController@index');
+        Route::get('/search', 'Association\EventPresenceMemberAssociationController@search');
+        Route::get('/{id}', 'Association\EventPresenceMemberAssociationController@find');
+        Route::get('/{id}/member_associations', 'Association\EventPresenceMemberAssociationController@findPresence');
+        Route::delete('/{id}', 'Association\EventPresenceMemberAssociationController@destroy');
+        Route::post('/', 'Association\EventPresenceMemberAssociationController@store');
+        Route::match(['post', 'put'], '/{id}', 'Association\EventPresenceMemberAssociationController@update');
     });
 
 });

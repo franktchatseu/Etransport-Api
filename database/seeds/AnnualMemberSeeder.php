@@ -16,6 +16,8 @@ class AnnualMemberSeeder extends Seeder
     {
         factory(AnnualMember::class, 100)->make()->each(function ($annualMember) use ($faker) {
             $quarters = App\Models\Catechesis\Quarter::all();
+            $member = App\Models\Catechesis\Member::all();
+            $annualMember->member_id = $faker->randomElement($member)->id;
             $annualMember->quarter_id = $faker->randomElement($quarters)->id;
            $annualMember->save();
        });

@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Catechesis;
+namespace App\Http\Controllers\Association;
 
 use App\Http\Controllers\Controller;
-use App\Models\Catechesis\Quarter;
-use App\Models\Catechesis\AnnualMember;
+use App\Models\Association\Statut;
 use Illuminate\Http\Request;
 use App\Models\APIError;
 
-class QuarterController extends Controller
+class StatusController extends Controller
 {
     /**
      * @param  \Illuminate\Http\Request  $req
@@ -16,7 +15,7 @@ class QuarterController extends Controller
      */
     public function index (Request $req)
     {
-        $data = Quarter::simplePaginate($req->has('limit') ? $req->limit : 15);
+        $data = Statut::simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($data);
     }
 
@@ -32,20 +31,16 @@ class QuarterController extends Controller
         $data = $request->except('photo');
 
         $this->validate($data, [
-            'title' => 'required',
-            'description' => 'required',
-            'debut_date' => 'required',
-            'end_date' => 'required'
+            'name_post' => 'required',
+            'role_post' => 'required'
         ]);
 
-            $quarter = new Quarter();
-            $quarter->title = $data['title'];
-            $quarter->description = $data['description'];
-            $quarter->debut_date = $data['debut_date'];
-            $quarter->end_date = $data['end_date'];
-            $quarter->save();
+            $statut = new Statut();
+            $statut->name_post = $data['name_post'];
+            $statut->role_post = $data['role_post'];
+            $statut->save();
        
-        return response()->json($quarter);
+        return response()->json($statut);
     }
 
    /**
@@ -57,31 +52,27 @@ class QuarterController extends Controller
      */
     public function update(Request $req, $id)
     {
-        $quarter = Quarter::find($id);
-        if (!$quarter) {
+        $statut = Statut::find($id);
+        if (!$statut) {
             $apiError = new APIError;
             $apiError->setStatus("404");
-            $apiError->setCode("QUARTER_NOT_FOUND");
+            $apiError->setCode("STATUT_NOT_FOUND");
             return response()->json($apiError, 404);
         }
 
         $data = $req->except('photo');
 
         $this->validate($data, [
-            'title' => 'required',
-            'description' => 'required',
-            'debut_date' => 'required',
-            'end_date' => 'required'
+            'name_post' => 'required',
+            'role_post' => 'required'
         ]);
 
-        if (null !== $data['title']) $quarter->title = $data['title'];
-        if (null !== $data['description']) $quarter->description = $data['description'];
-        if (null !== $data['debut_date']) $quarter->debut_date = $data['debut_date'];
-        if (null !== $data['end_date']) $quarter->end_date = $data['end_date'];
+        if (null !== $data['name_post']) $statut->name_post = $data['name_post'];
+        if (null !== $data['role_post']) $statut->role_post = $data['role_post'];
 
-        $quarter->update();
+        $statut->update();
 
-        return response()->json($quarter);
+        return response()->json($statut);
     }
 
     /**
@@ -90,15 +81,15 @@ class QuarterController extends Controller
      */
     public function destroy($id)
     {
-        $quarter = Quarter::find($id);
-        if (!$quarter) {
+        $statut = Statut::find($id);
+        if (!$statut) {
             $apiError = new APIError;
             $apiError->setStatus("404");
-            $apiError->setCode("QUARTER_NOT_FOUND");
+            $apiError->setCode("STATUT_NOT_FOUND");
             return response()->json($apiError, 404);
         }
 
-        $quarter->delete();      
+        $statut->delete();      
         return response()->json();
     }
 /**
@@ -115,7 +106,7 @@ class QuarterController extends Controller
             'field' => 'present'
         ]);
 
-        $data = Quarter::where($req->field, 'like', "%$req->q%")
+        $data = Statut::where($req->field, 'like', "%$req->q%")
         ->simplePaginate($req->has('limit') ? $req->limit : 15);
 
         return response()->json($data);
@@ -130,14 +121,27 @@ class QuarterController extends Controller
      */
     public function find($id)
     {
-        $quarter = Quarter::find($id);
-        if (!$quarter) {
+        $statut = Statut::find($id);
+        if (!$statut) {
             $apiError = new APIError;
             $apiError->setStatus("404");
-            $apiError->setCode("QUARTER_NOT_FOUND");
+            $apiError->setCode("STATUT_NOT_FOUND");
             return response()->json($apiError, 404);
         }
-        return response()->json($quarter);
+        return response()->json($statut);
     }
+/* 
+    public function findAnnuelMembers(Request $req, $id)
+    {
+        $statut = Statut::find($id);
+        if (!$statut) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("Statut_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+        $statuts = AnnualMember::whereStatutId($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($statuts);
+    }  */
 
 }
