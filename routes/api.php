@@ -140,6 +140,7 @@ Route::group(['prefix' => 'persons'], function () {
     Route::group(['prefix' => 'users_evenements'], function () {
         Route::get('/', 'Person\user_evenementController@get');
         Route::get('/{id}', 'Person\user_evenementController@find');
+        Route::get('/user/{id}', 'Person\user_evenementController@findByUserId');
         Route::post('/', 'Person\user_evenementController@create');
         Route::match(['post', 'put'], '/{id}', 'Person\user_evenementController@update');
         Route::delete('/{id}', 'Person\user_evenementController@destroy');
