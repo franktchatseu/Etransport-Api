@@ -97,8 +97,8 @@ class PunishmentTypeController extends Controller
         ]);
 
 
-        if (null !== $data['title']) $punishmentType->title = $data['title'];
-        if (null !== $data['description']) $punishmentType->description = $data['description'];
+        if ( $data['title']) $punishmentType->title = $data['title'];
+        if ( $data['description']) $punishmentType->description = $data['description'];
 
 
         $punishmentType->update();

@@ -7,7 +7,6 @@ use App\Models\APIError;
 use App\Models\Setting\Album;
 use App\Models\Setting\Photo;
 use Illuminate\Http\Request;
-use App\Models\APIError;
 
 class AlbumController extends Controller
 {
@@ -39,9 +38,9 @@ class AlbumController extends Controller
             'description' => 'required',
         ]);
 
-            $album = new Album();
-            $album->description = $data['description'];
-            $album->save();
+        $album = new Album();
+        $album->description = $data['description'];
+        $album->save();
        
         return response()->json($album);
     }
@@ -70,7 +69,7 @@ class AlbumController extends Controller
             'description' => 'required',
         ]);
 
-        if (null !== $data['description']) $album->description = $data['description'];
+        if ($data['description'] ?? null) $album->description = $data['description'];
         
         $album->update();
 

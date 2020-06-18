@@ -103,12 +103,12 @@ class AnnualmemberAuthorizationController extends Controller
             'status' => 'in:PENDING,REJECTED,ACCEPTED',
         ]);
 
-        if (null !== $data['annualmember_id']) $annualmemberAuthorization->annualmember_id = $data['annualmember_id'];
-        if (null !== $data['authorization_id']) $annualmemberAuthorization->authorization_id = $data['authorization_id'];
-        if (null !== $data['date']) {
+        if ( $data['annualmember_id']) $annualmemberAuthorization->annualmember_id = $data['annualmember_id'];
+        if ( $data['authorization_id']) $annualmemberAuthorization->authorization_id = $data['authorization_id'];
+        if ( $data['date'] ?? null) {
             $annualmemberAuthorization->date = $data['date'];
         } 
-        if (null !== $data['status']) {
+        if ( $data['status'] ?? null) {
             $annualmemberAuthorization->status = $data['status'];
         }
 

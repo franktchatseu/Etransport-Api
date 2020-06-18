@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateChatMessagesTable extends Migration
+class CreateChatMessageDuoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateChatMessagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('chat_messages', function (Blueprint $table) {
-           $table->bigIncrements('id');
-            $table->unsignedBigInteger('discussion_id');
+        Schema::create('chat_message_duos', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('chat_discussion_id');
             $table->unsignedBigInteger('sender_id');
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->text('content')->nullable();
@@ -23,11 +23,11 @@ class CreateChatMessagesTable extends Migration
             $table->timestamp('sender_delete_at')->nullable();
             $table->timestamp('receiver_delete_at')->nullable();
             $table->timestamp('viewed_at')->nullable();
-            $table->string('file')->nullable();
+            $table->string('files')->nullable();
             $table->timestamps();
 
-            $table->foreign('sender_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('discussion_id')->references('id')->on('chat_discussions')->onDelete('cascade');
+            $table->foreign('sender_id')->references('id')->on('user_utypes'); // ->onDelete('cascade');
+            $table->foreign('chat_discussion_id')->references('id')->on('chat_discussions'); // ->onDelete('cascade');
         });
     }
 
@@ -38,6 +38,6 @@ class CreateChatMessagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('chat_messages');
+        Schema::dropIfExists('chat_message_duos');
     }
 }

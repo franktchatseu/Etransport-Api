@@ -8,7 +8,6 @@ use App\Models\Person\Catechist;
 
 class CatechistController extends Controller
 {
-    //
     // public function index(Request $req){
     //     $data = Catechist::simplePaginate($req->has('limit') ? $req-limit : 15);
     // }
@@ -66,7 +65,7 @@ class CatechistController extends Controller
             $apiError->setCode("CATHECHIST_NOT_FOUND");
             return response()->json($apiError, 404);
         }
-        return response()->json($user);
+        return response()->json($catechist);
     }
 
     public function destroy($id)
@@ -79,7 +78,7 @@ class CatechistController extends Controller
             return response()->json($apiError, 404);
         }
 
-        $user->delete();      
+        $catechist->delete();      
         return response()->json();
     }
 
@@ -93,14 +92,6 @@ class CatechistController extends Controller
             return response()->json($apiError, 404);
         }
         
-        if (!$catechist) {
-            abort(404, "No user found with id $id");
-        }
-
-        $this->validate([
-            'catechist_date' => 'required',
-        ]);   
-
         $catechist->update();
         return response()->json($catechist);
     }

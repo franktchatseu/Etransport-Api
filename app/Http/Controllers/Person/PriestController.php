@@ -92,10 +92,10 @@ class PriestController extends Controller
             'career' => 'required',
         ]);
 
-        if (null !== $data['ordination_date']) $priest->ordination_date = $data['ordination_date'];
-        if (null !== $data['ordination_place']) $priest->ordination_place = $data['ordination_place'];
-        if (null !== $data['ordination_godfather']) $priest->ordination_godfather = $data['ordination_godfather'];
-        if (null !== $data['career']) $priest->career = $data['career'];
+        if ( $data['ordination_date']) $priest->ordination_date = $data['ordination_date'];
+        if ( $data['ordination_place']) $priest->ordination_place = $data['ordination_place'];
+        if ( $data['ordination_godfather']) $priest->ordination_godfather = $data['ordination_godfather'];
+        if ( $data['career']) $priest->career = $data['career'];
         
         $priest->update();
 

@@ -100,8 +100,8 @@ class ParishAlbumController extends Controller
          ]);
 
         
-         if (null !== $data['album_id']) $parishAlbum->album_id = $data['album_id'];
-         if (null !== $data['parish_id']) $parishAlbum->parish_id = $data['parish_id'];
+         if ( $data['album_id']) $parishAlbum->album_id = $data['album_id'];
+         if ( $data['parish_id']) $parishAlbum->parish_id = $data['parish_id'];
 
         
         $parishAlbum->update();

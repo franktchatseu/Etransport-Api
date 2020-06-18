@@ -34,8 +34,8 @@ class AssociationController extends Controller
 
         $data = [];
         if ($request->has('reglement')) {
-            $filePaths = $this->uploadMultipleFiles($request, 'reglement', 'archivings', ['file', 'mimes:pdf,doc,ppt,xls,rtf']);
-            $data['reglement'] = json_encode($filePaths);
+            $filePaths = $this->saveMultipleImages($this, $request, 'reglement', 'archivings');
+            $data['reglement'] = json_encode(['images' => $filePaths]);
         }
         $data = array_merge($data, $request->only([
             'name', 
@@ -87,8 +87,8 @@ class AssociationController extends Controller
         ]);
         $data = [];
         if ($request->has('reglement')) {
-            $filePaths = $this->uploadMultipleFiles($request, 'reglement', 'archivings', ['file', 'mimes:pdf,doc,ppt,xls,rtf']);
-            $data['reglement'] = json_encode($filePaths);
+            $filePaths = $this->saveMultipleImages($this, $request, 'reglement', 'archivings');
+            $data['reglement'] = json_encode(['images' => $filePaths]);
         }
 
         $data = array_merge($data, $request->only([

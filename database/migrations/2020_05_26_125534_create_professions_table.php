@@ -20,6 +20,10 @@ class CreateProfessionsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreign('profession_id')->references('id')->on('professions');
+        });
     }
 
     /**

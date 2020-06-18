@@ -113,9 +113,9 @@ class TarifController extends Controller
          ]);
 
         
-        if (null !== $data['name']) $tarif->name = $data['name'];
-        if (null !== $data['description']) $tarif->description = $data['description'];
-        if (null !== $data['price']) $tarif->price = $data['price'];
+        if ( $data['name']) $tarif->name = $data['name'];
+        if ( $data['description']) $tarif->description = $data['description'];
+        if ( $data['price']) $tarif->price = $data['price'];
          
         $tarif->update();
 

@@ -118,12 +118,12 @@ class PlaningController extends Controller
             abort(404, "No planing found with id $id");
         }
 
-        if (null !== $data['activity']) $planing->activity = $data['activity'];
-        if (null !== $data['date']) $planing->date = $data['date'];
-        if (null !== $data['description']) $planing->description = $data['description'];
-        if (null !== $data['activityPro']) $planing->activityPro = $data['activityPro'];
-        if (null !== $data['place']) $planing->place = $data['place'];
-        if (null !== $data['nature']) $planing->nature = $data['nature'];
+        if ( $data['activity']) $planing->activity = $data['activity'];
+        if ( $data['date']) $planing->date = $data['date'];
+        if ( $data['description']) $planing->description = $data['description'];
+        if ( $data['activityPro']) $planing->activityPro = $data['activityPro'];
+        if ( $data['place']) $planing->place = $data['place'];
+        if ( $data['nature']) $planing->nature = $data['nature'];
 
         $planing->update();
         return response()->json($planing);

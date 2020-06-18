@@ -75,10 +75,10 @@ class PlaceController extends Controller
         ]);
 
         
-        if (null !== $data['name']) $place->name = $data['name'];
-        if (null !== $data['description']) $place->description = $data['description'];
-        if (null !== $data['type_id']) $place->type_id = $data['type_id'];
-        if (null !== $data['city_id']) $place->city_id = $data['city_id'];
+        if ( $data['name']) $place->name = $data['name'];
+        if ( $data['description']) $place->description = $data['description'];
+        if ( $data['type_id']) $place->type_id = $data['type_id'];
+        if ( $data['city_id']) $place->city_id = $data['city_id'];
 
         
         $place->update();
