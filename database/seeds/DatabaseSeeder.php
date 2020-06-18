@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
              UserSeeder::class,
              UtypeSeeder::class,
              UserUtypeSeeder::class,
-            //  ParishSeeder::class,
+             ParishSeeder::class,
              PriestSeeder::class,
             // AlbumSeeder::class,
            //  ParishionalSeeder::class,
@@ -63,7 +63,7 @@ class DatabaseSeeder extends Seeder
         
         // module setting
         $this->call([
-            //  ParishSeeder::class,
+             ParishSeeder::class,
             //  AlbumSeeder::class,
             //  ContactSeeder::class,
             //  ParishPatrimonySeeder::class,
