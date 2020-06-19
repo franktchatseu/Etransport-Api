@@ -27,27 +27,99 @@ class AssociationController extends Controller
 
     public function store(Request $request)
     {
+        
         $this->validate($request->all(), [
             'name' => 'required',
-            'typeId' => 'required'
+            'type_id' => 'required'
         ]);
-
         $data = [];
         if ($request->has('reglement')) {
             $filePaths = $this->saveMultipleImages($this, $request, 'reglement', 'archivings');
             $data['reglement'] = json_encode(['images' => $filePaths]);
         }
+
         $data = array_merge($data, $request->only([
             'name', 
-            'typeId', 
+            'type_id', 
+            'slogan', 
+            'description', 
+            'dateCreation']));
+        $assoc = Association::create($data);
+        $assoc->reglement = json_decode($assoc->reglement);
+        return response()->json($assoc);
+    }
+
+
+        /* 
+        $this->validate($request->all(), [
+            'name' => 'required',
+            'type_id' => 'required'
+        ]);
+
+        $data = [];
+        if ($request->has('reglement')) {
+            $filePaths = $this->uploadMultipleFiles($request, 'reglement', 'archivings',['file','mimes:pdf,doc,ppt,xls,rtf']);
+            $data['reglement'] = json_encode([$filePaths]);
+        }
+        $data = array_merge($data, $request->only([
+            'name', 
+            'type_id', 
             'slogan', 
             'description', 
             'dateCreation']));
             
         $assoc = Association::create($data);
         $assoc->reglement = json_decode($assoc->reglement);
-        return response()->json($assoc);
-    }
+        return response()->json($assoc); */
+//    }
+
+/*     public function store(Request $request)
+    {
+        $data = $request->except('');
+
+        $this->validate($data, [
+            'name' => 'required',
+            'type_id' => 'required',
+            'slogan' => '',
+            'description' => '',
+            'dateCreation' => ''
+        ]);
+
+      
+        $data['reglement'] = '';
+        //upload image
+        if ($file = $request->file('file')) {
+            $filePaths = $this->saveMultipleImages($this, $request, 'reglement', 'association');
+            $data['file'] = json_encode(['file' => $filePaths]);
+        }
+
+       /*  if(isset($request->file)){
+            $file = $request->file('file');
+            $path = null;
+            if($file != null){
+                $extension = $file->getClientOriginalExtension();
+                $relativeDestination = "uploads/associations";
+                $destinationPath = public_path($relativeDestination);
+                $safeName = "document".time().'.'.$extension;
+                $file->move($destinationPath, $safeName);
+                $path = "$relativeDestination/$safeName";
+            }
+            $data['file'] = $path;
+
+        } */
+/* 
+        $associ = new Association();
+        $associ->name = $data['name'];
+        $associ->type_id = $data['type_id'];
+        $associ->slogan = $data['slogan'];
+        $associ->description = $data['description'];
+        $associ->dateCreation = $data['dateCreation'];
+        $associ->reglement = $data['file'];
+        $associ->save();
+              
+        return response()->json($associ);
+    }  */
+
 
     public function show($id)
     {
@@ -60,7 +132,7 @@ class AssociationController extends Controller
             return response()->json($apiError, 404);
         }
         $type = TypeAssociation::whereId($assoc->typeId);
-        $assoc['typeId'] = $type;
+        $assoc['type_id'] = $type;
 
         return response()->json($assoc);
     }
@@ -83,7 +155,7 @@ class AssociationController extends Controller
 
         $this->validate($request->all(), [
             'name' => 'required',
-            'typeId' => 'required'
+            'type_id' => 'required'
         ]);
         $data = [];
         if ($request->has('reglement')) {
@@ -93,7 +165,7 @@ class AssociationController extends Controller
 
         $data = array_merge($data, $request->only([
             'name', 
-            'typeId', 
+            'type_id', 
             'slogan', 
             'description', 
             'dateCreation']));

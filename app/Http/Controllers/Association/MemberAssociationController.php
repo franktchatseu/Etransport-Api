@@ -41,7 +41,7 @@ class MemberAssociationController extends Controller
             $memberAssociation->date_adhesion = $data['date_adhesion'];
             $memberAssociation->status = $data['status'];
             $memberAssociation->user_id = $data['user_id'];
-            $memberAssociation->status_id = $data['status_id'];
+            $memberAssociation->statut_id = $data['statut_id'];
             $memberAssociation->save();
        
         return response()->json($memberAssociation);
@@ -77,7 +77,7 @@ class MemberAssociationController extends Controller
         if (null !== $data['date_adhesion']) $memberAssociation->date_adhesion = $data['date_adhesion'];
         if (null !== $data['status']) $memberAssociation->status = $data['status'];
         if (null !== $data['user_id']) $memberAssociation->user_id = $data['user_id'];
-        if (null !== $data['status_id']) $memberAssociation->status_id = $data['status_id'];
+        if (null !== $data['statut_id']) $memberAssociation->status_id = $data['statut_id'];
 
         $memberAssociation->update();
 
