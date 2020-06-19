@@ -4,8 +4,6 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 use App\Models\Catechesis\Catechesis;
-use App\Models\Setting\ParishAlbum;
-use App\Models\Setting\UserParish;
 
 class DatabaseSeeder extends Seeder
 {

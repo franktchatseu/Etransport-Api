@@ -66,8 +66,8 @@ class UserCatechesisController extends Controller
             'catechesis_id' => 'required'
         ]);
 
-        if (null !== $data['user_id']) $userCatechesis->user_id = $data['user_id'];
-        if (null !== $data['catechesis_id']) $userCatechesis->catechesis_id = $data['catechesis_id'];
+        if ( $data['user_id']) $userCatechesis->user_id = $data['user_id'];
+        if ( $data['catechesis_id']) $userCatechesis->catechesis_id = $data['catechesis_id'];
         $userCatechesis->update();
 
         return response()->json($userCatechesis);

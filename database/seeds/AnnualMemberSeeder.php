@@ -19,7 +19,7 @@ class AnnualMemberSeeder extends Seeder
             $member = App\Models\Catechesis\Member::all();
             $annualMember->member_id = $faker->randomElement($member)->id;
             $annualMember->quarter_id = $faker->randomElement($quarters)->id;
-           $annualMember->save();
+            $annualMember->save();
        });
     }
 }

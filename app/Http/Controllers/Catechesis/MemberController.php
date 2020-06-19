@@ -67,8 +67,11 @@ class MemberController extends Controller
         //    $string =$chars[rand(8,strlen($chars)-1)];
         // }
 
-        $filePaths = $this->uploadMultipleFiles($request, 'files', 'members', ['file', 'mimes:pdf,doc,ppt,xls,rtf,jpg,png']);
-        $data['files'] = json_encode($filePaths);
+        // $filePaths = $this->uploadMultipleFiles($request, 'files', 'members', ['file', 'mimes:pdf,doc,ppt,xls,rtf,jpg,png']);
+        if ($request->file('files') !== null) {
+            $filePaths = $this->saveMultipleImages($this, $request, 'files', 'members');
+            $data['files'] = json_encode(['images' => $filePaths]);
+        }
 
         $member = new Member();
         $member->regnum = $data['regnum'];
@@ -119,22 +122,22 @@ class MemberController extends Controller
         ]);
 
         //upload image
-        $filePaths = $this->uploadMultipleFiles($request, 'files', 'members', ['file', 'mimes:pdf,doc,ppt,xls,rtf,jpg,png']);
-        $data['files'] = json_encode($filePaths);
+        $filePaths = $this->saveMultipleImages($this, $request, 'files', 'members');
+        $data['files'] = json_encode(['images' => $filePaths]);
 
-        if (null !== $data['status']) {
+        if ( $data['status'] ?? null) {
             $member->status = $data['status'];
         }
-        if (null !== $data['files']) {
+        if ( $data['files'] ?? null) {
             $member->files = $data['files'];
         }
-        if (null !== $data['is_finish']) {
+        if ( $data['is_finish'] ?? null) {
             $member->is_finish = $data['is_finish'];
         }
-        if (null !== $data['has_win']) {
+        if ( $data['has_win'] ?? null) {
             $member->has_win = $data['has_win'];
         }
-        if (null !== $data['adhesion_date']) {
+        if ( $data['adhesion_date'] ?? null) {
             $member->adhesion_date = $data['adhesion_date'];
         }
 

@@ -114,8 +114,8 @@ class TypePlaningController extends Controller
             abort(404, "No TypePlaning found with id $id");
         }
 
-        if (null !== $data['name']) $typeplaning->name = $data['name'];
-        if (null !== $data['description']) $typeplaning->description = $data['description'];
+        if ( $data['name']) $typeplaning->name = $data['name'];
+        if ( $data['description']) $typeplaning->description = $data['description'];
         
         $typeplaning->update();
         return response()->json($typeplaning);
