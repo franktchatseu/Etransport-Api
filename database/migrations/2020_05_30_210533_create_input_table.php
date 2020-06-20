@@ -20,10 +20,12 @@ class CreateInputTable extends Migration
                 $table->string('reason');
                 $table->date('start_date');
                 $table->date('end_date');
-               // $table->unsignedInteger('nature_id');
+                $table->unsignedBigInteger('nature_id');
                 $table->timestamps();
                 $table->softDeletes();
-               // $table->foreign('nature_id')->references('id')->on('nature')->onDelete('cascade');
+                $table->foreign('nature_id')->references('id')->on('natures')->onDelete('cascade');
+                // $table->unsignedBigInteger('parish_id');
+                // $table->foreign('user_id')->references('id')->on('users');
             });
     }
 

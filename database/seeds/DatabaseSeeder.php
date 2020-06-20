@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
         
         // module setting
         $this->call([
-            ParishSeeder::class,
+            //ParishSeeder::class,
             // ParishPatrimonySeeder::class,
             // MassSheduleSeeder::class
         ]);
@@ -37,26 +37,37 @@ class DatabaseSeeder extends Seeder
         $this->call([
             // $this->call(SettingSeeder::class);
             // $this->call(LaratrustSeeder::class);
-             ProfessionSeeder::class,
-             UserSeeder::class,
-             UtypeSeeder::class,
-             UserUtypeSeeder::class,
+            //  ProfessionSeeder::class,
+            //   UserSeeder::class,
+            //   UtypeSeeder::class,
+            //   UserUtypeSeeder::class,
             //  ParishSeeder::class,
-             PriestSeeder::class,
-            // AlbumSeeder::class,
-           //  ParishionalSeeder::class,
-            // CathechumeneSeeder::class,
-            // ContactSeeder::class,
+            //  PriestSeeder::class,
+            //  AlbumSeeder::class,
+            //  ParishionalSeeder::class,
+            //  CathechumeneSeeder::class,
+            //  ContactSeeder::class,
+            MenuSeeder::class,
         ]);
 
         // module messagerie
-        $this->call([
-            ChatGroupSeeder::class,
-            ChatMemberGroupSeeder::class,
-            ChatMessageGroupSeeder::class,
-            ChatDiscussionSeeder::class,
-            ChatMessageDuoSeeder::class
-        ]);
+        // $this->call([
+        //     ChatGroupSeeder::class,
+        //     ChatMemberGroupSeeder::class,
+        //     ChatMessageGroupSeeder::class,
+        //     ChatDiscussionSeeder::class,
+        //     ChatMessageDuoSeeder::class
+        // ]);
+
+        // module actualité
+        // $this->call([
+        //     AttributeSeeder::class,
+        //     ArticleSeeder::class,
+        //     MenuSeeder::class,
+        //     SubMenuSeeder::class,
+        //     AttributMenuSeeder::class,
+        //     ArticleAttributMenuSeeder::class
+        // ]);
 
         // module sacrament
         $this->call([]);
