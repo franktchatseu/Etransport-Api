@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\person;
+namespace App\Http\Controllers\Person;
 
 use App\Http\Controllers\Controller;
 use App\Models\Person\UserUtype;
 use Illuminate\Http\Request;
+use App\Models\Person\Utype;
 
 class UserUtypeController extends Controller
 {
@@ -15,7 +16,7 @@ class UserUtypeController extends Controller
      */
     public function index (Request $req)
     {
-        $data = UserUtype::simplePaginate($req->has('limit') ? $req->limit : 15);
+        $data = Utype::simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($data);
     }
     
@@ -105,6 +106,17 @@ class UserUtypeController extends Controller
         ->simplePaginate($req->has('limit') ? $req->limit : 15);
 
         return response()->json($parishs);
+    }
+
+    public function findUserByType(Request $req, $id) {
+
+        $users = UserUtype::where(['user_utypes.type_id' => $id]) 
+        ->join('users', ['users.id' => 'user_utypes.user_id' ])
+        ->join('parishs', ['user_utypes.parish_id' => 'parishs.id' ])
+        ->select('users.*', 'user_utypes.*', 'user_utypes.id as user_utype_id', 'parishs.name as parish_name')        
+        ->simplePaginate($req->has('limit') ? $req->limit : 15);
+
+        return response()->json($users);
     }
 
 }
