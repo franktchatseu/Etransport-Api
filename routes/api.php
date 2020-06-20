@@ -136,6 +136,16 @@ Route::group(['prefix' => 'persons'], function () {
         Route::post('/', 'Person\ParishionalController@store');
         Route::match(['post', 'put'], '/{id}', 'Person\ParishionalController@update');
     });
+
+
+    Route::group(['prefix' => 'users_evenements'], function () {
+        Route::get('/', 'Person\user_evenementController@get');
+        Route::get('/{id}', 'Person\user_evenementController@find');
+        Route::get('/user/{id}', 'Person\user_evenementController@findByUserId');
+        Route::post('/', 'Person\user_evenementController@create');
+        Route::match(['post', 'put'], '/{id}', 'Person\user_evenementController@update');
+        Route::delete('/{id}', 'Person\user_evenementController@destroy');
+    });
 });
 
 // Place module : 'middleware' => 'auth:api',
@@ -213,6 +223,7 @@ Route::group(['prefix' => 'settings'], function () {
         Route::post('/', 'Setting\ParishAlbumController@store');
         Route::match(['post', 'put'], '/{id}', 'Setting\ParishAlbumController@update');
     });
+
 
 });
 
