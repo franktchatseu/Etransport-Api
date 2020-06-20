@@ -127,6 +127,7 @@ class UserController extends Controller
         if (isset($data['birth_place'])) $user->birth_place = $data['birth_place'];
         if (isset($data['avatar'])) $user->avatar = $data['avatar'];
         if (isset($data['baptist_date'])) $user->baptist_date = $data['baptist_date'];
+        if (isset($data['district'])) $user->district = $data['district'];
         if (isset($data['tel'])) $user->tel = $data['tel'];
         if ( isset($data['language'])) $user->language = $data['language'];
         if ( isset($data['ceb'])) $user->ceb = $data['ceb'];
