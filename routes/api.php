@@ -718,4 +718,24 @@ Route::group(['prefix' => 'messageries'],function (){
         Route::delete('/{id}', 'Messagerie\ChatMessageDuoController@destroy');
     });
 
+    Route::group(['prefix' => 'setting'], function () {
+        Route::get('/', 'Request\AnointingSickController@index');
+        Route::get('/find/{id}', 'Request\AnointingSickController@find');
+        Route::get('/search', 'Request\AnointingSickController@search');
+        Route::delete('/destroy/{id}', 'Request\AnointingSickController@destroy');
+        Route::put('/update/{id}', 'Request\AnointingSickController@update');
+        Route::post('/create', 'Request\AnointingSickController@store');
+    
+    });
+
+    Route::group(['prefix' => 'setting'], function () {
+        Route::get('/', 'Request\IntentionMassController@index');
+        Route::get('/find/{id}', 'Request\IntentionMassController@find');
+        Route::get('/search', 'Request\IntentionMassController@search');
+        Route::delete('/destroy/{id}', 'Request\IntentionMassController@destroy');
+        Route::put('/update/{id}', 'Request\IntentionMassController@update');
+        Route::post('/create', 'Request\IntentionMassController@store');
+    
+    });
+
 });
