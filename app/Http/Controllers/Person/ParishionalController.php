@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Person;
 use App\Http\Controllers\Controller;
 use App\Models\Person\Parishional;
 use Illuminate\Http\Request;
+use App\Models\APIError;
 
 class ParishionalController extends Controller
 {

@@ -131,7 +131,7 @@ Route::group(['prefix' => 'persons'], function () {
         Route::get('/', 'Person\ParishionalController@index');
         Route::get('/search', 'Person\ParishionalController@search');
         Route::get('/{id}', 'Person\ParishionalController@find');
-        Route::delete('/{id}', 'Person\ParishionalController@find');
+        Route::delete('/{id}', 'Person\ParishionalController@destroy');
         Route::post('/', 'Person\ParishionalController@store');
         Route::match(['post', 'put'], '/{id}', 'Person\ParishionalController@update');
     });
