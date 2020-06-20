@@ -100,9 +100,9 @@ class SanctionController extends Controller
          ]);
 
         
-        if (null !== $data['title']) $sanction->title = $data['title'];
-        if (null !== $data['description']) $sanction->description = $data['description'];
-        if (null !== $data['type_id']) $sanction->type_id = $data['type_id'];
+        if ( $data['title']) $sanction->title = $data['title'];
+        if ( $data['description']) $sanction->description = $data['description'];
+        if ( $data['type_id']) $sanction->type_id = $data['type_id'];
 
         
         $sanction->update();

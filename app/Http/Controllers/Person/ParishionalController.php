@@ -72,8 +72,8 @@ class ParishionalController extends Controller
          ]);
 
         
-        if (null !== $data['quarter']) $parishional->quarter = $data['quarter'];
-        if (null !== $data['isBaptist']) $parishional->isBaptist = $data['isBaptist'];
+        if ( $data['quarter']) $parishional->quarter = $data['quarter'];
+        if ( $data['isBaptist']) $parishional->isBaptist = $data['isBaptist'];
         
         $parishional->update();
 

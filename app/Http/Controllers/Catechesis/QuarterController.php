@@ -74,10 +74,10 @@ class QuarterController extends Controller
             'end_date' => 'required'
         ]);
 
-        if (null !== $data['title']) $quarter->title = $data['title'];
-        if (null !== $data['description']) $quarter->description = $data['description'];
-        if (null !== $data['debut_date']) $quarter->debut_date = $data['debut_date'];
-        if (null !== $data['end_date']) $quarter->end_date = $data['end_date'];
+        if ( $data['title']) $quarter->title = $data['title'];
+        if ( $data['description']) $quarter->description = $data['description'];
+        if ( $data['debut_date']) $quarter->debut_date = $data['debut_date'];
+        if ( $data['end_date']) $quarter->end_date = $data['end_date'];
 
         $quarter->update();
 
@@ -139,18 +139,5 @@ class QuarterController extends Controller
         }
         return response()->json($quarter);
     }
-
-    public function findAnnuelMembers(Request $req, $id)
-    {
-        $quarter = Quarter::find($id);
-        if (!$quarter) {
-            $apiError = new APIError;
-            $apiError->setStatus("404");
-            $apiError->setCode("QUARTER_NOT_FOUND");
-            return response()->json($apiError, 404);
-        }
-        $quarters = AnnualMember::whereQuarterId($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
-        return response()->json($quarters);
-    } 
 
 }

@@ -12,9 +12,9 @@ class UtypeSeeder extends Seeder
      */
     public function run(\Faker\Generator $faker)
     {
-        // ['PRIEST', 'CATECHIST', 'CATECHUMEN', 'PARISHIONAL', 'OTHER']
+        // ['PRIEST', 'CATECHIST', 'CATECHUMEN', 'PARISHIONER', 'OTHER', 'PARISHIONER', 'ASSOCIATION_MANAGER', 'CATHECHESIS_COORDINATOR', 'PARISHIONER_SECRETARY',]
         $parishional = new Utype();
-        $parishional->value = 'PARISHIONAL';
+        $parishional->value = 'PARISHIONER';
         $parishional->save();
 
         $catechumen = new Utype();
@@ -29,7 +29,18 @@ class UtypeSeeder extends Seeder
         $priest->value = 'PRIEST';
         $priest->save();
 
-        
+        // 'ASSOCIATION_MANAGER', 'CATHECHESIS_COORDINATOR', 'PARISHIONER_SECRETARY',
+        $associationManager = new Utype();
+        $associationManager->value = 'ASSOCIATION_MANAGER';
+        $associationManager->save();
+
+        $cathechesisCoordinator = new Utype();
+        $cathechesisCoordinator->value = 'CATHECHESIS_COORDINATOR';
+        $cathechesisCoordinator->save();
+
+        $parishionerSecretary = new Utype();
+        $parishionerSecretary->value = 'PARISHIONER_SECRETARY';
+        $parishionerSecretary->save();
 
         // $other = new Utype();
         // $other->value = 'OTHER';

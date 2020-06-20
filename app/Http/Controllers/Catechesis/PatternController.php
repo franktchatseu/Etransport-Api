@@ -66,8 +66,8 @@ class PatternController extends Controller
             'description' => 'required'
         ]);
 
-        if (null !== $data['reason']) $pattern->reason = $data['reason'];
-        if (null !== $data['description']) $pattern->description = $data['description'];
+        if ( $data['reason']) $pattern->reason = $data['reason'];
+        if ( $data['description']) $pattern->description = $data['description'];
         
         $pattern->update();
 

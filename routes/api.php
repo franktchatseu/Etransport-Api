@@ -69,6 +69,7 @@ Route::group(['prefix' => 'persons'], function () {
         Route::match(['post', 'put'],'/{id}/activate-parishs', 'Person\UserUtypeController@activateUserParish');
         Route::match(['post', 'put'], '/{id}', 'Person\UserUtypeController@update');
         Route::delete('/{id}', 'Person\UserUtypeController@destroy');
+        Route::get('/{type}/to-chat', 'Person\UserUtypeController@findUserByType');
     });
 
     Route::group(['prefix' => 'catechists'], function () {
@@ -134,6 +135,16 @@ Route::group(['prefix' => 'persons'], function () {
         Route::delete('/{id}', 'Person\ParishionalController@destroy');
         Route::post('/', 'Person\ParishionalController@store');
         Route::match(['post', 'put'], '/{id}', 'Person\ParishionalController@update');
+    });
+
+
+    Route::group(['prefix' => 'users_evenements'], function () {
+        Route::get('/', 'Person\user_evenementController@get');
+        Route::get('/{id}', 'Person\user_evenementController@find');
+        Route::get('/user/{id}', 'Person\user_evenementController@findByUserId');
+        Route::post('/', 'Person\user_evenementController@create');
+        Route::match(['post', 'put'], '/{id}', 'Person\user_evenementController@update');
+        Route::delete('/{id}', 'Person\user_evenementController@destroy');
     });
 });
 
@@ -212,6 +223,7 @@ Route::group(['prefix' => 'settings'], function () {
         Route::post('/', 'Setting\ParishAlbumController@store');
         Route::match(['post', 'put'], '/{id}', 'Setting\ParishAlbumController@update');
     });
+
 
 });
 
@@ -437,7 +449,8 @@ Route::group(['prefix' => 'catechesis'], function () {
         Route::get('/', 'Catechesis\UserCatechesisController@index');
         Route::get('/search', 'Catechesis\UserCatechesisController@search');
         Route::get('/{id}', 'Catechesis\UserCatechesisController@find');
-        Route::get('/{id}/user', 'Catechesis\UserCatechesisController@findCatechesisPresences');
+        Route::get('/{id}/user', 'Catechesis\UserCatechesisController@findUserCatechesis');
+        Route::get('/{id}/catechesis', 'Catechesis\UserCatechesisController@findNameUserCatechesis');
         Route::delete('/{id}', 'Catechesis\UserCatechesisController@destroy');
         Route::post('/', 'Catechesis\UserCatechesisController@store');
         Route::match(['post', 'put'], '/{id}', 'Catechesis\UserCatechesisController@update');
@@ -585,6 +598,39 @@ Route::group(['prefix' => 'associations'], function () {
         Route::post('/', 'Association\TypeAssociationController@store');
         Route::match(['post', 'put'], '/{id}', 'Association\TypeAssociationController@update');
     });
+    Route::group(['prefix' => 'evenements'], function () {
+        Route::get('/', 'Association\EvenementController@index');
+        Route::get('/search', 'Association\EvenementController@search');
+        Route::get('/{id}', 'Association\EvenementController@find');
+        Route::delete('/{id}', 'Association\EvenementController@destroy');
+        Route::post('/', 'Association\EvenementController@store');
+        Route::match(['post', 'put'], '/{id}', 'Association\EvenementController@update');
+    });
+    Route::group(['prefix' => 'member_association'], function () {
+        Route::get('/', 'Association\MemberAssociationController@index');
+        Route::get('/search', 'Association\MemberAssociationController@search');
+        Route::get('/{id}', 'Association\MemberAssociationController@find');
+        Route::delete('/{id}', 'Association\MemberAssociationController@destroy');
+        Route::post('/', 'Association\MemberAssociationController@store');
+        Route::match(['post', 'put'], '/{id}', 'Association\MemberAssociationController@update');
+    });
+    Route::group(['prefix' => 'statut'], function () {
+        Route::get('/', 'Association\StatusController@index');
+        Route::get('/search', 'Association\StatusController@search');
+        Route::get('/{id}', 'Association\StatusController@find');
+        Route::delete('/{id}', 'Association\StatusController@destroy');
+        Route::post('/', 'Association\StatusController@store');
+        Route::match(['post', 'put'], '/{id}', 'Association\StatusController@update');
+    });
+    Route::group(['prefix' => 'presences'], function () {
+        Route::get('/', 'Association\EventPresenceMemberAssociationController@index');
+        Route::get('/search', 'Association\EventPresenceMemberAssociationController@search');
+        Route::get('/{id}', 'Association\EventPresenceMemberAssociationController@find');
+        Route::get('/{id}/member_associations', 'Association\EventPresenceMemberAssociationController@findPresence');
+        Route::delete('/{id}', 'Association\EventPresenceMemberAssociationController@destroy');
+        Route::post('/', 'Association\EventPresenceMemberAssociationController@store');
+        Route::match(['post', 'put'], '/{id}', 'Association\EventPresenceMemberAssociationController@update');
+    });
 
 });
 
@@ -629,3 +675,47 @@ Route::group(['prefix' => 'planification'],function (){
         Route::delete('/{id}', 'Planification\UserPlanningController@destroy');
     });
 }); 
+
+Route::group(['prefix' => 'messageries'],function (){
+    
+    Route::group(['prefix' => 'chat-groups'],function (){
+        Route::get('/', 'Messagerie\ChatGroupController@index');
+        Route::get('/search', 'Messagerie\ChatGroupController@search');
+        Route::get('/{id}/users', 'Messagerie\ChatGroupController@findUsersGroup');
+        Route::get('/{id}/messages', 'Messagerie\ChatGroupController@findMessages');
+        Route::get('/{id}/for-user', 'Messagerie\ChatGroupController@findGroupsForUSer');
+        Route::get('/{id}', 'Messagerie\ChatGroupController@find');
+        Route::post('/{id}', 'Messagerie\ChatGroupController@update');
+        Route::post('/', 'Messagerie\ChatGroupController@store');
+        Route::delete('/{id}', 'Messagerie\ChatGroupController@destroy');
+    });
+
+    Route::group(['prefix' => 'chat-member-groups'],function (){
+        Route::get('/', 'Messagerie\ChatMemberGroupController@index');
+        Route::get('/{id}', 'Messagerie\ChatMemberGroupController@find');
+        Route::post('/{id}', 'Messagerie\ChatMemberGroupController@update');
+        Route::post('/', 'Messagerie\ChatMemberGroupController@store');
+        Route::delete('/{id}', 'Messagerie\ChatMemberGroupController@destroy');
+    });
+
+    Route::group(['prefix' => 'chat-discussions'],function (){
+        Route::get('/', 'Messagerie\ChatDiscussionController@index');
+        Route::get('/search', 'Messagerie\ChatDiscussionController@search');
+        Route::get('/{id}/messages', 'Messagerie\ChatDiscussionController@findMessages');
+        Route::get('/{id}/correspondants', 'Messagerie\ChatDiscussionController@findCorrespondants');
+        Route::get('/{id}', 'Messagerie\ChatDiscussionController@find');
+        Route::post('/{id}', 'Messagerie\ChatDiscussionController@update');
+        Route::post('/', 'Messagerie\ChatDiscussionController@store');
+        Route::delete('/{id}', 'Messagerie\ChatDiscussionController@destroy');
+    });
+
+    Route::group(['prefix' => 'chat-messages'],function (){
+        Route::get('/', 'Messagerie\ChatMessageDuoController@index');
+        Route::get('/{id}/search', 'Messagerie\ChatMessageDuoController@search');
+        Route::get('/{id}', 'Messagerie\ChatMessageDuoController@find');
+        Route::post('/{id}', 'Messagerie\ChatMessageDuoController@update');
+        Route::post('/', 'Messagerie\ChatMessageDuoController@store');
+        Route::delete('/{id}', 'Messagerie\ChatMessageDuoController@destroy');
+    });
+
+});

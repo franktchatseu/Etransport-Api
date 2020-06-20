@@ -98,8 +98,8 @@ class AssociationPlanningController extends Controller
          ]);
 
         
-        if (null !== $data['association_id']) $associationPlanning->association_id = $data['association_id'];
-        if (null !== $data['planing_id']) $associationPlanning->planing_id = $data['planing_id'];
+        if ( $data['association_id']) $associationPlanning->association_id = $data['association_id'];
+        if ( $data['planing_id']) $associationPlanning->planing_id = $data['planing_id'];
 
         
         $associationPlanning->update();

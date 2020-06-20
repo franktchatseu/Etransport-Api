@@ -18,7 +18,7 @@ use App\Models\Person\Utype;
 
 $factory->define(Utype::class, function (Faker $faker) {
     return [
-        // 'user_type' => $faker->randomElement(['PRIEST', 'CATECHIST', 'CATECHUMEN', 'PARISHIONER', 'OTHER']),
+        // 'user_type' => $faker->randomElement(['PRIEST', 'CATECHIST', 'CATECHUMEN', 'PARISHIONER', 'ASSOCIATION_MANAGER', 'CATHECHESIS_COORDINATOR', 'PARISHIONER_SECRETARY', 'OTHER',]),
     ];
 
 });
