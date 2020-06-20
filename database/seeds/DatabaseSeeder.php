@@ -7,18 +7,18 @@ use App\Models\Catechesis\Catechesis;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
-    public function run()
-    {
-        Model::unguard();
-        Schema::disableForeignKeyConstraints();
+     /**
+      * Seed the application's database.
+      *
+      * @return void
+      */
+     public function run()
+     {
+          Model::unguard();
+          Schema::disableForeignKeyConstraints();
 
-        // module extra
-/*         $this->call([
+          // module extra
+          /*         $this->call([
              _CebSeeder::class,
             _PostSeeder::class,
             _GroupSeeder::class, 
@@ -33,22 +33,22 @@ class DatabaseSeeder extends Seeder
              MassSheduleSeeder::class 
         ]);
  */
-        // module person
-        $this->call([
-             //$this->call(SettingSeeder::class);
-             //$this->call(LaratrustSeeder::class);
-             ProfessionSeeder::class,
-             UserSeeder::class,/* 
-              UtypeSeeder::class,
-             UserUtypeSeeder::class,
-              ParishSeeder::class,
-             PriestSeeder::class,
-             AlbumSeeder::class,
-             ParishionalSeeder::class,
-             CathechumeneSeeder::class,
-             ContactSeeder::class,  */
-        ]);
-/* 
+          // module person
+          $this->call([
+               //$this->call(SettingSeeder::class);
+               //$this->call(LaratrustSeeder::class);
+               ProfessionSeeder::class,
+               UserSeeder::class,
+               UtypeSeeder::class,
+               ParishSeeder::class,
+               UserUtypeSeeder::class,
+               PriestSeeder::class,
+               AlbumSeeder::class,
+               ParishionalSeeder::class,
+               CathechumeneSeeder::class,
+               ContactSeeder::class, /*  */
+          ]);
+          /* 
         // module sacrament
         $this->call([]);
         
@@ -120,56 +120,50 @@ class DatabaseSeeder extends Seeder
         $this->call([
               /* RequestForMassSeeder::class,
               TarifSeeder::class, */
-     //   ]);
-        
-        // module place
-     //   $this->call([
-             /*  PlaceTypeSeeder::class,
+          //   ]);
+
+          // module place
+          //   $this->call([
+          /*  PlaceTypeSeeder::class,
               PlaceSeeder::class,
              TypePosteSeeder::class,
               PosteSeeder::class, */
-   //     ]);
+          //     ]);
 
-       // module finance
-       // $this->call([
-            //  NatureSeeder::class
-       // ]); */
+          // module finance
+          // $this->call([
+          //  NatureSeeder::class
+          // ]); */
 
-        // module association
-        $this->call([
-              TypeAssociationSeeder::class,
-              AssociationSeeder::class,
-              EvenementSeeder ::class,
-              StatutSeeder::class,
-              MemberAssociationSeeder::class,
-              EventPresenceMemberAssociationSeeder::class,
-              
-              
-             
-        ]);
+          // module association
+          // $this->call([
+          //      TypeAssociationSeeder::class,
+          //      AssociationSeeder::class,
+          //      EvenementSeeder::class,
+          //      StatutSeeder::class,
+          //      MemberAssociationSeeder::class,
+          //      EventPresenceMemberAssociationSeeder::class,
+          // ]);
 
-        // module statistic
-        $this->call([]);
+          // module statistic
+          $this->call([]);
 
-        // module sacrament
-        $this->call([
-              //SacramentCategorySeeder::class,
-              //SacramentSeeder::class,
-              //UserSacramentSeeder::class,
-        ]);
+          // module sacrament
+          $this->call([
+               //SacramentCategorySeeder::class,
+               //SacramentSeeder::class,
+               //UserSacramentSeeder::class,
+          ]);
 
-           //module Planification
-         $this->call([
-         /*    TypePlaningSeeder::class,
+          //module Planification
+          $this->call([
+               /*    TypePlaningSeeder::class,
            PlaningSeeder::class,
            AssociationPlaningSeeder::class,
-           UserPlaningSeeder::class */
-        ]);
+           UserPlaningSeeder::class */]);
 
 
-        Schema::enableForeignKeyConstraints();
-        Model::reguard();
-
-        
-    }
+          Schema::enableForeignKeyConstraints();
+          Model::reguard();
+     }
 }

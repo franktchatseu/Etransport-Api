@@ -69,7 +69,7 @@ Route::group(['prefix' => 'persons'], function () {
         Route::match(['post', 'put'],'/{id}/activate-parishs', 'Person\UserUtypeController@activateUserParish');
         Route::match(['post', 'put'], '/{id}', 'Person\UserUtypeController@update');
         Route::delete('/{id}', 'Person\UserUtypeController@destroy');
-        Route::get('/{id}/to-chat', 'Person\UserUtypeController@findUserByType');
+        Route::get('/{type}/to-chat', 'Person\UserUtypeController@findUserByType');
     });
 
     Route::group(['prefix' => 'catechists'], function () {
