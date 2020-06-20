@@ -117,17 +117,22 @@ class UserController extends Controller
             $data['avatar'] = json_encode(['images' => $filePaths]);
         }
 
-        if ( $data['login']) $user->login = $data['login'];
-        if ( $data['email']) $user->email = $data['email'];
-        if ( $data['password']) $user->password = $data['password'];
-        if ( $data['gender']) $user->gender = $data['gender'];
-        if ( $data['first_name']) $user->first_name = $data['first_name'];
-        if ( $data['last_name']) $user->last_name = $data['last_name'];
-        if ( $data['birth_date']) $user->birth_date = $data['birth_date'];
-        if ( $data['birth_place']) $user->birth_place = $data['birth_place'];
-        if ( $data['avatar']) $user->avatar = $data['avatar'];
-        if ( $data['baptist_date']) $user->baptist_date = $data['baptist_date'];
-        if ( $data['tel']) $user->tel = $data['tel'];
+        if (isset($data['login'])) $user->login = $data['login'];
+        if (isset($data['email'])) $user->email = $data['email'];
+        if (isset($data['password'])) $user->password = $data['password'];
+        if (isset($data['gender'])) $user->gender = $data['gender'];
+        if (isset($data['first_name'])) $user->first_name = $data['first_name'];
+        if (isset($data['last_name'])) $user->last_name = $data['last_name'];
+        if (isset($data['birth_date'])) $user->birth_date = $data['birth_date'];
+        if (isset($data['birth_place'])) $user->birth_place = $data['birth_place'];
+        if (isset($data['avatar'])) $user->avatar = $data['avatar'];
+        if (isset($data['baptist_date'])) $user->baptist_date = $data['baptist_date'];
+        if (isset($data['district'])) $user->district = $data['district'];
+        if (isset($data['tel'])) $user->tel = $data['tel'];
+        if ( isset($data['language'])) $user->language = $data['language'];
+        if ( isset($data['ceb'])) $user->ceb = $data['ceb'];
+        if ( isset($data['group'])) $user->group = $data['group'];
+        if ( isset($data['post'])) $user->post = $data['post'];
 
         $user->update();
 

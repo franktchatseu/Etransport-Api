@@ -106,7 +106,9 @@ class ProfessionController extends Controller
             'description' => 'required|min:2',
             
         ]);
-
+        //mise a jour de tout les champs
+        $profession->name = $req->name;
+        $profession->description = $req->name;
         $profession->update();
 
         return response()->json($profession);
