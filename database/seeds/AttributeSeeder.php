@@ -12,8 +12,7 @@ class AttributeSeeder extends Seeder
      */
     public function run(\Faker\Generator $faker)
     {
-        //
-        factory(Attribute::class, 50)->make()->each(function($attribute) use ($faker) {
+            factory(Attribute::class, 3)->make()->each(function($attribute) use ($faker) {
             $attribute->save();
         });
     }

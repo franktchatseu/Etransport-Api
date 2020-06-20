@@ -20,6 +20,7 @@ class CreateArticleAttributeMenuTable extends Migration
             $table->unsignedBigInteger('attribute_id');
             $table->unsignedBigInteger('attribute_menu_id');
             $table->text('value');
+            $table->timestamps();
 
             $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');;
             $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');;

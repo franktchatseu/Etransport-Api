@@ -1,7 +1,7 @@
 <?php
 
+use App\Models\Actuality\Sub_Menu;
 use Illuminate\Database\Seeder;
-use App\Models\Actuality\SubMenu;
 
 class SubMenuSeeder extends Seeder
 {
@@ -12,8 +12,9 @@ class SubMenuSeeder extends Seeder
      */
     public function run(\Faker\Generator $faker)
     {
-        //
-        factory(SubMenu::class, 50)->make()->each(function($submenu) use ($faker) {
+        factory(Sub_Menu::class, 5)->make()->each(function($submenu) use ($faker) {
+            $menu = App\Models\Actuality\Menu::all();
+            $submenu->menu_id = $faker->randomElement($menu)->id;
             $submenu->save();
         });
     }
