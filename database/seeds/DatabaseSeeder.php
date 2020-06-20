@@ -7,53 +7,72 @@ use App\Models\Catechesis\Catechesis;
 
 class DatabaseSeeder extends Seeder
 {
-     /**
-      * Seed the application's database.
-      *
-      * @return void
-      */
-     public function run()
-     {
-          Model::unguard();
-          Schema::disableForeignKeyConstraints();
+    /**
+     * Seed the application's database.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        Model::unguard();
+        Schema::disableForeignKeyConstraints();
 
-          // module extra
-          /*         $this->call([
-             _CebSeeder::class,
-            _PostSeeder::class,
-            _GroupSeeder::class, 
+        // module extra
+        // $this->call([
+        //     _CebSeeder::class,
+        //     _PostSeeder::class,
+        //     _GroupSeeder::class,
+        // ]);
+
+        //$this->call(CityAndCountrySeeder::class);
+        
+        // module setting
+        $this->call([
+            //ParishSeeder::class,
+            // ParishPatrimonySeeder::class,
+            // MassSheduleSeeder::class
         ]);
 
        // $this->call(CityAndCountrySeeder::class);
         
         // module setting
         $this->call([
-             ParishSeeder::class,
-             ParishPatrimonySeeder::class,
-             MassSheduleSeeder::class 
+            // $this->call(SettingSeeder::class);
+            // $this->call(LaratrustSeeder::class);
+            //  ProfessionSeeder::class,
+            //   UserSeeder::class,
+            //   UtypeSeeder::class,
+            //   UserUtypeSeeder::class,
+            //  ParishSeeder::class,
+            //  PriestSeeder::class,
+            //  AlbumSeeder::class,
+            //  ParishionalSeeder::class,
+            //  CathechumeneSeeder::class,
+            //  ContactSeeder::class,
+            MenuSeeder::class,
         ]);
- */
-          // module person
-          $this->call([
-               //$this->call(SettingSeeder::class);
-               //$this->call(LaratrustSeeder::class);
-               ProfessionSeeder::class,
-               UserSeeder::class,
-               UtypeSeeder::class,
-               ParishSeeder::class,
-               UserUtypeSeeder::class,
-               PriestSeeder::class,
-               AlbumSeeder::class,
-               ParishionalSeeder::class,
-               CathechumeneSeeder::class,
-               ContactSeeder::class, /*  */
-          ]);
-          /* 
+
+        // module messagerie
+        // $this->call([
+        //     ChatGroupSeeder::class,
+        //     ChatMemberGroupSeeder::class,
+        //     ChatMessageGroupSeeder::class,
+        //     ChatDiscussionSeeder::class,
+        //     ChatMessageDuoSeeder::class
+        // ]);
+
+        // module actualité
+        // $this->call([
+        //     AttributeSeeder::class,
+        //     ArticleSeeder::class,
+        //     MenuSeeder::class,
+        //     SubMenuSeeder::class,
+        //     AttributMenuSeeder::class,
+        //     ArticleAttributMenuSeeder::class
+        // ]);
+
         // module sacrament
-        $this->call([
-            SacramentCategorySeeder::class,
-            SacramentSeeder::class
-        ]);
+        $this->call([]);
         
         // module setting
         $this->call([
@@ -146,7 +165,7 @@ class DatabaseSeeder extends Seeder
           //      StatutSeeder::class,
           //      MemberAssociationSeeder::class,
           //      EventPresenceMemberAssociationSeeder::class,
-          // ]);
+           ]);
 
           // module statistic
           $this->call([]);

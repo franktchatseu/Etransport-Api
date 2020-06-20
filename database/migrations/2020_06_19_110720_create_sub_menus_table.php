@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEventTable extends Migration
+class CreateSubMenusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,15 @@ class CreateEventTable extends Migration
      */
     public function up()
     {
-        Schema::create('events', function (Blueprint $table) {
+        Schema::create('sub_menus', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->text('description')->nullable();
+            $table->string('name')->unique();
+            $table->string('logo')->nullable();
+            $table->string('description')->nullable();
+            $table->unsignedBigInteger('menu_id');
             $table->timestamps();
-            $table->softDeletes();
+
+            $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');;
         });
     }
 
@@ -29,6 +32,6 @@ class CreateEventTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('events');
+        Schema::dropIfExists('sub_menus');
     }
 }

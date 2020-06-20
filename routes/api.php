@@ -719,3 +719,55 @@ Route::group(['prefix' => 'messageries'],function (){
     });
 
 });
+
+// actuality module : 'middleware' => 'auth:api',
+Route::group(['prefix' => 'actualities'], function () {
+
+    Route::group(['prefix' => 'menus'], function () {
+        Route::get('/', 'Actuality\MenuController@index');
+        Route::get('/{id}', 'Actuality\MenuController@find');
+        Route::match(['post', 'put'], '/{id}', 'Actuality\MenuController@update');
+        Route::post('/', 'Actuality\MenuController@store');
+        Route::delete('/{id}', 'Actuality\MenuController@destroy');
+    });
+
+    Route::group(['prefix' => 'articles'], function () {
+        Route::get('/', 'Actuality\ArticleController@index');
+        Route::get('/{id}', 'Actuality\ArticleController@find');
+        Route::match(['post', 'put'], '/{id}', 'Actuality\ArticleController@update');
+        Route::post('/', 'Actuality\ArticleController@store');
+        Route::delete('/{id}', 'Actuality\ArticleController@destroy');
+    });
+
+    Route::group(['prefix' => 'attributes'], function () {
+        Route::get('/', 'Actuality\AttributeController@index');
+        Route::get('/{id}', 'Actuality\AttributeController@find');
+        Route::match(['post', 'put'], '/{id}', 'Actuality\AttributeController@update');
+        Route::post('/', 'Actuality\AttributeController@store');
+        Route::delete('/{id}', 'Actuality\AttributeController@destroy');
+    });
+
+    Route::group(['prefix' => 'submenus'], function () {
+        Route::get('/', 'Actuality\SubMenuController@index');
+        Route::get('/{id}', 'Actuality\SubMenuController@find');
+        Route::match(['post', 'put'], '/{id}', 'Actuality\SubMenuController@update');
+        Route::post('/', 'Actuality\SubMenuController@store');
+        Route::delete('/{id}', 'Actuality\SubMenuController@destroy');
+    });
+
+    Route::group(['prefix' => 'attributemenus'], function () {
+        Route::get('/', 'Actuality\AttributeMenu@index');
+        Route::get('/{id}', 'Actuality\AttributeMenu@find');
+        Route::match(['post', 'put'], '/{id}', 'Actuality\AttributeMenu@update');
+        Route::post('/', 'Actuality\AttributeMenu@store');
+        Route::delete('/{id}', 'Actuality\AttributeMenu@destroy');
+    });
+
+    Route::group(['prefix' => 'articleattributemenus'], function () {
+        Route::get('/', 'Actuality\ArticleAttributeMenu@index');
+        Route::get('/{id}', 'Actuality\ArticleAttributeMenu@find');
+        Route::match(['post', 'put'], '/{id}', 'Actuality\ArticleAttributeMenu@update');
+        Route::post('/', 'Actuality\ArticleAttributeMenu@store');
+        Route::delete('/{id}', 'Actuality\ArticleAttributeMenu@destroy');
+    });
+});
