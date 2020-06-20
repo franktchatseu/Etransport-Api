@@ -41,7 +41,7 @@ class CreateUsersTable extends Migration
 
         Schema::create('utypes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('value', ['PRIEST', 'CATECHIST', 'CATECHUMEN', 'PARISHIONAL', 'OTHER']);
+            $table->enum('value', ['PRIEST', 'CATECHIST', 'CATECHUMEN', 'PARISHIONER', 'OTHER', 'ASSOCIATION_MANAGER', 'CATHECHESIS_COORDINATOR', 'PARISHIONER_SECRETARY']);
             $table->timestamps();
         });
 
