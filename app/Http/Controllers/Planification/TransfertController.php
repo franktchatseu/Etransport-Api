@@ -118,12 +118,12 @@ class TransfertController extends Controller
             abort(404, "No Transfert found with id $id");
         }
 
-        if (null !== $data['activity']) $Transfert->activity = $data['activity'];
-        if (null !== $data['date']) $Transfert->date = $data['date'];
-        if (null !== $data['description']) $Transfert->description = $data['description'];
-        if (null !== $data['activityPro']) $Transfert->activityPro = $data['activityPro'];
-        if (null !== $data['place']) $Transfert->place = $data['place'];
-        if (null !== $data['nature']) $Transfert->nature = $data['nature'];
+        if ( $data['activity']) $Transfert->activity = $data['activity'];
+        if ( $data['date']) $Transfert->date = $data['date'];
+        if ( $data['description']) $Transfert->description = $data['description'];
+        if ( $data['activityPro']) $Transfert->activityPro = $data['activityPro'];
+        if ( $data['place']) $Transfert->place = $data['place'];
+        if ( $data['nature']) $Transfert->nature = $data['nature'];
 
         $Transfert->update();
         return response()->json($Transfert);

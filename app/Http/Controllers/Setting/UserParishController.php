@@ -100,8 +100,8 @@ class UserParishController extends Controller
          ]);
 
         
-         if (null !== $data['user_id']) $userParish->user_id = $data['user_id'];
-         if (null !== $data['parish_id']) $userParish->parish_id = $data['parish_id'];
+         if ( $data['user_id']) $userParish->user_id = $data['user_id'];
+         if ( $data['parish_id']) $userParish->parish_id = $data['parish_id'];
 
         
         $userParish->update();

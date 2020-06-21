@@ -70,9 +70,9 @@ class PlugController extends Controller
             'pattern_id' => 'required'
         ]);
 
-        if (null !== $data['name']) $plug->name = $data['name'];
-        if (null !== $data['date']) $plug->date = $data['date'];
-        if (null !== $data['pattern_id']) $plug->pattern_id = $data['pattern_id'];
+        if ( $data['name']) $plug->name = $data['name'];
+        if ( $data['date']) $plug->date = $data['date'];
+        if ( $data['pattern_id']) $plug->pattern_id = $data['pattern_id'];
         
         $plug->update();
 

@@ -28,12 +28,8 @@ class CreateUsersTable extends Migration
             $table->boolean('is_baptisted');
             $table->string('baptist_place')->nullable();
             $table->string('language');
-            $table->string('ceb')->nullable();
-            $table->string('group')->nullable();
-            $table->string('post')->nullable();
             $table->boolean('is_married');
-	        // $table->bigInteger('profession_id');
-	        $table->string('profession');
+	        $table->unsignedBigInteger('profession_id');
             $table->string('tel')->nullable();
             $table->enum('gender',['F', 'M']);
 
@@ -45,7 +41,7 @@ class CreateUsersTable extends Migration
 
         Schema::create('utypes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('value', ['PRIEST', 'CATECHIST', 'CATECHUMEN', 'PARISHIONAL', 'OTHER']);
+            $table->enum('value', ['PRIEST', 'CATECHIST', 'CATECHUMEN', 'PARISHIONER', 'OTHER', 'ASSOCIATION_MANAGER', 'CATHECHESIS_COORDINATOR', 'PARISHIONER_SECRETARY']);
             $table->timestamps();
         });
 

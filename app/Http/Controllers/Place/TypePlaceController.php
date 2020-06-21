@@ -70,8 +70,8 @@ class TypePlaceController extends Controller
          ]);
 
         
-        if (null !== $data['name']) $typePlace->name = $data['name'];
-        if (null !== $data['description']) $typePlace->description = $data['description'];
+        if ( $data['name']) $typePlace->name = $data['name'];
+        if ( $data['description']) $typePlace->description = $data['description'];
 
         
         $typePlace->update();

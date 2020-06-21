@@ -105,19 +105,19 @@ class MassSheduleController extends Controller
             'end_date' => '',
         ]);
 
-       if (null!==$data['context']){
+       if (null!==$data['context'] ?? null){
         $massShedule->context=$data['context'];
        }
-       if (null!==$data['day']){
+       if (null!==$data['day'] ?? null){
         $massShedule->day=$data['day'];
        }
-       if (null!==$data['description']){
+       if (null!==$data['description'] ?? null){
         $massShedule->description=$data['description'];
        }
-       if (null!==$data['end_date']){
+       if (null!==$data['end_date'] ?? null){
         $massShedule->end_date=$data['end_date'];
        }
-       if (null!==$data['start_date']){
+       if (null!==$data['start_date'] ?? null){
         $massShedule->start_date=$data['start_date'];
        }
 

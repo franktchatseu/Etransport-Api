@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models\Association;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ChatMessage extends Model
+class Evenement extends Model
 {
     protected $guarded = [];
 }

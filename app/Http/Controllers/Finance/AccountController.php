@@ -120,10 +120,10 @@ class AccountController extends Controller
          ]);
 
         
-        if (null !== $data['basic_amount']) $account->basic_amount = $data['basic_amount'];
-        if (null !== $data['percentage']) $account->percentage = $data['percentage'];
-        if (null !== $data['final_amount']) $account->final_amount = $data['final_amount'];
-        if (null !== $data['accounttype_id']) $account->accounttype_id = $data['accounttype_id'];
+        if ( $data['basic_amount']) $account->basic_amount = $data['basic_amount'];
+        if ( $data['percentage']) $account->percentage = $data['percentage'];
+        if ( $data['final_amount']) $account->final_amount = $data['final_amount'];
+        if ( $data['accounttype_id']) $account->accounttype_id = $data['accounttype_id'];
         
         $account->update();
 
