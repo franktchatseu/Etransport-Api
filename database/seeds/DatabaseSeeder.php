@@ -136,14 +136,14 @@ class DatabaseSeeder extends Seeder
           // ]); */
 
           // module association
-          // $this->call([
-          //      TypeAssociationSeeder::class,
-          //      AssociationSeeder::class,
-          //      EvenementSeeder::class,
-          //      StatutSeeder::class,
-          //      MemberAssociationSeeder::class,
-          //      EventPresenceMemberAssociationSeeder::class,
-          // ]);
+           $this->call([
+                TypeAssociationSeeder::class,
+                AssociationSeeder::class,
+                EvenementSeeder::class,
+                StatutSeeder::class,
+                MemberAssociationSeeder::class,
+                EventPresenceMemberAssociationSeeder::class
+           ]);
 
           // module statistic
           $this->call([]);
