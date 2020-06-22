@@ -87,7 +87,7 @@ class MenuController extends Controller
      * @param  \App\Models\Person\Menu  $menus
      * @return \Illuminate\Http\Response
      */
-    public function edit(menus $menus)
+    public function edit()
     {
         //
     }
@@ -167,6 +167,5 @@ class MenuController extends Controller
         return response()->json();
     }
 
-    
 }
 

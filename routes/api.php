@@ -750,6 +750,7 @@ Route::group(['prefix' => 'actualities'], function () {
     Route::group(['prefix' => 'submenus'], function () {
         Route::get('/', 'Actuality\SubMenuController@index');
         Route::get('/{id}', 'Actuality\SubMenuController@find');
+        Route::get('/{name}/menus', 'Actuality\SubMenuController@findSubMenu');
         Route::match(['post', 'put'], '/{id}', 'Actuality\SubMenuController@update');
         Route::post('/', 'Actuality\SubMenuController@store');
         Route::delete('/{id}', 'Actuality\SubMenuController@destroy');

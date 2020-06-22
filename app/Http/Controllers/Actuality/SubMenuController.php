@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Actuality;
 
 use App\Models\APIError;
 use App\Http\Controllers\Controller;
+use App\Models\Actuality\Menu;
 use Illuminate\Http\Request;
 use App\Models\Actuality\Sub_Menu;
 
@@ -145,5 +146,13 @@ class Sub_MenuController extends Controller
         return response()->json();
     }
 
+
+    public function findSubMenu(Request $req, $name)
+    {
+        if (!$menu = Menu::whereMenuName($name)->simplePaginate($req->has('limit') ? $req->limit : 15)) {
+            abort(404, "No menu for category with name $name found ");
+        }
+        return response()->json($menu);
+    }
     
 }
