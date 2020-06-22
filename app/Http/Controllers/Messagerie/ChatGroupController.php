@@ -80,7 +80,7 @@ class ChatGroupController extends Controller
             $data['profile'] = json_encode(['images' => $filePaths]);
         }
         
-        if ($data['profile'] ?? null) $group->profile = $data['profile'];
+        if (null ?? $data['profile']) $group->profile = $data['profile'];
         if (null ?? $data['name']) $group->name = $data['name'];
         
         $group->update();
