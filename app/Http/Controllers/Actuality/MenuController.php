@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Actuality\Menu;
 use App\Models\Actuality\Sub_Menu;
 
+
 class MenuController extends Controller
 {
     /**
@@ -90,7 +91,7 @@ class MenuController extends Controller
      * @param  \App\Models\Person\Menu  $menus
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit(menus $menus)
     {
         //
     }
@@ -135,14 +136,6 @@ class MenuController extends Controller
         return response()->json($menu);
     }
 
-    
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Person\menus  $menus
-     * @return \Illuminate\Http\Response
-     */
     public function search(Request $req)
     {
         $this->validate($req->all(), [
@@ -156,6 +149,46 @@ class MenuController extends Controller
         return response()->json($data);
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Person\menus  $menus
+     * @return \Illuminate\Http\Response
+     */
+    public function findSubMenu(Request $req)
+    {
+       
+        $name = $req->name;
+
+        if ($name) {
+                if(!$menus = Menu::whereName($name)->first()){ 
+                    $apiError = new APIError;
+                    $apiError->setStatus("404");
+                    $apiError->setCode("NAME_OF_MENU_NOT_FOUND");
+                    return response()->json($apiError, 404);   
+                }
+                
+                $submenu = Sub_Menu::whereMenuId($menus->id)->simplePaginate($req->has('limit') ? $req->limit : 15);
+            }
+
+        return response()->json($submenu);
+        
+    }
+
+    public function findAttributeMenu(Request $req, $id)
+    {
+         
+        if(!$menu = Menu::find($id)){ 
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("MENU_NOT_FOUND");
+            return response()->json($apiError, 404);   
+        }
+        $menu->attributeMenu;
+        return response()->json($menu);
+        
+    }
+    
     public function destroy($id)
     {
         if (!$menu = Menu::find($id)) {
@@ -169,13 +202,6 @@ class MenuController extends Controller
         return response()->json();
     }
 
-    public function findSubMenu(Request $req, $id)
-    {
-        if (!$submenu = Sub_Menu::whereMenuId($id)->simplePaginate($req->has('limit') ? $req->limit : 15)) {
-            abort(404, "No submenu for menu with id $id found ");
-        }
-        return response()->json($submenu);
-    }
-
+    
 }
 

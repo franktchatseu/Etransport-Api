@@ -8,12 +8,12 @@ class Menu extends Model
 {
     //
     
-    public function sousMenu() {
-        return $this->belongsToMany('App\Models\Actuality\Sub_Menu','sub_menus','menu_id');
-    }
+    // public function sousMenu() {
+    //     return $this->belongsToMany('App\Models\Actuality\Sub_Menu','sub_menus','menu_id');
+    // }
 
     public function attributeMenu() {
-        return $this->belongsToMany('App\Models\Actuality\Attribute_Menu', 'attribute_menus' ,'attribute_id','menu_id');
+        return $this->belongsToMany('App\Models\Actuality\Attribute', 'attribute_menus','menu_id','attribute_id');
     }
 
     // public function roles() {
