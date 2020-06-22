@@ -16,14 +16,14 @@ class CreateAttributeMenuTable extends Migration
         Schema::create('attribute_menus', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('attribute_id');
-            $table->unsignedBigInteger('sub_menu_id');
+            $table->unsignedBigInteger('menu_id');
             $table->boolean('is_required')->default(1);
             $table->unsignedSmallInteger('min_length')->nullable();
             $table->unsignedSmallInteger('max_length')->nullable();
 
             $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');;
-            $table->foreign('sub_menu_id')->references('id')->on('sub_menus')->onDelete('cascade');;
-            $table->unique(['attribute_id', 'sub_menu_id']);
+            $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');;
+            $table->unique(['attribute_id', 'menu_id']);
 
         });
     }

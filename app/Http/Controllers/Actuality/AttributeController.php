@@ -41,14 +41,12 @@ class AttributeController extends Controller
         
 
         $this->validate($request->all(), [
-            'name' => 'required',
-            'description' => 'required',
+            'name' => 'required|unique:attributes',
         ]);
 
             $attribute = new Attribute();
-            $attribute->name = 'name';
-            $attribute->slug = 'slug';
-            $attribute->type = 'type';
+            $attribute->name = $request->name;
+            if ( $request->type) $attribute->type = $request->type;
             $attribute->save();
        
         return response()->json($attribute);
@@ -90,7 +88,7 @@ class AttributeController extends Controller
      * @param  \App\Models\Person\Attribute  $attribute
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $req, $id)
+    public function update(Request $request, $id)
     {
         $attribute = Attribute::find($id);
         if (!$attribute) {
@@ -100,15 +98,16 @@ class AttributeController extends Controller
             return response()->json($apiError, 404);
         }
 
-        $data = $req->except('photo');
+        $data = $request->except('photo');
 
         $this->validate($data, [
-            'name' => 'required|min:2',
-            'slug' => 'required|min:2',
-            'type' => 'required|min:2',
+            'name' => 'required|unique:attributes|min:2',
+            'type' => '',
             
         ]);
-
+        
+        if ( $request->name) $attribute->name = $data['name'];
+        if ( $request->type) $attribute->type = $data['type'];
         $attribute->update();
 
         return response()->json($attribute);

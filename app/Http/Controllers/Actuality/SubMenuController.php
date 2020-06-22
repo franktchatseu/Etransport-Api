@@ -6,8 +6,9 @@ use App\Models\APIError;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Actuality\Sub_Menu;
+use App\Models\Actuality\Menu;
 
-class Sub_MenuController extends Controller
+class SubMenuController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,18 +42,39 @@ class Sub_MenuController extends Controller
         
 
         $this->validate($request->all(), [
-            'name' => 'required',
-            'description' => 'required',
+            'name' => 'required|unique:sub_menus',
+            'menu_id'=> 'required',
         ]);
+        
+        if(Menu::find($request->menu_id) == null)
+        {
+            $apiError = new APIError;
+            $apiError->setStatus("400");
+            $apiError->setCode("MENU_ID_NOT_FOUND");
+            $apiError->setErrors(['menu_id' => 'menu_id not existing']);
 
-            $sub_Menu = new Sub_Menu();
-            $sub_Menu->name = 'name';
-            $sub_Menu->description = 'description';
+            return response()->json($apiError, 400);
+        }
+
+        $sub_Menu = new Sub_Menu();
+        $data['logo'] = '';
+        //upload image
+        if ($file = $request->file('logo')) {
+            $filePaths = $this->saveSingleImage($this, $request, 'logo', 'sub_menus');
+            $sub_Menu->logo = $data['logo'] = json_encode(['images' => $filePaths]);
+        }   
+
+        
+        $sub_Menu->name = $request->name;
+        $sub_Menu->menu_id = $request->menu_id;
+        if( $request->description) $sub_Menu->description = $request->description;
+        
+        $sub_Menu->save();
             
-            $sub_Menu->save();
-       
         return response()->json($sub_Menu);
+
     }
+    
 
     /**
      * Display the specified resource.
@@ -90,27 +112,38 @@ class Sub_MenuController extends Controller
      * @param  \App\Models\Person\Sub_Menu  $sub_Menu
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $req, $id)
+    public function update(Request $request, $id)
     {
-        $sub_menu = Sub_Menu::find($id);
-        if (!$sub_menu) {
+        $submenu = Sub_Menu::find($id);
+        if (!$submenu) {
             $apiError = new APIError;
             $apiError->setStatus("404");
-            $apiError->setCode("SOUS_MENU_NOT_FOUNT");
+            $apiError->setCode("SUB_MENU_NOT_FOUND");
             return response()->json($apiError, 404);
         }
 
-        $data = $req->except('photo');
+        $data = $request->except('photo');
 
-        $this->validate($data, [
-            'name' => 'required|min:2',
-            'description' => 'required|min:2',
-            
+        $this->validate($request->all(), [
+            'name' => 'required|unique:sub_menus',
+            'menu_id'=> 'required',
         ]);
+        
+         
+        //upload image
+        if ($file = $request->file('logo')) {
+            $filePaths = $this->saveSingleImage($this, $request, 'logo', 'menus');
+            $data['logo'] = json_encode(['images' => $filePaths]);
+            $submenu->logo = $data['logo'];
+        }
 
-        $sub_menu->update();
+        if ( $request->name) $submenu->name = $data['name'];
+        if ( $request->menu_id) $submenu->menu_id = $data['menu_id'];
+        if ( $request->description) $submenu->description = $data['description'];
+        
+        $submenu->update();
 
-        return response()->json($sub_menu);
+        return response()->json($submenu);
     }
 
     /**
@@ -137,7 +170,7 @@ class Sub_MenuController extends Controller
         if (!$sub_menu = Sub_Menu::find($id)) {
             $apiError = new APIError;
             $apiError->setStatus("404");
-            $apiError->setCode("SOUS_MENU_NOT_FOUNT");
+            $apiError->setCode("SUB_MENU_NOT_FOUND");
             return response()->json($apiError, 404);
         }
 

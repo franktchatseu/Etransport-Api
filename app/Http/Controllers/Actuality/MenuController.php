@@ -44,20 +44,20 @@ class MenuController extends Controller
             'name' => 'required',
             'logo' => '',
         ]);
-
+        
+        $menus = new Menu();
         $data['logo'] = '';
         //upload image
         if ($file = $request->file('logo')) {
             $filePaths = $this->saveSingleImage($this, $request, 'logo', 'menus');
             $data['logo'] = json_encode(['images' => $filePaths]);
+            $menus->logo = $data['logo'];
         }
 
 
-            $menus = new Menu();
-            $menus->name = $request->name;
-            $menus->logo = $data['logo'];
-            $menus->description = $request->description;
             
+            $menus->name = $request->name;           
+            if( $request->description) $menus->description = $request->description;           
             $menus->save();
        
         return response()->json($menus);
@@ -78,6 +78,8 @@ class MenuController extends Controller
             $apiError->setCode("MENU_NOT_FOUND");
             return response()->json($apiError, 404);
         }
+        //$menus->sousMenu;
+        //$menus->attributeMenu;
         return $menus;
     }
 
@@ -121,12 +123,11 @@ class MenuController extends Controller
         if ($file = $request->file('logo')) {
             $filePaths = $this->saveSingleImage($this, $request, 'logo', 'menus');
             $data['logo'] = json_encode(['images' => $filePaths]);
+            $menu->logo = $data['logo'];
         }
 
-
-        if ( $data['name']) $menu->name = $data['name'];
-        if ( $data['logo']) $menu->logo = $data['logo'];
-        if ( $data['description']) $menu->description = $data['description'];
+        if ( $request->name) $menu->name = $data['name'];
+        if ( $request->description) $menu->description = $data['description'];
         
         $menu->update();
 

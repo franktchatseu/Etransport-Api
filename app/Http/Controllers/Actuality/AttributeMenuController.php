@@ -6,6 +6,8 @@ use App\Models\APIError;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Actuality\Attribute_Menu;
+use App\Models\Actuality\Menu;
+use App\Models\Actuality\Attribute;
 
 class Attribute_MenuController extends Controller
 {
@@ -41,17 +43,43 @@ class Attribute_MenuController extends Controller
         
 
         $this->validate($request->all(), [
-            'name' => 'required',
-            'description' => 'required',
+            'attribute_id' => 'required',
+            'menu_id' => 'required',
         ]);
 
+        if(Menu::find($request->menu_id) == null)
+        {
+            $apiError = new APIError;
+            $apiError->setStatus("400");
+            $apiError->setCode("MENU_ID_NOT_FOUND");
+            $apiError->setErrors(['menu_id' => 'menu_id not existing']);
+
+            return response()->json($apiError, 400);
+        }
+
+        if(Attribute::find($request->attribute_id) == null)
+        {
+            $apiError = new APIError;
+            $apiError->setStatus("400");
+            $apiError->setCode("ATTRIBUTE_ID_NOT_FOUND");
+            $apiError->setErrors(['attribute_id' => 'attribute_id not existing']);
+
+            return response()->json($apiError, 400);
+        }
+        
+
             $Attribute_Menu = new Attribute_Menu();
-            $Attribute_Menu->attribute_id = 'attribute_id';
-            $Attribute_Menu->sub_menu_id = 'sub_menu_id';            
+            $Attribute_Menu->attribute_id = $request->attribute_id;
+            $Attribute_Menu->menu_id = $request->menu_id;  
+            if($request->is_required) $Attribute_Menu->is_required;
+            if($request->max_length) $Attribute_Menu->max_length;
+            if($request->min_length) $Attribute_Menu->min_length;
+
             $Attribute_Menu->save();
 
         return response()->json($Attribute_Menu);
     }
+
 
     /**
      * Display the specified resource.
@@ -89,7 +117,7 @@ class Attribute_MenuController extends Controller
      * @param  \App\Models\Person\Attribute_Menu  $Attribute_Menu
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $req, $id)
+    public function update(Request $request, $id)
     {
         $Attribute_Menu = Attribute_Menu::find($id);
         if (!$Attribute_Menu) {
@@ -99,13 +127,40 @@ class Attribute_MenuController extends Controller
             return response()->json($apiError, 404);
         }
 
-        $data = $req->except('photo');
+        $data = $request->except('photo');
 
-        $this->validate($data, [
-            'attribute_id' => 'required|min:2',
-            'sub_menu_id' => 'required|min:2',
+        $this->validate($request->all(), [
             
         ]);
+
+        if(Menu::find($request->menu_id) == null)
+        {
+            $apiError = new APIError;
+            $apiError->setStatus("400");
+            $apiError->setCode("MENU_ID_NOT_FOUND");
+            $apiError->setErrors(['menu_id' => 'menu_id not existing']);
+
+            return response()->json($apiError, 400);
+        }
+
+        if(Attribute::find($request->attribute_id) == null)
+        {
+            $apiError = new APIError;
+            $apiError->setStatus("400");
+            $apiError->setCode("ATTRIBUTE_ID_NOT_FOUND");
+            $apiError->setErrors(['attribute_id' => 'attribute_id not existing']);
+
+            return response()->json($apiError, 400);
+        }
+
+
+            $Attribute_Menu = new Attribute_Menu();
+            if($request->atributes_id) $Attribute_Menu->attribute_id = $request->attribute_id;
+            if($request->menu_id) $Attribute_Menu->menu_id = $request->menu_id;  
+            if($request->is_required) $Attribute_Menu->is_required;
+            if($request->max_length) $Attribute_Menu->max_length;
+            if($request->min_length) $Attribute_Menu->min_length;
+
 
         $Attribute_Menu->update();
 
