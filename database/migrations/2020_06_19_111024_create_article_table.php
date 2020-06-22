@@ -19,8 +19,8 @@ class CreateArticleTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('sub_menu_id');
             $table->timestamps();
-            $table->foreign('sub_menu_id')->references('id')->on('sub_menus')->onDelete('cascade');;
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');;
+            $table->foreign('sub_menu_id')->references('id')->on('sub_menus')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
