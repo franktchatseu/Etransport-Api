@@ -6,6 +6,7 @@ use App\Models\APIError;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Actuality\Menu;
+use App\Models\Actuality\Sub_Menu;
 
 class MenuController extends Controller
 {
@@ -166,6 +167,14 @@ class MenuController extends Controller
 
         $menu->delete();      
         return response()->json();
+    }
+
+    public function findSubMenu(Request $req, $id)
+    {
+        if (!$submenu = Sub_Menu::whereMenuId($id)->simplePaginate($req->has('limit') ? $req->limit : 15)) {
+            abort(404, "No submenu for menu with id $id found ");
+        }
+        return response()->json($submenu);
     }
 
 }
