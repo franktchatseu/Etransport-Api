@@ -28,9 +28,9 @@ class DatabaseSeeder extends Seeder
         
         // module setting
         $this->call([
-            //ParishSeeder::class,
-            // ParishPatrimonySeeder::class,
-            // MassSheduleSeeder::class
+            ParishSeeder::class,
+            ParishPatrimonySeeder::class,
+            MassSheduleSeeder::class
         ]);
 
        // $this->call(CityAndCountrySeeder::class);
@@ -41,14 +41,14 @@ class DatabaseSeeder extends Seeder
             // $this->call(LaratrustSeeder::class);
             //    ProfessionSeeder::class,
             //   UserSeeder::class,
-            //   UtypeSeeder::class,
-            //   UserUtypeSeeder::class,
-            //  ParishSeeder::class,
-            //  PriestSeeder::class,
-            //  AlbumSeeder::class,
-            //  ParishionalSeeder::class,
-            //  CathechumeneSeeder::class,
-            //  ContactSeeder::class,
+              UtypeSeeder::class,
+              UserUtypeSeeder::class,
+             ParishSeeder::class,
+             PriestSeeder::class,
+             AlbumSeeder::class,
+             ParishionalSeeder::class,
+             CathechumeneSeeder::class,
+             ContactSeeder::class,
         ]);
 
         // module messagerie
