@@ -39,16 +39,16 @@ class DatabaseSeeder extends Seeder
         $this->call([
             // $this->call(SettingSeeder::class);
             // $this->call(LaratrustSeeder::class);
-            //    ProfessionSeeder::class,
-            //   UserSeeder::class,
-              UtypeSeeder::class,
-              UserUtypeSeeder::class,
-             ParishSeeder::class,
-             PriestSeeder::class,
-             AlbumSeeder::class,
-             ParishionalSeeder::class,
-             CathechumeneSeeder::class,
-             ContactSeeder::class,
+               ProfessionSeeder::class,
+               UserSeeder::class,
+            //   UtypeSeeder::class,
+            //   UserUtypeSeeder::class,
+            //  ParishSeeder::class,
+            //  PriestSeeder::class,
+            //  AlbumSeeder::class,
+            //  ParishionalSeeder::class,
+            //  CathechumeneSeeder::class,
+            //  ContactSeeder::class,
         ]);
 
         // module messagerie
@@ -185,11 +185,11 @@ class DatabaseSeeder extends Seeder
 
            //module actuality
            $this->call([
-                // AttributeSeeder::class,
-                // MenuSeeder::class,
-                // AttributeMenuSeeder::class,
-                // SubMenuSeeder::class,
-                // ArticleSeeder::class,
+                AttributeSeeder::class,
+                MenuSeeder::class,
+                AttributeMenuSeeder::class,
+                SubMenuSeeder::class,
+                ArticleSeeder::class,
                 ArticleAttributeMenuSeeder::class,
            ]);
 
