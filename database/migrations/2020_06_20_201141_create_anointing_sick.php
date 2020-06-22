@@ -15,7 +15,6 @@ class CreateAnointingSick extends Migration
     {
         Schema::create('anointing_sicks', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('good_to_know');
             $table->string('assisted_person');
             $table->unsignedBigInteger('age');
             $table->enum('gender',['F', 'M']);
@@ -25,7 +24,10 @@ class CreateAnointingSick extends Migration
             $table->string('avatar')->nullable();
             $table->date('request_date');
             $table->text('comment');
+            $table->unsignedBigInteger('person_id');
             $table->enum('status',['REJECTED','PENDING','ACCEPTED']);
+            
+            $table->foreign('person_id')->references('id')->on('user_utypes')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
             

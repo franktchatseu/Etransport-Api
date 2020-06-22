@@ -21,15 +21,6 @@ class AnointingSickController extends Controller
         return response()->json($data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Create an Anointing Sick on database
@@ -41,23 +32,29 @@ class AnointingSickController extends Controller
     public function store(Request $request)
     {
         $data = $request->except('photo');
-
         $this->validate($data, [
-            'good_to_know' => 'required',
             'assisted_person' => 'required',
             'age' => 'required',
-            'gender' => 'required',
+            'gender' => 'required|in:M,F',
             'quater' => 'required',
             'disease_nature' => 'required',
             'is_baptized' => 'required',
             'request_date' => 'required',
-            'avatar' => 'required',
             'comment' => 'required',
-            'status' => 'required',
+            'person_id' => 'required',
+            'status' => 'required|in:REJECTED,PENDING,ACCEPTED',
         ]);
 
+        
+        if ( $request->file('avatar') ?? null) {
+            $filePaths = $this->saveSingleImage($this, $request, 'avatar', 'anoiting');
+            $data['avatar'] = json_encode(['images' => $filePaths]);
+            $anointingSick->avatar = $data['avatar'] ;
+        }else{
+            $anointingSick->avatar =null ;
+        }
+
             $anointingSick = new AnointingSick();
-            $anointingSick->good_to_know = $data['good_to_know'];
             $anointingSick->assisted_person = $data['assisted_person'];
             $anointingSick->age = $data['age'];
             $anointingSick->gender = $data['gender'];
@@ -65,36 +62,14 @@ class AnointingSickController extends Controller
             $anointingSick->disease_nature = $data['disease_nature'];
             $anointingSick->is_baptized = $data['is_baptized'];
             $anointingSick->request_date = $data['request_date'];
-            $anointingSick->avatar = $data['avatar'];
             $anointingSick->comment = $data['comment'];
             $anointingSick->status = $data['status'];
+            $anointingSick->person_id = $data['person_id'];
  
             
             $anointingSick->save();
        
         return response()->json($anointingSick);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Request\AnointingSick  $anointingSick
-     * @return \Illuminate\Http\Response
-     */
-    public function show(AnointingSick $anointingSick)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Request\AnointingSick  $anointingSick
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(AnointingSick $anointingSick)
-    {
-        //
     }
 
     /**
@@ -115,7 +90,6 @@ class AnointingSickController extends Controller
         $data = $req->except('photo');
 
         $this->validate($data, [
-            'good_to_know' => 'required',
             'assisted_person' => 'required',
             'age' => 'required',
             'gender' => 'required',
@@ -123,10 +97,16 @@ class AnointingSickController extends Controller
             'disease_nature' => 'required',
             'is_baptized' => 'required',
             'request_date' => 'required',
-            'avatar' => 'required',
         ]);
+
+        if ($file = $req->file('avatar')) {
+            $filePaths = $this->saveSingleImage($this, $req, 'avatar', 'anoiting');
+            $data['avatar'] = json_encode(['images' => $filePaths]);
+        }
         
-        if (null !== $data['good_to_know']) $anointingSick->good_to_know = $data['good_to_know'];
+        if (isset($data['avatar']))
+             $anointingSick->avatar = $data['avatar'];
+        
         if (null !== $data['assisted_person']) $anointingSick->assisted_person = $data['assisted_person'];
         if (null !== $data['age']) $anointingSick->age = $data['age'];
         if (null !== $data['gender']) $anointingSick->gender = $data['gender'];
@@ -134,7 +114,6 @@ class AnointingSickController extends Controller
         if (null !== $data['disease_nature']) $anointingSick->disease_nature = $data['disease_nature'];
         if (null !== $data['is_baptized']) $anointingSick->is_baptized = $data['is_baptized'];
         if (null !== $data['request_date']) $anointingSick->request_date = $data['request_date'];
-        if (null !== $data['avatar']) $anointingSick->avatar = $data['avatar'];
         if (null !== $data['comment']) $anointingSick->comment = $data['comment'];
         if (null !== $data['status']) $anointingSick->status = $data['status'];
 

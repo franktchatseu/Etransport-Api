@@ -21,15 +21,6 @@ class IntentionMassController extends Controller
         return response()->json($data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Create an intention mass on database
@@ -46,64 +37,26 @@ class IntentionMassController extends Controller
             'ammount' => 'required',
             'request_date' => 'required',
             'intention' => 'required',
-            'status' => 'required',
+            'status' => 'required|in:REJECTED,PENDING,ACCEPTED',
+            'person_id' => 'required',
         ]);
+
+        if ( $request->file('photo') ?? null) {
+            $filePaths = $this->saveSingleImage($this, $request, 'photo', 'intentionMass');
+            $data['photo'] = json_encode(['images' => $filePaths]);
+        }
 
             $intentionMass = new IntentionMass();
             $intentionMass->ammount = $data['ammount'];
             $intentionMass->request_date = $data['request_date'];
             $intentionMass->intention = $data['intention'];
             $intentionMass->status = $data['status'];
- 
+            $intentionMass->person_id = $data['person_id'];
+            $intentionMass->photo = $data['photo'] ?? null;
             
             $intentionMass->save();
        
         return response()->json($intentionMass);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Request\IntentionMass  $intentionMass
-     * @return \Illuminate\Http\Response
-     */
-    public function show(IntentionMass $intentionMass)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Request\IntentionMass  $intentionMass
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(IntentionMass $intentionMass)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Request\IntentionMass  $intentionMass
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, IntentionMass $intentionMass)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Request\IntentionMass  $intentionMass
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(IntentionMass $intentionMass)
-    {
-        //
     }
 
     /**
@@ -121,19 +74,26 @@ class IntentionMassController extends Controller
             abort(404, "No intentionMass found with id $id");
         }
 
-        $data = $req->except('photo');
-
         $this->validate($data, [
             'ammount' => 'required',
             'request_date' => 'required',
             'intention' => 'required',
-            'status' => 'required',
+            'status' => 'required|in:REJECTED,PENDING,ACCEPTED',
         ]);
+
+        if ($file = $req->file('photo')) {
+            $filePaths = $this->saveSingleImage($this, $req, 'photo', 'intentionMass');
+            $data['photo'] = json_encode(['images' => $filePaths]);
+            $intentionMass->photo = $data['photo'];
+        }else{
+            $intentionMass->photo = null;
+        }
         
         if (null !== $data['ammount'])  $intentionMass->ammount = $data['ammount'];
         if (null !== $data['request_date'])  $intentionMass->request_date = $data['request_date'];
         if (null !== $data['intention'])  $intentionMass->intention = $data['intention'];
         if (null !== $data['status'])  $intentionMass->status = $data['status'];
+        if (null !== $data['person_id'])  $intentionMass->status = $data['person_id'];
 
 
         $intentionMass->update();
@@ -191,5 +151,5 @@ class IntentionMassController extends Controller
             abort(404, "No intentionMass found with id $id");
         }
         return response()->json($intentionMass);
-    }
+    } 
 }

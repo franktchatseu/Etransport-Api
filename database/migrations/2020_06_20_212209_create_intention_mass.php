@@ -13,14 +13,18 @@ class CreateIntentionMass extends Migration
      */
     public function up()
     {
-        Schema::create('intention_masss', function (Blueprint $table) {
+        Schema::create('intention_masses', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('request_date');
             $table->date('intention');
+            $table->string('photo');
             $table->unsignedBigInteger('ammount');
             $table->enum('status',['REJECTED','PENDING','ACCEPTED']);
+            $table->unsignedBigInteger('person_id');
             $table->timestamps();
             $table->softDeletes();
+            
+            $table->foreign('person_id')->references('id')->on('user_utypes')->onDelete('cascade');
         });
     }
 

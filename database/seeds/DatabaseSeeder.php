@@ -47,6 +47,7 @@ class DatabaseSeeder extends Seeder
                ParishionalSeeder::class,
                CathechumeneSeeder::class,
                ContactSeeder::class, /*  */
+
           ]);
           /* 
         // module sacrament
@@ -157,6 +158,10 @@ class DatabaseSeeder extends Seeder
 
           //module Planification
           $this->call([
+               // ObjectMakingAppointmentSeeder::class,
+               // MakeAppointmentSeeder::class,
+               // AnointingSickSeeder::class,
+               // IntentionMassSeeder::class
                /*    TypePlaningSeeder::class,
            PlaningSeeder::class,
            AssociationPlaningSeeder::class,
