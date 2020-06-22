@@ -20,6 +20,7 @@ class CreateAttributeMenuTable extends Migration
             $table->boolean('is_required')->default(1);
             $table->unsignedSmallInteger('min_length')->nullable();
             $table->unsignedSmallInteger('max_length')->nullable();
+            $table->timestamps();
 
             $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');;
             $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');;

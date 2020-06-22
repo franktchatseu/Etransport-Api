@@ -24,8 +24,7 @@ class CreateAssociationsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             
-            $table->foreign('type_id')->references('id')
-                ->on('type_associations')->onDelete('cascade');
+            $table->foreign('type_id')->references('id')->on('type_associations')->onDelete('cascade');
         });
     }
 

@@ -108,9 +108,10 @@ class UserUtypeController extends Controller
         return response()->json($parishs);
     }
 
-    public function findUserByType(Request $req, $id) {
+    public function findUserByType(Request $req, $type) {
 
-        $users = UserUtype::where(['user_utypes.type_id' => $id]) 
+        $users = UserUtype::where(['utypes.value' => $type]) 
+        ->join('utypes', ['utypes.id' => 'user_utypes.type_id' ])
         ->join('users', ['users.id' => 'user_utypes.user_id' ])
         ->join('parishs', ['user_utypes.parish_id' => 'parishs.id' ])
         ->select('users.*', 'user_utypes.*', 'user_utypes.id as user_utype_id', 'parishs.name as parish_name')        
