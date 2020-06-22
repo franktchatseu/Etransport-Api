@@ -191,6 +191,14 @@ class Article_Attribute_MenuController extends Controller
         return response()->json(202);
     }
 
+    public function findArticleMenu(Request $req, $id)
+    {
+        $sacrament = Article_Attribute_Menu::select('article_attribute_menu.*', 'article_attribute_menu.id as usacrament_id', 'sacraments.*', 'sacraments.id as id_sacrament')
+        ->join('sacraments', 'user_sacraments.sacrament_id', '=', 'sacraments.id')
+        ->where(['user_sacraments.user_id' => $id])
+        ->simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($sacrament);
+    }
     
 }
 
