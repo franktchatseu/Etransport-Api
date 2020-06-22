@@ -756,19 +756,21 @@ Route::group(['prefix' => 'actualities'], function () {
         Route::delete('/{id}', 'Actuality\SubMenuController@destroy');
     });
 
-    Route::group(['prefix' => 'attributemenus'], function () {
-        Route::get('/', 'Actuality\AttributeMenu@index');
-        Route::get('/{id}', 'Actuality\AttributeMenu@find');
-        Route::match(['post', 'put'], '/{id}', 'Actuality\AttributeMenu@update');
-        Route::post('/', 'Actuality\AttributeMenu@store');
-        Route::delete('/{id}', 'Actuality\AttributeMenu@destroy');
+    Route::group(['prefix' => 'attribute_menus'], function () {
+        Route::get('/', 'Actuality\Attribute_MenuController@index');
+        Route::get('/{id}', 'Actuality\Attribute_MenuController@find');
+        Route::match(['post', 'put'], '/{id}', 'Actuality\Attribute_MenuController@update');
+        Route::post('/', 'Actuality\Attribute_MenuController@store');
+        Route::delete('/{id}', 'Actuality\Attribute_MenuController@destroy');
+        Route::get('/{id}/menus', 'Actuality\Attribute_MenuController@findAttributeMenu');
     });
 
-    Route::group(['prefix' => 'articleattributemenus'], function () {
-        Route::get('/', 'Actuality\ArticleAttributeMenu@index');
-        Route::get('/{id}', 'Actuality\ArticleAttributeMenu@find');
-        Route::match(['post', 'put'], '/{id}', 'Actuality\ArticleAttributeMenu@update');
-        Route::post('/', 'Actuality\ArticleAttributeMenu@store');
-        Route::delete('/{id}', 'Actuality\ArticleAttributeMenu@destroy');
+    Route::group(['prefix' => 'article_attribute_menus'], function () {
+        Route::get('/', 'Actuality\Article_Attribute_MenuController@index');
+        Route::get('/{id}', 'Actuality\Article_Attribute_MenuController@find');
+        Route::match(['post', 'put'], '/{id}', 'Actuality\Article_Attribute_MenuController@update');
+        Route::post('/', 'Actuality\Article_Attribute_MenuController@store');
+        Route::delete('/{id}', 'Actuality\Article_Attribute_MenuController@destroy');
+        Route::get('/{id}/articles', 'Actuality\Article_Attribute_MenuController@findArticleMenu');
     });
 });
