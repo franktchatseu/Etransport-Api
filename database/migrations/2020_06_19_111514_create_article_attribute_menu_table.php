@@ -17,15 +17,13 @@ class CreateArticleAttributeMenuTable extends Migration
             
             $table->bigIncrements('id');
             $table->unsignedBigInteger('article_id');
-            $table->unsignedBigInteger('attribute_id');
             $table->unsignedBigInteger('attribute_menu_id');
             $table->text('value');
             $table->timestamps();
 
             $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');;
-            $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');;
             $table->foreign('attribute_menu_id')->references('id')->on('attribute_menus')->onDelete('cascade');;
-            //$table->primary(['article_id', 'attribute_menu_id']);
+            
         });
     }
 

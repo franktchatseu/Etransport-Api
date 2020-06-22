@@ -6,6 +6,8 @@ use App\Models\APIError;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Actuality\Article_Attribute_Menu;
+use App\Models\Actuality\Attribute_Menu;
+use App\Models\Actuality\Article;
 
 class Article_Attribute_MenuController extends Controller
 {
@@ -42,17 +44,34 @@ class Article_Attribute_MenuController extends Controller
 
         $this->validate($request->all(), [
             'article_id' => 'required',
-            'attribute_id' => 'required',
             'attribute_menu_id' => 'required',
             'value' => 'required',
         ]);
        
+        if(Article::find($request->article_id) == null)
+        {
+            $apiError = new APIError;
+            $apiError->setStatus("400");
+            $apiError->setCode("ARTICLE_ID_NOT_FOUND");
+            $apiError->setErrors(['article_id' => 'article_id not existing']);
+
+            return response()->json($apiError, 400);
+        }
+
+        if(Attribute_Menu::find($request->attribute_menu_id) == null)
+        {
+            $apiError = new APIError;
+            $apiError->setStatus("400");
+            $apiError->setCode("ATTRIBUTE_ID_NOT_FOUND");
+            $apiError->setErrors(['attribute_menu_id' => 'attribute_menu_id not existing']);
+
+            return response()->json($apiError, 400);
+        }
 
             $article_attribute_menu = new Article_Attribute_Menu();
-            $article_attribute_menu->article_id = 'article_id';
-            $article_attribute_menu->attribute_id = 'attribute_id';
-            $article_attribute_menu->attribute_menu_id = 'attribute_menu_id';
-            $article_attribute_menu->value = 'value';
+            $article_attribute_menu->article_id = $request->article_id;
+            $article_attribute_menu->attribute_menu_id = $request->attribute_menu_id;
+            $article_attribute_menu->value = $request->value;
             
             $article_attribute_menu->save();
        
@@ -95,7 +114,7 @@ class Article_Attribute_MenuController extends Controller
      * @param  \App\Models\Person\Article_Attribute_Menu  $article_attribute_menu
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $req, $id)
+    public function update(Request $request, $id)
     {
         $article_attribute_menu = Article_Attribute_Menu::find($id);
         if (!$article_attribute_menu) {
@@ -105,13 +124,36 @@ class Article_Attribute_MenuController extends Controller
             return response()->json($apiError, 404);
         }
 
-        $data = $req->except('photo');
+        $data = $request->except('photo');
 
         $this->validate($data, [
-            'value' => 'required|min:2',
-            
         ]);
 
+        if(Article::find($request->article_id) == null)
+        {
+            $apiError = new APIError;
+            $apiError->setStatus("400");
+            $apiError->setCode("ARTICLE_ID_NOT_FOUND");
+            $apiError->setErrors(['article_id' => 'article_id not existing']);
+
+            return response()->json($apiError, 400);
+        }
+
+
+        if(Attribute_Menu::find($request->attribute_menu_id) == null)
+        {
+            $apiError = new APIError;
+            $apiError->setStatus("400");
+            $apiError->setCode("ATTRIBUTE_ID_NOT_FOUND");
+            $apiError->setErrors(['attribute_menu_id' => 'attribute_menu_id not existing']);
+
+            return response()->json($apiError, 400);
+        }
+
+        $article_attribute_menu = new Article_Attribute_Menu();
+        if( $request->article_id) $article_attribute_menu->article_id = $request->article_id;
+        if($request->attribute_menu_id) $article_attribute_menu->attribute_menu_id = $request->attribute_menu_id;
+        if($request->value) $article_attribute_menu->value = $request->value;
         $article_attribute_menu->update();
 
         return response()->json($article_attribute_menu);

@@ -23,7 +23,7 @@ class CreateAttributeMenuTable extends Migration
             $table->timestamps();
 
             $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');;
-            $table->foreign('menu_id')->references('id')->on('sub_menus')->onDelete('cascade');;
+            $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');;
             $table->unique(['attribute_id', 'menu_id']);
 
         });

@@ -43,12 +43,14 @@ class ArticleController extends Controller
         $this->validate($request->all(), [
             'user_id' => 'required',
             'sub_menu_id' => 'required',
+            'name' => 'required',
             
         ]);
 
             $article = new Article();
-            $article->user_id = 'user_id';
-            $article->sub_menu_id = 'sub_menu_id';
+            $article->user_id = $request->user_id;
+            $article->sub_menu_id = $request->sub_menu_id;
+            $article->name = $request->name;
             
             $article->save();
        
@@ -106,6 +108,7 @@ class ArticleController extends Controller
         $this->validate($data, [
             'user_id' => 'required|min:2',
             'sub_menu_id' => 'required|min:2',
+            'name' => 'required',
             
         ]);
 
