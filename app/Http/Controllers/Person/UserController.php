@@ -113,7 +113,7 @@ class UserController extends Controller
 
         //upload image
         if ($file = $req->file('files')) {
-            $filePaths = $this->saveMultipleImages($this, $req, 'files', 'users');
+            $filePaths = $this->saveSingleImage($this, $req, 'files', 'users');
             $data['avatar'] = json_encode(['images' => $filePaths]);
         }
 
@@ -127,6 +127,8 @@ class UserController extends Controller
         if (isset($data['birth_place'])) $user->birth_place = $data['birth_place'];
         if (isset($data['avatar'])) $user->avatar = $data['avatar'];
         if (isset($data['baptist_date'])) $user->baptist_date = $data['baptist_date'];
+        if (isset($data['profession'])) $user->profession = $data['profession'];
+        if (isset($data['is_married'])) $user->is_married = $data['is_married'];
         if (isset($data['district'])) $user->district = $data['district'];
         if (isset($data['tel'])) $user->tel = $data['tel'];
         if ( isset($data['language'])) $user->language = $data['language'];
