@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Actuality\Menu;
 use App\Models\Actuality\Sub_Menu;
-
+use Illuminate\Support\Str;
 
 class MenuController extends Controller
 {
@@ -41,12 +41,11 @@ class MenuController extends Controller
     public function store(Request $request)
     {
         
-
         $this->validate($request->all(), [
             'name' => 'required',
             'logo' => '',
         ]);
-        
+
         $menus = new Menu();
         $data['logo'] = '';
         //upload image
@@ -55,10 +54,9 @@ class MenuController extends Controller
             $data['logo'] = json_encode(['images' => $filePaths]);
             $menus->logo = $data['logo'];
         }
-
-
-            
+  
             $menus->name = $request->name;           
+            $menus->slug = Str::slug($request->name) . time();
             if( $request->description) $menus->description = $request->description;           
             $menus->save();
        
@@ -91,11 +89,7 @@ class MenuController extends Controller
      * @param  \App\Models\Person\Menu  $menus
      * @return \Illuminate\Http\Response
      */
-    public function edit(menus $menus)
-    {
-        //
-    }
-
+   
     /**
      * Update the specified resource in storage.
      *
@@ -155,29 +149,9 @@ class MenuController extends Controller
      * @param  \App\Models\Person\menus  $menus
      * @return \Illuminate\Http\Response
      */
-    public function findSubMenu(Request $req)
-    {
-       
-        $name = $req->name;
-
-        if ($name) {
-                if(!$menus = Menu::whereName($name)->first()){ 
-                    $apiError = new APIError;
-                    $apiError->setStatus("404");
-                    $apiError->setCode("NAME_OF_MENU_NOT_FOUND");
-                    return response()->json($apiError, 404);   
-                }
-                
-                $submenu = Sub_Menu::whereMenuId($menus->id)->simplePaginate($req->has('limit') ? $req->limit : 15);
-            }
-
-        return response()->json($submenu);
-        
-    }
-
+    
     public function findAttributeMenu(Request $req, $id)
-    {
-         
+    {  
         if(!$menu = Menu::find($id)){ 
             $apiError = new APIError;
             $apiError->setStatus("404");

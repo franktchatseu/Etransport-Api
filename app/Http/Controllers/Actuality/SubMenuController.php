@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Actuality\Menu;
 use Illuminate\Http\Request;
 use App\Models\Actuality\Sub_Menu;
+use Illuminate\Support\Str;
 
 class SubMenuController extends Controller
 {
@@ -67,6 +68,7 @@ class SubMenuController extends Controller
         
         $sub_Menu->name = $request->name;
         $sub_Menu->menu_id = $request->menu_id;
+        $sub_Menu->slug = Str::slug($request->name) . time();
         if( $request->description) $sub_Menu->description = $request->description;
         
         $sub_Menu->save();
@@ -178,5 +180,21 @@ class SubMenuController extends Controller
         return response()->json();
     }
 
-    
+    public function findSubMenu(Request $req, $slug)
+    {
+        if ($slug) {
+                if(!$menus = Menu::whereSlug($slug)->first()){ 
+                    $apiError = new APIError;
+                    $apiError->setStatus("404");
+                    $apiError->setCode("NAME_OF_MENU_NOT_FOUND");
+                    return response()->json($apiError, 404);   
+                }
+                
+                $submenu = Sub_Menu::whereMenuId($menus->id)->simplePaginate($req->has('limit') ? $req->limit : 15);
+            }
+
+        return response()->json($submenu);
+        
+    }
+  
 }

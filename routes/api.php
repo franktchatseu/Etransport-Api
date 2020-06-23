@@ -728,7 +728,6 @@ Route::group(['prefix' => 'actualities'], function () {
         Route::get('/{id}', 'Actuality\MenuController@find');
         Route::match(['post', 'put'], '/{id}', 'Actuality\MenuController@update');
         Route::get('/search', 'Actuality\MenuController@search');
-        Route::get('/findSubMenu', 'Actuality\MenuController@findSubMenu');
         Route::get('/findAttributeMenu/{id}', 'Actuality\MenuController@findAttributeMenu');
         Route::post('/', 'Actuality\MenuController@store');
         Route::delete('/{id}', 'Actuality\MenuController@destroy');
@@ -755,6 +754,7 @@ Route::group(['prefix' => 'actualities'], function () {
         Route::get('/{id}', 'Actuality\SubMenuController@find');
         Route::match(['post', 'put'], '/{id}', 'Actuality\SubMenuController@update');
         Route::post('/', 'Actuality\SubMenuController@store');
+        Route::get('/{slug}/menu', 'Actuality\SubMenuController@findSubMenu');
         Route::delete('/{id}', 'Actuality\SubMenuController@destroy');
     });
 

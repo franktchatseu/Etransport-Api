@@ -12,7 +12,7 @@ class AttributeMenuSeeder extends Seeder
      */
     public function run(\Faker\Generator $faker)
     {
-        factory(Attribute_Menu::class, 2)->make()->each(function($attributemenu) use ($faker) {
+        factory(Attribute_Menu::class, 20)->make()->each(function($attributemenu) use ($faker) {
             $attribute = App\Models\Actuality\Attribute::all();
             $submenu = App\Models\Actuality\Menu::all();
             $attributemenu->attribute_id = $faker->randomElement($attribute)->id;
