@@ -28,9 +28,9 @@ class DatabaseSeeder extends Seeder
         
         // module setting
         $this->call([
-            ParishSeeder::class,
-            ParishPatrimonySeeder::class,
-            MassSheduleSeeder::class
+            // ParishSeeder::class,
+            // ParishPatrimonySeeder::class,
+            // MassSheduleSeeder::class
         ]);
 
        // $this->call(CityAndCountrySeeder::class);
@@ -38,12 +38,12 @@ class DatabaseSeeder extends Seeder
         // module setting
         $this->call([
             // $this->call(SettingSeeder::class);
-            // $this->call(LaratrustSeeder::class);
-               ProfessionSeeder::class,
-               UserSeeder::class,
-            //   UtypeSeeder::class,
-            //   UserUtypeSeeder::class,
-            //  ParishSeeder::class,
+             // $this->call(LaratrustSeeder::class),
+            //    ProfessionSeeder::class,
+            //    UserSeeder::class,
+            //    UtypeSeeder::class,
+            //    UserUtypeSeeder::class,
+            // ParishSeeder::class,
             //  PriestSeeder::class,
             //  AlbumSeeder::class,
             //  ParishionalSeeder::class,
@@ -185,12 +185,12 @@ class DatabaseSeeder extends Seeder
 
            //module actuality
            $this->call([
-                AttributeSeeder::class,
-                MenuSeeder::class,
-                AttributeMenuSeeder::class,
-                SubMenuSeeder::class,
-                ArticleSeeder::class,
-                ArticleAttributeMenuSeeder::class,
+                // AttributeSeeder::class,
+                // MenuSeeder::class,
+                //AttributeMenuSeeder::class,
+                // SubMenuSeeder::class,
+                // ArticleSeeder::class,
+                // ArticleAttributeMenuSeeder::class,
            ]);
 
           Schema::enableForeignKeyConstraints();

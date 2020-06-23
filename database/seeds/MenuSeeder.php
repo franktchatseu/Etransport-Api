@@ -13,6 +13,7 @@ class MenuSeeder extends Seeder
     public function run(\Faker\Generator $faker)
     {
         factory(Menu::class, 50)->make()->each(function($menu) use ($faker) {
+            $menu->slug = $menu->name;
             $menu->save();
         });
     }

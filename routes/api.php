@@ -728,7 +728,6 @@ Route::group(['prefix' => 'actualities'], function () {
         Route::get('/{id}', 'Actuality\MenuController@find');
         Route::match(['post', 'put'], '/{id}', 'Actuality\MenuController@update');
         Route::get('/search', 'Actuality\MenuController@search');
-        Route::get('/findSubMenu', 'Actuality\MenuController@findSubMenu');
         Route::get('/findAttributeMenu/{id}', 'Actuality\MenuController@findAttributeMenu');
         Route::post('/', 'Actuality\MenuController@store');
         Route::delete('/{id}', 'Actuality\MenuController@destroy');
@@ -755,22 +754,25 @@ Route::group(['prefix' => 'actualities'], function () {
         Route::get('/{id}', 'Actuality\SubMenuController@find');
         Route::match(['post', 'put'], '/{id}', 'Actuality\SubMenuController@update');
         Route::post('/', 'Actuality\SubMenuController@store');
+        Route::get('/{slug}/menu', 'Actuality\SubMenuController@findSubMenu');
         Route::delete('/{id}', 'Actuality\SubMenuController@destroy');
     });
 
-    Route::group(['prefix' => 'attributemenus'], function () {
-        Route::get('/', 'Actuality\AttributeMenuController@index');
-        Route::get('/{id}', 'Actuality\AttributeMenuController@find');
-        Route::match(['post', 'put'], '/{id}', 'Actuality\AttributeMenuController@update');
-        Route::post('/', 'Actuality\AttributeMenuController@store');
-        Route::delete('/{id}', 'Actuality\AttributeMenuController@destroy');
+    Route::group(['prefix' => 'attribute_menus'], function () {
+        Route::get('/', 'Actuality\Attribute_MenuController@index');
+        Route::get('/{id}', 'Actuality\Attribute_MenuController@find');
+        Route::match(['post', 'put'], '/{id}', 'Actuality\Attribute_MenuController@update');
+        Route::post('/', 'Actuality\Attribute_MenuController@store');
+        Route::delete('/{id}', 'Actuality\Attribute_MenuController@destroy');
+        Route::get('/{id}/menus', 'Actuality\Attribute_MenuController@findAttributeMenu');
     });
 
-    Route::group(['prefix' => 'articleattributemenus'], function () {
-        Route::get('/', 'Actuality\ArticleAttributeMenu@index');
-        Route::get('/{id}', 'Actuality\ArticleAttributeMenu@find');
-        Route::match(['post', 'put'], '/{id}', 'Actuality\ArticleAttributeMenu@update');
-        Route::post('/', 'Actuality\ArticleAttributeMenu@store');
-        Route::delete('/{id}', 'Actuality\ArticleAttributeMenu@destroy');
+    Route::group(['prefix' => 'article_attribute_menus'], function () {
+        Route::get('/', 'Actuality\Article_Attribute_MenuController@index');
+        Route::get('/{id}', 'Actuality\Article_Attribute_MenuController@find');
+        Route::match(['post', 'put'], '/{id}', 'Actuality\Article_Attribute_MenuController@update');
+        Route::post('/', 'Actuality\Article_Attribute_MenuController@store');
+        Route::delete('/{id}', 'Actuality\Article_Attribute_MenuController@destroy');
+        Route::get('/{id}/articles', 'Actuality\Article_Attribute_MenuController@findArticleMenu');
     });
 });

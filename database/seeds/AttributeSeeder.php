@@ -13,6 +13,7 @@ class AttributeSeeder extends Seeder
     public function run(\Faker\Generator $faker)
     {
             factory(Attribute::class, 3)->make()->each(function($attribute) use ($faker) {
+            $attribute->slug = $attribute->name;
             $attribute->save();
         });
     }

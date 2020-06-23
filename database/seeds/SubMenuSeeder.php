@@ -15,6 +15,7 @@ class SubMenuSeeder extends Seeder
         factory(Sub_Menu::class, 5)->make()->each(function($submenu) use ($faker) {
             $menu = App\Models\Actuality\Menu::all();
             $submenu->menu_id = $faker->randomElement($menu)->id;
+            $submenu->slug = $submenu->name;
             $submenu->save();
         });
     }

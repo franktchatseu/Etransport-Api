@@ -199,5 +199,16 @@ class Attribute_MenuController extends Controller
         return response()->json();
     }
 
+    public function findAttributeMenu(Request $req, $id)
+    {
+        $attribute = Attribute_Menu::select('attribute_menus.*', 
+                                            'attribute_menus.id as menu_attribute', 
+                                            'attributes.*', 
+                                            'attributes.id as id_attribute')
+        ->join('attributes', 'attribute_menus.attribute_id', '=', 'attributes.id')
+        ->where(['attribute_menus.menu_id' => $id])
+        ->simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($attribute);
+    }    
     
 }

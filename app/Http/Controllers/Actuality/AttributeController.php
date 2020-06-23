@@ -6,6 +6,7 @@ use App\Models\APIError;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Actuality\Attribute;
+use Illuminate\Support\Str;
 
 class AttributeController extends Controller
 {
@@ -38,14 +39,13 @@ class AttributeController extends Controller
      */
     public function store(Request $request)
     {
-        
-
         $this->validate($request->all(), [
             'name' => 'required|unique:attributes',
         ]);
 
             $attribute = new Attribute();
             $attribute->name = $request->name;
+            $attribute->slug = Str::slug($request->name) . time();
             if ( $request->type) $attribute->type = $request->type;
             $attribute->save();
        

@@ -16,6 +16,7 @@ class CreateAttributeTable extends Migration
         Schema::create('attributes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->unique();
+            $table->string('slug')->unique();
             $table->string('type')->default('text');
             $table->timestamps();
         });
