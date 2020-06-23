@@ -12,7 +12,7 @@ class SacramentSeeder extends Seeder
      */
     public function run(\Faker\Generator $faker)
     {
-        factory(Sacrament::class, 100)->make()->each(function ($sacrament) use ($faker) {
+        factory(Sacrament::class, 7)->make()->each(function ($sacrament) use ($faker) {
             $category = App\Models\Sacrament\SacramentCategorie::all();
             $sacrament->category_id = $faker->randomElement($category)->id;
             $sacrament->save();

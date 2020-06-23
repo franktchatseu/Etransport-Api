@@ -12,7 +12,7 @@ class SacramentCategorySeeder extends Seeder
      */
     public function run(\Faker\Generator $faker)
     {
-        factory(SacramentCategorie::class, 100)->make()->each(function ($category) use ($faker) {
+        factory(SacramentCategorie::class, 5)->make()->each(function ($category) use ($faker) {
             $category->save();
         });
     }

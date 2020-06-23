@@ -18,11 +18,11 @@ class DatabaseSeeder extends Seeder
         Schema::disableForeignKeyConstraints();
 
         // module extra
-        // $this->call([
-        //     _CebSeeder::class,
-        //     _PostSeeder::class,
-        //     _GroupSeeder::class,
-        // ]);
+        $this->call([
+            // _CebSeeder::class,
+            // _PostSeeder::class,
+            // _GroupSeeder::class,
+        ]);
 
         //$this->call(CityAndCountrySeeder::class);
         
@@ -171,9 +171,9 @@ class DatabaseSeeder extends Seeder
 
           // module sacrament
           $this->call([
-               //SacramentCategorySeeder::class,
-               //SacramentSeeder::class,
-               //UserSacramentSeeder::class,
+               SacramentCategorySeeder::class,
+                SacramentSeeder::class,
+            //    UserSacramentSeeder::class,
           ]);
 
           //module Planification
