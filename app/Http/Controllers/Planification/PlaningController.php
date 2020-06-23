@@ -37,7 +37,7 @@ class PlaningController extends Controller
         $planing = new Planing();
         $planing->activity = $data['activity'];
         $planing->date = $data['date'];
-        $planing->descritpion = $data['description'];
+        $planing->description = $data['description'];
         $planing->activityPro = $data['activityPro'];
         $planing->place = $data['place'];
         $planing->nature = $data['nature'];
