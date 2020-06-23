@@ -21,13 +21,13 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('token', 'AuthController@login');
     Route::post('persons/users', 'Person\UserController@create');
 
-    Route::group(['middleware' => 'auth:api'], function () {
+    //Route::group(['middleware' => 'auth:api'], function () {
         Route::get('user', 'AuthController@user');
         Route::delete('token', 'AuthController@logout');
         Route::get('permissions', 'AuthController@permissions');
         Route::get('roles', 'AuthController@roles');
         Route::get('teams', 'AuthController@teams');
-    });
+    //});
 });
 
 Route::group(['prefix' => 'extras'], function () {
@@ -75,6 +75,7 @@ Route::group(['prefix' => 'persons'], function () {
     Route::group(['prefix' => 'catechists'], function () {
         Route::get('/','Person\CatechistController@get');
         Route::get('/{id}', 'Person\CatechistController@find');
+        Route::get('/{id}', 'Person\CatechistController@Search');
         Route::delete('/{id}', 'Person\CatechistController@destroy');
         Route::match(['post','put'],'/{id}', 'Person\CatechistController@update');
         Route::post('/', 'Person\CatechistController@create');
@@ -438,7 +439,8 @@ Route::group(['prefix' => 'catechesis'], function () {
         Route::get('/', 'Catechesis\UserCatechesisController@index');
         Route::get('/search', 'Catechesis\UserCatechesisController@search');
         Route::get('/{id}', 'Catechesis\UserCatechesisController@find');
-        Route::get('/{id}/user', 'Catechesis\UserCatechesisController@findCatechesisPresences');
+        Route::get('/{id}/user', 'Catechesis\UserCatechesisController@findUserCatechesis');
+        Route::get('/{id}/catechesis', 'Catechesis\UserCatechesisController@findNameUserCatechesis');
         Route::delete('/{id}', 'Catechesis\UserCatechesisController@destroy');
         Route::post('/', 'Catechesis\UserCatechesisController@store');
         Route::match(['post', 'put'], '/{id}', 'Catechesis\UserCatechesisController@update');
