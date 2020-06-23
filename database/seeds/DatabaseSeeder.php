@@ -39,8 +39,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             // $this->call(SettingSeeder::class);
              // $this->call(LaratrustSeeder::class),
-            //    ProfessionSeeder::class,
-            //    UserSeeder::class,
+                ProfessionSeeder::class,
+                UserSeeder::class,
             //    UtypeSeeder::class,
             //    UserUtypeSeeder::class,
             // ParishSeeder::class,
@@ -87,13 +87,13 @@ class DatabaseSeeder extends Seeder
 
         // module catechesis
          $this->call([
-            // MemberSeeder::class,
-             //AnnualMemberSeeder::class,
-            //  TransfertSeeder::class,
-            //  AuthorizationSeeder::class,
-            //  MemberTransfertSeeder::class,
-            //  CatechesisSeeder::class,
-            //  ArchivingSeeder::class,
+            MemberSeeder::class,
+             AnnualMemberSeeder::class,
+             TransfertSeeder::class,
+             AuthorizationSeeder::class,
+             MemberTransfertSeeder::class,
+             CatechesisSeeder::class,
+             ArchivingSeeder::class,
             
            //  AnnualMemberSeeder::class,
              //MemberSeeder::class,
@@ -122,14 +122,14 @@ class DatabaseSeeder extends Seeder
 
           // module catechese
           $this->call([
-            //     QuarterSeeder::class,
-            //    EvaluationSeeder::class,
-            //    TimeCardSeeder::class,
-            //    PatternSeeder::class,
-            //    PlugSeeder::class,
-            //    CathedralPresenceSeeder::class,
-            //    UserCatechesisSeeder::class,
-            //    CatechesisPresenceSeeder::class 
+                QuarterSeeder::class,
+               //EvaluationSeeder::class,
+               TimeCardSeeder::class,
+               PatternSeeder::class,
+               PlugSeeder::class,
+               CathedralPresenceSeeder::class,
+               UserCatechesisSeeder::class,
+               CatechesisPresenceSeeder::class 
 
             
           ]);
