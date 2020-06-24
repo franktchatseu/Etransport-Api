@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
         ]);
  */
           // module person
-          $this->call([
+      /*    $this->call([
                //$this->call(SettingSeeder::class);
                //$this->call(LaratrustSeeder::class);
                ProfessionSeeder::class,
@@ -46,8 +46,8 @@ class DatabaseSeeder extends Seeder
                AlbumSeeder::class,
                ParishionalSeeder::class,
                CathechumeneSeeder::class,
-               ContactSeeder::class, /*  */
-          ]);
+               ContactSeeder::class,   
+          ]);*/
           /* 
         // module sacrament
         $this->call([]);
@@ -91,14 +91,14 @@ class DatabaseSeeder extends Seeder
 
         // module place
         $this->call([]);
-        
+     */   
         // module sanction
         $this->call([
              PunishmentTypeSeeder::class,
              SanctionSeeder::class,
              UserSanctionSeeder::class 
         ]);
-
+     /*
           // module catechese
           $this->call([
                 QuarterSeeder::class,
