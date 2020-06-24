@@ -30,6 +30,7 @@ class CreateUsersTable extends Migration
             $table->string('language');
             $table->boolean('is_married');
 	        $table->unsignedBigInteger('profession_id');
+	    $table->string('profession');
             $table->string('tel')->nullable();
             $table->enum('gender',['F', 'M']);
 
