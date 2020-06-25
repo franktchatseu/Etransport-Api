@@ -35,6 +35,7 @@ class MemberAssociationController extends Controller
             'status' => 'in:PENDING,REJECTED,ACCEPTED',
             'user_id' => 'required',
             'statut_id' => 'required',
+            'association_id' => 'required'
         ]);
 
             $memberAssociation = new MemberAssociation();
@@ -42,6 +43,7 @@ class MemberAssociationController extends Controller
             $memberAssociation->status = $data['status'];
             $memberAssociation->user_id = $data['user_id'];
             $memberAssociation->statut_id = $data['statut_id'];
+            $memberAssociation->association_id = $data['association_id'];
             $memberAssociation->save();
        
         return response()->json($memberAssociation);
@@ -71,6 +73,7 @@ class MemberAssociationController extends Controller
             'status' => 'in:PENDING,REJECTED,ACCEPTED',
             'user_id' => 'required',
             'statut_id' => 'required',
+            'association_id' => 'required'
 
         ]);
 
@@ -78,6 +81,7 @@ class MemberAssociationController extends Controller
         if (null !== $data['status']) $memberAssociation->status = $data['status'];
         if (null !== $data['user_id']) $memberAssociation->user_id = $data['user_id'];
         if (null !== $data['statut_id']) $memberAssociation->status_id = $data['statut_id'];
+        if (null !== $data['association_id']) $memberAssociation->association_id = $data['association_id'];
 
         $memberAssociation->update();
 
@@ -140,17 +144,13 @@ class MemberAssociationController extends Controller
         return response()->json($memberAssociation);
     }
 
-/*     public function findAnnuelMembers(Request $req, $id)
+    public function findMemberAssociation(Request $req, $id)
     {
-        $memberAssociation = MemberAssociation::find($id);
-        if (!$memberAssociation) {
-            $apiError = new APIError;
-            $apiError->setStatus("404");
-            $apiError->setCode("MemberAssociation_NOT_FOUND");
-            return response()->json($apiError, 404);
-        }
-        $memberAssociations = AnnualMember::whereMemberAssociationId($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
-        return response()->json($memberAssociations);
-    } 
- */
+        $memberAssociation = MemberAssociation::select('member_associations.*','member_associations.id as member_association_id','associations.*')
+        ->join('associations', 'member_associations.association_id', '=', 'associations.id' )
+        //->join('users', 'member_associations.user_id', '=', 'users.id' )
+        ->where(['member_associations.user_id' => $id])
+        ->simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($memberAssociation);
+    }
 }
