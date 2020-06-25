@@ -696,7 +696,7 @@ Route::group(['prefix' => 'messageries'],function (){
         Route::post('/{id}', 'Messagerie\ChatMemberGroupController@update');
         Route::post('/', 'Messagerie\ChatMemberGroupController@store');
         Route::delete('/{id}', 'Messagerie\ChatMemberGroupController@destroy');
-    });
+    }); 
 
     Route::group(['prefix' => 'chat-discussions'],function (){
         Route::get('/', 'Messagerie\ChatDiscussionController@index');
@@ -717,10 +717,9 @@ Route::group(['prefix' => 'messageries'],function (){
         Route::post('/', 'Messagerie\ChatMessageDuoController@store');
         Route::delete('/{id}', 'Messagerie\ChatMessageDuoController@destroy');
     });
-
     
 });
-Route::group(['prefix' => 'request'],function (){
+Route::group(['prefix' => 'Request'],function (){
     Route::group(['prefix' => 'make_appointment'],function (){
         Route::get('/', 'Request\MakeAppointmentController@get');
         Route::get('/{id}', 'Request\MakeAppointmentController@find');
@@ -755,6 +754,24 @@ Route::group(['prefix' => 'request'],function (){
         Route::post('/{id}', 'Request\AnointingSickController@update');
         Route::post('/', 'Request\AnointingSickController@store');
         Route::delete('/{id}', 'Request\AnointingSickController@destroy');
+    });
+
+    Route::group(['prefix' => 'demandes'],function (){
+        Route::get('/', 'Request\ReportProblemController@index');
+        Route::get('/{id}/search', 'Request\ReportProblemController@search');
+        Route::get('/{id}', 'Request\ReportProblemController@find');
+        Route::post('/{id}', 'Request\ReportProblemController@update');
+        Route::post('/', 'Request\ReportProblemController@store');
+        Route::delete('/{id}', 'Request\ReportProblemController@destroy');
+    });
+    
+    Route::group(['prefix' => 'settingRequest'],function (){
+        Route::get('/', 'Request\SettingRequestController@index');
+        Route::get('/{id}/search', 'Request\SettingRequestController@search');
+        Route::get('/{slug}', 'Request\SettingRequestController@findSlug');
+        Route::post('/{id}', 'Request\SettingRequestController@update');
+        Route::post('/', 'Request\SettingRequestController@store');
+        Route::delete('/{id}', 'Request\SettingRequestController@destroy');
     });
 });
 
