@@ -72,7 +72,7 @@ Route::group(['prefix' => 'persons'], function () {
         Route::match(['post', 'put'],'/{id}/activate-parishs', 'Person\UserUtypeController@activateUserParish');
         Route::match(['post', 'put'], '/{id}', 'Person\UserUtypeController@update');
         Route::delete('/{id}', 'Person\UserUtypeController@destroy');
-        Route::get('/{id}/to-chat', 'Person\UserUtypeController@findUserByType');
+        Route::get('/{type}/to-chat', 'Person\UserUtypeController@findUserByType');
     });
 
     Route::group(['prefix' => 'catechists'], function () {
@@ -138,6 +138,16 @@ Route::group(['prefix' => 'persons'], function () {
         Route::delete('/{id}', 'Person\ParishionalController@find');
         Route::post('/', 'Person\ParishionalController@store');
         Route::match(['post', 'put'], '/{id}', 'Person\ParishionalController@update');
+    });
+
+
+    Route::group(['prefix' => 'users_evenements'], function () {
+        Route::get('/', 'Person\user_evenementController@get');
+        Route::get('/{id}', 'Person\user_evenementController@find');
+        Route::get('/user/{id}', 'Person\user_evenementController@findByUserId');
+        Route::post('/', 'Person\user_evenementController@create');
+        Route::match(['post', 'put'], '/{id}', 'Person\user_evenementController@update');
+        Route::delete('/{id}', 'Person\user_evenementController@destroy');
     });
 });
 
@@ -216,6 +226,7 @@ Route::group(['prefix' => 'settings'], function () {
         Route::post('/', 'Setting\ParishAlbumController@store');
         Route::match(['post', 'put'], '/{id}', 'Setting\ParishAlbumController@update');
     });
+
 
 });
 
@@ -448,7 +459,8 @@ Route::group(['prefix' => 'catechesis'], function () {
         Route::get('/', 'Catechesis\UserCatechesisController@index');
         Route::get('/search', 'Catechesis\UserCatechesisController@search');
         Route::get('/{id}', 'Catechesis\UserCatechesisController@find');
-        Route::get('/{id}/user', 'Catechesis\UserCatechesisController@findCatechesisPresences');
+        Route::get('/{id}/user', 'Catechesis\UserCatechesisController@findUserCatechesis');
+        Route::get('/{id}/catechesis', 'Catechesis\UserCatechesisController@findNameUserCatechesis');
         Route::delete('/{id}', 'Catechesis\UserCatechesisController@destroy');
         Route::post('/', 'Catechesis\UserCatechesisController@store');
         Route::match(['post', 'put'], '/{id}', 'Catechesis\UserCatechesisController@update');
@@ -596,6 +608,40 @@ Route::group(['prefix' => 'associations'], function () {
         Route::post('/', 'Association\TypeAssociationController@store');
         Route::match(['post', 'put'], '/{id}', 'Association\TypeAssociationController@update');
     });
+    Route::group(['prefix' => 'evenements'], function () {
+        Route::get('/', 'Association\EvenementController@index');
+        Route::get('/search', 'Association\EvenementController@search');
+        Route::get('/{id}', 'Association\EvenementController@find');
+        Route::delete('/{id}', 'Association\EvenementController@destroy');
+        Route::post('/', 'Association\EvenementController@store');
+        Route::match(['post', 'put'], '/{id}', 'Association\EvenementController@update');
+    });
+    Route::group(['prefix' => 'member_association'], function () {
+        Route::get('/', 'Association\MemberAssociationController@index');
+        Route::get('/search', 'Association\MemberAssociationController@search');
+        Route::get('/{id}', 'Association\MemberAssociationController@find');
+        Route::get('/{id}/users', 'Association\MemberAssociationController@findMemberAssociation');
+        Route::delete('/{id}', 'Association\MemberAssociationController@destroy');
+        Route::post('/', 'Association\MemberAssociationController@store');
+        Route::match(['post', 'put'], '/{id}', 'Association\MemberAssociationController@update');
+    });
+    Route::group(['prefix' => 'statut'], function () {
+        Route::get('/', 'Association\StatusController@index');
+        Route::get('/search', 'Association\StatusController@search');
+        Route::get('/{id}', 'Association\StatusController@find');
+        Route::delete('/{id}', 'Association\StatusController@destroy');
+        Route::post('/', 'Association\StatusController@store');
+        Route::match(['post', 'put'], '/{id}', 'Association\StatusController@update');
+    });
+    Route::group(['prefix' => 'presences'], function () {
+        Route::get('/', 'Association\EventPresenceMemberAssociationController@index');
+        Route::get('/search', 'Association\EventPresenceMemberAssociationController@search');
+        Route::get('/{id}', 'Association\EventPresenceMemberAssociationController@find');
+        Route::get('/{id}/member_associations', 'Association\EventPresenceMemberAssociationController@findPresence');
+        Route::delete('/{id}', 'Association\EventPresenceMemberAssociationController@destroy');
+        Route::post('/', 'Association\EventPresenceMemberAssociationController@store');
+        Route::match(['post', 'put'], '/{id}', 'Association\EventPresenceMemberAssociationController@update');
+    });
 
 });
 
@@ -684,3 +730,99 @@ Route::group(['prefix' => 'messageries'],function (){
     });
 
 });
+
+// actuality module : 'middleware' => 'auth:api',
+Route::group(['prefix' => 'actualities'], function () {
+
+    Route::group(['prefix' => 'menus'], function () {
+        Route::get('/', 'Actuality\MenuController@index');
+        Route::get('/{id}', 'Actuality\MenuController@find');
+        Route::match(['post', 'put'], '/{id}', 'Actuality\MenuController@update');
+        Route::get('/search', 'Actuality\MenuController@search');
+        Route::get('/findAttributeMenu/{id}', 'Actuality\MenuController@findAttributeMenu');
+        Route::post('/', 'Actuality\MenuController@store');
+        Route::delete('/{id}', 'Actuality\MenuController@destroy');
+    });
+
+    Route::group(['prefix' => 'articles'], function () {
+        Route::get('/', 'Actuality\ArticleController@index');
+        Route::get('/{id}', 'Actuality\ArticleController@find');
+        Route::match(['post', 'put'], '/{id}', 'Actuality\ArticleController@update');
+        Route::post('/', 'Actuality\ArticleController@store');
+        Route::delete('/{id}', 'Actuality\ArticleController@destroy');
+    });
+
+    Route::group(['prefix' => 'attributes'], function () {
+        Route::get('/', 'Actuality\AttributeController@index');
+        Route::get('/{id}', 'Actuality\AttributeController@find');
+        Route::match(['post', 'put'], '/{id}', 'Actuality\AttributeController@update');
+        Route::post('/', 'Actuality\AttributeController@store');
+        Route::delete('/{id}', 'Actuality\AttributeController@destroy');
+    });
+
+    Route::group(['prefix' => 'submenus'], function () {
+        Route::get('/', 'Actuality\SubMenuController@index');
+        Route::get('/{id}', 'Actuality\SubMenuController@find');
+        Route::match(['post', 'put'], '/{id}', 'Actuality\SubMenuController@update');
+        Route::post('/', 'Actuality\SubMenuController@store');
+        Route::get('/{slug}/menu', 'Actuality\SubMenuController@findSubMenu');
+        Route::delete('/{id}', 'Actuality\SubMenuController@destroy');
+    });
+
+    Route::group(['prefix' => 'attribute_menus'], function () {
+        Route::get('/', 'Actuality\Attribute_MenuController@index');
+        Route::get('/{id}', 'Actuality\Attribute_MenuController@find');
+        Route::match(['post', 'put'], '/{id}', 'Actuality\Attribute_MenuController@update');
+        Route::post('/', 'Actuality\Attribute_MenuController@store');
+        Route::delete('/{id}', 'Actuality\Attribute_MenuController@destroy');
+        Route::get('/{id}/menus', 'Actuality\Attribute_MenuController@findAttributeMenu');
+    });
+
+    Route::group(['prefix' => 'article_attribute_menus'], function () {
+        Route::get('/', 'Actuality\Article_Attribute_MenuController@index');
+        Route::get('/{id}', 'Actuality\Article_Attribute_MenuController@find');
+        Route::match(['post', 'put'], '/{id}', 'Actuality\Article_Attribute_MenuController@update');
+        Route::post('/', 'Actuality\Article_Attribute_MenuController@store');
+        Route::delete('/{id}', 'Actuality\Article_Attribute_MenuController@destroy');
+        Route::get('/{id}/articles', 'Actuality\Article_Attribute_MenuController@findArticleMenu');
+    }); 
+});
+
+Route::group(['prefix' => 'request'],function (){
+    Route::group(['prefix' => 'make_appointment'],function (){
+        Route::get('/', 'Request\MakeAppointmentController@get');
+        Route::get('/{id}', 'Request\MakeAppointmentController@find');
+        Route::get('/search', 'Request\MakeAppointmentController@search');
+        Route::post('/{id}', 'Request\MakeAppointmentController@update');
+        Route::post('/', 'Request\MakeAppointmentController@create');
+        Route::delete('/{id}', 'Request\MakeAppointmentController@delete');
+    });
+
+    Route::group(['prefix' => 'object_make_appointment'],function (){
+        Route::get('/', 'Request\ObjectMakeAppointmentController@get');
+        Route::get('/{id}', 'Request\ObjectMakeAppointmentController@find');
+        Route::get('/search', 'Request\ObjectMakeAppointmentController@search');
+        Route::post('/{id}', 'Request\ObjectMakeAppointmentController@update');
+        Route::post('/', 'Request\ObjectMakeAppointmentController@create');
+        Route::delete('/{id}', 'Request\ObjectMakeAppointmentController@delete');
+    });
+
+    Route::group(['prefix' => 'intention_mass'],function (){
+        Route::get('/', 'Request\IntentionMassController@index');
+        Route::get('/{id}', 'Request\IntentionMassController@find');
+        Route::get('/search', 'Request\IntentionMassController@search');
+        Route::post('/{id}', 'Request\IntentionMassController@update');
+        Route::post('/', 'Request\IntentionMassController@store');
+        Route::delete('/{id}', 'Request\IntentionMassController@destroy');
+    });
+
+    Route::group(['prefix' => 'anointing_sick'],function (){
+        Route::get('/', 'Request\AnointingSickController@index');
+        Route::get('/{id}', 'Request\AnointingSickController@find');
+        Route::get('/search', 'Request\AnointingSickController@search');
+        Route::post('/{id}', 'Request\AnointingSickController@update');
+        Route::post('/', 'Request\AnointingSickController@store');
+        Route::delete('/{id}', 'Request\AnointingSickController@destroy');
+    });
+});
+

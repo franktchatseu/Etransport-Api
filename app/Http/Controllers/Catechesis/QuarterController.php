@@ -140,17 +140,4 @@ class QuarterController extends Controller
         return response()->json($quarter);
     }
 
-    public function findAnnuelMembers(Request $req, $id)
-    {
-        $quarter = Quarter::find($id);
-        if (!$quarter) {
-            $apiError = new APIError;
-            $apiError->setStatus("404");
-            $apiError->setCode("QUARTER_NOT_FOUND");
-            return response()->json($apiError, 404);
-        }
-        $quarters = AnnualMember::whereQuarterId($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
-        return response()->json($quarters);
-    } 
-
 }

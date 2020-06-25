@@ -44,11 +44,42 @@ class SacramentController extends Controller
             'category_id' => 'required:exists:sacrament_categories,id'
          ]);
 
+         if(isset($req->composition_file)){
+            $file = $req->file('composition_file');
+            $path = null;
+            if($file != null){
+                $req->validate(['composition_file'=>'file|max:20000']);
+                $extension = $file->getClientOriginalExtension();
+                $relativeDestination = "uploads/sacraments";
+                $destinationPath = public_path($relativeDestination);
+                $safeName = "document_composition".time().'.'.$extension;
+                $file->move($destinationPath, $safeName);
+                $path = "$relativeDestination/$safeName";
+            }
+            $data['composition_file'] = $path;
+        }  
+        
+        if(isset($req->inscription_file)){
+            $file = $req->file('inscription_file');
+            $path = null;
+            if($file != null){
+                $req->validate(['inscription_file'=>'file|max:20000']);
+                $extension = $file->getClientOriginalExtension();
+                $relativeDestination = "uploads/sacraments";
+                $destinationPath = public_path($relativeDestination);
+                $safeName = "document_inscription".time().'.'.$extension;
+                $file->move($destinationPath, $safeName);
+                $path = "$relativeDestination/$safeName";
+            }
+            $data['inscription_file'] = $path;
+        }
 
             $sacrament = new Sacrament();
             $sacrament->title = $data['title'];
             $sacrament->description = $data['description'];
             $sacrament->category_id = $data['category_id'];
+            $sacrament->composition_file = $data['composition_file'];
+            $sacrament->inscription_file = $data['inscription_file'];
             $sacrament->save();
        
         return response()->json($sacrament);
@@ -96,13 +127,58 @@ class SacramentController extends Controller
         $this->validate($data, [
             'title' => 'required',
             'description' => 'required',
-            'category_id' => 'required:exists:sacrament_categories,id'
+            'category_id' => 'required:exists:sacrament_categories,id',
          ]);
 
+         if(isset($req->composition_file)){
+            $file = $req->file('composition_file');
+            $path = null;
+
+            if($file != null){
+                $req->validate(['composition_file'=>'file|max:20000']);
+                $extension = $file->getClientOriginalExtension();
+                $relativeDestination = "uploads/sacraments";
+                $destinationPath = public_path($relativeDestination);
+                $safeName = "document_composition".time().'.'.$extension;
+                $file->move($destinationPath, $safeName);
+                $path = "$relativeDestination/$safeName";
+                if ($sacrament->composition_file) {
+                    $oldImagePath = public_path($sacrament->composition_file);
+                    if (file_exists($oldImagePath)) {
+                        @unlink($oldImagePath);
+                    }
+                }
+            }
+            $data['composition_file'] = $path;
+        }
+
+        if(isset($req->inscription_file)){
+            $file = $req->file('inscription_file');
+            $path = null;
+
+            if($file != null){
+                $req->validate(['inscription_file'=>'file|max:20000']);
+                $extension = $file->getClientOriginalExtension();
+                $relativeDestination = "uploads/sacraments";
+                $destinationPath = public_path($relativeDestination);
+                $safeName = "document_inscription".time().'.'.$extension;
+                $file->move($destinationPath, $safeName);
+                $path = "$relativeDestination/$safeName";
+                if ($sacrament->inscription_file) {
+                    $oldImagePath = public_path($sacrament->inscription_file);
+                    if (file_exists($oldImagePath)) {
+                        @unlink($oldImagePath);
+                    }
+                }
+            }
+            $data['inscription_file'] = $path;
+        }
         
         if ( $data['title']) $sacrament->title = $data['title'];
         if ( $data['description']) $sacrament->description = $data['description'];
         if ( $data['category_id']) $sacrament->category_id = $data['category_id'];
+        if ( $data['composition_file']) $sacrament->composition_file = $data['composition_file'];
+        if ( $data['inscription_file']) $sacrament->inscription_file = $data['inscription_file'];
 
         
         $sacrament->update();
@@ -145,6 +221,8 @@ class SacramentController extends Controller
         if (!$sacrament = Sacrament::find($id)) {
             abort(404, "No Sacrament found with id $id");
         }
+        $sacrament->composition_file = url($sacrament->composition_file);
+        $sacrament->inscription_file = url($sacrament->inscription_file);
         return response()->json($sacrament);
     }
 }
