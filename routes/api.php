@@ -41,6 +41,9 @@ Route::group(['prefix' => 'extras'], function () {
 Route::group(['prefix' => 'messageries'], function () { });
 
 Route::group(['prefix' => 'parishs'], function () {
+    Route::get('list/{limit}', 'ParishListController@index');
+    Route::get('list', 'ParishListController@all');
+
     
 });
 // Notification module : 'middleware' => 'auth:api',
@@ -644,7 +647,7 @@ Route::group(['prefix' => 'messageries'],function (){
         Route::get('/', 'Messagerie\ChatGroupController@index');
         Route::get('/search', 'Messagerie\ChatGroupController@search');
         Route::get('/{id}/users', 'Messagerie\ChatGroupController@findUsersGroup');
-        Route::get('/{id}/messages', 'Messagerie\ChatGroupController@findMessages');
+        Route::get('/{id}/messages', 'persons\Messagerie\ChatGroupController@findMessages');
         Route::get('/{id}/for-user', 'Messagerie\ChatGroupController@findGroupsForUSer');
         Route::get('/{id}', 'Messagerie\ChatGroupController@find');
         Route::post('/{id}', 'Messagerie\ChatGroupController@update');
