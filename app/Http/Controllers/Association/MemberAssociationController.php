@@ -146,9 +146,10 @@ class MemberAssociationController extends Controller
 
     public function findMemberAssociation(Request $req, $id)
     {
-        $memberAssociation = MemberAssociation::select('member_associations.*','member_associations.id as member_association_id','associations.*')
+        $memberAssociation = MemberAssociation::select('member_associations.id','member_associations.status','member_associations.date_adhesion','users.first_name','users.last_name','associations.name','associations.slogan','statuts.name_post')
         ->join('associations', 'member_associations.association_id', '=', 'associations.id' )
-        //->join('users', 'member_associations.user_id', '=', 'users.id' )
+        ->join('users', 'member_associations.user_id', '=', 'users.id' )
+        ->join('statuts', 'member_associations.statut_id', '=', 'statuts.id' )
         ->where(['member_associations.user_id' => $id])
         ->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($memberAssociation);

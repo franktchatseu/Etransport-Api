@@ -44,6 +44,7 @@ class DatabaseSeeder extends Seeder
                UserUtypeSeeder::class,
                PriestSeeder::class,
                AlbumSeeder::class,
+               catechistSeeder::class,
                ParishionalSeeder::class,
                CathechumeneSeeder::class,
                ContactSeeder::class, /*  */

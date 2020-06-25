@@ -22,7 +22,7 @@ class CreateCathedralPresencesTable extends Migration
             $table->timestamps();
             $table->foreign('plug_id')->references('id')->on('plugs');
             $table->foreign('cathechesis_id')->references('id')->on('catechesis');
-            // $table->foreign('annual_member_id')->references('id')->on('annual_members');
+            $table->foreign('annual_member_id')->references('id')->on('annual_members');
         });
     }
 

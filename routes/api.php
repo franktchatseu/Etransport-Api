@@ -569,6 +569,7 @@ Route::group(['prefix' => 'sacrament'], function () {
     Route::group(['prefix' => 'user_sacraments'], function () {
         Route::get('/', 'Sacrament\UserSacramentController@index');
         Route::get('/search', 'Sacrament\UserSacramentController@search');
+        Route::get('/search/{user_id}', 'Sacrament\UserSacramentController@search');
         Route::get('/{id}', 'Sacrament\UserSacramentController@find');
         Route::get('/{id}/users', 'Sacrament\UserSacramentController@findUserSacrament');
         Route::delete('/{id}', 'Sacrament\UserSacramentController@destroy');
@@ -606,7 +607,7 @@ Route::group(['prefix' => 'associations'], function () {
         Route::post('/', 'Association\EvenementController@store');
         Route::match(['post', 'put'], '/{id}', 'Association\EvenementController@update');
     });
-    Route::group(['prefix' => 'member_association'], function () {
+    Route::group(['prefix' => 'member_associations'], function () {
         Route::get('/', 'Association\MemberAssociationController@index');
         Route::get('/search', 'Association\MemberAssociationController@search');
         Route::get('/{id}', 'Association\MemberAssociationController@find');
