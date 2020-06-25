@@ -610,6 +610,7 @@ Route::group(['prefix' => 'associations'], function () {
         Route::get('/', 'Association\MemberAssociationController@index');
         Route::get('/search', 'Association\MemberAssociationController@search');
         Route::get('/{id}', 'Association\MemberAssociationController@find');
+        Route::get('/{id}/users', 'Association\MemberAssociationController@findMemberAssociation');
         Route::delete('/{id}', 'Association\MemberAssociationController@destroy');
         Route::post('/', 'Association\MemberAssociationController@store');
         Route::match(['post', 'put'], '/{id}', 'Association\MemberAssociationController@update');
@@ -719,7 +720,65 @@ Route::group(['prefix' => 'messageries'],function (){
     });
     
 });
-Route::group(['prefix' => 'Request'],function (){
+
+// actuality module : 'middleware' => 'auth:api',
+Route::group(['prefix' => 'actualities'], function () {
+
+    Route::group(['prefix' => 'menus'], function () {
+        Route::get('/', 'Actuality\MenuController@index');
+        Route::get('/{id}', 'Actuality\MenuController@find');
+        Route::match(['post', 'put'], '/{id}', 'Actuality\MenuController@update');
+        Route::get('/search', 'Actuality\MenuController@search');
+        Route::get('/findAttributeMenu/{id}', 'Actuality\MenuController@findAttributeMenu');
+        Route::post('/', 'Actuality\MenuController@store');
+        Route::delete('/{id}', 'Actuality\MenuController@destroy');
+    });
+
+    Route::group(['prefix' => 'articles'], function () {
+        Route::get('/', 'Actuality\ArticleController@index');
+        Route::get('/{id}', 'Actuality\ArticleController@find');
+        Route::match(['post', 'put'], '/{id}', 'Actuality\ArticleController@update');
+        Route::post('/', 'Actuality\ArticleController@store');
+        Route::delete('/{id}', 'Actuality\ArticleController@destroy');
+    });
+
+    Route::group(['prefix' => 'attributes'], function () {
+        Route::get('/', 'Actuality\AttributeController@index');
+        Route::get('/{id}', 'Actuality\AttributeController@find');
+        Route::match(['post', 'put'], '/{id}', 'Actuality\AttributeController@update');
+        Route::post('/', 'Actuality\AttributeController@store');
+        Route::delete('/{id}', 'Actuality\AttributeController@destroy');
+    });
+
+    Route::group(['prefix' => 'submenus'], function () {
+        Route::get('/', 'Actuality\SubMenuController@index');
+        Route::get('/{id}', 'Actuality\SubMenuController@find');
+        Route::match(['post', 'put'], '/{id}', 'Actuality\SubMenuController@update');
+        Route::post('/', 'Actuality\SubMenuController@store');
+        Route::get('/{slug}/menu', 'Actuality\SubMenuController@findSubMenu');
+        Route::delete('/{id}', 'Actuality\SubMenuController@destroy');
+    });
+
+    Route::group(['prefix' => 'attribute_menus'], function () {
+        Route::get('/', 'Actuality\Attribute_MenuController@index');
+        Route::get('/{id}', 'Actuality\Attribute_MenuController@find');
+        Route::match(['post', 'put'], '/{id}', 'Actuality\Attribute_MenuController@update');
+        Route::post('/', 'Actuality\Attribute_MenuController@store');
+        Route::delete('/{id}', 'Actuality\Attribute_MenuController@destroy');
+        Route::get('/{id}/menus', 'Actuality\Attribute_MenuController@findAttributeMenu');
+    });
+
+    Route::group(['prefix' => 'article_attribute_menus'], function () {
+        Route::get('/', 'Actuality\Article_Attribute_MenuController@index');
+        Route::get('/{id}', 'Actuality\Article_Attribute_MenuController@find');
+        Route::match(['post', 'put'], '/{id}', 'Actuality\Article_Attribute_MenuController@update');
+        Route::post('/', 'Actuality\Article_Attribute_MenuController@store');
+        Route::delete('/{id}', 'Actuality\Article_Attribute_MenuController@destroy');
+        Route::get('/{id}/articles', 'Actuality\Article_Attribute_MenuController@findArticleMenu');
+    }); 
+});
+
+Route::group(['prefix' => 'request'],function (){
     Route::group(['prefix' => 'make_appointment'],function (){
         Route::get('/', 'Request\MakeAppointmentController@get');
         Route::get('/{id}', 'Request\MakeAppointmentController@find');

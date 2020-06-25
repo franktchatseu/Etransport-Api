@@ -4,7 +4,8 @@ namespace App\Models\Association;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Association extends Model
+class Status extends Model
 {
+    protected $table = 'status';
     protected $guarded = [];
 }

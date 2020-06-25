@@ -4,7 +4,8 @@ namespace App\Models\Association;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Association extends Model
+class Event extends Model
 {
+    protected $table = 'events';
     protected $guarded = [];
 }
