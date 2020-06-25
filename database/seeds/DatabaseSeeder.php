@@ -70,6 +70,24 @@ class DatabaseSeeder extends Seeder
         //     ArticleAttributMenuSeeder::class
         // ]);
 
+
+          // module person
+          $this->call([
+               //$this->call(SettingSeeder::class);
+               //$this->call(LaratrustSeeder::class);
+               ProfessionSeeder::class,
+               UserSeeder::class,
+               UtypeSeeder::class,
+               ParishSeeder::class,
+               UserUtypeSeeder::class,
+               PriestSeeder::class,
+               AlbumSeeder::class,
+               ParishionalSeeder::class,
+               CathechumeneSeeder::class,
+               ContactSeeder::class, /*  */
+
+          ]);
+          /* 
         // module sacrament
         $this->call([]);
         
@@ -141,7 +159,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
               /* RequestForMassSeeder::class,
               TarifSeeder::class, */
-         ]);
+        // ]);
 
           // module place
           //   $this->call([
@@ -187,6 +205,10 @@ class DatabaseSeeder extends Seeder
 
           //module Planification
           $this->call([
+               // ObjectMakingAppointmentSeeder::class,
+               // MakeAppointmentSeeder::class,
+               // AnointingSickSeeder::class,
+               // IntentionMassSeeder::class
                /*    TypePlaningSeeder::class,
            PlaningSeeder::class,
            AssociationPlaningSeeder::class,

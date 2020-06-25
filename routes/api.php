@@ -775,5 +775,44 @@ Route::group(['prefix' => 'actualities'], function () {
         Route::post('/', 'Actuality\Article_Attribute_MenuController@store');
         Route::delete('/{id}', 'Actuality\Article_Attribute_MenuController@destroy');
         Route::get('/{id}/articles', 'Actuality\Article_Attribute_MenuController@findArticleMenu');
+    }); 
+});
+
+Route::group(['prefix' => 'request'],function (){
+    Route::group(['prefix' => 'make_appointment'],function (){
+        Route::get('/', 'Request\MakeAppointmentController@get');
+        Route::get('/{id}', 'Request\MakeAppointmentController@find');
+        Route::get('/search', 'Request\MakeAppointmentController@search');
+        Route::post('/{id}', 'Request\MakeAppointmentController@update');
+        Route::post('/', 'Request\MakeAppointmentController@create');
+        Route::delete('/{id}', 'Request\MakeAppointmentController@delete');
+    });
+
+    Route::group(['prefix' => 'object_make_appointment'],function (){
+        Route::get('/', 'Request\ObjectMakeAppointmentController@get');
+        Route::get('/{id}', 'Request\ObjectMakeAppointmentController@find');
+        Route::get('/search', 'Request\ObjectMakeAppointmentController@search');
+        Route::post('/{id}', 'Request\ObjectMakeAppointmentController@update');
+        Route::post('/', 'Request\ObjectMakeAppointmentController@create');
+        Route::delete('/{id}', 'Request\ObjectMakeAppointmentController@delete');
+    });
+
+    Route::group(['prefix' => 'intention_mass'],function (){
+        Route::get('/', 'Request\IntentionMassController@index');
+        Route::get('/{id}', 'Request\IntentionMassController@find');
+        Route::get('/search', 'Request\IntentionMassController@search');
+        Route::post('/{id}', 'Request\IntentionMassController@update');
+        Route::post('/', 'Request\IntentionMassController@store');
+        Route::delete('/{id}', 'Request\IntentionMassController@destroy');
+    });
+
+    Route::group(['prefix' => 'anointing_sick'],function (){
+        Route::get('/', 'Request\AnointingSickController@index');
+        Route::get('/{id}', 'Request\AnointingSickController@find');
+        Route::get('/search', 'Request\AnointingSickController@search');
+        Route::post('/{id}', 'Request\AnointingSickController@update');
+        Route::post('/', 'Request\AnointingSickController@store');
+        Route::delete('/{id}', 'Request\AnointingSickController@destroy');
     });
 });
+
