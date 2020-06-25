@@ -7,10 +7,10 @@ use Faker\Generator as Faker;
 
 $factory->define(Input::class, function (Faker $faker) {
     return [
-        'amount' =>  $faker->double(),
-        'description' => $faker->text(),
-        'reason' => $faker->text(),
-        'start_date' => $faker->date(),
-        'end_date' => $faker->date(),
+        'amount' =>  $faker->randomNumber($nbDigits=8),
+        'description' => $faker->text,
+        'reason' => $faker->text(100),
+        'start_date' => $faker->date,
+        'end_date' => $faker->date,
     ];
 });

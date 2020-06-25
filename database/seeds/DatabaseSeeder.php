@@ -7,86 +7,107 @@ use App\Models\Catechesis\Catechesis;
 
 class DatabaseSeeder extends Seeder
 {
-     /**
-      * Seed the application's database.
-      *
-      * @return void
-      */
-     public function run()
-     {
-          Model::unguard();
-          Schema::disableForeignKeyConstraints();
+    /**
+     * Seed the application's database.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        Model::unguard();
+        Schema::disableForeignKeyConstraints();
 
-          // module extra
-          /*         $this->call([
-             _CebSeeder::class,
-            _PostSeeder::class,
-            _GroupSeeder::class, 
+        // module extra
+        $this->call([
+            // _CebSeeder::class,
+            // _PostSeeder::class,
+            // _GroupSeeder::class,
+        ]);
+
+        //$this->call(CityAndCountrySeeder::class);
+        
+        // module setting
+        $this->call([
+            // ParishSeeder::class,
+            // ParishPatrimonySeeder::class,
+            // MassSheduleSeeder::class
         ]);
 
        // $this->call(CityAndCountrySeeder::class);
         
         // module setting
         $this->call([
-             ParishSeeder::class,
-             ParishPatrimonySeeder::class,
-             MassSheduleSeeder::class 
+            // $this->call(SettingSeeder::class);
+             // $this->call(LaratrustSeeder::class),
+            //    ProfessionSeeder::class,
+            //    UserSeeder::class,
+            //    UtypeSeeder::class,
+            //    UserUtypeSeeder::class,
+            // ParishSeeder::class,
+            //  PriestSeeder::class,
+            //  AlbumSeeder::class,
+            //  ParishionalSeeder::class,
+            //  CathechumeneSeeder::class,
+            //  ContactSeeder::class,
         ]);
- */
-          // module person
-          $this->call([
-               //$this->call(SettingSeeder::class);
-               //$this->call(LaratrustSeeder::class);
-               ProfessionSeeder::class,
-               UserSeeder::class,
-               UtypeSeeder::class,
-               ParishSeeder::class,
-               UserUtypeSeeder::class,
-               PriestSeeder::class,
-               AlbumSeeder::class,
-               ParishionalSeeder::class,
-               CathechumeneSeeder::class,
-               ContactSeeder::class, /*  */
-          ]);
-          /* 
+
+        // module messagerie
+        // $this->call([
+        //     ChatGroupSeeder::class,
+        //     ChatMemberGroupSeeder::class,
+        //     ChatMessageGroupSeeder::class,
+        //     ChatDiscussionSeeder::class,
+        //     ChatMessageDuoSeeder::class
+        // ]);
+
+        // module actualité
+        // $this->call([
+        //     AttributeSeeder::class,
+        //     ArticleSeeder::class,
+        //     MenuSeeder::class,
+        //     SubMenuSeeder::class,
+        //     AttributMenuSeeder::class,
+        //     ArticleAttributMenuSeeder::class
+        // ]);
+
         // module sacrament
         $this->call([]);
         
         // module setting
         $this->call([
-               ParishSeeder::class,
-              AlbumSeeder::class,
-              ContactSeeder::class,
-              ParishPatrimonySeeder::class,
-              MassSheduleSeeder::class,
-              PhotoSeeder::class,
-              UserParishSeeder::class,
-              ParishAlbumSeeder::class 
+            //    ParishSeeder::class,
+            //   AlbumSeeder::class,
+            //   ContactSeeder::class,
+            //   ParishPatrimonySeeder::class,
+            //   MassSheduleSeeder::class,
+            //   PhotoSeeder::class,
+            //   UserParishSeeder::class,
+            //   ParishAlbumSeeder::class 
         ]);
 
         // module catechesis
          $this->call([
-             MemberSeeder::class,
+            // MemberSeeder::class,
              //AnnualMemberSeeder::class,
-             TransfertSeeder::class,
-             AuthorizationSeeder::class,
-             MemberTransfertSeeder::class,
-             CatechesisSeeder::class,
-             ArchivingSeeder::class,
+            //  TransfertSeeder::class,
+            //  AuthorizationSeeder::class,
+            //  MemberTransfertSeeder::class,
+            //  CatechesisSeeder::class,
+            //  ArchivingSeeder::class,
             
            //  AnnualMemberSeeder::class,
-             MemberSeeder::class,
+             //MemberSeeder::class,
              //ArchivingSeeder::class,
-             ProgrammeSeeder::class,
+            // ProgrammeSeeder::class,
              //ProgrammeSeeder::class,
              //MemberSeeder::class,
-             ArchivingSeeder::class,
-             ProgrammeSeeder::class,
-             TrimestreSeeder::class,
-             QuarterSeeder::class,
-             QuarterTrimestreSeeder::class,
-             AnnualMemberSeeder::class,
-             AnnualmemberAuthorizationSeeder::class, 
+             //ArchivingSeeder::class,
+            //  ProgrammeSeeder::class,
+            //  TrimestreSeeder::class,
+            //  QuarterSeeder::class,
+            //  QuarterTrimestreSeeder::class,
+            //  AnnualMemberSeeder::class,
+            //  AnnualmemberAuthorizationSeeder::class, 
          ]);
 
         // module place
@@ -94,21 +115,21 @@ class DatabaseSeeder extends Seeder
         
         // module sanction
         $this->call([
-             PunishmentTypeSeeder::class,
-             SanctionSeeder::class,
-             UserSanctionSeeder::class 
+            //  PunishmentTypeSeeder::class,
+            //  SanctionSeeder::class,
+            //  UserSanctionSeeder::class 
         ]);
 
           // module catechese
           $this->call([
-                QuarterSeeder::class,
-               EvaluationSeeder::class,
-               TimeCardSeeder::class,
-               PatternSeeder::class,
-               PlugSeeder::class,
-               CathedralPresenceSeeder::class,
-               UserCatechesisSeeder::class,
-               CatechesisPresenceSeeder::class 
+            //     QuarterSeeder::class,
+            //    EvaluationSeeder::class,
+            //    TimeCardSeeder::class,
+            //    PatternSeeder::class,
+            //    PlugSeeder::class,
+            //    CathedralPresenceSeeder::class,
+            //    UserCatechesisSeeder::class,
+            //    CatechesisPresenceSeeder::class 
 
             
           ]);
@@ -120,7 +141,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
               /* RequestForMassSeeder::class,
               TarifSeeder::class, */
-          //   ]);
+         ]);
 
           // module place
           //   $this->call([
@@ -145,14 +166,23 @@ class DatabaseSeeder extends Seeder
                 EventPresenceMemberAssociationSeeder::class
            ]);
 
+          // $this->call([
+          //      TypeAssociationSeeder::class,
+          //      AssociationSeeder::class,
+          //      EvenementSeeder::class,
+          //      StatutSeeder::class,
+          //      MemberAssociationSeeder::class,
+          //      EventPresenceMemberAssociationSeeder::class,
+          // ]);
+
           // module statistic
           $this->call([]);
 
           // module sacrament
           $this->call([
-               //SacramentCategorySeeder::class,
-               //SacramentSeeder::class,
-               //UserSacramentSeeder::class,
+               SacramentCategorySeeder::class,
+                SacramentSeeder::class,
+            //    UserSacramentSeeder::class,
           ]);
 
           //module Planification
@@ -162,6 +192,15 @@ class DatabaseSeeder extends Seeder
            AssociationPlaningSeeder::class,
            UserPlaningSeeder::class */]);
 
+           //module actuality
+           $this->call([
+                // AttributeSeeder::class,
+                // MenuSeeder::class,
+                //AttributeMenuSeeder::class,
+                // SubMenuSeeder::class,
+                // ArticleSeeder::class,
+                // ArticleAttributeMenuSeeder::class,
+           ]);
 
           Schema::enableForeignKeyConstraints();
           Model::reguard();
