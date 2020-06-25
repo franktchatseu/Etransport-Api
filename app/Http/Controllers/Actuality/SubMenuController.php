@@ -44,7 +44,7 @@ class SubMenuController extends Controller
 
         $this->validate($request->all(), [
             'name' => 'required|unique:sub_menus',
-            'menu_id'=> 'required',
+            'menu_id'=> 'required|exists:menus,id',
         ]);
         
         if(Menu::find($request->menu_id) == null)

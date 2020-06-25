@@ -25,6 +25,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         //$this->call(CityAndCountrySeeder::class);
+        $this->call(SettingSeeder::class);
+        $this->call(LaratrustSeeder::class);
         
         // module setting
         $this->call([
@@ -37,28 +39,26 @@ class DatabaseSeeder extends Seeder
         
         // module setting
         $this->call([
-            // $this->call(SettingSeeder::class);
-             // $this->call(LaratrustSeeder::class),
-            //    ProfessionSeeder::class,
-            //    UserSeeder::class,
-            //    UtypeSeeder::class,
-            //    UserUtypeSeeder::class,
-            // ParishSeeder::class,
-            //  PriestSeeder::class,
-            //  AlbumSeeder::class,
-            //  ParishionalSeeder::class,
-            //  CathechumeneSeeder::class,
-            //  ContactSeeder::class,
+            ProfessionSeeder::class,
+            UserSeeder::class,
+            UtypeSeeder::class,
+            UserUtypeSeeder::class,
+            ParishSeeder::class,
+            PriestSeeder::class,
+            AlbumSeeder::class,
+            ParishionalSeeder::class,
+            CathechumeneSeeder::class,
+            ContactSeeder::class,
         ]);
 
         // module messagerie
-        // $this->call([
-        //     ChatGroupSeeder::class,
-        //     ChatMemberGroupSeeder::class,
-        //     ChatMessageGroupSeeder::class,
-        //     ChatDiscussionSeeder::class,
-        //     ChatMessageDuoSeeder::class
-        // ]);
+        $this->call([
+            ChatGroupSeeder::class,
+            ChatMemberGroupSeeder::class,
+            ChatMessageGroupSeeder::class,
+            ChatDiscussionSeeder::class,
+            ChatMessageDuoSeeder::class
+        ]);
 
         // module actualité
         // $this->call([
@@ -75,17 +75,16 @@ class DatabaseSeeder extends Seeder
           $this->call([
                //$this->call(SettingSeeder::class);
                //$this->call(LaratrustSeeder::class);
-               ProfessionSeeder::class,
-               UserSeeder::class,
-               UtypeSeeder::class,
-               ParishSeeder::class,
-               UserUtypeSeeder::class,
-               PriestSeeder::class,
-               AlbumSeeder::class,
-               ParishionalSeeder::class,
-               CathechumeneSeeder::class,
-               ContactSeeder::class, /*  */
-
+            //    ProfessionSeeder::class,
+            //    UserSeeder::class,
+            //    UtypeSeeder::class,
+            //    ParishSeeder::class,
+            //    UserUtypeSeeder::class,
+            //    PriestSeeder::class,
+            //    AlbumSeeder::class,
+            //    ParishionalSeeder::class,
+            //    CathechumeneSeeder::class,
+            //    ContactSeeder::class, /*  */
           ]);
           /* 
         // module sacrament
