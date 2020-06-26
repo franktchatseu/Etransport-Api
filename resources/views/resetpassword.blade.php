@@ -1,7 +1,9 @@
+<div style="color: Green;"><h1><b>E-Church</b></h1>  </div>
+
 Bonjour Mr/Mme/Mlle <i>Hi, {{ $name }} </i>
  
-<div>
-   Votre nouveau mot de passe est : <p>&nbsp;{{$password}} </p>
+<div style="size: 15;"> 
+   Votre nouveau mot de passe est : <b>&nbsp;{{$password}} </b>
 </div>
  Merci,
  <br/>

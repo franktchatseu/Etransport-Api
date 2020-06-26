@@ -195,7 +195,7 @@ class UserController extends Controller
          //return $user;
 
       $us = [
-          'login' => $user->login,
+      'login' => $user->login,
       'first_name' => $user->first_name,
       'last_name' => $user->last_name,
       'email' => $user->email,
@@ -204,27 +204,17 @@ class UserController extends Controller
     
       ];
       $response = $user->update($us);
-      $data1=[
-        'name' => $user->first_name,
+      $data = [
+        'name' => $user->first_name.' '.$user->last_name,
         'password' => $key,
       ];
+
       $email=$user->email;
-      Mail::send('resetpassword',$data1, function($message) use($email){
-        $message->to($email,'adam')->subject('reinitialisation du mdp');
+      Mail::send('resetpassword',$data, function($message) use($email){
+        $message->to($email,'adam')->subject('Reinitialisation du mot de passe');
         $message->from('echurchvcam@gmail.com','');
       });
-      return $response;
+      return 'true';
     }
   
-    public function test(){
-        $to_name = 'adam shan';
-        $to_email = 'adamualiyu199@gmail.com';
-        $data = array('name'=>"Ogbonna Vitalis(sender_name)", "body" => "A test mail");
-        Mail::send('mail', $data, function($message) use ($to_email) {
-        $message->to($to_email)->subject('Laravel Test Mail');
-        $message->from('echurchvcam@gmail.com','Test Mail');
-           });
-           return 'true';
-
-    }
 }
