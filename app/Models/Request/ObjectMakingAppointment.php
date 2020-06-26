@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Models\Association;
+namespace App\Models\Request;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Association extends Model
+class ObjectMakingAppointment extends Model
 {
+    //
     protected $guarded = [];
 }

@@ -57,7 +57,7 @@ class MenuController extends Controller
   
             $menus->name = $request->name;           
             $menus->slug = Str::slug($request->name) . time();
-            if( $request->description) $menus->description = $request->description;           
+            if($request->description) $menus->description = $request->description;           
             $menus->save();
        
         return response()->json($menus);

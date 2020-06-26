@@ -41,6 +41,9 @@ Route::group(['prefix' => 'extras'], function () {
 Route::group(['prefix' => 'messageries'], function () { });
 
 Route::group(['prefix' => 'parishs'], function () {
+    Route::get('list/{limit}', 'Parishes\ParishListController@index');
+    Route::get('list', 'ParishListController@all');
+
     
 });
 // Notification module : 'middleware' => 'auth:api',
@@ -283,6 +286,13 @@ Route::group(['prefix' => 'finances'], function () {
         Route::match(['post', 'put'], '/{id}', 'Finance\TarifController@update');
         Route::delete('/{id}', 'Finance\TarifController@destroy'); 
     });
+});
+Route::group(['prefix' => 'person'], function () {
+
+
+        Route::get('/', 'ParishController@index');
+        Route::get('/search', 'ParishController@search');
+
 });
 
 
@@ -612,6 +622,7 @@ Route::group(['prefix' => 'associations'], function () {
         Route::get('/', 'Association\MemberAssociationController@index');
         Route::get('/search', 'Association\MemberAssociationController@search');
         Route::get('/{id}', 'Association\MemberAssociationController@find');
+        Route::get('/{id}/users', 'Association\MemberAssociationController@findMemberAssociation');
         Route::delete('/{id}', 'Association\MemberAssociationController@destroy');
         Route::post('/', 'Association\MemberAssociationController@store');
         Route::match(['post', 'put'], '/{id}', 'Association\MemberAssociationController@update');
@@ -684,7 +695,7 @@ Route::group(['prefix' => 'messageries'],function (){
         Route::get('/', 'Messagerie\ChatGroupController@index');
         Route::get('/search', 'Messagerie\ChatGroupController@search');
         Route::get('/{id}/users', 'Messagerie\ChatGroupController@findUsersGroup');
-        Route::get('/{id}/messages', 'Messagerie\ChatGroupController@findMessages');
+        Route::get('/{id}/messages', 'persons\Messagerie\ChatGroupController@findMessages');
         Route::get('/{id}/for-user', 'Messagerie\ChatGroupController@findGroupsForUSer');
         Route::get('/{id}', 'Messagerie\ChatGroupController@find');
         Route::post('/{id}', 'Messagerie\ChatGroupController@update');
@@ -776,5 +787,44 @@ Route::group(['prefix' => 'actualities'], function () {
         Route::post('/', 'Actuality\Article_Attribute_MenuController@store');
         Route::delete('/{id}', 'Actuality\Article_Attribute_MenuController@destroy');
         Route::get('/{id}/articles', 'Actuality\Article_Attribute_MenuController@findArticleMenu');
+    }); 
+});
+
+Route::group(['prefix' => 'request'],function (){
+    Route::group(['prefix' => 'make_appointment'],function (){
+        Route::get('/', 'Request\MakeAppointmentController@get');
+        Route::get('/{id}', 'Request\MakeAppointmentController@find');
+        Route::get('/search', 'Request\MakeAppointmentController@search');
+        Route::post('/{id}', 'Request\MakeAppointmentController@update');
+        Route::post('/', 'Request\MakeAppointmentController@create');
+        Route::delete('/{id}', 'Request\MakeAppointmentController@delete');
+    });
+
+    Route::group(['prefix' => 'object_make_appointment'],function (){
+        Route::get('/', 'Request\ObjectMakeAppointmentController@get');
+        Route::get('/{id}', 'Request\ObjectMakeAppointmentController@find');
+        Route::get('/search', 'Request\ObjectMakeAppointmentController@search');
+        Route::post('/{id}', 'Request\ObjectMakeAppointmentController@update');
+        Route::post('/', 'Request\ObjectMakeAppointmentController@create');
+        Route::delete('/{id}', 'Request\ObjectMakeAppointmentController@delete');
+    });
+
+    Route::group(['prefix' => 'intention_mass'],function (){
+        Route::get('/', 'Request\IntentionMassController@index');
+        Route::get('/{id}', 'Request\IntentionMassController@find');
+        Route::get('/search', 'Request\IntentionMassController@search');
+        Route::post('/{id}', 'Request\IntentionMassController@update');
+        Route::post('/', 'Request\IntentionMassController@store');
+        Route::delete('/{id}', 'Request\IntentionMassController@destroy');
+    });
+
+    Route::group(['prefix' => 'anointing_sick'],function (){
+        Route::get('/', 'Request\AnointingSickController@index');
+        Route::get('/{id}', 'Request\AnointingSickController@find');
+        Route::get('/search', 'Request\AnointingSickController@search');
+        Route::post('/{id}', 'Request\AnointingSickController@update');
+        Route::post('/', 'Request\AnointingSickController@store');
+        Route::delete('/{id}', 'Request\AnointingSickController@destroy');
     });
 });
+

@@ -41,12 +41,13 @@ class AttributeController extends Controller
     {
         $this->validate($request->all(), [
             'name' => 'required|unique:attributes',
+            'type' => 'required',
         ]);
 
             $attribute = new Attribute();
             $attribute->name = $request->name;
-            $attribute->slug = Str::slug($request->name) . time();
-            if ( $request->type) $attribute->type = $request->type;
+            $attribute->slug = Str::slug($request->name);
+            $attribute->type = $request->type;
             $attribute->save();
        
         return response()->json($attribute);
@@ -106,8 +107,8 @@ class AttributeController extends Controller
             
         ]);
         
-        if ( $request->name) $attribute->name = $data['name'];
-        if ( $request->type) $attribute->type = $data['type'];
+        if ($request->name) $attribute->name = $data['name'];
+        if ($request->type) $attribute->type = $data['type'];
         $attribute->update();
 
         return response()->json($attribute);
