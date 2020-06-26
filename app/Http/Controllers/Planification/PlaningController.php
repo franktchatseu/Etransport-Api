@@ -33,6 +33,7 @@ class PlaningController extends Controller
             'description' => 'required',
             'nature' => 'required',
             'activityPro' => 'required',
+            'type_id' => 'required:exists:type_planings,id'
         ]);
         $planing = new Planing();
         $planing->activity = $data['activity'];
@@ -40,6 +41,7 @@ class PlaningController extends Controller
         $planing->description = $data['description'];
         $planing->activityPro = $data['activityPro'];
         $planing->place = $data['place'];
+        $planing->type_id = $data['type_id'];
         $planing->nature = $data['nature'];
 
         $planing->save();
@@ -123,6 +125,7 @@ class PlaningController extends Controller
         if ( $data['description']) $planing->description = $data['description'];
         if ( $data['activityPro']) $planing->activityPro = $data['activityPro'];
         if ( $data['place']) $planing->place = $data['place'];
+        if ( $data['type_id']) $planing->type_id = $data['type_id'];
         if ( $data['nature']) $planing->nature = $data['nature'];
 
         $planing->update();

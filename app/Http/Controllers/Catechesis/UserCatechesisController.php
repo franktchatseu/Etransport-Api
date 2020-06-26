@@ -30,12 +30,12 @@ class UserCatechesisController extends Controller
         $data = $request->except('photo');
 
         $this->validate($data, [
-            'user_id' => 'required',
+            'user_utype_id' => 'required',
             'catechesis_id' => 'required'
         ]);
 
             $userCatechesis = new UserCatechesis();
-            $userCatechesis->user_id = $data['user_id'];
+            $userCatechesis->user_utype_id = $data['user_utype_id'];
             $userCatechesis->catechesis_id = $data['catechesis_id'];
             $userCatechesis->save();
        
@@ -62,11 +62,11 @@ class UserCatechesisController extends Controller
         $data = $req->except('photo');
 
         $this->validate($data, [
-            'user_id' => 'required',
+            'user_utype_id' => 'required',
             'catechesis_id' => 'required'
         ]);
 
-        if ( $data['user_id']) $userCatechesis->user_id = $data['user_id'];
+        if ( $data['user_utype_id']) $userCatechesis->user_utype_id = $data['user_utype_id'];
         if ( $data['catechesis_id']) $userCatechesis->catechesis_id = $data['catechesis_id'];
         $userCatechesis->update();
 

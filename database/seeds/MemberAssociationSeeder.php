@@ -13,9 +13,9 @@ class MemberAssociationSeeder extends Seeder
     public function run(\Faker\Generator $faker)
     {
         factory(MemberAssociation::class, 21)->make()->each(function ($memberAssociation) use ($faker) {
-            $user = App\Models\Person\User::all();
+            $user_utype = \App\Models\Person\UserUtype::all();
             $statut = App\Models\Association\Statut::all();
-            $memberAssociation->user_id = $faker->randomElement($user)->id;
+            $memberAssociation->user_utype_id = $faker->randomElement($user_utype)->id;
             $memberAssociation->statut_id = $faker->randomElement($statut)->id;
             $memberAssociation->save();
         });

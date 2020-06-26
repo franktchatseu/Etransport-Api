@@ -40,14 +40,14 @@ class UserParishController extends Controller
         $data = $req->except('photo');
 
         $this->validate($data, [
-            'user_id' => 'required:exists:users,id',
+            'user_utype_id' => 'required:exists:user_utypes,id',
             'parish_id' => 'required:exists:parishs,id'
             
          ]);
 
 
             $userParish = new UserParish();
-            $userParish->user_id = $data['user_id'];
+            $userParish->user_utype_id = $data['user_utype_id'];
             $userParish->parish_id = $data['parish_id'];
             $userParish->save();
        
@@ -94,13 +94,13 @@ class UserParishController extends Controller
         $data = $req->except('photo');
 
         $this->validate($data, [
-            'user_id' => 'required:exists:albums,id',
+            'user_utype_id' => 'required:exists:user_utypes,id',
             'parish_id' => 'required:exists:parishs,id'
             
          ]);
 
         
-         if ( $data['user_id']) $userParish->user_id = $data['user_id'];
+         if ( $data['user_utype_id']) $userParish->user_utype_id = $data['user_utype_id'];
          if ( $data['parish_id']) $userParish->parish_id = $data['parish_id'];
 
         

@@ -14,8 +14,8 @@ class AddRelationBetweenUserMemberAssociation extends Migration
     public function up()
     {
         Schema::table('member_associations', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('user_utype_id');
+            $table->foreign('user_utype_id')->references('id')->on('user_utypes')->onDelete('cascade');
         });
     }
 

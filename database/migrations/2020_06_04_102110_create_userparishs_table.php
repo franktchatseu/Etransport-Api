@@ -15,11 +15,11 @@ class CreateUserparishsTable extends Migration
     {
         Schema::create('user_parishs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_utype_id');
             $table->unsignedBigInteger('parish_id');
             $table->boolean('is_active');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_utype_id')->references('id')->on('user_utypes');
             $table->foreign('parish_id')->references('id')->on('parishs');
         });
     }

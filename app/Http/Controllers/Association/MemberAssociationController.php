@@ -33,14 +33,14 @@ class MemberAssociationController extends Controller
         $this->validate($data, [
             'date_adhesion' => 'required',
             'status' => 'in:PENDING,REJECTED,ACCEPTED',
-            'user_id' => 'required',
+            'user_utype_id' => 'required',
             'statut_id' => 'required',
         ]);
 
             $memberAssociation = new MemberAssociation();
             $memberAssociation->date_adhesion = $data['date_adhesion'];
             $memberAssociation->status = $data['status'];
-            $memberAssociation->user_id = $data['user_id'];
+            $memberAssociation->user_utype_id = $data['user_utype_id'];
             $memberAssociation->statut_id = $data['statut_id'];
             $memberAssociation->save();
        
@@ -69,14 +69,14 @@ class MemberAssociationController extends Controller
         $this->validate($data, [
             'date_adhesion' => 'required',
             'status' => 'in:PENDING,REJECTED,ACCEPTED',
-            'user_id' => 'required',
+            'user_utype_id' => 'required',
             'statut_id' => 'required',
 
         ]);
 
         if (null !== $data['date_adhesion']) $memberAssociation->date_adhesion = $data['date_adhesion'];
         if (null !== $data['status']) $memberAssociation->status = $data['status'];
-        if (null !== $data['user_id']) $memberAssociation->user_id = $data['user_id'];
+        if (null !== $data['user_utype_id']) $memberAssociation->user_utype_id = $data['user_utype_id'];
         if (null !== $data['statut_id']) $memberAssociation->status_id = $data['statut_id'];
 
         $memberAssociation->update();
