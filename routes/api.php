@@ -57,6 +57,8 @@ Route::group(['prefix' => 'persons'], function () {
         Route::get('/search', 'Person\UserController@search');
         Route::get('/{id}', 'Person\UserController@find');
         Route::match(['post', 'put'], '/{id}', 'Person\UserController@update');
+        Route::get('/reset/{id}','Person\UserController@forgotPassword');
+        Route::get('/mail','Person\UserController@test');
         Route::delete('/{id}', 'Person\UserController@destroy');
     });
 

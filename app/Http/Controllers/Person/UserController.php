@@ -7,6 +7,7 @@ use App\Models\APIError;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\Person\User;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -153,5 +154,64 @@ class UserController extends Controller
         $user->delete();
 
         return response()->json();
+    }
+
+    function password(){
+        $chars = '01234567abcdefABCDEF';
+        $string = '';
+        for($i=0; $i<5; $i++){
+            $string .= $chars[rand(0, strlen($chars)-1)];
+        }
+        return $string;
+    }
+  
+    public function forgotPassword($id)
+    {
+      $key='';
+      $condition=true;
+      while($condition)
+      {
+        $key=$this->password();
+        $user=User::wherePassword($key)->first();
+        if($user == null)
+        {
+          $condition=false;
+        }
+      }
+  
+      $user = User::whereId($id)->first();
+      $us = [
+          'login' => $user->login,
+      'first_name' => $user->first_name,
+      'last_name' => $user->last_name,
+      'email' => $user->email,
+      'password' => bcrypt($key),
+      'avatar' => $user->avatar
+    
+      ];
+      $response = $user->update($us);
+    //   return $key;
+      $data1=[
+        'name' => $user->first_name,
+        'password' => $key,
+      ];
+      $email=$user->email;
+      Mail::send('resetpassword',$data1, function($message) use($email){
+        $message->to($email,'adam')->subject('reinitialisation du mdp');
+        $message->from('echurchvcam@gmail.com','');
+      });
+      return $response;
+    }
+  
+    public function test(){
+        $to_name = 'adam shan';
+        $to_email = 'adamualiyu199@gmail.com';
+        $data = array('name'=>"Ogbonna Vitalis(sender_name)", "body" => "A test mail");
+        Mail::send('mail', $data, function($message) use ($to_email) {
+        $message->to($to_email)->subject('Laravel Test Mail');
+        $message->from('echurchvcam@gmail.com','Test Mail');
+           });
+           return $data;
+
     }
 }
