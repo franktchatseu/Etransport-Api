@@ -157,16 +157,23 @@ class UserController extends Controller
     }
 
     function password(){
-        $chars = '01234567abcdefABCDEF';
+        $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $string = '';
-        for($i=0; $i<5; $i++){
+        for($i=0; $i<8; $i++){
             $string .= $chars[rand(0, strlen($chars)-1)];
         }
         return $string;
     }
   
-    public function forgotPassword($id)
+    public function forgotPassword(Request $request)
     {
+        $request->validate([
+            'email' => 'required'
+            ]);
+  
+          //verifier si l'utilisateur existe 
+          $email=$request['email'];
+              
       $key='';
       $condition=true;
       while($condition)
@@ -179,7 +186,14 @@ class UserController extends Controller
         }
       }
   
-      $user = User::whereId($id)->first();
+      $user = User::whereEmail($email)->first();
+      if ($user == null) {
+        return response()->json([
+          'message' => 'email du user inexistants'
+            ], 404);
+         }
+         //return $user;
+
       $us = [
           'login' => $user->login,
       'first_name' => $user->first_name,
@@ -190,7 +204,6 @@ class UserController extends Controller
     
       ];
       $response = $user->update($us);
-    //   return $key;
       $data1=[
         'name' => $user->first_name,
         'password' => $key,
@@ -211,7 +224,7 @@ class UserController extends Controller
         $message->to($to_email)->subject('Laravel Test Mail');
         $message->from('echurchvcam@gmail.com','Test Mail');
            });
-           return $data;
+           return 'true';
 
     }
 }
