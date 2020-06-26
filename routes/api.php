@@ -41,8 +41,9 @@ Route::group(['prefix' => 'extras'], function () {
 Route::group(['prefix' => 'messageries'], function () { });
 
 Route::group(['prefix' => 'parishs'], function () {
-    Route::get('list/{limit}', 'Parishes\ParishListController@index');
-    Route::get('list', 'ParishListController@all');
+    Route::get('list', 'Setting\ParishController@index');
+    Route::get('/{id}/album', 'Setting\ParishController@findWithAlbum');
+
 
     
 });
