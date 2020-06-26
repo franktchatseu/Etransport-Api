@@ -20,17 +20,17 @@ class CreateUsersTable extends Migration
             $table->string('password')->nullable();
             $table->string('first_name');
             $table->string('last_name');
-	        $table->string('district');
+	        $table->string('district')->nullable();
             $table->date('birth_date')->nullable();
             $table->string('birth_place')->nullable();
             $table->string('avatar')->nullable();
             $table->date('baptist_date')->nullable();
-            $table->boolean('is_baptisted');
+            $table->boolean('is_baptisted')->nullable();
             $table->string('baptist_place')->nullable();
             $table->string('language');
-            $table->boolean('is_married');
-	        $table->unsignedBigInteger('profession_id');
-	    $table->string('profession');
+            $table->boolean('is_married')->nullable();
+	        $table->unsignedBigInteger('profession_id')->nullable();
+	        $table->string('profession')->nullable();
             $table->string('tel')->nullable();
             $table->enum('gender',['F', 'M']);
 

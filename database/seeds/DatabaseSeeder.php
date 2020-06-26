@@ -40,10 +40,10 @@ class DatabaseSeeder extends Seeder
         // module setting
         $this->call([
             ProfessionSeeder::class,
+            ParishSeeder::class,
             UserSeeder::class,
             UtypeSeeder::class,
             UserUtypeSeeder::class,
-            ParishSeeder::class,
             PriestSeeder::class,
             AlbumSeeder::class,
             ParishionalSeeder::class,
