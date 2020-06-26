@@ -709,7 +709,7 @@ Route::group(['prefix' => 'messageries'],function (){
         Route::post('/{id}', 'Messagerie\ChatMemberGroupController@update');
         Route::post('/', 'Messagerie\ChatMemberGroupController@store');
         Route::delete('/{id}', 'Messagerie\ChatMemberGroupController@destroy');
-    });
+    }); 
 
     Route::group(['prefix' => 'chat-discussions'],function (){
         Route::get('/', 'Messagerie\ChatDiscussionController@index');
@@ -730,7 +730,7 @@ Route::group(['prefix' => 'messageries'],function (){
         Route::post('/', 'Messagerie\ChatMessageDuoController@store');
         Route::delete('/{id}', 'Messagerie\ChatMessageDuoController@destroy');
     });
-
+    
 });
 
 // actuality module : 'middleware' => 'auth:api',
@@ -794,6 +794,7 @@ Route::group(['prefix' => 'request'],function (){
     Route::group(['prefix' => 'make_appointment'],function (){
         Route::get('/', 'Request\MakeAppointmentController@get');
         Route::get('/{id}', 'Request\MakeAppointmentController@find');
+        Route::get('/{id}/user', 'Request\MakeAppointmentController@findAllForUser');
         Route::get('/search', 'Request\MakeAppointmentController@search');
         Route::post('/{id}', 'Request\MakeAppointmentController@update');
         Route::post('/', 'Request\MakeAppointmentController@create');
@@ -813,6 +814,7 @@ Route::group(['prefix' => 'request'],function (){
         Route::get('/', 'Request\IntentionMassController@index');
         Route::get('/{id}', 'Request\IntentionMassController@find');
         Route::get('/search', 'Request\IntentionMassController@search');
+        Route::get('/{id}/user', 'Request\MakeAppointmentController@findAllForUser');
         Route::post('/{id}', 'Request\IntentionMassController@update');
         Route::post('/', 'Request\IntentionMassController@store');
         Route::delete('/{id}', 'Request\IntentionMassController@destroy');
@@ -822,9 +824,30 @@ Route::group(['prefix' => 'request'],function (){
         Route::get('/', 'Request\AnointingSickController@index');
         Route::get('/{id}', 'Request\AnointingSickController@find');
         Route::get('/search', 'Request\AnointingSickController@search');
+        Route::get('/{id}/user', 'Request\MakeAppointmentController@findAllForUser');
         Route::post('/{id}', 'Request\AnointingSickController@update');
         Route::post('/', 'Request\AnointingSickController@store');
         Route::delete('/{id}', 'Request\AnointingSickController@destroy');
+    });
+
+    Route::group(['prefix' => 'demandes'],function (){
+        Route::get('/', 'Request\ReportProblemController@index');
+        Route::get('/{id}/search', 'Request\ReportProblemController@search');
+        Route::get('/{id}', 'Request\ReportProblemController@find');
+        Route::get('/{id}/user', 'Request\MakeAppointmentController@findAllForUser');
+        Route::post('/{id}', 'Request\ReportProblemController@update');
+        Route::post('/', 'Request\ReportProblemController@store');
+        Route::delete('/{id}', 'Request\ReportProblemController@destroy');
+    });
+    
+    Route::group(['prefix' => 'settingRequest'],function (){
+        Route::get('/', 'Request\SettingRequestController@index');
+        Route::get('/{id}/search', 'Request\SettingRequestController@search');
+        Route::get('/{id}/user', 'Request\MakeAppointmentController@findAllForUser');
+        Route::get('/{slug}', 'Request\SettingRequestController@findSlug');
+        Route::post('/{id}', 'Request\SettingRequestController@update');
+        Route::post('/', 'Request\SettingRequestController@store');
+        Route::delete('/{id}', 'Request\SettingRequestController@destroy');
     });
 });
 
