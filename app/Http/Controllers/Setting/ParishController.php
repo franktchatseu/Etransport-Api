@@ -8,6 +8,7 @@ use App\Models\Setting\Album;
 use App\Models\Setting\Contact;
 use App\Models\Setting\MassShedule;
 use App\Models\Setting\Parish;
+use App\Models\Setting\ParishAlbum;
 use App\Models\Setting\ParishPatrimony;
 use Illuminate\Http\Request;
 
@@ -151,7 +152,28 @@ class ParishController extends Controller
             return response()->json($apiError, 404);
         }
         
-        return response()->json($parish);
+        return response()->json($parish); 
+    }
+
+    public function findWithAlbum(Request $req, $id)
+    {
+        $parish = Parish::where($id);
+
+        if (!$parish) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PARISH_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+
+         $album = ParishAlbum::select('parish_albums.*', 'parish_albums.id as parish_album_id', 'albums.*', 'albums.id as id_album')
+            ->join('albums', 'parish_albums.album_id', '=', 'albums.id')
+            ->where(['parish_albums.parish_id' => $id])
+            ->simplePaginate($req->has('limit') ? $req->limit : 15);
+           
+
+        
+            return response()->json($album);
     }
 
     public function findParishAlbum(Request $req, $id)
