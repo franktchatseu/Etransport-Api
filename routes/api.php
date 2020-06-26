@@ -782,7 +782,7 @@ Route::group(['prefix' => 'request'],function (){
     Route::group(['prefix' => 'make_appointment'],function (){
         Route::get('/', 'Request\MakeAppointmentController@get');
         Route::get('/{id}', 'Request\MakeAppointmentController@find');
-        Route::get('/{id}/user', 'Request\MakeAppointmentController@findAllForUser');
+        Route::get('/user/{id}', 'Request\MakeAppointmentController@findAllForUser');
         Route::get('/search', 'Request\MakeAppointmentController@search');
         Route::post('/{id}', 'Request\MakeAppointmentController@update');
         Route::post('/', 'Request\MakeAppointmentController@create');

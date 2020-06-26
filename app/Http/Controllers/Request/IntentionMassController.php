@@ -69,6 +69,7 @@ class IntentionMassController extends Controller
      */
     public function update(Request $req, $id)
     {
+        $data = $req->except('photo');
         $intentionMass = IntentionMass::find($id);
         if (!$intentionMass) {
             abort(404, "No intentionMass found with id $id");
