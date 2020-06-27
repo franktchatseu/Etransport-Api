@@ -106,6 +106,17 @@ class DatabaseSeeder extends Seeder
             //    ParishionalSeeder::class,
             //    CathechumeneSeeder::class,
             //    ContactSeeder::class, /*  */
+               AgendaSeeder::class,
+               ProfessionSeeder::class,
+               UserSeeder::class,
+               UtypeSeeder::class,
+               ParishSeeder::class,
+               UserUtypeSeeder::class,
+               PriestSeeder::class,
+               AlbumSeeder::class,
+               ParishionalSeeder::class,
+               CathechumeneSeeder::class,
+               ContactSeeder::class, /*  */
           ]);
           /* 
         // module sacrament
