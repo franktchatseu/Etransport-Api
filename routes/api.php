@@ -274,6 +274,17 @@ Route::group(['prefix' => 'finances'], function () {
         Route::match(['post', 'put'], '/{id}', 'Finance\NatureController@update');
     });
 
+    Route::group(['prefix' => 'inputuutypes'], function () {
+        Route::get('/', 'Finance\InputUUtypeController@index');
+        Route::get('/{id}/mytransactions', 'Finance\InputUUtypeController@findTransactionByUser');
+        Route::get('/transactionsbynatures', 'Finance\InputUUtypeController@findTransactionByNature');
+        Route::get('/search', 'Finance\InputUUtypeController@search');
+        Route::get('/{id}', 'Finance\InputUUtypeController@find');
+        Route::delete('/{id}', 'Finance\InputUUtypeController@destroy');
+        Route::post('/', 'Finance\InputUUtypeController@store');
+        Route::match(['post', 'put'], '/{id}', 'Finance\InputUUtypeController@update');
+    });
+
     Route::group(['prefix' => 'tarifs'], function () {
         Route::get('/', 'Finance\TarifController@index');
         Route::get('/search', 'Finance\TarifController@search');
@@ -346,6 +357,7 @@ Route::group(['prefix' => 'catechesis'], function () {
     Route::group(['prefix' => 'annual-members'], function () {
         Route::get('/', 'Catechesis\AnnualMemberController@index');
         Route::get('/{id}', 'Catechesis\AnnualMemberController@find');
+        Route::get('/{id}/classmember', 'Catechesis\AnnualMemberController@getMemberByClass');
         Route::post('/', 'Catechesis\AnnualMemberController@create');
         Route::delete('/{id}', 'Catechesis\AnnualMemberController@destroy');
         Route::get('/search', 'Catechesis\AnnualMemberController@search');
@@ -432,6 +444,7 @@ Route::group(['prefix' => 'catechesis'], function () {
         Route::get('/search', 'Catechesis\CathedralPresenceController@search');
         Route::get('/{id}', 'Catechesis\CathedralPresenceController@find');
         Route::get('/{id}/annualmember', 'Catechesis\CathedralPresenceController@findCathedralPesences');
+        Route::get('/{id}/presencemember', 'Catechesis\CathedralPresenceController@findPesencesListOfMember');
         Route::delete('/{id}', 'Catechesis\CathedralPresenceController@destroy');
         Route::post('/', 'Catechesis\CathedralPresenceController@store');
         Route::match(['post', 'put'], '/{id}', 'Catechesis\CathedralPresenceController@update');
@@ -441,6 +454,7 @@ Route::group(['prefix' => 'catechesis'], function () {
         Route::get('/search', 'Catechesis\CatechesisPresenceController@search');
         Route::get('/{id}', 'Catechesis\CatechesisPresenceController@find');
         Route::get('/{id}/user_catechesis', 'Catechesis\CatechesisPresenceController@findcatechesisPresences');
+        Route::get('/{id}/presence_catechesis', 'Catechesis\CatechesisPresenceController@findcatechesisOfPresences');
         Route::delete('/{id}', 'Catechesis\CatechesisPresenceController@destroy');
         Route::post('/', 'Catechesis\CatechesisPresenceController@store');
         Route::match(['post', 'put'], '/{id}', 'Catechesis\CatechesisPresenceController@update');

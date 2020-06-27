@@ -26,9 +26,15 @@ class DatabaseSeeder extends Seeder
 
         //$this->call(CityAndCountrySeeder::class);
         
+        //module finance
+        $this->call([
+         NatureSeeder::class,
+         InputSeeder::class
+        ]); 
+
         // module setting
         $this->call([
-            // ParishSeeder::class,
+             ParishSeeder::class,
             // ParishPatrimonySeeder::class,
             // MassSheduleSeeder::class
         ]);
@@ -41,8 +47,9 @@ class DatabaseSeeder extends Seeder
              // $this->call(LaratrustSeeder::class),
                 ProfessionSeeder::class,
                 UserSeeder::class,
-            //    UtypeSeeder::class,
-            //    UserUtypeSeeder::class,
+                UtypeSeeder::class,
+                UserUtypeSeeder::class,
+                InputUUtypeSeeder::class,
             // ParishSeeder::class,
             //  PriestSeeder::class,
             //  AlbumSeeder::class,
@@ -87,13 +94,13 @@ class DatabaseSeeder extends Seeder
 
         // module catechesis
          $this->call([
-            MemberSeeder::class,
-             AnnualMemberSeeder::class,
-             TransfertSeeder::class,
-             AuthorizationSeeder::class,
-             MemberTransfertSeeder::class,
-             CatechesisSeeder::class,
-             ArchivingSeeder::class,
+            //MemberSeeder::class,
+            // AnnualMemberSeeder::class,
+             //TransfertSeeder::class,
+             //AuthorizationSeeder::class,
+            // MemberTransfertSeeder::class,
+            // CatechesisSeeder::class,
+            // ArchivingSeeder::class,
             
            //  AnnualMemberSeeder::class,
              //MemberSeeder::class,
@@ -103,11 +110,11 @@ class DatabaseSeeder extends Seeder
              //MemberSeeder::class,
              //ArchivingSeeder::class,
             //  ProgrammeSeeder::class,
-            //  TrimestreSeeder::class,
-            //  QuarterSeeder::class,
-            //  QuarterTrimestreSeeder::class,
-            //  AnnualMemberSeeder::class,
-            //  AnnualmemberAuthorizationSeeder::class, 
+              //TrimestreSeeder::class,
+              //QuarterSeeder::class,
+              //QuarterTrimestreSeeder::class,
+              //AnnualMemberSeeder::class,
+            // AnnualmemberAuthorizationSeeder::class, 
          ]);
 
         // module place
@@ -122,14 +129,14 @@ class DatabaseSeeder extends Seeder
 
           // module catechese
           $this->call([
-                QuarterSeeder::class,
+               // QuarterSeeder::class,
                //EvaluationSeeder::class,
-               TimeCardSeeder::class,
-               PatternSeeder::class,
-               PlugSeeder::class,
-               CathedralPresenceSeeder::class,
-               UserCatechesisSeeder::class,
-               CatechesisPresenceSeeder::class 
+            //    TimeCardSeeder::class,
+            //    PatternSeeder::class,
+            //    PlugSeeder::class,
+            //    CathedralPresenceSeeder::class,
+            //    UserCatechesisSeeder::class,
+            //    CatechesisPresenceSeeder::class 
 
             
           ]);
@@ -151,10 +158,7 @@ class DatabaseSeeder extends Seeder
               PosteSeeder::class, */
           //     ]);
 
-          // module finance
-          // $this->call([
-          //  NatureSeeder::class
-          // ]); */
+          
 
           // module association
           // $this->call([
