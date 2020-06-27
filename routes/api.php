@@ -876,3 +876,11 @@ Route::group(['prefix' => 'request'],function (){
     });
 });
 
+// Publicity module : 'middleware' => 'auth:api',
+Route::group(['prefix' => 'publicities'], function () {
+    Route::get('/', 'Publicity\PublicityController@index');
+    Route::get('/{id}', 'Publicity\PublicityController@find');
+    Route::post('/{id}', 'Publicity\PublicityController@update');
+    Route::post('/', 'Publicity\PublicityController@create');
+    Route::delete('/{id}', 'Publicity\PublicityController@destroy');
+});

@@ -12,7 +12,7 @@ class InputUUtypeSeeder extends Seeder
      */
     public function run(\Faker\Generator $faker)
     {
-        factory(InputUUtype::class, 100)->make()->each(function ($inputs) use ($faker) {
+        factory(InputUUtype::class, 100)->make()->each(function ($uutype) use ($faker) {
             $inputs = App\Models\Finance\Input::all();
             $uutypes = App\Models\Person\UserUtype::all();
 

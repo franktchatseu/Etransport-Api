@@ -70,6 +70,16 @@ class DatabaseSeeder extends Seeder
             // ParishionalSeeder::class,
             // CathechumeneSeeder::class,
             // ContactSeeder::class,
+            ProfessionSeeder::class,
+            ParishSeeder::class,
+            UserSeeder::class,
+            UtypeSeeder::class,
+            UserUtypeSeeder::class,
+            PriestSeeder::class,
+            AlbumSeeder::class,
+            ParishionalSeeder::class,
+            CathechumeneSeeder::class,
+            ContactSeeder::class,
         ]);
 
         // module messagerie
@@ -81,6 +91,10 @@ class DatabaseSeeder extends Seeder
             // ChatMessageDuoSeeder::class
         ]);
 
+         // module publicité
+        $this->call([
+          PublicitySeeder::class,
+        ]);
         // module actualité
         // $this->call([
         //     AttributeSeeder::class,
@@ -114,7 +128,7 @@ class DatabaseSeeder extends Seeder
                UserUtypeSeeder::class,
                PriestSeeder::class,
                AlbumSeeder::class,
-               catechistSeeder::class,
+              // catechistSeeder::class,
                ParishionalSeeder::class,
                CathechumeneSeeder::class,
                ContactSeeder::class, /*  */
