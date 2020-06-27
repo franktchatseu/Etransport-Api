@@ -222,12 +222,12 @@ class DatabaseSeeder extends Seeder
 
           // module association
            $this->call([
-                // TypeAssociationSeeder::class,
-                // AssociationSeeder::class,
-                // EvenementSeeder::class,
-                // StatutSeeder::class,
-                // MemberAssociationSeeder::class,
-                // EventPresenceMemberAssociationSeeder::class
+                TypeAssociationSeeder::class,
+                AssociationSeeder::class,
+                EvenementSeeder::class,
+                StatutSeeder::class,
+                MemberAssociationSeeder::class,
+                EventPresenceMemberAssociationSeeder::class
            ]);
 
           // $this->call([
@@ -251,13 +251,13 @@ class DatabaseSeeder extends Seeder
 
           //module Planification
           $this->call([
-              //  ObjectMakingAppointmentSeeder::class,
-              //  MakeAppointmentSeeder::class,
-              //  AnointingSickSeeder::class,
-              //  IntentionMassSeeder::class,
+               ObjectMakingAppointmentSeeder::class,
+               MakeAppointmentSeeder::class,
+               AnointingSickSeeder::class,
+               IntentionMassSeeder::class,
                ObjectRequestMassSeeder::class,
                RequestMassSeeder::class,
-              //  ReportProblemSeeder::class
+               ReportProblemSeeder::class
                /*    TypePlaningSeeder::class,
            PlaningSeeder::class,
            AssociationPlaningSeeder::class,

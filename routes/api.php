@@ -823,7 +823,7 @@ Route::group(['prefix' => 'request'],function (){
         Route::get('/', 'Request\IntentionMassController@index');
         Route::get('/{id}', 'Request\IntentionMassController@find');
         Route::get('/search', 'Request\IntentionMassController@search');
-        Route::get('/{id}/user', 'Request\MakeAppointmentController@findAllForUser');
+        Route::get('/{id}/user', 'Request\IntentionMassController@findAllForUser');
         Route::post('/{id}', 'Request\IntentionMassController@update');
         Route::post('/', 'Request\IntentionMassController@store');
         Route::delete('/{id}', 'Request\IntentionMassController@destroy');
@@ -833,7 +833,7 @@ Route::group(['prefix' => 'request'],function (){
         Route::get('/', 'Request\AnointingSickController@index');
         Route::get('/{id}', 'Request\AnointingSickController@find');
         Route::get('/search', 'Request\AnointingSickController@search');
-        Route::get('/{id}/user', 'Request\MakeAppointmentController@findAllForUser');
+        Route::get('/user/{id}', 'Request\AnointingSickController@findAllForUser');
         Route::post('/{id}', 'Request\AnointingSickController@update');
         Route::post('/', 'Request\AnointingSickController@store');
         Route::delete('/{id}', 'Request\AnointingSickController@destroy');
@@ -843,7 +843,7 @@ Route::group(['prefix' => 'request'],function (){
         Route::get('/', 'Request\ReportProblemController@index');
         Route::get('/{id}/search', 'Request\ReportProblemController@search');
         Route::get('/{id}', 'Request\ReportProblemController@find');
-        Route::get('/{id}/user', 'Request\MakeAppointmentController@findAllForUser');
+        Route::get('/user/{id}', 'Request\ReportProblemController@findAllForUser');
         Route::post('/{id}', 'Request\ReportProblemController@update');
         Route::post('/', 'Request\ReportProblemController@store');
         Route::delete('/{id}', 'Request\ReportProblemController@destroy');
@@ -852,7 +852,7 @@ Route::group(['prefix' => 'request'],function (){
     Route::group(['prefix' => 'settingRequest'],function (){
         Route::get('/', 'Request\SettingRequestController@index');
         Route::get('/{id}/search', 'Request\SettingRequestController@search');
-        Route::get('/{id}/user', 'Request\MakeAppointmentController@findAllForUser');
+        Route::get('/user/{id}', 'Request\SettingRequestController@findAllForUser');
         Route::get('/{slug}', 'Request\SettingRequestController@findSlug');
         Route::post('/{id}', 'Request\SettingRequestController@update');
         Route::post('/', 'Request\SettingRequestController@store');
