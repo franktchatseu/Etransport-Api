@@ -24,8 +24,6 @@ class CreateInputTable extends Migration
                 $table->timestamps();
                 $table->softDeletes();
                 $table->foreign('nature_id')->references('id')->on('natures')->onDelete('cascade');
-                // $table->unsignedBigInteger('parish_id');
-                // $table->foreign('user_id')->references('id')->on('users');
             });
     }
 

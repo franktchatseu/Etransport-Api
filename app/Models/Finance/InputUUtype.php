@@ -4,8 +4,8 @@ namespace App\Models\Finance;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserInput extends Model
+class InputUUtype extends Model
 {
-    protected $table = 'user_inputs';
+    protected $table = 'input_uutypes';
     protected $guarded = [];
 }
