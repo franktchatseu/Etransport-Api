@@ -68,7 +68,7 @@ Route::group(['prefix' => 'persons'], function () {
     Route::group(['prefix' => 'user-utypes'], function () {
         Route::get('/', 'Person\UserUtypeController@index');
         Route::get('/search', 'Person\UserUtypeController@search');
-        Route::post('/', 'Person\UserUtypeController@create');
+        Route::post('/', 'Person\UserUtypeController@store');
         Route::get('/{id}', 'Person\UserUtypeController@find');
         Route::get('/{id}/parishs', 'Person\UserUtypeController@findUserParishsWithStatus');
         Route::match(['post', 'put'],'/{id}/activate-parishs', 'Person\UserUtypeController@activateUserParish');
@@ -849,5 +849,49 @@ Route::group(['prefix' => 'request'],function (){
         Route::post('/', 'Request\SettingRequestController@store');
         Route::delete('/{id}', 'Request\SettingRequestController@destroy');
     });
+});
+
+//liturgical module : 'middleware' => 'auth:api'
+Route::group(['prefix' => 'liturgicals'],function(){
+    Route::group(['prefix' => 'liturgical_types'], function () {
+        Route::get('/', 'Liturgical\LiturgicalTypeController@index');
+        Route::get('/{id}', 'Liturgical\LiturgicalTypeController@find');
+        Route::match(['post', 'put'], '/{id}', 'Liturgical\LiturgicalTypeController@update');
+        Route::get('/search', 'Liturgical\LiturgicalTypeController@search');
+        Route::post('/', 'Liturgical\LiturgicalTypeController@store');
+        Route::delete('/{id}', 'Liturgical\LiturgicalTypeController@destroy');
+    });
+    
+    Route::group(['prefix' => 'entry_types'], function () {
+        Route::get('/', 'Liturgical\EntryTypeController@index');
+        Route::get('/{id}', 'Liturgical\EntryTypeController@find');
+        Route::match(['post', 'put'], '/{id}', 'Liturgical\EntryTypeController@update');
+        Route::get('/search', 'Liturgical\EntryTypeController@search');
+        Route::post('/', 'Liturgical\EntryTypeController@store');
+        Route::delete('/{id}', 'Liturgical\EntryTypeController@destroy');
+    });
+
+
+    Route::group(['prefix' => 'liturgical_type_entry_types'], function () {
+        Route::get('/', 'Liturgical\LiturgicalTypeEntryTypeController@index');
+        Route::get('/{id}', 'Liturgical\LiturgicalTypeEntryTypeController@find');
+        Route::match(['post', 'put'], '/{id}', 'Liturgical\LiturgicalTypeEntryTypeController@update');
+        Route::get('/search', 'Liturgical\LiturgicalTypeEntryTypeController@search');
+        Route::post('/', 'Liturgical\LiturgicalTypeEntryTypeController@store');
+        Route::delete('/{id}', 'Liturgical\LiturgicalTypeEntryTypeController@destroy');
+    });
+
+
+    Route::group(['prefix' => 'liturgical_texts'], function () {
+        Route::get('/', 'Liturgical\LiturgicalTextController@index');
+        Route::get('/{id}', 'Liturgical\LiturgicalTextController@find');
+        Route::match(['post', 'put'], '/{id}', 'Liturgical\LiturgicalTextController@update');
+        Route::get('/search', 'Liturgical\LiturgicalTextController@search');
+        Route::post('/', 'Liturgical\LiturgicalTextController@store');
+        Route::delete('/{id}', 'Liturgical\LiturgicalTextController@destroy');
+        Route::get('/{slug}/liturgical_types', 'Liturgical\LiturgicalTextController@findLiturgicalText');
+        Route::get('/{id}/entry_types', 'Liturgical\LiturgicalTextController@findLiturgicalByType');
+    });
+
 });
 

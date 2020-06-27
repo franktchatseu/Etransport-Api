@@ -30,9 +30,9 @@ class DatabaseSeeder extends Seeder
         
         // module setting
         $this->call([
-            // ParishSeeder::class,
-            // ParishPatrimonySeeder::class,
-            // MassSheduleSeeder::class
+            ParishSeeder::class,
+            ParishPatrimonySeeder::class,
+            MassSheduleSeeder::class
         ]);
 
        // $this->call(CityAndCountrySeeder::class);
@@ -40,11 +40,11 @@ class DatabaseSeeder extends Seeder
         // module setting
         $this->call([
             // $this->call(SettingSeeder::class);
-            // $this->call(LaratrustSeeder::class);
+            // // $this->call(LaratrustSeeder::class);
              ProfessionSeeder::class,
              UserSeeder::class,
              UtypeSeeder::class,
-             UserUtypeSeeder::class,
+            UserUtypeSeeder::class,
              ParishSeeder::class,
              PriestSeeder::class,
             AlbumSeeder::class,
@@ -55,12 +55,12 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             UtypeSeeder::class,
             UserUtypeSeeder::class,
-            ParishSeeder::class,
-            PriestSeeder::class,
-            AlbumSeeder::class,
-            ParishionalSeeder::class,
-            CathechumeneSeeder::class,
-            ContactSeeder::class,
+           // ParishSeeder::class,
+            // PriestSeeder::class,
+            // AlbumSeeder::class,
+            // ParishionalSeeder::class,
+            // CathechumeneSeeder::class,
+            // ContactSeeder::class,
         ]);
 
         // module messagerie
@@ -111,7 +111,7 @@ class DatabaseSeeder extends Seeder
             //   MassSheduleSeeder::class,
             //   PhotoSeeder::class,
             //   UserParishSeeder::class,
-              ParishAlbumSeeder::class 
+              //ParishAlbumSeeder::class 
         ]);
 
         // module catechesis
@@ -211,7 +211,7 @@ class DatabaseSeeder extends Seeder
           $this->call([
               //  SacramentCategorySeeder::class,
               //   SacramentSeeder::class,
-            //    UserSacramentSeeder::class,
+              //  UserSacramentSeeder::class,
           ]);
 
           //module Planification
@@ -227,13 +227,21 @@ class DatabaseSeeder extends Seeder
 
            //module actuality
            $this->call([
-                // AttributeSeeder::class,
-                // MenuSeeder::class,
-                //AttributeMenuSeeder::class,
-                // SubMenuSeeder::class,
-                // ArticleSeeder::class,
-                // ArticleAttributeMenuSeeder::class,
-           ]);
+            // AttributeSeeder::class,
+            // MenuSeeder::class,
+            //AttributeMenuSeeder::class,
+            // SubMenuSeeder::class,
+            // ArticleSeeder::class,
+            // ArticleAttributeMenuSeeder::class,
+       ]);
+       
+       //module liturgical text
+           $this->call([
+            LiturgicalTypeSeeder::class,
+            EntryTypeSeeder::class,
+            LiturgicalTypeEntryTypeSeeder::class,
+            LiturgicalTextSeeder::class,
+       ]);
 
           Schema::enableForeignKeyConstraints();
           Model::reguard();
