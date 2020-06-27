@@ -30,7 +30,9 @@ class AssociationController extends Controller
         
         $this->validate($request->all(), [
             'name' => 'required',
-            'type_id' => 'required'
+            'type_id' => 'required',
+            'parish_id' => 'required',
+            'user_id' => 'required',
         ]);
         $data = [];
         if ($request->has('reglement')) {
@@ -40,7 +42,9 @@ class AssociationController extends Controller
 
         $data = array_merge($data, $request->only([
             'name', 
-            'type_id', 
+            'type_id',
+            'parish_id',
+            'user_id', 
             'slogan', 
             'description', 
             'dateCreation'
@@ -85,7 +89,9 @@ class AssociationController extends Controller
 
         $this->validate($request->all(), [
             'name' => 'required',
-            'type_id' => 'required'
+            'type_id' => 'required',
+            'parish_id' => 'required',
+            'user_id' => 'required',
         ]);
         $data = [];
         if ($request->has('reglement')) {
@@ -95,7 +101,9 @@ class AssociationController extends Controller
 
         $data = array_merge($data, $request->only([
             'name', 
-            'type_id', 
+            'type_id',
+            'parish_id',
+            'user_id', 
             'slogan', 
             'description', 
             'dateCreation']));

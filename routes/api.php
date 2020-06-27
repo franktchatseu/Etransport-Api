@@ -576,7 +576,7 @@ Route::group(['prefix' => 'sacrament'], function () {
         Route::post('/', 'Sacrament\UserSacramentController@store');
         Route::match(['post', 'put'], '/{id}', 'Sacrament\UserSacramentController@update');
     });
-
+    
 });
 
 // associations module : 'middleware' => 'auth:api',
