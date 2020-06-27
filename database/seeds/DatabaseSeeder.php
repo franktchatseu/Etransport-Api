@@ -60,6 +60,10 @@ class DatabaseSeeder extends Seeder
             ChatMessageDuoSeeder::class
         ]);
 
+         // module publicité
+        $this->call([
+          PublicitySeeder::class,
+        ]);
         // module actualité
         // $this->call([
         //     AttributeSeeder::class,
