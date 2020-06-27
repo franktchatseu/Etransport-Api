@@ -76,7 +76,7 @@ class AgendaController extends Controller
         
         //calcul de intervalle de date de la semaine
         $now_date =  Carbon::now();
-        $hebdo_date =Carbon::now()->subMonth(3);
+        $hebdo_date =Carbon::now()->subDays(90);
         //dd($hebdo_date);
         $agendas = DB:: table('agendas')->where('parish_id','=',$parish->id)->whereBetween('date_agenda', array($hebdo_date, $now_date))->orderBy('date_agenda','desc')->get();
         return response()->json($agendas);
