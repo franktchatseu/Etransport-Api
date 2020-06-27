@@ -10,6 +10,7 @@ use App\Models\Finance\Input;
 use App\Models\Finance\Nature;
 use App\Models\Person\UserUtype;
 use App\Models\Person\User;
+use Carbon\Carbon;
 
 
 
@@ -223,10 +224,16 @@ class InputUUtypeController extends Controller
             $transaction = InputUUtype::select('input_uutypes.*')
                 ->join('user_utypes', 'input_uutypes.user_utype_id', '=', 'user_utypes.id')
                 ->join('users', 'user_utypes.user_id', '=', 'users.id')
-                ->where(['users.id' => $id])->orderBy('input_uutypes.date', 'desc')
-                ->simplePaginate($req->has('limit') ? $req->limit : 15);
+                ->where(['users.id' => $id])->orderBy('date', 'desc')
+                ->simplePaginate($req->has('limit') ? $req->limit : 15)
+                ->groupBy(function($date) {
+                    return Carbon::parse($date->created_at)->format('M');
+                });
+                
             return response()->json($transaction);
+            
     }   
+    
     
     public function findTransactionByNature(Request $req)
     {
