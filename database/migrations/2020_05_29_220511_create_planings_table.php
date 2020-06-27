@@ -16,6 +16,8 @@ class CreatePlaningsTable extends Migration
         Schema::create('planings', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('date');
+            $table->date('date_start');
+            $table->date('date_end');
             $table->string('nature');
             $table->string('description');
             $table->string('place');

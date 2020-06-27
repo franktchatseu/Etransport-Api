@@ -612,6 +612,25 @@ Route::group(['prefix' => 'planification'],function (){
         Route::delete('/{id}', 'Planification\TypePlaningController@destroy');
     });
 
+    Route::group(['prefix' => 'priestplanings'],function (){
+        Route::get('/', 'Planification\PriestPlaningController@index');
+        Route::get('/search', 'Planification\PriestPlaningController@search');
+        Route::get('/{id}/{data}/priestplanings', 'Planification\PriestPlaningController@findPriestPlaning');
+        Route::get('/{id}', 'Planification\PriestPlaningController@find');
+        Route::post('/{id}', 'Planification\PriestPlaningController@update');
+        Route::post('/', 'Planification\PriestPlaningController@create');
+        Route::delete('/{id}', 'Planification\PriestPlaningController@destroy');
+    });
+    
+    Route::group(['prefix' => 'times'],function (){
+        Route::get('/', 'Planification\TimesController@index');
+        Route::get('/search', 'Planification\TimesController@search');
+        Route::get('/{id}/planings', 'Planification\TimesController@findPlaning');
+        Route::get('/{id}', 'Planification\TimesController@find');
+        Route::post('/{id}', 'Planification\TimesController@update');
+        Route::post('/', 'Planification\TimesController@create');
+        Route::delete('/{id}', 'Planification\TimesController@destroy');
+    });
     Route::group(['prefix' => 'association_planings'],function (){
         Route::get('/', 'Planification\AssociationPlanningController@index');
         Route::get('/search', 'Planification\AssociationPlanningController@search');
@@ -625,7 +644,8 @@ Route::group(['prefix' => 'planification'],function (){
     Route::group(['prefix' => 'user_planings'],function (){
         Route::get('/', 'Planification\UserPlanningController@index');
         Route::get('/search', 'Planification\UserPlanningController@search');
-        Route::get('/{id}/users', 'Planification\UserPlanningController@findUserPlaning');
+       // Route::get('/{id}/users', 'Planification\UserPlanningController@findUserPlaning');
+        Route::get('/{id}/users', 'Planification\UserPlanningController@findPriestPlaning');
         Route::get('/{id}', 'Planification\UserPlanningController@find');
         Route::post('/{id}', 'Planification\UserPlanningController@update');
         Route::post('/', 'Planification\UserPlanningController@store');

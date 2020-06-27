@@ -162,10 +162,12 @@ class DatabaseSeeder extends Seeder
 
          // module Planification
          $this->call([
-        //   TypePlaningSeeder::class,
-        //   PlaningSeeder::class,
+           TypePlaningSeeder::class,
+           PlaningSeeder::class,
+           PriestPlaningSeeder::class,
+           TimeSeeder::class,
         //   AssociationPlaningSeeder::class,
-        //   UserPlaningSeeder::class
+          UserPlaningSeeder::class
         ]);
 
 
