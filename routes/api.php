@@ -586,6 +586,7 @@ Route::group(['prefix' => 'associations'], function () {
         Route::get('/', 'Association\AssociationController@index');
         Route::get('/search', 'Association\AssociationController@search');
         Route::get('/{id}', 'Association\AssociationController@find');
+        Route::get('/{id}/type', 'Association\AssociationController@findTypeAssociation');
         Route::delete('/{id}', 'Association\AssociationController@destroy');
         Route::post('/', 'Association\AssociationController@store');
         Route::match(['post', 'put'], '/{id}', 'Association\AssociationController@update');
@@ -611,7 +612,9 @@ Route::group(['prefix' => 'associations'], function () {
         Route::get('/', 'Association\MemberAssociationController@index');
         Route::get('/search', 'Association\MemberAssociationController@search');
         Route::get('/{id}', 'Association\MemberAssociationController@find');
-        Route::get('/{id}/users', 'Association\MemberAssociationController@findMemberAssociation');
+        Route::get('/{id}/users', 'Association\MemberAssociationController@findMemberAssociationUser');
+        Route::get('/{id}/associations', 'Association\MemberAssociationController@findAllMemberAssociation');
+        Route::get('/{id}/bureauAssociations', 'Association\MemberAssociationController@findBureauMemberAssociation');
         Route::delete('/{id}', 'Association\MemberAssociationController@destroy');
         Route::post('/', 'Association\MemberAssociationController@store');
         Route::match(['post', 'put'], '/{id}', 'Association\MemberAssociationController@update');
