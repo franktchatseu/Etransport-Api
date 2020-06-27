@@ -4,6 +4,14 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 use App\Models\Catechesis\Catechesis;
+// use App\Models\Request\ObjectMakingAppointment;
+// use App\Models\Request\ObjectRequestMass;
+// use App\Models\Request\MakingAppointment;
+// use App\Models\Request\AnointingSick;
+// use App\Models\Request\IntentionMass;
+// use App\Models\Request\RequestMass;
+// use App\Models\Request\ReportProblem;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,9 +32,9 @@ class DatabaseSeeder extends Seeder
             // _GroupSeeder::class,
         ]);
 
-        //$this->call(CityAndCountrySeeder::class);
-        $this->call(SettingSeeder::class);
-        $this->call(LaratrustSeeder::class);
+        // //$this->call(CityAndCountrySeeder::class);
+        // $this->call(SettingSeeder::class);
+        // $this->call(LaratrustSeeder::class);
         
         // module setting
         $this->call([
@@ -39,25 +47,25 @@ class DatabaseSeeder extends Seeder
         
         // module setting
         $this->call([
-            ProfessionSeeder::class,
-            UserSeeder::class,
-            UtypeSeeder::class,
-            UserUtypeSeeder::class,
-            ParishSeeder::class,
-            PriestSeeder::class,
-            AlbumSeeder::class,
-            ParishionalSeeder::class,
-            CathechumeneSeeder::class,
-            ContactSeeder::class,
+            // ProfessionSeeder::class,
+            // UserSeeder::class,
+            // UtypeSeeder::class,
+            // ParishSeeder::class,
+            // UserUtypeSeeder::class,
+            // PriestSeeder::class,
+            // AlbumSeeder::class,
+            // ParishionalSeeder::class,
+            // CathechumeneSeeder::class,
+            // ContactSeeder::class,
         ]);
 
         // module messagerie
         $this->call([
-            ChatGroupSeeder::class,
-            ChatMemberGroupSeeder::class,
-            ChatMessageGroupSeeder::class,
-            ChatDiscussionSeeder::class,
-            ChatMessageDuoSeeder::class
+            // ChatGroupSeeder::class,
+            // ChatMemberGroupSeeder::class,
+            // ChatMessageGroupSeeder::class,
+            // ChatDiscussionSeeder::class,
+            // ChatMessageDuoSeeder::class
         ]);
 
         // module actualité
@@ -175,12 +183,12 @@ class DatabaseSeeder extends Seeder
 
           // module association
            $this->call([
-                TypeAssociationSeeder::class,
-                AssociationSeeder::class,
-                EvenementSeeder::class,
-                StatutSeeder::class,
-                MemberAssociationSeeder::class,
-                EventPresenceMemberAssociationSeeder::class
+                // TypeAssociationSeeder::class,
+                // AssociationSeeder::class,
+                // EvenementSeeder::class,
+                // StatutSeeder::class,
+                // MemberAssociationSeeder::class,
+                // EventPresenceMemberAssociationSeeder::class
            ]);
 
           // $this->call([
@@ -197,17 +205,20 @@ class DatabaseSeeder extends Seeder
 
           // module sacrament
           $this->call([
-               SacramentCategorySeeder::class,
-                SacramentSeeder::class,
+              //  SacramentCategorySeeder::class,
+              //   SacramentSeeder::class,
             //    UserSacramentSeeder::class,
           ]);
 
           //module Planification
           $this->call([
-               // ObjectMakingAppointmentSeeder::class,
-               // MakeAppointmentSeeder::class,
-               // AnointingSickSeeder::class,
-               // IntentionMassSeeder::class
+              //  ObjectMakingAppointmentSeeder::class,
+              //  MakeAppointmentSeeder::class,
+              //  AnointingSickSeeder::class,
+              //  IntentionMassSeeder::class,
+               ObjectRequestMassSeeder::class,
+               RequestMassSeeder::class,
+              //  ReportProblemSeeder::class
                /*    TypePlaningSeeder::class,
            PlaningSeeder::class,
            AssociationPlaningSeeder::class,

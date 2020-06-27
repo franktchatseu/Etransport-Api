@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\Request\MakingAppointment;
+use App\Models\Request\UserUtype;
+use App\Models\Request\ObjectMakingAppointment;
 
 class MakeAppointmentSeeder extends Seeder
 {
@@ -10,14 +12,14 @@ class MakeAppointmentSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(\Faker\Generator $faker)
     {
         //
         factory(MakingAppointment::class, 100)->make()->each(function ($usersacrment) use ($faker) {
             $user_utypes = App\Models\Person\UserUtype::all();
             $object = App\Models\Request\ObjectMakingAppointment::all();
-            $usersacrment->user_utype_id = $faker->randomElement($user_utypes)->id;
-            $usersacrment->sacrament_id = $faker->randomElement($object)->id;
+            $usersacrment->person_id = $faker->randomElement($user_utypes)->id;
+            $usersacrment->object_id = $faker->randomElement($object)->id;
             $usersacrment->save();
         });
     }

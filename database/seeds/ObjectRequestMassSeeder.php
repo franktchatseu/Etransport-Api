@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Request\ObjectMakingAppointment;
+use App\Models\Request\ObjectRequestMass;
 
-class ObjectMakingAppointmentSeeder extends Seeder
+class ObjectRequestMassSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,7 +13,7 @@ class ObjectMakingAppointmentSeeder extends Seeder
     public function run(\Faker\Generator $faker)
     {
         //
-        factory(ObjectMakingAppointment::class, 100)->make()->each(function ($usersacrment) use ($faker) {
+        factory(ObjectRequestMass::class, 100)->make()->each(function ($usersacrment) use ($faker) {
             $usersacrment->save();
         });
     }

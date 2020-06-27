@@ -837,5 +837,24 @@ Route::group(['prefix' => 'request'],function (){
         Route::post('/', 'Request\SettingRequestController@store');
         Route::delete('/{id}', 'Request\SettingRequestController@destroy');
     });
+
+    Route::group(['prefix' => 'request_mass'],function (){
+        Route::get('/', 'Request\RequestMassController@get');
+        Route::get('/{id}', 'Request\RequestMassController@find');
+        Route::get('/user/{id}', 'Request\RequestMassController@findAllForUser');
+        Route::get('/search', 'Request\RequestMassController@search');
+        Route::post('/{id}', 'Request\RequestMassController@update');
+        Route::post('/', 'Request\RequestMassController@create');
+        Route::delete('/{id}', 'Request\RequestMassController@delete');
+    });
+
+    Route::group(['prefix' => 'object_request_mass'],function (){
+        Route::get('/', 'Request\ObjectRequestMassController@get');
+        Route::get('/{id}', 'Request\ObjectRequestMassController@find');
+        Route::get('/search', 'Request\ObjectRequestMassController@search');
+        Route::post('/{id}', 'Request\ObjectRequestMassController@update');
+        Route::post('/', 'Request\ObjectRequestMassController@create');
+        Route::delete('/{id}', 'Request\ObjectRequestMassController@delete');
+    });
 });
 

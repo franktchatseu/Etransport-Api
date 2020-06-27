@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Request\IntentionMass;
 use App\Models\Request\UserUtype;
 use App\Models\Request\ObjectRequestMass;
+use App\Models\Request\RequestMass;
 
-class IntentionMassSeeder extends Seeder
+class RequestMassSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,7 @@ class IntentionMassSeeder extends Seeder
      */
     public function run(\Faker\Generator $faker)
     {
-        factory(IntentionMass::class, 100)->make()->each(function ($usersacrment) use ($faker) {
+        factory(RequestMass::class, 100)->make()->each(function ($usersacrment) use ($faker) {
             $user_utypes = App\Models\Person\UserUtype::all();
             $object = App\Models\Request\ObjectRequestMass::all();
             $usersacrment->person_id = $faker->randomElement($user_utypes)->id;
