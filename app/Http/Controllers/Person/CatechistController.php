@@ -68,6 +68,18 @@ class CatechistController extends Controller
         return response()->json($catechist);
     }
 
+    public function search($user_id)
+    {
+        $catechist = Catechist::find($user_id);
+        if (!$catechist) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("CATHECHIST_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+      
+        return response()->json($catechist->id);
+    }
     public function destroy($id)
     {
         $catechist = Catechist::find($id);
