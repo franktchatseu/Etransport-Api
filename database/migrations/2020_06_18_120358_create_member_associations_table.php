@@ -15,6 +15,7 @@ class CreateMemberAssociationsTable extends Migration
     {
         Schema::create('member_associations', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('raisonAdhesion');
             $table->date('date_adhesion');
             $table->enum('status',['PENDING','REJECTED','ACCEPTED']);
 
