@@ -643,6 +643,9 @@ Route::group(['prefix' => 'planification'],function (){
         Route::post('/{id}', 'Planification\PlaningController@update');
         Route::post('/', 'Planification\PlaningController@create');
         Route::delete('/{id}', 'Planification\PlaningController@destroy');
+        Route::get('/{parish_id}/hebdo', 'Planification\AgendaController@getAgendaByHebdo');
+        Route::get('/{parish_id}/mensuelle', 'Planification\AgendaController@getAgendaByMensuelle');
+        Route::get('/{parish_id}/trimestre', 'Planification\AgendaController@getAgendaByTrimestre');
     }); 
 
     Route::group(['prefix' => 'type_planings'],function (){
