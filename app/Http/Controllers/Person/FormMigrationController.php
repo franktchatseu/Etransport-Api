@@ -44,6 +44,29 @@ class FormMigrationController extends Controller
         ]);
 
         $formmig = new FormMigration();
+        $formmig->user_utype_id = $data['user_utype_id'];
+        $formmig->message = $data['message'];
+        $formmig->save();
+
+        return response()->json($formmig);
+    }
+
+     /**
+     * Search a person from database
+     * @param  \Illuminate\Http\Request  $req
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $req)
+    {
+        $this->validate($req->all(), [
+            'q' => 'present',
+            'field' => 'present'
+        ]);
+
+        $data = FormMigration::where($req->field, 'like', "%$req->q%")
+        ->simplePaginate($req->has('limit') ? $req->limit : 15);
+
+        return response()->json($data);
     }
 
     /**
@@ -88,6 +111,14 @@ class FormMigrationController extends Controller
      */
     public function destroy(FormMigration $formMigration)
     {
-        //
+        if (!$formmig = FormMigration::find($id)) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("FORMMIGRATION_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+
+        $formmig->delete();      
+        return response()->json();
     }
 }

@@ -72,6 +72,10 @@ Route::group(['prefix' => 'persons'], function () {
         Route::get('/{type}/to-chat', 'Person\UserUtypeController@findUserByType');
     });
 
+    Route::group(['prefix' => 'user-parishs'],function (){
+        Route::match(['post', 'put'],'/{id}', 'Person\MigrationParishController@migrateparish');
+    });
+
     Route::group(['prefix' => 'catechists'], function () {
         Route::get('/','Person\CatechistController@get');
         Route::get('/{id}', 'Person\CatechistController@find');
@@ -133,7 +137,8 @@ Route::group(['prefix' => 'persons'], function () {
         Route::get('/search', 'Person\ParishionalController@search');
         Route::get('/{id}', 'Person\ParishionalController@find');
         Route::delete('/{id}', 'Person\ParishionalController@find');
-        Route::post('/', 'Person\ParishionalController@store');
+        //Route::post('/', 'Person\ParishionalController@store');
+        Route::post('/', 'Person\ParishionalController@create');
         Route::match(['post', 'put'], '/{id}', 'Person\ParishionalController@update');
     });
 
