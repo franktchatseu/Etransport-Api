@@ -13,11 +13,16 @@ class AttributeMenuSeeder extends Seeder
     public function run(\Faker\Generator $faker)
     {
         factory(Attribute_Menu::class, 20)->make()->each(function($attributemenu) use ($faker) {
-            $attribute = App\Models\Actuality\Attribute::all();
-            $submenu = App\Models\Actuality\Menu::all();
-            $attributemenu->attribute_id = $faker->randomElement($attribute)->id;
-            $attributemenu->menu_id = $faker->randomElement($submenu)->id;
-            $attributemenu->save();
+            $attributes = App\Models\Actuality\Attribute::all();
+            $menus = App\Models\Actuality\Menu::all();
+            $attribute = $faker->randomElement($attributes);
+            $menu = $faker->randomElement($menus);
+            if ( count(Attribute_Menu::where([['attribute_id', '=', $attribute->id], ['menu_id', '=', $menu->id]])->get()) == 0)
+            {
+                $attributemenu->attribute_id = $attribute->id;
+                $attributemenu->menu_id = $menu->id;
+                $attributemenu->save();
+            }    
         });
     }
 }

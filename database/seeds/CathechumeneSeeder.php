@@ -13,7 +13,7 @@ class CathechumeneSeeder extends Seeder
     {
         factory(Cathechumene::class,100)->make()->each(function($cathechumene) use ($faker){
             $professions = App\Models\Person\Profession::all();
-            $cathechumene->profession_id = $faker->randomElement($professions)->id;
+            // $cathechumene->profession_id = $faker->randomElement($professions)->id;
             $cathechumene->save();
         });
     }
