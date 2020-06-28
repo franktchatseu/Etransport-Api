@@ -22,7 +22,7 @@ class CreateProfessionsTable extends Migration
         });
 
         Schema::table('users', function (Blueprint $table) {
-            $table->foreign('profession_id')->references('id')->on('professions');
+            // $table->foreign('profession_id')->references('id')->on('professions');
         });
     }
 

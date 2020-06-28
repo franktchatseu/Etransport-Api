@@ -7,7 +7,6 @@ use Faker\Generator as Faker;
 
 $factory->define(AnointingSick::class, function (Faker $faker) {
     return [
-        'good_to_know' => $faker->text,
         'assisted_person' => $faker->name,
         'age' => $faker->numberBetween(0,120),
         'gender' => $faker->randomElement(['F', 'M']),

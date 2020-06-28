@@ -17,7 +17,7 @@ class CreateCathechumenesTable extends Migration
             $table->bigIncrements('id');
             $table->text('father_tel');
             $table->text('godfather_tel');
-            $table->unsignedBigInteger('profession_id');
+            // $table->unsignedBigInteger('profession_id');
             $table->unsignedInteger('catechese_level');
             $table->string('catechese_place');
             $table->text('birth_certificate');

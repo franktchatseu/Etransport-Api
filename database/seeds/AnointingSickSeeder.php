@@ -16,7 +16,7 @@ class AnointingSickSeeder extends Seeder
     {
         factory(AnointingSick::class, 10)->make()->each(function ($anoitingSick) use ($faker) {
             $user_utypes = App\Models\Person\UserUtype::all();
-            $usersacrment->person_id = $faker->randomElement($user_utypes)->id;
+            $anoitingSick->person_id = $faker->randomElement($user_utypes)->id;
             $anoitingSick->save();
         });
     }
