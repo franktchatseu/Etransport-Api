@@ -92,7 +92,8 @@ class DatabaseSeeder extends Seeder
         
         // module setting
         $this->call([
-            //    ParishSeeder::class,
+                 ParishSeeder::class,
+                 SeminarianSeeder::class,
             //   AlbumSeeder::class,
             //   ContactSeeder::class,
             //   ParishPatrimonySeeder::class,
