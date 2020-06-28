@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Person;
 
 use App\Http\Controllers\Controller;
+use App\Models\APIError;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\Person\User;
@@ -113,7 +114,7 @@ class UserController extends Controller
 
         //upload image
         if ($file = $req->file('files')) {
-            $filePaths = $this->saveMultipleImages($this, $req, 'files', 'users');
+            $filePaths = $this->saveSingleImage($this, $req, 'files', 'users');
             $data['avatar'] = json_encode(['images' => $filePaths]);
         }
 
@@ -127,12 +128,15 @@ class UserController extends Controller
         if (isset($data['birth_place'])) $user->birth_place = $data['birth_place'];
         if (isset($data['avatar'])) $user->avatar = $data['avatar'];
         if (isset($data['baptist_date'])) $user->baptist_date = $data['baptist_date'];
+        if (isset($data['profession'])) $user->profession = $data['profession'];
+        if (isset($data['profession_id'])) $user->profession_id = $data['profession_id'];
+        if (isset($data['is_married'])) $user->is_married = $data['is_married'];
         if (isset($data['district'])) $user->district = $data['district'];
         if (isset($data['tel'])) $user->tel = $data['tel'];
-        if ( isset($data['language'])) $user->language = $data['language'];
-        if ( isset($data['ceb'])) $user->ceb = $data['ceb'];
-        if ( isset($data['group'])) $user->group = $data['group'];
-        if ( isset($data['post'])) $user->post = $data['post'];
+        if (isset($data['language'])) $user->language = $data['language'];
+        if (isset($data['ceb'])) $user->ceb = $data['ceb'];
+        if (isset($data['group'])) $user->group = $data['group'];
+        if (isset($data['post'])) $user->post = $data['post'];
 
         $user->update();
 

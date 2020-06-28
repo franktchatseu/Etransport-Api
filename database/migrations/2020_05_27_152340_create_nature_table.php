@@ -23,10 +23,6 @@ class CreateNatureTable extends Migration
             $table->softDeletes();
         });
 
-        Schema::table('inputs', function (Blueprint $table) {
-            $table->unsignedBigInteger('nature_id');
-            $table->foreign('nature_id')->references('id')->on('natures');
-        });
     }
 
     /**
@@ -36,6 +32,6 @@ class CreateNatureTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nature');
+        Schema::dropIfExists('natures');
     }
 }

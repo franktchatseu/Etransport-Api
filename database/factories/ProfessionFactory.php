@@ -11,3 +11,4 @@ $factory->define(Profession::class, function (Faker $faker) {
         'description' => $faker->sentence,
     ];
 });
+
