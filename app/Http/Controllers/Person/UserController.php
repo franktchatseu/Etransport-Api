@@ -7,7 +7,6 @@ use App\Models\APIError;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\Person\User;
-use App\Models\APIError;
 
 class UserController extends Controller
 {
