@@ -7,6 +7,7 @@ use App\Models\APIError;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\Person\User;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -155,4 +156,66 @@ class UserController extends Controller
 
         return response()->json();
     }
+
+    function password(){
+        $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $string = '';
+        for($i=0; $i<8; $i++){
+            $string .= $chars[rand(0, strlen($chars)-1)];
+        }
+        return $string;
+    }
+  
+    public function forgotPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required'
+            ]);
+  
+          //verifier si l'utilisateur existe 
+          $email=$request['email'];
+              
+      $key='';
+      $condition=true;
+      while($condition)
+      {
+        $key=$this->password();
+        $user=User::wherePassword($key)->first();
+        if($user == null)
+        {
+          $condition=false;
+        }
+      }
+  
+      $user = User::whereEmail($email)->first();
+      if ($user == null) {
+        return response()->json([
+          'message' => 'email du user inexistants'
+            ], 404);
+         }
+         //return $user;
+
+      $us = [
+      'login' => $user->login,
+      'first_name' => $user->first_name,
+      'last_name' => $user->last_name,
+      'email' => $user->email,
+      'password' => bcrypt($key),
+      'avatar' => $user->avatar
+    
+      ];
+      $response = $user->update($us);
+      $data = [
+        'name' => $user->first_name.' '.$user->last_name,
+        'password' => $key,
+      ];
+
+      $email=$user->email;
+      Mail::send('resetpassword',$data, function($message) use($email){
+        $message->to($email,'adam')->subject('Reinitialisation du mot de passe');
+        $message->from('echurchvcam@gmail.com','');
+      });
+      return 'true';
+    }
+  
 }

@@ -41,6 +41,10 @@ Route::group(['prefix' => 'extras'], function () {
 Route::group(['prefix' => 'messageries'], function () { });
 
 Route::group(['prefix' => 'parishs'], function () {
+    Route::get('list', 'Setting\ParishController@index');
+    Route::get('/{id}/album', 'Setting\ParishController@findWithAlbum');
+
+
     
 });
 // Notification module : 'middleware' => 'auth:api',
@@ -57,13 +61,14 @@ Route::group(['prefix' => 'persons'], function () {
         Route::get('/search', 'Person\UserController@search');
         Route::get('/{id}', 'Person\UserController@find');
         Route::match(['post', 'put'], '/{id}', 'Person\UserController@update');
+        Route::post('/reset','Person\UserController@forgotPassword');
         Route::delete('/{id}', 'Person\UserController@destroy');
     });
 
     Route::group(['prefix' => 'user-utypes'], function () {
         Route::get('/', 'Person\UserUtypeController@index');
         Route::get('/search', 'Person\UserUtypeController@search');
-        Route::post('/', 'Person\UserUtypeController@create');
+        Route::post('/', 'Person\UserUtypeController@store');
         Route::get('/{id}', 'Person\UserUtypeController@find');
         Route::get('/{id}/parishs', 'Person\UserUtypeController@findUserParishsWithStatus');
         Route::match(['post', 'put'],'/{id}/activate-parishs', 'Person\UserUtypeController@activateUserParish');
@@ -292,6 +297,13 @@ Route::group(['prefix' => 'finances'], function () {
         Route::match(['post', 'put'], '/{id}', 'Finance\TarifController@update');
         Route::delete('/{id}', 'Finance\TarifController@destroy'); 
     });
+});
+Route::group(['prefix' => 'person'], function () {
+
+
+        Route::get('/', 'ParishController@index');
+        Route::get('/search', 'ParishController@search');
+
 });
 
 
@@ -704,7 +716,7 @@ Route::group(['prefix' => 'messageries'],function (){
         Route::get('/', 'Messagerie\ChatGroupController@index');
         Route::get('/search', 'Messagerie\ChatGroupController@search');
         Route::get('/{id}/users', 'Messagerie\ChatGroupController@findUsersGroup');
-        Route::get('/{id}/messages', 'Messagerie\ChatGroupController@findMessages');
+        Route::get('/{id}/messages', 'persons\Messagerie\ChatGroupController@findMessages');
         Route::get('/{id}/for-user', 'Messagerie\ChatGroupController@findGroupsForUSer');
         Route::get('/{id}', 'Messagerie\ChatGroupController@find');
         Route::post('/{id}', 'Messagerie\ChatGroupController@update');
@@ -879,11 +891,47 @@ Route::group(['prefix' => 'request'],function (){
     });
 });
 
-// Publicity module : 'middleware' => 'auth:api',
-Route::group(['prefix' => 'publicities'], function () {
-    Route::get('/', 'Publicity\PublicityController@index');
-    Route::get('/{id}', 'Publicity\PublicityController@find');
-    Route::post('/{id}', 'Publicity\PublicityController@update');
-    Route::post('/', 'Publicity\PublicityController@create');
-    Route::delete('/{id}', 'Publicity\PublicityController@destroy');
+//liturgical module : 'middleware' => 'auth:api'
+Route::group(['prefix' => 'liturgicals'],function(){
+    Route::group(['prefix' => 'liturgical_types'], function () {
+        Route::get('/', 'Liturgical\LiturgicalTypeController@index');
+        Route::get('/{id}', 'Liturgical\LiturgicalTypeController@find');
+        Route::match(['post', 'put'], '/{id}', 'Liturgical\LiturgicalTypeController@update');
+        Route::get('/search', 'Liturgical\LiturgicalTypeController@search');
+        Route::post('/', 'Liturgical\LiturgicalTypeController@store');
+        Route::delete('/{id}', 'Liturgical\LiturgicalTypeController@destroy');
+    });
+    
+    Route::group(['prefix' => 'entry_types'], function () {
+        Route::get('/', 'Liturgical\EntryTypeController@index');
+        Route::get('/{id}', 'Liturgical\EntryTypeController@find');
+        Route::match(['post', 'put'], '/{id}', 'Liturgical\EntryTypeController@update');
+        Route::get('/search', 'Liturgical\EntryTypeController@search');
+        Route::post('/', 'Liturgical\EntryTypeController@store');
+        Route::delete('/{id}', 'Liturgical\EntryTypeController@destroy');
+    });
+
+
+    Route::group(['prefix' => 'liturgical_type_entry_types'], function () {
+        Route::get('/', 'Liturgical\LiturgicalTypeEntryTypeController@index');
+        Route::get('/{id}', 'Liturgical\LiturgicalTypeEntryTypeController@find');
+        Route::match(['post', 'put'], '/{id}', 'Liturgical\LiturgicalTypeEntryTypeController@update');
+        Route::get('/search', 'Liturgical\LiturgicalTypeEntryTypeController@search');
+        Route::post('/', 'Liturgical\LiturgicalTypeEntryTypeController@store');
+        Route::delete('/{id}', 'Liturgical\LiturgicalTypeEntryTypeController@destroy');
+    });
+
+
+    Route::group(['prefix' => 'liturgical_texts'], function () {
+        Route::get('/', 'Liturgical\LiturgicalTextController@index');
+        Route::get('/{id}', 'Liturgical\LiturgicalTextController@find');
+        Route::match(['post', 'put'], '/{id}', 'Liturgical\LiturgicalTextController@update');
+        Route::get('/search', 'Liturgical\LiturgicalTextController@search');
+        Route::post('/', 'Liturgical\LiturgicalTextController@store');
+        Route::delete('/{id}', 'Liturgical\LiturgicalTextController@destroy');
+        Route::get('/{slug}/liturgical_types', 'Liturgical\LiturgicalTextController@findLiturgicalText');
+        Route::get('/{id}/entry_types', 'Liturgical\LiturgicalTextController@findLiturgicalByType');
+    });
+
 });
+

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Person;
 
 use App\Http\Controllers\Controller;
+use App\Models\APIError;
 use App\Models\Person\UserUtype;
 use Illuminate\Http\Request;
 use App\Models\Person\Utype;
