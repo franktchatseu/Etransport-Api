@@ -15,7 +15,7 @@ class _GroupSeeder extends Seeder
         $list = [
             'Lecteurs',
             'Enfant de cœur',
-            'Réseaux',
+            'Bedeaux',
             'ACE COP Monde',
             'JEC',
             'Chorale des Saints Anges',
