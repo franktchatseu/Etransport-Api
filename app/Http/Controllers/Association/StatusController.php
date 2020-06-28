@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Association;
 
 use App\Http\Controllers\Controller;
-use App\Models\Association\Statut;
+
 use Illuminate\Http\Request;
 use App\Models\APIError;
+use App\Models\Association\Statut;
 
 class StatusController extends Controller
 {

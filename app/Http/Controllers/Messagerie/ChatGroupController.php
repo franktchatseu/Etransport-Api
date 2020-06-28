@@ -75,13 +75,13 @@ class ChatGroupController extends Controller
             'name' => 'required'
         ]);
 
-        if ($req->file('profile') ?? null) {
+        if ($file = $req->file('profile')) {
             $filePaths = $this->saveSingleImage($this, $req, 'profile', 'groups');
-            $data['profile'] = json_encode(['images' => $filePaths]);
+            $data['profil'] = json_encode(['images' => $filePaths]);
         }
         
-        if ($data['profile'] ?? null) $group->profile = $data['profile'];
-        if (null ?? $data['name']) $group->name = $data['name'];
+        if (isset($data['profil'])) $group->profile = $data['profil'];
+        if (isset($data['name'])) $group->name = $data['name'];
         
         $group->update();
         return response()->json($group);
