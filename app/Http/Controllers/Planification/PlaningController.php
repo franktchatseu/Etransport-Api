@@ -15,7 +15,7 @@ class PlaningController extends Controller
      */
     public function index(Request $req)
     {
-        $data = Planing::simplePaginate($req->has('limit') ? $req->limit : 15);
+        $data = Planing::select('planings.*','type_planings.name')->join('type_planings','type_planings.id','=','planings.id')->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($data);
     }
 
@@ -31,10 +31,13 @@ class PlaningController extends Controller
             'activity' => 'required',
             'date' => 'required',
             'description' => 'required',
+            'place' => '',
             'nature' => 'required',
             'activityPro' => 'required',
-            'type_id' => 'required:exists:type_planings,id'
+            'type_id' => 'required:exists:type_planings,id',
+            //'user_utype_id' => 'required:exists:user_utypes,id'
         ]);
+
         $planing = new Planing();
         $planing->activity = $data['activity'];
         $planing->date = $data['date'];
@@ -42,6 +45,7 @@ class PlaningController extends Controller
         $planing->activityPro = $data['activityPro'];
         $planing->place = $data['place'];
         $planing->type_id = $data['type_id'];
+        $planing->user_utype_id = $data['user_utype_id'];
         $planing->nature = $data['nature'];
 
         $planing->save();
@@ -58,12 +62,14 @@ class PlaningController extends Controller
         return response()->json($data);
     }
 
-    public function find($id)
+    public function find(Request $req,$id)
     {
         if (!$planing = Planing::find($id)) {
             abort(404, "No planing found with id $id");
         }
-        return response()->json($planing);
+
+        $planings = Planing::select('planings.*','type_planings.name')->join('type_planings',['type_planings.id'=>'planings.id'])->where(['planings.id' => $id])->simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($planings);
     }
 
     /**
@@ -126,6 +132,7 @@ class PlaningController extends Controller
         if ( $data['activityPro']) $planing->activityPro = $data['activityPro'];
         if ( $data['place']) $planing->place = $data['place'];
         if ( $data['type_id']) $planing->type_id = $data['type_id'];
+        if ( $data['type_id']) $planing->user_utype_id = $data['user_utype_id'];
         if ( $data['nature']) $planing->nature = $data['nature'];
 
         $planing->update();
