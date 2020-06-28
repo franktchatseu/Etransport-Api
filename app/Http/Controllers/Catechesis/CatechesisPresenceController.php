@@ -142,4 +142,17 @@ class CatechesisPresenceController extends Controller
         ->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($catechesisPresence);
     }
+
+    public function findCatechesisOfPresences(Request $req, $id)
+    {/* 
+        $CatechesisPresence = CatechesisPresence::select('catechesis_presences.*', 'catechesis_presences.id as ucathedral_presence_id', 'plugs.*', 'plugs.id as id_plug', 'catechesis.*', 'catechesis.id as id_catechesis')
+        ->join('catechesis', 'catechesis_presences.catechesis_presences_id', '=', 'catechesis.id', '&&', 'plugs', 'catechesis_presences.catechesis_presences_id', '=', 'plugs.id' ) */
+
+        $catechesisPresence = CatechesisPresence::select('catechesis_presences.*','catechesis.name as catechesis_name')
+        ->join('user_catechesis', 'catechesis_presences.user_catechesis_id', '=', 'user_catechesis.id' )
+        ->join('catechesis', 'user_catechesis.catechesis_id', '=', 'catechesis.id' )
+        ->where(['catechesis.id' => $id])
+        ->simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($catechesisPresence);
+    }
 }

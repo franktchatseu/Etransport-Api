@@ -113,6 +113,18 @@ class MakeAppointmentController extends Controller
             ->get();
 
         return response()->json($data);
+    } 
+
+    public function findAllForUser(Request $req, $id)
+    {
+        $evenement = MakingAppointment::wherePerson_id($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
+        if (!$evenement) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("EVENEMENT_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+        return response()->json($evenement);
     }
 
 }

@@ -20,10 +20,6 @@ class UserUtypeSeeder extends Seeder
             $uutype->user_id = $faker->randomElement($users)->id;
             $uutype->type_id = $faker->randomElement($utypes)->id;
             $uutype->parish_id = $faker->randomElement($parish)->id;
-            // while(UserUtype::whereUserIdAndTypeId($uutype->user_id, $uutype->type_id)) {
-            //     $uutype->user_id = $faker->randomElement($users)->id;
-            //     $uutype->type_id = $faker->randomElement($utypes)->id;
-            // }
             $uutype->save();
         });
     }

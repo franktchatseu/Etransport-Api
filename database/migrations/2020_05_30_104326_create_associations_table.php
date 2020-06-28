@@ -16,6 +16,8 @@ class CreateAssociationsTable extends Migration
         Schema::create('associations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('type_id');
+            $table->unsignedBigInteger('parish_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->string('slogan')->nullable();
             $table->text('description')->nullable();
@@ -25,6 +27,8 @@ class CreateAssociationsTable extends Migration
             $table->softDeletes();
             
             $table->foreign('type_id')->references('id')->on('type_associations')->onDelete('cascade');
+            $table->foreign('parish_id')->references('id')->on('parishs')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
