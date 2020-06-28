@@ -22,7 +22,7 @@ class CreateAnointingSick extends Migration
             $table->string('disease_nature');
             $table->boolean('is_baptized');
             $table->string('avatar')->nullable();
-            $table->date('request_date');
+            $table->date('request_date'); 
             $table->text('comment');
             $table->unsignedBigInteger('person_id');
             $table->enum('status',['REJECTED','PENDING','ACCEPTED']);
