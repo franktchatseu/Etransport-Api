@@ -48,7 +48,6 @@ class UserController extends Controller
             $filePaths = $this->saveMultipleImages($this, $req, 'files', 'users');
             $data['avatar'] = json_encode(['images' => $filePaths]);
         }
-
         
         $user = new User();
         $user->login = $data['login'];
@@ -65,7 +64,7 @@ class UserController extends Controller
         $user->baptist_date = $data['baptist_date'];
         $user->baptist_place = $data['baptist_place'];
         $user->language = $data['language'];
-        $user->profession_id = $data['profession_id'];
+        // $user->profession_id = $data['profession_id'];
 	    // $user->profession = $data['profession'];
         // $user->ceb = $data['ceb'];
         // $user->group = $data['group'];
@@ -129,7 +128,8 @@ class UserController extends Controller
         if (isset($data['birth_place'])) $user->birth_place = $data['birth_place'];
         if (isset($data['avatar'])) $user->avatar = $data['avatar'];
         if (isset($data['baptist_date'])) $user->baptist_date = $data['baptist_date'];
-        if (isset($data['profession_id'])) $user->profession_id = $data['profession_id'];
+        if (isset($data['profession'])) $user->profession = $data['profession'];
+        // if (isset($data['profession_id'])) $user->profession_id = $data['profession_id'];
         if (isset($data['is_married'])) $user->is_married = $data['is_married'];
         if (isset($data['district'])) $user->district = $data['district'];
         if (isset($data['tel'])) $user->tel = $data['tel'];

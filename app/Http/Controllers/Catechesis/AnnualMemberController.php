@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Catechesis;
 
 use App\Http\Controllers\Controller;
 use App\Models\Catechesis\AnnualMember;
+use App\Models\Catechesis\Member;
 use Illuminate\Http\Request;
 use App\Models\Catechesis\Evaluation;
 use App\Models\Catechesis\Quarter;
@@ -130,7 +131,20 @@ class AnnualMemberController extends Controller
             return response()->json($apiError, 404);
         }
             return response()->json($annualMember);
+    }
+
+    public function getMemberByClass(Request $request,$id)
+    {
+        $Member = Member::find($id);
+        if (!$Member) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("MEMBER_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
+        $data = AnnualMember::whereMember_id($id)->get();
+            return response()->json($data);
+    }
     
         public function destroy($id)
         {

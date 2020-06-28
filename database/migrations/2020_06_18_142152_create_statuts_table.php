@@ -15,7 +15,7 @@ class CreateStatutsTable extends Migration
     {
         Schema::create('statuts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name_post');
+            $table->string('name_post')->default('member');
             $table->text('role_post');
             $table->timestamps();
         });

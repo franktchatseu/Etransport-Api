@@ -25,6 +25,15 @@ class user_evenementController extends Controller
         $evenemnts->user_utype_id = $request->user_utype_id;
         $evenemnts->name = $request->name;
         $evenemnts->description = $request->description;
+       
+        $file_url = "";
+         //upload image
+         if ($file = $request->file('files')) {
+            $filePaths = $this->saveSingleImage($this, $request, 'files', 'evenements');
+            $file_url= json_encode(['images' => $filePaths]);
+        }
+        
+        $evenemnts->files = $file_url;
         $evenemnts->save();
 
         return response()->json($evenemnts);
@@ -70,6 +79,14 @@ class user_evenementController extends Controller
         //on met ajout les champs venant de la requette
         $evenemnts->name = $request->name;
         $evenemnts->description = $request->description;
+        $file_url = "";
+        //upload image
+        if ($file = $request->file('files')) {
+           $filePaths = $this->saveSingleImage($this, $request, 'files', 'evenements');
+           $file_url= json_encode(['images' => $filePaths]);
+       }
+       
+        $evenemnts->files = $file_url;
         $evenemnts->update();
 
         return response()->json($evenemnts);

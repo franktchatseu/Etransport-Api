@@ -10,7 +10,7 @@ class ObjectMakingAppointmentSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(\Faker\Generator $faker)
     {
         //
         factory(ObjectMakingAppointment::class, 100)->make()->each(function ($usersacrment) use ($faker) {

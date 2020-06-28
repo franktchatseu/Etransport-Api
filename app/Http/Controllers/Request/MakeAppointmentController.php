@@ -113,7 +113,7 @@ class MakeAppointmentController extends Controller
             ->get();
 
         return response()->json($data);
-    }
+    } 
 
     public function findAllForUser(Request $req, $id)
     {

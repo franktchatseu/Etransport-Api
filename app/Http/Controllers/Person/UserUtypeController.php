@@ -116,7 +116,7 @@ class UserUtypeController extends Controller
         ->join('users', ['users.id' => 'user_utypes.user_id' ])
         ->join('parishs', ['user_utypes.parish_id' => 'parishs.id' ])
         ->select('users.*', 'user_utypes.*', 'user_utypes.id as user_utype_id', 'parishs.name as parish_name')        
-        ->simplePaginate($req->has('limit') ? $req->limit : 15);
+        ->simplePaginate($req->has('limit') ? $req->limit : 6);
 
         return response()->json($users);
     }

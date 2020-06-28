@@ -139,14 +139,23 @@ class CathedralPresenceController extends Controller
     }
 
     public function findCathedralPesences(Request $req, $id)
-    {/* 
-        $cathedralPresence = CathedralPresence::select('cathedral_presences.*', 'cathedral_presences.id as ucathedral_presence_id', 'plugs.*', 'plugs.id as id_plug', 'catechesis.*', 'catechesis.id as id_catechesis')
-        ->join('catechesis', 'cathedral_presences.cathedral_presences_id', '=', 'catechesis.id', '&&', 'plugs', 'cathedral_presences.cathedral_presences_id', '=', 'plugs.id' ) */
+    {
 
         $cathedralPresence = CathedralPresence::select('cathedral_presences.*','cathedral_presences.id as cathedral_presence_id', 'catechesis.*', 'catechesis.id as id_catechesis','catechesis.name as name_catechesis', 'plugs.*')
         ->join('plugs', 'cathedral_presences.plug_id', '=', 'plugs.id' )
         ->join('catechesis', 'cathedral_presences.cathechesis_id', '=', 'catechesis.id' )
         ->where(['cathedral_presences.annual_member_id' => $id])
+        ->simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($cathedralPresence);
+    }
+
+    public function findPesencesListOfMember(Request $req, $id)
+    {
+
+        $cathedralPresence = CathedralPresence::select('plugs.*')
+        ->join('annual_members', 'cathedral_presences.annual_member_id', '=', 'annual_members.id' )
+        ->join('plugs', 'cathedral_presences.plug_id', '=', 'plugs.id' )
+        ->where(['annual_members.id' => $id])
         ->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($cathedralPresence);
     }
