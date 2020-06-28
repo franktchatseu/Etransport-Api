@@ -45,8 +45,8 @@ class DatabaseSeeder extends Seeder
         // module setting
         $this->call([
              ParishSeeder::class,
-            // ParishPatrimonySeeder::class,
-            // MassSheduleSeeder::class
+             ParishPatrimonySeeder::class,
+            MassSheduleSeeder::class
         ]);
 
        // $this->call(CityAndCountrySeeder::class);

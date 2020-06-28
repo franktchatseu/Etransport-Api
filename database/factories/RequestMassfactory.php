@@ -7,9 +7,9 @@ use Faker\Generator as Faker;
 
 $factory->define(RequestMass::class, function (Faker $faker) {
     return [
-        'request_hour' => $faker->time,
-        'request_date'=> $faker->date,
+        'request_hour' => $faker->time(),
+        'request_date'=> $faker->date(),
         'place'=> $faker->sentence,
-        'state' => 'PENDING',
+        'state' => $faker->randomElement(['REJECTED','PENDING','APPROVED']),
     ];
 });
