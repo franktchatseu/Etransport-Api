@@ -129,7 +129,7 @@ class DatabaseSeeder extends Seeder
 
         // module place
         $this->call([]);
-        
+
         // module sanction
         $this->call([
             //  PunishmentTypeSeeder::class,
