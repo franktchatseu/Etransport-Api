@@ -18,6 +18,7 @@ class CreateUserEvenementsTable extends Migration
             $table->unsignedBigInteger('user_utype_id');
             $table->string('name');
             $table->text('description');
+            $table->string('files');
             $table->timestamps();
             $table->foreign('user_utype_id')->references('id')->on('user_utypes');
         });

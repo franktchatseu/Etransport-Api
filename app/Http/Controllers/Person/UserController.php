@@ -7,7 +7,6 @@ use App\Models\APIError;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\Person\User;
-use App\Models\APIError;
 
 class UserController extends Controller
 {
@@ -129,6 +128,7 @@ class UserController extends Controller
         if (isset($data['birth_place'])) $user->birth_place = $data['birth_place'];
         if (isset($data['avatar'])) $user->avatar = $data['avatar'];
         if (isset($data['baptist_date'])) $user->baptist_date = $data['baptist_date'];
+        if (isset($data['profession'])) $user->profession = $data['profession'];
         if (isset($data['profession_id'])) $user->profession_id = $data['profession_id'];
         if (isset($data['is_married'])) $user->is_married = $data['is_married'];
         if (isset($data['district'])) $user->district = $data['district'];
