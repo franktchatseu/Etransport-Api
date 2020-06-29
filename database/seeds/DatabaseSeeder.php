@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
       // _GroupSeeder::class,
     ]);
 
-    // $this->call(CityAndCountrySeeder::class);
+    //$this->call(CityAndCountrySeeder::class);
     $this->call(SettingSeeder::class);
     // $this->call(LaratrustSeeder::class);
 

@@ -36,9 +36,9 @@ class UserController extends Controller
             'first_name' => 'required|min:2',
             'last_name' => 'required|min:2',
             'district' => 'required',
-            'password' => 'required|min:4',
-	        'profession_id' => ['required', 'exists:professions,id'],
-	    // 'profession' => ['required'],
+            'password' => 'required',
+	        // 'profession_id' => ['required', 'exists:professions,id'],
+	         'profession' => ['required'],
             // 'email' => ['required', 'email', Rule::unique('users', 'email')],
         ]);
 
@@ -57,20 +57,20 @@ class UserController extends Controller
         $user->gender = $data['gender'];
         $user->first_name = $data['first_name'];
         $user->last_name = $data['last_name'];
-        $user->birth_date = $data['birth_date'];
-        $user->birth_place = $data['birth_place'];
+        // $user->birth_date = $data['birth_date'];
+        // $user->birth_place = $data['birth_place'];
         $user->district = $data['district'];
-        $user->is_baptisted = $data['is_baptisted'];
-        $user->baptist_date = $data['baptist_date'];
-        $user->baptist_place = $data['baptist_place'];
-        $user->language = $data['language'];
+        // $user->is_baptisted = $data['is_baptisted'];
+        // $user->baptist_date = $data['baptist_date'];
+        // $user->baptist_place = $data['baptist_place'];
+        // $user->language = $data['language'];
         // $user->profession_id = $data['profession_id'];
-	    // $user->profession = $data['profession'];
+	     $user->profession = $data['profession'];
         // $user->ceb = $data['ceb'];
         // $user->group = $data['group'];
         // $user->post = $data['post'];
         $user->tel = $data['tel'];
-        $user->is_married = $data['is_married'];
+        // $user->is_married = $data['is_married'];
         $user->save();
         
         return response()->json($user);

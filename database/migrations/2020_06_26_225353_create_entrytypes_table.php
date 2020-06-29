@@ -14,7 +14,7 @@ class CreateEntrytypesTable extends Migration
     public function up()
     {
         Schema::create('entry_types', function (Blueprint $table) {
-            $table->bigncrements('id');
+            $table->bigIncrements('id');
             $table->string('title');
             $table->string('description');
             $table->timestamps();
