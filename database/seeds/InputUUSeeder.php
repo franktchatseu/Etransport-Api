@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Models\Finance\InputUUtype;
 
-class InputUUtypeSeeder extends Seeder
+class InputUUSeeder extends Seeder
 {
     /**
      * Run the database seeds.

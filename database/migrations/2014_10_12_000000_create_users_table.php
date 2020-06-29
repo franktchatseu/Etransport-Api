@@ -29,7 +29,7 @@ class CreateUsersTable extends Migration
             $table->string('baptist_place')->nullable();
             $table->string('language');
             $table->boolean('is_married')->nullable();
-	        $table->unsignedBigInteger('profession_id')->nullable();
+	        // $table->unsignedBigInteger('profession_id')->nullable();
 	        $table->string('profession')->nullable();
             $table->string('tel')->nullable();
             $table->enum('gender',['F', 'M']);

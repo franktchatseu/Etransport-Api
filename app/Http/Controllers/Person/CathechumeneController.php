@@ -31,7 +31,7 @@ class CathechumeneController extends Controller
         $this->validate($data, [
             'father_tel' => 'required',
             'godfather_tel' => 'required',
-            'profession_id' => 'required',
+            // 'profession_id' => 'required',
             'catechese_level' => 'required',
             'catechese_place' => 'required',
         ]);
@@ -39,7 +39,7 @@ class CathechumeneController extends Controller
         $cathechumene = new Cathechumene();
         $cathechumene->father_tel = $data['father_tel'];
         $cathechumene->godfather_tel = $data['godfather_tel'];
-        $cathechumene->profession_id = $data['profession_id'];
+        // $cathechumene->profession_id = $data['profession_id'];
         $cathechumene->catechese_level = $data['catechese_level'];
         $cathechumene->catechese_place = $data['catechese_place'];
         $cathechumene->birth_certificate = $data['birth_certificate'];  
@@ -135,7 +135,7 @@ class CathechumeneController extends Controller
 
         if ( $data['father_tel']) $cathechumene->father_tel = $data['father_tel'];
         if ( $data['godfather_tel']) $cathechumene->godfather_tel = $data['godfather_tel'];
-        if ( $data['profession_id']) $cathechumene->profession_id = $data['profession_id'];
+        // if ( $data['profession_id']) $cathechumene->profession_id = $data['profession_id'];
         if ( $data['catechese_level']) $cathechumene->catechese_level = $data['catechese_level'];
         if ( $data['catechese_place']) $cathechumene->catechese_place = $data['catechese_place'];
     

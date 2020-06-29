@@ -17,6 +17,7 @@ class CreateIntentionMass extends Migration
             $table->bigIncrements('id');
             $table->date('request_date');
             $table->date('intention');
+            $table->text('content')->nullable();
             $table->string('photo');
             $table->unsignedBigInteger('ammount');
             $table->enum('status',['REJECTED','PENDING','ACCEPTED']);
