@@ -8,6 +8,7 @@ use App\Models\APIError;
 use App\Models\Messagerie\ChatMemberGroup;
 use App\Models\Messagerie\ChatDiscussion;
 use App\Models\Messagerie\ChatMessageDuo;
+use App\Models\Person\User;
 use App\Models\Person\UserUtype;
 
 class ChatDiscussionController extends Controller
@@ -155,8 +156,30 @@ class ChatDiscussionController extends Controller
             return response()->json($apiError, 404);
         }
 
-        $messages = ChatMessageDuo::orderBy('id', 'DESC')
+        $messages = ChatMessageDuo::orderBy('id', 'ASC')
         ->whereChatDiscussionId($id)
+        ->select('chat_message_duos.*')
+        ->simplePaginate($request->has('limit') ? $request->limit : 15);
+        return response()->json($messages);
+    }
+
+    public function findMessages2(Request $request, $id_priest, $id_user) {
+        $user = User::find($id_priest);
+        if (!$user) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("CHATDISCUSSION_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+
+        $discutionID = ChatDiscussion::
+        where('user_utype1_id', '=', $id_priest)
+        ->orwhere('user_utype2_id', '=', $id_user);
+
+        return $discutionID;
+
+        $messages = ChatMessageDuo::orderBy('id', 'ASC')
+        ->whereChatDiscussionId($discutionID)
         ->select('chat_message_duos.*')
         ->simplePaginate($request->has('limit') ? $request->limit : 15);
         return response()->json($messages);

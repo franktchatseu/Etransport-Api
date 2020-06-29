@@ -7,6 +7,7 @@ use App\Models\APIError;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\Person\User;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -35,9 +36,10 @@ class UserController extends Controller
             'first_name' => 'required|min:2',
             'last_name' => 'required|min:2',
             'district' => 'required',
-            'password' => 'required|min:4',
-	        'profession_id' => ['required', 'exists:professions,id'],
-	    // 'profession' => ['required'],
+            'password' => 'required',
+	        //'profession_id' => ['required', 'exists:professions,id'],
+             'profession' => ['required'],
+             'gender' => 'required',
             // 'email' => ['required', 'email', Rule::unique('users', 'email')],
         ]);
 
@@ -50,26 +52,25 @@ class UserController extends Controller
         
         $user = new User();
         $user->login = $data['login'];
-        $user->email = $data['email'];
+        $user->email = $data['email'] ?? null;
         $user->password = bcrypt($data['password']);
-        $user->avatar = $data['avatar'];
+        $user->avatar = $data['avatar'] ?? null;
         $user->gender = $data['gender'];
         $user->first_name = $data['first_name'];
         $user->last_name = $data['last_name'];
-        $user->birth_date = $data['birth_date'];
-        $user->birth_place = $data['birth_place'];
+        $user->birth_date = $data['birth_date'] ?? null;
+        $user->birth_place = $data['birth_place'] ?? null;
         $user->district = $data['district'];
-        $user->is_baptisted = $data['is_baptisted'];
-        $user->baptist_date = $data['baptist_date'];
-        $user->baptist_place = $data['baptist_place'];
-        $user->language = $data['language'];
-        // $user->profession_id = $data['profession_id'];
-	    // $user->profession = $data['profession'];
-        // $user->ceb = $data['ceb'];
-        // $user->group = $data['group'];
-        // $user->post = $data['post'];
-        $user->tel = $data['tel'];
-        $user->is_married = $data['is_married'];
+        $user->is_baptisted = $data['is_baptisted'] ?? null;
+        $user->baptist_date = $data['baptist_date'] ?? null;
+        $user->baptist_place = $data['baptist_place'] ?? null;
+        $user->language = $data['language'] ?? null;
+	    $user->profession = $data['profession'];
+        // $user->ceb = $data['ceb'] ?? null;
+        // $user->group = $data['group'] ?? null;
+        // $user->post = $data['post'] ?? null;
+        $user->tel = $data['tel'] ?? null;
+        $user->is_married = $data['is_married'] ?? null;
         $user->save();
         
         return response()->json($user);
@@ -154,4 +155,66 @@ class UserController extends Controller
 
         return response()->json();
     }
+
+    function password(){
+        $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $string = '';
+        for($i=0; $i<8; $i++){
+            $string .= $chars[rand(0, strlen($chars)-1)];
+        }
+        return $string;
+    }
+  
+    public function forgotPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required'
+            ]);
+  
+          //verifier si l'utilisateur existe 
+          $email=$request['email'];
+              
+      $key='';
+      $condition=true;
+      while($condition)
+      {
+        $key=$this->password();
+        $user=User::wherePassword($key)->first();
+        if($user == null)
+        {
+          $condition=false;
+        }
+      }
+  
+      $user = User::whereEmail($email)->first();
+      if ($user == null) {
+        return response()->json([
+          'message' => 'email du user inexistants'
+            ], 404);
+         }
+         //return $user;
+
+      $us = [
+      'login' => $user->login,
+      'first_name' => $user->first_name,
+      'last_name' => $user->last_name,
+      'email' => $user->email,
+      'password' => bcrypt($key),
+      'avatar' => $user->avatar
+    
+      ];
+      $response = $user->update($us);
+      $data = [
+        'name' => $user->first_name.' '.$user->last_name,
+        'password' => $key,
+      ];
+
+      $email=$user->email;
+      Mail::send('resetpassword',$data, function($message) use($email){
+        $message->to($email,'adam')->subject('Reinitialisation du mot de passe');
+        $message->from('echurchvcam@gmail.com','');
+      });
+      return 'true';
+    }
+  
 }
