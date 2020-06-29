@@ -16,7 +16,7 @@ class StatusController extends Controller
      */
     public function index (Request $req)
     {
-        $data = Statut::simplePaginate($req->has('limit') ? $req->limit : 15);
+        $data = Statut::all();
         return response()->json($data);
     }
 

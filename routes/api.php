@@ -626,6 +626,7 @@ Route::group(['prefix' => 'associations'], function () {
         Route::get('/', 'Association\AssociationController@index');
         Route::get('/search', 'Association\AssociationController@search');
         Route::get('/{id}', 'Association\AssociationController@find');
+        Route::get('/{id}/memberBureau', 'Association\AssociationController@findWithMemberBureau');
         Route::get('/{id}/type', 'Association\AssociationController@findTypeAssociation');
         Route::get('/{id}/parish', 'Association\AssociationController@findParishAssociation');
         Route::delete('/{id}', 'Association\AssociationController@destroy');
