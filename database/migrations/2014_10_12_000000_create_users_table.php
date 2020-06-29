@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
             $table->date('baptist_date')->nullable();
             $table->boolean('is_baptisted')->nullable();
             $table->string('baptist_place')->nullable();
-            $table->string('language');
+            $table->string('language')->nullable();
             $table->boolean('is_married')->nullable();
 	        // $table->unsignedBigInteger('profession_id')->nullable();
 	        $table->string('profession')->nullable();

@@ -42,6 +42,7 @@ class UserUtypeController extends Controller
         $uutype->user_id = $data['user_id'];
         $uutype->type_id = $data['type_id'];
         $uutype->parish_id = $data['parish_id'];
+        
         $uutype->save();
        
         return response()->json($uutype);

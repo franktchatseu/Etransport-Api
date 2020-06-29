@@ -65,7 +65,7 @@ Route::group(['prefix' => 'persons'], function () {
         Route::delete('/{id}', 'Person\UserController@destroy');
     });
 
-    Route::group(['prefix' => 'user-utypes'], function () {
+    Route::group(['prefix' => 'user_utypes'], function () {
         Route::get('/', 'Person\UserUtypeController@index');
         Route::get('/search', 'Person\UserUtypeController@search');
         Route::post('/', 'Person\UserUtypeController@store');
