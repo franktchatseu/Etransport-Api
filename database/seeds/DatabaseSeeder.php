@@ -54,21 +54,21 @@ class DatabaseSeeder extends Seeder
 
     // module person
     $this->call([
-      // UserSeeder::class,
-      // UtypeSeeder::class,
-      // UserUtypeSeeder::class,
-      // ContactSeeder::class,
-      // PriestSeeder::class,
-      // AlbumSeeder::class,
-      // InputUUtypeSeeder::class,
-      // // CatechistSeeder::class,
-      // ParishionalSeeder::class,
-      // CathechumeneSeeder::class,
-      // ContactSeeder::class,
-      // AgendaSeeder::class, /*  */
-      // ParishAlbumSeeder::class,
-      // PhotoSeeder::class,
-      // UserParishSeeder::class,
+      UserSeeder::class,
+      UtypeSeeder::class,
+      UserUtypeSeeder::class,
+      ContactSeeder::class,
+      PriestSeeder::class,
+      AlbumSeeder::class,
+      InputUUtypeSeeder::class,
+      CatechistSeeder::class,
+      ParishionalSeeder::class,
+      CathechumeneSeeder::class,
+      ContactSeeder::class,
+      AgendaSeeder::class, /*  */
+      ParishAlbumSeeder::class,
+      PhotoSeeder::class,
+      UserParishSeeder::class,
     ]);
     
 
@@ -148,8 +148,8 @@ class DatabaseSeeder extends Seeder
 
     // module association
     $this->call([
-      TypeAssociationSeeder::class,
-      AssociationSeeder::class,
+      // TypeAssociationSeeder::class,
+      // AssociationSeeder::class,
     //   EvenementSeeder::class,
     //   StatutSeeder::class,
     //   MemberAssociationSeeder::class,
