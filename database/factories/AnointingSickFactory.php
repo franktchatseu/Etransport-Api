@@ -18,6 +18,5 @@ $factory->define(AnointingSick::class, function (Faker $faker) {
         'comment' => $faker->text,
         'status' => $faker->randomElement(['REJECTED','PENDING','ACCEPTED']),
 
-
     ];
 });
