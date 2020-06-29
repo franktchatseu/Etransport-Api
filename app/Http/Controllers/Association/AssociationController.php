@@ -157,4 +157,6 @@ class AssociationController extends Controller
         ->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($parishAssociation);
     }
+
+    
 }
