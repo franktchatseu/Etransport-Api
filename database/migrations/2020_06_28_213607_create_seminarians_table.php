@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUserIdFieldToPriestTable extends Migration
+class CreateSeminariansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,15 @@ class AddUserIdFieldToPriestTable extends Migration
      */
     public function up()
     {
-        Schema::table('priests', function (Blueprint $table) {
-            //
-            $table->unsignedBigInteger('user_utype_id');
+        Schema::create('seminarians', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('picture');
+            $table->string('name');
+            $table->string('description');
+            $table->bigInteger('phone');
             $table->unsignedBigInteger('parish_id');
-            $table->foreign('user_utype_id')->references('id')->on('user_utypes');
             $table->foreign('parish_id')->references('id')->on('parishs');
+            $table->timestamps();
         });
     }
 
@@ -29,8 +32,6 @@ class AddUserIdFieldToPriestTable extends Migration
      */
     public function down()
     {
-        Schema::table('priests', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('seminarians');
     }
 }

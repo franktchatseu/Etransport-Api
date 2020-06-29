@@ -24,10 +24,11 @@ class AgendaController extends Controller
 
     //methode qui retourne les agenda d'une paroisse selon une periode
 
-    public function getAgendaByHebdo($parish_id){
+    public function getAgendaByHebdo(Request $req, $parish_id){
 
         //calcul de intervalle de date de la semaine
         $parish= Parish::find($parish_id);
+      //  dd($parish);
         if (!$parish) {
             $apiError = new APIError;
             $apiError->setStatus("404");
@@ -38,12 +39,15 @@ class AgendaController extends Controller
         $now_date =  Carbon::now();
         $hebdo_date =Carbon::now()->subDays(7);
         //dd($hebdo_date);
-        $agendas = DB:: table('agendas')->where('parish_id','=',$parish_id)->whereBetween('date_agenda', array($hebdo_date, $now_date))->orderBy('date_agenda','desc')->get();
+        $agendas = DB:: table('agendas')->where('parish_id',$parish->id)->whereBetween('date_agenda', array($hebdo_date, $now_date))->orderBy('date_agenda','desc')->get()->groupBy(function($date) {
+            return Carbon::parse($date->date_agenda)->format('d'); // grouping by years
+            //return Carbon::parse($date->created_at)->format('m'); // grouping by months
+        });
         return response()->json($agendas);
     }
 
     //mensuelle
-    public function getAgendaByMensuelle($parish_id){
+    public function getAgendaByMensuelle(Request $req,$parish_id){
 
         //calcul de intervalle de date de la semaine
         $parish= Parish::find($parish_id);
@@ -56,14 +60,17 @@ class AgendaController extends Controller
         }
 
         $now_date =  Carbon::now();
-        $hebdo_date =Carbon::now()->subMonth(1);
+        $hebdo_date =Carbon::now()->subDays(30);
         //dd($hebdo_date);
-        $agendas = DB:: table('agendas')->where('parish_id','=',$parish_id)->whereBetween('date_agenda', array($hebdo_date, $now_date))->orderBy('date_agenda','desc')->get();
+        $agendas = DB:: table('agendas')->where('parish_id',$parish->id)->whereBetween('date_agenda', array($hebdo_date, $now_date))->orderBy('date_agenda','desc')->get()->groupBy(function($date) {
+            return Carbon::parse($date->date_agenda)->format('m'); // grouping by years
+            //return Carbon::parse($date->created_at)->format('m'); // grouping by months
+        });
         return response()->json($agendas);
     }
 
     //trimestrielle
-    public function getAgendaByTrimestre($parish_id){
+    public function getAgendaByTrimestre(Request $req,  $parish_id){
         $parish= Parish::find($parish_id);
         if (!$parish) {
             $apiError = new APIError;
@@ -75,9 +82,12 @@ class AgendaController extends Controller
         
         //calcul de intervalle de date de la semaine
         $now_date =  Carbon::now();
-        $hebdo_date =Carbon::now()->subMonth(3);
+        $hebdo_date =Carbon::now()->subDays(90);
         //dd($hebdo_date);
-        $agendas = DB:: table('agendas')->where('parish_id','=',$parish_id)->whereBetween('date_agenda', array($hebdo_date, $now_date))->orderBy('date_agenda','desc')->get();
+        $agendas = DB:: table('agendas')->where('parish_id',$parish->id)->whereBetween('date_agenda', array($hebdo_date, $now_date))->orderBy('date_agenda','desc')->get()->groupBy(function($date) {
+            return Carbon::parse($date->date_agenda)->format('m'); // grouping by years
+            //return Carbon::parse($date->created_at)->format('m'); // grouping by months
+        });
         return response()->json($agendas);
     }
 

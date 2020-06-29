@@ -157,4 +157,21 @@ class AssociationController extends Controller
         ->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($parishAssociation);
     }
+
+    //recuperation des associations d'une paroisse donnee
+    public function findParishAssociation(Request $req, $id)
+    {
+        $parishAssociation = Association::select('associations.id','associations.name as association_name','type_associations.name as name_type_association','type_associations.id as type_id','associations.slogan','parishs.name as name_parish')
+        ->join('parishs', 'associations.parish_id', '=', 'parishs.id' )
+        ->join('type_associations', 'associations.type_id', '=', 'type_associations.id' )
+        ->join('users', 'associations.user_id', '=', 'users.id' )
+        ->where(['associations.parish_id' => $id])
+      
+        ->simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($parishAssociation);
+    }
+
+
+
+    
 }

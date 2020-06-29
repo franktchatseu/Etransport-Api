@@ -34,6 +34,8 @@ Route::group(['prefix' => 'extras'], function () {
     Route::get('postes', 'Extra\ExtraController@getPosts');
     Route::get('groupes', 'Extra\ExtraController@getGroups');
     Route::get('cebs', 'Extra\ExtraController@getCebs');
+    Route::Post('/', 'Extra\ApplyGroupController@create');
+
 });
 
 
@@ -137,7 +139,7 @@ Route::group(['prefix' => 'persons'], function () {
         Route::get('/', 'Person\ParishionalController@index');
         Route::get('/search', 'Person\ParishionalController@search');
         Route::get('/{id}', 'Person\ParishionalController@find');
-        Route::delete('/{id}', 'Person\ParishionalController@find');
+        Route::delete('/{id}', 'Person\ParishionalController@destroy');
         Route::post('/', 'Person\ParishionalController@store');
         Route::match(['post', 'put'], '/{id}', 'Person\ParishionalController@update');
     });
@@ -163,6 +165,7 @@ Route::group(['prefix' => 'settings'], function () {
         Route::get('/', 'Setting\ParishController@index');
         Route::get('/search', 'Setting\ParishController@search');
         Route::get('/{id}', 'Setting\ParishController@find');
+        Route::get('/{id}/groupbytypes', 'Setting\ParishController@findGroupbyType');
         Route::get('/{id}/masschedules', 'Setting\ParishController@findmassSchedules');
         Route::get('/{id}/parishpatrimonies', 'Setting\ParishController@findParishPatrimonies');
         Route::get('/{id}/contact', 'Setting\ParishController@findContacts');
@@ -187,6 +190,16 @@ Route::group(['prefix' => 'settings'], function () {
         Route::delete('/{id}', 'Setting\ParishPatrimonyController@delete');
         Route::post('/', 'Setting\ParishPatrimonyController@store');
         Route::match(['post', 'put'], '/{id}', 'Setting\ParishPatrimonyController@update');
+    });
+
+    Route::group(['prefix' => 'seminarians'], function () {
+        Route::get('/', 'Setting\SeminarianController@index');
+        Route::get('/search', 'Setting\SeminarianController@search');
+        Route::get('/{id}', 'Setting\SeminarianController@find');
+        Route::get('/parish/{id}', 'Setting\SeminarianController@parishSeminarians');
+        Route::delete('/{id}', 'Setting\SeminarianController@destroy');
+        Route::post('/', 'Setting\SeminarianController@store');
+        Route::match(['post', 'put'], '/{id}', 'Setting\SeminarianController@update');
     });
 
     Route::group(['prefix' => 'albums'], function () {
@@ -613,6 +626,7 @@ Route::group(['prefix' => 'associations'], function () {
         Route::get('/search', 'Association\AssociationController@search');
         Route::get('/{id}', 'Association\AssociationController@find');
         Route::get('/{id}/type', 'Association\AssociationController@findTypeAssociation');
+        Route::get('/{id}/parish', 'Association\AssociationController@findParishAssociation');
         Route::delete('/{id}', 'Association\AssociationController@destroy');
         Route::post('/', 'Association\AssociationController@store');
         Route::match(['post', 'put'], '/{id}', 'Association\AssociationController@update');
