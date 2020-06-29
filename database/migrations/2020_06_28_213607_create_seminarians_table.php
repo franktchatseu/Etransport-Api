@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateObjectMakingAppointmentsTable extends Migration
+class CreateSeminariansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class CreateObjectMakingAppointmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('object_making_appointments', function (Blueprint $table) {
+        Schema::create('seminarians', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('type', ['MASS', 'APPOINTMENT', 'MASS_ASKING']);
-            $table->text('description')->nullable();
-            $table->string('label')->unique();
+            $table->string('picture');
+            $table->string('name');
+            $table->string('description');
+            $table->bigInteger('phone');
+            $table->unsignedBigInteger('parish_id');
+            $table->foreign('parish_id')->references('id')->on('parishs');
             $table->timestamps();
         });
     }
@@ -29,6 +32,6 @@ class CreateObjectMakingAppointmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('object_making_appointment');
+        Schema::dropIfExists('seminarians');
     }
 }

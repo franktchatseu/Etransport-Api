@@ -13,8 +13,8 @@ class ObjectRequestMassSeeder extends Seeder
     public function run(\Faker\Generator $faker)
     {
         //
-        factory(ObjectRequestMass::class, 100)->make()->each(function ($usersacrment) use ($faker) {
-            $usersacrment->save();
+        factory(ObjectRequestMass::class, 100)->make()->each(function ($objectrequestmass) use ($faker) {
+            $objectrequestmass->save();
         });
     }
 }

@@ -13,10 +13,10 @@ $factory->define(AnointingSick::class, function (Faker $faker) {
         'quater' => $faker->streetName(),
         'disease_nature' => $faker->sentence,
         'is_baptisted' => $faker->boolean(),
-        'request_date' => $faker->date(),
+        'hour' => $faker->time(),
+        'date' => $faker->date(),
         'comment' => $faker->text,
         'status' => $faker->randomElement(['REJECTED','PENDING','ACCEPTED']),
-
 
     ];
 });

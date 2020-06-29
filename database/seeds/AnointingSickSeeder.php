@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\Request\AnointingSick;
-use App\Models\Request\UserUtype;
+use App\Models\Person\UserUtype;
 
 
 class AnointingSickSeeder extends Seeder

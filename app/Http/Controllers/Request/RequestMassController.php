@@ -9,91 +9,118 @@ use App\Models\APIError;
 
 class RequestMassController extends Controller
 {
-    public function create (Request $request){
-        $request->validate([
-            'request_hour' => 'required',
-            'request_date' => 'required',
+   /**
+     * Display a list of Anointing Sick from database
+     * @author Brell Sanwouo
+     * @email sanwouobrell@gmail.com
+     * @param  \Illuminate\Http\Request  $req
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $req)
+    {
+        $data = RequestMass::simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($data);
+    }
+
+
+    /**
+     * Create an Anointing Sick on database
+     * @author Brell Sanwouo
+     * @email sanwouobrell@gmail.com
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $datas = $request->except('photo');
+        $this->validate($datas, [
+            'hour' => 'required',
+            'date' => 'required',
             'place' => 'required',
+            'description' => 'required',
+            'amount' => 'required',
             'object_id' => 'required',
             'person_id' => 'required',
-            'state' => 'required|in:PENDING,APPROVED,REJECTED'
+            'priest_id' => 'required',
         ]);
-        
-        $data = $request->only([  
-            'request_hour', 
-            'request_date',
-            'place',
-            'state',
-            'object_id',
-            'person_id'
-        ]);
-        $appointment = RequestMass::create($data);
-        return response()->json($appointment);
+
+        $data = new RequestMass();
+        $data->hour = $datas['hour'];
+        $data->date = $datas['date'];
+        $data->place = $datas['place'];
+        $data->description = $datas['description'];
+        $data->amount = $datas['amount'];
+        $data->object_id = $datas['object_id'];
+        $data->person_id = $datas['person_id'];
+        $data->priest_id = $datas['priest_id'];
+        $data->status = 'PENDING';
+
+        $data->save();
+
+        return response()->json($data);
     }
 
-    public function update(Request $request, $id){
-        $appointment = RequestMass::find($id);
-        if($appointment == null){
-            $apiError = new APIError();
+    /**
+     * Update an Anointing Sick on database
+     * @author Brell Sanwouo
+     * @email sanwouobrell@gmail.com
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $req, $id)
+    {
+        $data = RequestMass::find($id);
+        if (!$data) {
+            $apiError = new APIError;
             $apiError->setStatus("404");
-            $apiError->setCode("RequestMass_ID_NOT_EXISTING");
-            $apiError->setErrors(['id' => 'RequestMass id not existing']);
-
+            $apiError->setCode("RequestMass_NOT_FOUND");
             return response()->json($apiError, 404);
         }
-        
-        $request->validate([
-            'state' => 'required|in:PENDING,APPROVED,REJECTED',
-        ]);
 
-        $data = $request->only([
-            'request_hour', 
-            'request_date',
-            'place',
-            'state',
-            'object_id',
-            'person_id'
-        ]);
+        $datas = $req->except('photo');
 
-        $appointment->update($data);
-        return response()->json($appointment);
+        if (null !== $data['hour']) $data->hour = $datas['hour'];
+        if (null !== $data['date']) $data->date = $datas['date'];
+        if (null !== $data['place']) $data->place = $datas['place'];
+        if (null !== $data['description']) $data->description = $datas['description'];
+        if (null !== $data['amount']) $data->amount = $datas['amount'];
+        if (null !== $data['object_id']) $data->object_id = $datas['object_id'];
+        if (null !== $data['priest_id']) $data->priest_id = $datas['priest_id'];
+        if (null !== $data['status']) $data->status = $datas['status'];
+
+        $data->update();
+
+        return response()->json($data);
     }
 
-    public function find($id){
-        $appointment = RequestMass::find($id);
-        if($appointment == null) {
-            $unauthorized = new APIError;
-            $unauthorized->setStatus("404");
-            $unauthorized->setCode("Request_NOT_FOUND");
-            $unauthorized->setMessage("Request mass id not existing");
-
-            return response()->json($unauthorized, 404); 
+    /**
+     * Remove an Anointing Sick from database
+     * @author Brell Sanwouo
+     * @email sanwouobrell@gmail.com
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        if (!$data = RequestMass::find($id)) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("RequestMass_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
-        return response()->json($appointment);
+        $data->delete();
+        return response()->json();
     }
 
-    public function get(Request $request){
-        $limit = $request->limit;
-        $page = $request->page; 
-        $appointments = RequestMass::simplePaginate($request->has('limit') ? $req->limit : 15);
-        return response()->json($appointments);
-    }
-
-
-    public function delete($id){
-        $appointment = RequestMass::find($id);
-        if($appointment ==null){
-            $unauthorized = new APIError;
-            $unauthorized->setStatus("404");
-            $unauthorized->setCode("Request_NOT_FOUND");
-            $unauthorized->setMessage("Request not found with id $id");
-            return response()->json($unauthorized, 404); 
-        }
-        $appointment->delete($appointment);
-        return null;
-    }
-
+    /**
+     * Search an Anointing Sick from database
+     * @author Brell Sanwouo
+     * @email sanwouobrell@gmail.com
+     * @param  \Illuminate\Http\Request  $req
+     * @return \Illuminate\Http\Response
+     */
     public function search(Request $req)
     {
         $this->validate($req->all(), [
@@ -105,17 +132,35 @@ class RequestMassController extends Controller
             ->get();
 
         return response()->json($data);
-    } 
+    }
+
+    /**
+     * Find an Anointing Sick from database
+     * @author Brell Sanwouo
+     * @email sanwouobrell@gmail.com
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function find($id)
+    {
+        if (!$data = RequestMass::find($id)) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("RequestMass_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+        return response()->json($data);
+    }
 
     public function findAllForUser(Request $req, $id)
     {
-        $evenement = RequestMass::wherePerson_id($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
-        if (!$evenement) {
+        $data = RequestMass::wherePerson_id($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
+        if (!$data) {
             $apiError = new APIError;
             $apiError->setStatus("404");
-            $apiError->setCode("Request_NOT_FOUND");
+            $apiError->setCode("RequestMass_NOT_FOUND");
             return response()->json($apiError, 404);
         }
-        return response()->json($evenement);
+        return response()->json($data);
     }
 }

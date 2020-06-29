@@ -8,9 +8,9 @@ use Faker\Generator as Faker;
 $factory->define(MakingAppointment::class, function (Faker $faker) {
     return [
         //
-        'request_hour' => $faker->time,
-        'request_date'=> $faker->date,
-        'request_comment'=> $faker->sentence,
-        'state' => 'PENDING',
+        'hour' => $faker->time,
+        'date'=> $faker->date,
+        'comment'=> $faker->sentence,
+        'status' => $faker->randomElement(['PENDING', 'APPROVED', 'REJECTED']),
     ];
 });

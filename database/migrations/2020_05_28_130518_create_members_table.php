@@ -21,9 +21,9 @@ class CreateMembersTable extends Migration
             $table->boolean('has_win');
             $table->string('regnum')->unique(); # matricule
             $table->enum('status',['REJECTED','PENDING','ACCEPTED']);
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_utype_id');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_utype_id')->references('id')->on('user_utypes');
         });
     }
 

@@ -14,8 +14,8 @@ class MemberSeeder extends Seeder
     public function run(\Faker\Generator $faker)
     {
         factory(Member::class, 100)->make()->each(function ($member) use ($faker) {
-            $users = App\Models\Person\User::all();
-            $member->user_id = $faker->randomElement($users)->id;
+            $user_utypes = \App\Models\Person\UserUtype::all();
+            $member->user_utype_id = $faker->randomElement($user_utypes)->id;
             $member->save();
         });
     }

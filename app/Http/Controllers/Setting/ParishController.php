@@ -5,12 +5,19 @@ namespace App\Http\Controllers\Setting;
 use App\Http\Controllers\Controller;
 use App\Models\APIError;
 use App\Models\Setting\Album;
+use App\Models\Setting\Photo;
 use App\Models\Setting\Contact;
 use App\Models\Setting\MassShedule;
 use App\Models\Setting\Parish;
 use App\Models\Setting\ParishAlbum;
+use App\Models\Person\Parishional;
+use App\Models\Person\Priest;
 use App\Models\Setting\ParishPatrimony;
 use Illuminate\Http\Request;
+use App\Models\Extra\Group;
+use Illuminate\Support\Facades\DB;
+
+
 
 class ParishController extends Controller
 {
@@ -157,8 +164,7 @@ class ParishController extends Controller
 
     public function findWithAlbum(Request $req, $id)
     {
-        $parish = Parish::where($id);
-
+        $parish = Parish::where($id)->get();
         if (!$parish) {
             $apiError = new APIError;
             $apiError->setStatus("404");
@@ -166,14 +172,42 @@ class ParishController extends Controller
             return response()->json($apiError, 404);
         }
 
-         $album = ParishAlbum::select('parish_albums.*', 'parish_albums.id as parish_album_id', 'albums.*', 'albums.id as id_album')
-            ->join('albums', 'parish_albums.album_id', '=', 'albums.id')
-            ->where(['parish_albums.parish_id' => $id])
-            ->simplePaginate($req->has('limit') ? $req->limit : 15);
-           
+        //recuperation du nombre total de fidel
+        $countparish = Parishional::select(Parishional::raw('count(*) as total'))->first();
+        $nbreofparish = $countparish['total'];
+        $albums = Photo::select('photos.*')
+        ->join('albums', ['albums.id' => 'photos.album_id'])
+        ->join('parish_albums', ['parish_albums.album_id' => 'albums.id'])
+        ->join('parishs', ['parishs.id' => 'parish_albums.parish_id'])
+        ->where('parishs.id', '=',$id)
+        ->get();
+        //on ajoute le chemin du backend
+        foreach ($albums as $album) {
+           $album->picture =  url($album->picture);
+        }
+        //recuperation du cure de la paroisse
+        $priest = Priest::where('parish_id','=',$id)->get();
+        //recuperation du patrimoine paroissiale
+        $patrimonie = ParishPatrimony::where('parish_id','=',$id)->get();
 
-        
-            return response()->json($album);
+        return response()->json([
+            'parish' => [
+                'name' =>  $parish->name,
+                'logo' =>  url($parish->logo),
+                'nb_paroissien' =>  $nbreofparish,
+                'decision_creation' => $parish->decision_creation,
+                'nb_structure'   => $parish->nbr_of_structure,
+                'nb_service' => $parish->nbr_of_service,
+                'nb_group' => $parish->nbr_of_group,
+                'nb_ceb' => $parish->nbr_of_ceb,
+                'nb_station' => $parish->nbr_of_station,
+                'nb_seminariste' => $parish->nbr_of_seminarist,
+            ],
+            'priest' => $priest,
+            'photos' => $albums,
+            'patrimonies' => $patrimonie
+        ]);
+
     }
 
     public function findParishAlbum(Request $req, $id)
@@ -205,5 +239,37 @@ class ParishController extends Controller
         }
         return response()->json($contact);
     }
+
+    public function findGroupbyType(Request $req, $id)
+    {
+        $parish = Parish::find($id);
+        if (!$parish) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+
+        //$groups = Group::whereParishId($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
+        
+        $groups= Group::select('groups.*',
+                                'grouptypes.id as grouptype_id'
+                                )
+        ->join('grouptypes','groups.grouptypes_id','=','grouptypes.id')
+        //->join('grouptypes','groups.grouptypes_id','=','grouptypes.id')
+        ->where(['groups.parishs_id' =>$id])
+        ->simplePaginate($req->has('limit') ? $req->limit : 15);
+
+        /*$groups = DB::table('groups')
+                ->join('grouptypes','grouptypes.id','=','groups.grouptypes_id')
+                ->join('parishs','parishs.id','=','groups.parishs_id')
+                ->select('groups.*','parishs.name as parish','grouptypes.nom as grouptypes')
+                ->where('groups.parishs_id','=',$id)
+                ->simplePaginate($req->has('limit') ? $req->limit : 15);*/
+      
+        return response()->json($groups);
+    }
+
+   
 
 }
