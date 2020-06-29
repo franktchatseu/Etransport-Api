@@ -149,7 +149,7 @@ class MemberAssociationController extends Controller
         $memberAssociation = MemberAssociation::select('member_associations.*','member_associations.id as member_association_id','associations.*')
         ->join('associations', 'member_associations.association_id', '=', 'associations.id' )
         //->join('users', 'member_associations.user_id', '=', 'users.id' )
-        ->where(['member_associations.user_id' => $id])
+        ->where(['member_associations.user_utype_id' => $id])
         ->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($memberAssociation);
     }
