@@ -15,16 +15,16 @@ class CreateReportProblemsTable extends Migration
     { 
         Schema::create('report_problems', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('utype_id');
-            $table->string('nature')->nullable();
-            $table->string('concerne');
-            $table->text('details')->nullable();
+            $table->unsignedBigInteger('person_id');
+            $table->text('nature');
+            $table->text('concern');
+            $table->text('details');
             $table->string('image')->nullable();
-            $table->enum('state', ['PENDING', 'APPROVED', 'REJECTED'])->default('PENDING');
+            $table->enum('status', ['PENDING', 'APPROVED', 'REJECTED'])->default('PENDING');
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreign('utype_id')->references('id')->on('utypes')
+            $table->foreign('person_id')->references('id')->on('user_utypes')
                 ->onDelete('cascade')->onUpdate('cascade') ; 
         });
     }

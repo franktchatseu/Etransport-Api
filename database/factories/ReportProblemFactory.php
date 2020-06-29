@@ -6,8 +6,8 @@ use App\Models\Request\ReportProblem;
 use Faker\Generator as Faker;
 $factory->define(ReportProblem::class, function (Faker $faker) {
     return [
-        'nature' => $faker->sentence(),
-        'concerne' => $faker->sentence(),
+        'nature' => $faker->name(),
+        'concern' => $faker->name(),
         'details' => $faker->paragraph(),
         'image' => $faker->imageUrl('https://www.paroissesaintjeandedeido.org/images/IMAGES_PSJD/PSJD/ParoisseSaintJeanDeido.jpg'),
     ];

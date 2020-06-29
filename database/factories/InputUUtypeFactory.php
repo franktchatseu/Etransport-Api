@@ -12,6 +12,8 @@ $factory->define(InputUUtype::class, function (Faker $faker) {
         'city' => $faker->sentence,
         'country' => $faker->sentence,
         'pseudo' => $faker->sentence,
+        'status' => $faker->boolean(),
+        'bill_url' => url('uploads/blogs/blogs.5edba4d14f1dc5.78797280.png'),
         'transaction_id' => $faker->numberBetween(1,100),
         'provenance' => $faker->sentence
     ];

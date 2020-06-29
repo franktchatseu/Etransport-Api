@@ -10,73 +10,101 @@ use App\Models\APIError;
 
 class SettingRequestController extends Controller
 {
-    public function index (Request $req)
+   /**
+     * Display a list of Anointing Sick from database
+     * @author Brell Sanwouo
+     * @email sanwouobrell@gmail.com
+     * @param  \Illuminate\Http\Request  $req
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $req)
     {
         $data = SettingRequest::simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($data);
     }
 
- 
+    /**
+     * Create an Anointing Sick on database
+     * @author Brell Sanwouo
+     * @email sanwouobrell@gmail.com
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
-        $data = $request->all();
-
-        $this->validate($data, [
+        $datas = $request->all();
+        $this->validate($datas, [
             'slug' => 'required',
             'amount' => 'required',
+            'goodToKnow' => 'required',
         ]);
 
-        $data = array_merge($data, $request->only([
-            'slug', 
-            'amount', 
-            'goodToKnow']));
-        $SettingRequest = SettingRequest::create($data);
-        return response()->json($SettingRequest);
-    }
+        $data = new SettingRequest();
+        $data->slug = $datas['slug'];
+        $data->amount = $datas['amount'];
+        $data->goodToKnow = $datas['goodToKnow'];
 
+        $data->save();
 
-    public function update(Request $request, $id)
-    {
-        $SettingRequest = SettingRequest::find($id);
-        if (!$SettingRequest) {
-            $apiError = new APIError;
-            $apiError->setStatus("404");
-            $apiError->setCode("ASSOCIATION_NOT_FOUND");
-            return response()->json($apiError, 404);
-        }
-
-        $data = $request->all();
-
-        $this->validate($data, [
-            'amount' => 'required',
-        ]);
-
-        $data = array_merge($data, $request->only([
-            'amount', 
-            'goodToKnow']));
-        $SettingRequest = SettingRequest::create($data);
-        return response()->json($SettingRequest);
+        return response()->json($data);
     }
 
     /**
+     * Update an Anointing Sick on database
+     * @author Brell Sanwouo
+     * @email sanwouobrell@gmail.com
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $req, $id)
+    {
+        $data = SettingRequest::find($id);
+        if (!$data) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("SettingRequest_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+
+        $datas = $req->all();
+
+        if (null !== $data['slug']) $data->slug = $datas['slug'];
+        if (null !== $data['amount']) $data->amount = $datas['amount'];
+        if (null !== $data['goodToKnow']) $data->goodToKnow = $datas['goodToKnow'];
+
+        $data->update();
+
+        return response()->json($data);
+    }
+
+    /**
+     * Remove an Anointing Sick from database
+     * @author Brell Sanwouo
+     * @email sanwouobrell@gmail.com
      * @param  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $evenement = SettingRequest::find($id);
-        if (!$evenement) {
+        if (!$data = SettingRequest::find($id)) {
             $apiError = new APIError;
             $apiError->setStatus("404");
-            $apiError->setCode("EVENEMENT_NOT_FOUND");
+            $apiError->setCode("SettingRequest_NOT_FOUND");
             return response()->json($apiError, 404);
         }
 
-        $evenement->delete();      
+        $data->delete();
         return response()->json();
     }
 
-
+    /**
+     * Search an Anointing Sick from database
+     * @author Brell Sanwouo
+     * @email sanwouobrell@gmail.com
+     * @param  \Illuminate\Http\Request  $req
+     * @return \Illuminate\Http\Response
+     */
     public function search(Request $req)
     {
         $this->validate($req->all(), [
@@ -85,32 +113,38 @@ class SettingRequestController extends Controller
         ]);
 
         $data = SettingRequest::where($req->field, 'like', "%$req->q%")
-        ->simplePaginate($req->has('limit') ? $req->limit : 15);
+            ->get();
 
         return response()->json($data);
     }
 
+    /**
+     * Find an Anointing Sick from database
+     * @author Brell Sanwouo
+     * @email sanwouobrell@gmail.com
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
     public function find($id)
     {
-        $evenement = SettingRequest::find($id);
-        if (!$evenement) {
+        if (!$data = SettingRequest::find($id)) {
             $apiError = new APIError;
             $apiError->setStatus("404");
-            $apiError->setCode("EVENEMENT_NOT_FOUND");
+            $apiError->setCode("SettingRequest_NOT_FOUND");
             return response()->json($apiError, 404);
         }
-        return response()->json($evenement);
+        return response()->json($data);
     }
 
-    public function findSlug(Request $req, $slug)
+    public function findBySlug(Request $req, $id)
     {
-        $evenement = SettingRequest::whereSlug($slug)->simplePaginate($req->has('limit') ? $req->limit : 15);
-        if (!$evenement) {
+        $data = SettingRequest::whereSlug($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
+        if (!$data) {
             $apiError = new APIError;
             $apiError->setStatus("404");
-            $apiError->setCode("EVENEMENT_NOT_FOUND");
+            $apiError->setCode("SettingRequest_NOT_FOUND");
             return response()->json($apiError, 404);
         }
-        return response()->json($evenement);
+        return response()->json($data);
     }
 }

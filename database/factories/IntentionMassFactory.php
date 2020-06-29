@@ -7,11 +7,11 @@ use Faker\Generator as Faker;
 
 $factory->define(IntentionMass::class, function (Faker $faker) {
     return [
-        'ammount' => $faker->randomNumber($nbDigits=8),
-        'request_date' => $faker->date(),
-        'intention' => $faker->date(),
-        'photo' => url('uploads/blogs/blogs.5edba4d14f1dc5.78797280.png'),
+        'mass' => $faker->name(),
+        'content' => $faker->text(),
+        'amount' => $faker->numberBetween(10, 100000),
+        'date' => $faker->date(),
+        'intention' => $faker->text(),
         'status' => $faker->randomElement(['REJECTED','PENDING','ACCEPTED']),
-
     ];
 });

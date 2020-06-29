@@ -9,6 +9,7 @@ use App\Models\Setting\Photo;
 use App\Models\Setting\Contact;
 use App\Models\Setting\MassShedule;
 use App\Models\Setting\Parish;
+use App\Models\Setting\ParishAlbum;
 use App\Models\Person\Parishional;
 use App\Models\Person\Priest;
 use App\Models\Setting\ParishPatrimony;
@@ -157,6 +158,20 @@ class ParishController extends Controller
             $apiError->setCode("PARISH_NOT_FOUND");
             return response()->json($apiError, 404);
         }
+        
+        return response()->json($parish); 
+    }
+
+    public function findWithAlbum(Request $req, $id)
+    {
+        $parish = Parish::where($id)->get();
+        if (!$parish) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PARISH_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+
         //recuperation du nombre total de fidel
         $countparish = Parishional::select(Parishional::raw('count(*) as total'))->first();
         $nbreofparish = $countparish['total'];
@@ -192,8 +207,6 @@ class ParishController extends Controller
             'photos' => $albums,
             'patrimonies' => $patrimonie
         ]);
-
-
 
     }
 

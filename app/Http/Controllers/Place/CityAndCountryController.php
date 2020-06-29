@@ -11,7 +11,7 @@ use App\Models\APIError;
 class CityAndCountryController extends Controller
 {
     public function countries() {
-        $cities = City::get();
+        $cities = Country::get();
         return response()->json($cities);
     }
 

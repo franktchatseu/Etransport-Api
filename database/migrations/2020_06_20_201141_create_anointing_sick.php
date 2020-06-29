@@ -22,7 +22,8 @@ class CreateAnointingSick extends Migration
             $table->string('disease_nature');
             $table->boolean('is_baptisted')->default(false);
             $table->string('avatar')->nullable();
-            $table->date('request_date'); 
+            $table->date('date'); 
+            $table->string('hour');
             $table->text('comment');
             $table->unsignedBigInteger('person_id');
             $table->enum('status',['REJECTED','PENDING','ACCEPTED']);

@@ -15,6 +15,7 @@ class CreateObjectMakingAppointmentsTable extends Migration
     {
         Schema::create('object_making_appointments', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->enum('type', ['MASS', 'APPOINTMENT', 'MASS_ASKING']);
             $table->text('description')->nullable();
             $table->string('label')->unique();
             $table->timestamps();

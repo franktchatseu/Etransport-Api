@@ -16,6 +16,7 @@ class CreateInputUutypeTable extends Migration
         Schema::create('input_uutypes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_utype_id');
+            $table->unsignedBigInteger('parish_id');
             $table->unsignedBigInteger('input_id');
             $table->unsignedBigInteger('transaction_id');
             $table->unsignedBigInteger('amount');
@@ -24,8 +25,11 @@ class CreateInputUutypeTable extends Migration
             $table->string('provenance');
             $table->string('country');
             $table->string('pseudo');
+            $table->boolean('status')->default(true);
+            $table->string('bill_url');
             $table->timestamps();
             $table->foreign('user_utype_id')->references('id')->on('user_utypes');
+            $table->foreign('parish_id')->references('id')->on('parishs');
             $table->foreign('input_id')->references('id')->on('inputs');
         });
     }
