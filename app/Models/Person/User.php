@@ -10,6 +10,79 @@ use Laravel\Passport\HasApiTokens;
 use Illuminate\Support\Str;
 use DB;
 
+
+/**
+ * @OA\Schema(
+ *  title="User",
+ *  required={"first_name", "password", "email", "is_citizen", "category_id"},
+ *  @OA\Property(
+ *      property="id",
+ *      type="int",
+ *      description="Unique ID",
+ *      example="1"
+ *  ),
+ *  @OA\Property(
+ *      property="first_name",
+ *      type="string",
+ *      description="User's first name",
+ *      example="John"
+ *  ),
+ *  @OA\Property(
+ *      property="last_name",
+ *      type="string",
+ *      description="User's last name",
+ *      example="Doe"
+ *  ),
+ *  @OA\Property(
+ *      property="email",
+ *      type="string",
+ *      description="E-mail address",
+ *      example="johndoe@gmail.com"
+ *  ),
+ *  @OA\Property(
+ *      property="tel",
+ *      type="string",
+ *      description="Phone number",
+ *      example="+237673173481"
+ *  ),
+ *  @OA\Property(
+ *      property="last_login",
+ *      type="timestamp",
+ *      description="User's last login date. <b style='color:red;'>readonly</b>",
+ *      example="2019-10-14 12:00:00"
+ *  ),
+ *  @OA\Property(
+ *      property="expired_at",
+ *      type="timestamp",
+ *      description="User's account expiration date",
+ *      example="2019-10-14 12:00:00"
+ *  ),
+ *  @OA\Property(
+ *      property="password",
+ *      type="string",
+ *      description="User's password",
+ *      example="******"
+ *  ),
+ *  @OA\Property(
+ *      property="avatar",
+ *      type="string",
+ *      description="User's url picture",
+ *      example="http://localhost:8000/uploads/users/exampl.jpg"
+ *  ),
+ *  @OA\Property(
+ *      property="created_at",
+ *      type="timestamp",
+ *      description="User's creation date <b style='color:red;'>readonly</b>",
+ *      example="2019-10-14 12:00:00"
+ *  ),
+ *  @OA\Property(
+ *      property="updated_at",
+ *      type="timestamp",
+ *      description="Last time user has been updated <b style='color:red;'>readonly</b>",
+ *      example="2019-10-14 12:00:00"
+ *  )
+ * )
+ */
 class User extends Authenticatable
 {
     use LaratrustUserTrait;
