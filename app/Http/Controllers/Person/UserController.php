@@ -134,10 +134,7 @@ class UserController extends Controller
         if (isset($data['district'])) $user->district = $data['district'];
         if (isset($data['tel'])) $user->tel = $data['tel'];
         if (isset($data['language'])) $user->language = $data['language'];
-        if (isset($data['ceb'])) $user->ceb = $data['ceb'];
-        if (isset($data['group'])) $user->group = $data['group'];
-        if (isset($data['post'])) $user->post = $data['post'];
-
+        
         $user->update();
 
         return response()->json($user);
