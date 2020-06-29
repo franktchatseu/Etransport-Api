@@ -174,7 +174,7 @@ class ParishController extends Controller
         return response()->json([
             'parish' => [
                 'name' =>  $parish->name,
-                'logo' =>  $parish->logo,
+                'logo' =>  url($parish->logo),
                 'nb_paroissien' =>  $nbreofparish,
                 'decision_creation' => $parish->decision_creation,
                 'nb_structure'   => $parish->nbr_of_structure,
