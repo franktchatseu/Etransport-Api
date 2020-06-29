@@ -15,13 +15,13 @@ class CreateSeminariansTable extends Migration
     {
         Schema::create('seminarians', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('parish_id');
             $table->string('picture');
             $table->string('name');
             $table->string('description');
             $table->bigInteger('phone');
-            $table->timestamps();
+            $table->unsignedBigInteger('parish_id');
             $table->foreign('parish_id')->references('id')->on('parishs');
+            $table->timestamps();
         });
     }
 

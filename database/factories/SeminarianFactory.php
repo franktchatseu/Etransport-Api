@@ -9,7 +9,7 @@ $factory->define(Seminarian::class, function (Faker $faker) {
     return [
         'picture' => json_encode(['https://picsum.photos/200/300']),
         'name' => $faker->sentence(),
-        'description' => $faker->text(),
-        'phone' => $faker->bigInteger(),
+        'description' => $faker->sentence(),
+        'phone' => $faker->numberBetween(1,100),
     ];
 });

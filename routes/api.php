@@ -184,6 +184,16 @@ Route::group(['prefix' => 'settings'], function () {
         Route::match(['post', 'put'], '/{id}', 'Setting\ParishPatrimonyController@update');
     });
 
+    Route::group(['prefix' => 'seminarians'], function () {
+        Route::get('/', 'Setting\SeminarianController@index');
+        Route::get('/search', 'Setting\SeminarianController@search');
+        Route::get('/{id}', 'Setting\SeminarianController@find');
+        Route::get('/parish/{id}', 'Setting\SeminarianController@parishSeminarians');
+        Route::delete('/{id}', 'Setting\SeminarianController@destroy');
+        Route::post('/', 'Setting\SeminarianController@store');
+        Route::match(['post', 'put'], '/{id}', 'Setting\SeminarianController@update');
+    });
+
     Route::group(['prefix' => 'albums'], function () {
         Route::get('/', 'Setting\AlbumController@index');
         Route::get('/{id}', 'Setting\AlbumController@find');
