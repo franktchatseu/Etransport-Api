@@ -259,7 +259,7 @@ class InputUUtypeController extends Controller
             return response()->json($notFound, 404);
         }
         if($req->parish_id){
-            $transaction = InputUUtype::select('input_uutypes.*')
+            $transaction = InputUUtype::select('input_uutypes.*','natures.*')
             ->join('user_utypes', 'input_uutypes.user_utype_id', '=', 'user_utypes.id')
             ->join('users', 'user_utypes.user_id', '=', 'users.id')
             ->join('parishs', 'input_uutypes.parish_id', '=', 'parishs.id')
@@ -314,7 +314,7 @@ class InputUUtypeController extends Controller
 
             return response()->json($notFound, 401);
         }
-            $transaction = InputUUtype::select('input_uutypes.*')
+            $transaction = InputUUtype::select('input_uutypes.*','natures.*')
                 ->join('inputs', 'input_uutypes.input_id', '=', 'inputs.id')
                 ->join('natures', 'inputs.nature_id', '=', 'natures.id')
                 ->join('parishs', 'input_uutypes.parish_id', '=', 'parishs.id')
