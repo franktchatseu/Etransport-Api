@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePlaningsTable extends Migration
+class CreatePriestPlaningsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,22 +13,17 @@ class CreatePlaningsTable extends Migration
      */
     public function up()
     {
-        Schema::create('planings', function (Blueprint $table) {
+        Schema::create('priest_planings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->date('date');
-            $table->date('date_start');
-            $table->date('date_end');
-            $table->string('nature');
             $table->string('description');
+            $table->date('date');
             $table->unsignedBigInteger('user_utype_id');
-            $table->string('place');
-            $table->string('activity');
-            $table->string('activityPro');
-            $table->softDeletes();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('time_id');
             $table->timestamps();
-
             $table->foreign('user_utype_id')->references('id')->on('user_utypes');
-
+            $table->foreign('user_id')->references('id')->on('users');
+            
         });
     }
 
@@ -39,6 +34,6 @@ class CreatePlaningsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('planings');
+        Schema::dropIfExists('priest_planings');
     }
 }

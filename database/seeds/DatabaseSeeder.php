@@ -241,8 +241,15 @@ class DatabaseSeeder extends Seeder
           //      EventPresenceMemberAssociationSeeder::class,
           // ]);
 
-          // module statistic
-          $this->call([]);
+         // module Planification
+         $this->call([
+           TypePlaningSeeder::class,
+           PlaningSeeder::class,
+           PriestPlaningSeeder::class,
+           TimeSeeder::class,
+        //   AssociationPlaningSeeder::class,
+          UserPlaningSeeder::class
+        ]);
 
           // module sacrament
           $this->call([

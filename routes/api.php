@@ -21,13 +21,13 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('token', 'AuthController@login');
     Route::post('persons/users', 'Person\UserController@create');
 
-    Route::group(['middleware' => 'auth:api'], function () {
+    //Route::group(['middleware' => 'auth:api'], function () {
         Route::get('user', 'AuthController@user');
         Route::delete('token', 'AuthController@logout');
         Route::get('permissions', 'AuthController@permissions');
         Route::get('roles', 'AuthController@roles');
         Route::get('teams', 'AuthController@teams');
-    });
+    //});
 });
 
 Route::group(['prefix' => 'extras'], function () {
@@ -77,6 +77,7 @@ Route::group(['prefix' => 'persons'], function () {
     Route::group(['prefix' => 'catechists'], function () {
         Route::get('/','Person\CatechistController@get');
         Route::get('/{id}', 'Person\CatechistController@find');
+        Route::get('/{id}', 'Person\CatechistController@Search');
         Route::delete('/{id}', 'Person\CatechistController@destroy');
         Route::match(['post','put'],'/{id}', 'Person\CatechistController@update');
         Route::post('/', 'Person\CatechistController@create');
@@ -691,6 +692,26 @@ Route::group(['prefix' => 'planification'],function (){
         Route::delete('/{id}', 'Planification\TypePlaningController@destroy');
     });
 
+    Route::group(['prefix' => 'priestplanings'],function (){
+        Route::get('/', 'Planification\PriestPlaningController@index');
+        Route::get('/search', 'Planification\PriestPlaningController@search');
+        Route::get('/{id}/{data}', 'Planification\PriestPlaningController@findPriestPlaning');
+        Route::get('/{data}', 'Planification\PriestPlaningController@findPriest');
+        Route::get('/{id}', 'Planification\PriestPlaningController@find');
+        Route::post('/{id}', 'Planification\PriestPlaningController@update');
+        Route::post('/create/{id}', 'Planification\PriestPlaningController@create');
+        Route::delete('/{id}', 'Planification\PriestPlaningController@destroy');
+    });
+    
+    Route::group(['prefix' => 'times'],function (){
+        Route::get('/', 'Planification\TimesController@index');
+        Route::get('/search', 'Planification\TimesController@search');
+        Route::get('/{id}/planings', 'Planification\TimesController@findPlaning');
+        Route::get('/{id}', 'Planification\TimesController@find');
+        Route::post('/{id}', 'Planification\TimesController@update');
+        Route::post('/', 'Planification\TimesController@create');
+        Route::delete('/{id}', 'Planification\TimesController@destroy');
+    });
     Route::group(['prefix' => 'association_planings'],function (){
         Route::get('/', 'Planification\AssociationPlanningController@index');
         Route::get('/search', 'Planification\AssociationPlanningController@search');
@@ -704,7 +725,8 @@ Route::group(['prefix' => 'planification'],function (){
     Route::group(['prefix' => 'user_planings'],function (){
         Route::get('/', 'Planification\UserPlanningController@index');
         Route::get('/search', 'Planification\UserPlanningController@search');
-        Route::get('/{id}/users', 'Planification\UserPlanningController@findUserPlaning');
+       // Route::get('/{id}/users', 'Planification\UserPlanningController@findUserPlaning');
+        Route::get('/{id}/users', 'Planification\UserPlanningController@findPriestPlaning');
         Route::get('/{id}', 'Planification\UserPlanningController@find');
         Route::post('/{id}', 'Planification\UserPlanningController@update');
         Route::post('/', 'Planification\UserPlanningController@store');
