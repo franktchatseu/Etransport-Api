@@ -37,8 +37,9 @@ class UserController extends Controller
             'last_name' => 'required|min:2',
             'district' => 'required',
             'password' => 'required',
-	        // 'profession_id' => ['required', 'exists:professions,id'],
-	         'profession' => ['required'],
+	        //'profession_id' => ['required', 'exists:professions,id'],
+             'profession' => ['required'],
+             'gender' => 'required',
             // 'email' => ['required', 'email', Rule::unique('users', 'email')],
         ]);
 
@@ -51,26 +52,25 @@ class UserController extends Controller
         
         $user = new User();
         $user->login = $data['login'];
-        $user->email = $data['email'];
+        $user->email = $data['email'] ?? null;
         $user->password = bcrypt($data['password']);
-        $user->avatar = $data['avatar'];
+        $user->avatar = $data['avatar'] ?? null;
         $user->gender = $data['gender'];
         $user->first_name = $data['first_name'];
         $user->last_name = $data['last_name'];
-        // $user->birth_date = $data['birth_date'];
-        // $user->birth_place = $data['birth_place'];
+        $user->birth_date = $data['birth_date'] ?? null;
+        $user->birth_place = $data['birth_place'] ?? null;
         $user->district = $data['district'];
-        // $user->is_baptisted = $data['is_baptisted'];
-        // $user->baptist_date = $data['baptist_date'];
-        // $user->baptist_place = $data['baptist_place'];
-        // $user->language = $data['language'];
-        // $user->profession_id = $data['profession_id'];
-	     $user->profession = $data['profession'];
-        // $user->ceb = $data['ceb'];
-        // $user->group = $data['group'];
-        // $user->post = $data['post'];
-        $user->tel = $data['tel'];
-        // $user->is_married = $data['is_married'];
+        $user->is_baptisted = $data['is_baptisted'] ?? null;
+        $user->baptist_date = $data['baptist_date'] ?? null;
+        $user->baptist_place = $data['baptist_place'] ?? null;
+        $user->language = $data['language'] ?? null;
+	    $user->profession = $data['profession'];
+        // $user->ceb = $data['ceb'] ?? null;
+        // $user->group = $data['group'] ?? null;
+        // $user->post = $data['post'] ?? null;
+        $user->tel = $data['tel'] ?? null;
+        $user->is_married = $data['is_married'] ?? null;
         $user->save();
         
         return response()->json($user);

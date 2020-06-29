@@ -65,7 +65,7 @@ Route::group(['prefix' => 'persons'], function () {
         Route::delete('/{id}', 'Person\UserController@destroy');
     });
 
-    Route::group(['prefix' => 'user-utypes'], function () {
+    Route::group(['prefix' => 'user_utypes'], function () {
         Route::get('/', 'Person\UserUtypeController@index');
         Route::get('/search', 'Person\UserUtypeController@search');
         Route::post('/', 'Person\UserUtypeController@store');
@@ -936,3 +936,11 @@ Route::group(['prefix' => 'liturgicals'],function(){
 
 });
 
+// Publicity module : 'middleware' => 'auth:api',
+Route::group(['prefix' => 'publicities'], function () {
+    Route::get('/', 'Publicity\PublicityController@index');
+    Route::get('/{id}', 'Publicity\PublicityController@find');
+    Route::post('/{id}', 'Publicity\PublicityController@update');
+    Route::post('/', 'Publicity\PublicityController@create');
+    Route::delete('/{id}', 'Publicity\PublicityController@destroy');
+});
