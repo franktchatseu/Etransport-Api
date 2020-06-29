@@ -7,6 +7,7 @@ use App\Models\Planification\PriestPlaning;
 use Illuminate\Http\Request;
 use App\Models\Planification\Times;
 use App\Models\person\Priest;
+use App\Models\APIError;
 
 class PriestPlaningController extends Controller
 {
@@ -25,20 +26,26 @@ class PriestPlaningController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $req , $id)
+    public function create(Request $req , $id  )
     {
         //
+          $role = Priest::find($id);
+        if($role == null) {
+            $notFoundError = new APIError;
+            $notFoundError->setStatus("404");
+            $notFoundError->setCode("NOT_FOUND");
+            $notFoundError->setMessage("Priest type with id " . $id . " not found");
+            return response()->json($notFoundError, 404);
+        } 
 
         $data = $req->all();
         $req->validate( [
-            
+            'user_utype_id' => 'required',
             'date' => 'required',
             'description' => 'required',
            
         ]);
         $priestplaning = new PriestPlaning();
-        $priestplaning->user_id = $data['user_id'];
-        $priestplaning->time_id = $data['time_id'];
         $priestplaning->date = $data['date'];
         $priestplaning->description = $data['description'];
         $priestplaning->user_utype_id = $data['user_utype_id'];
@@ -86,7 +93,7 @@ class PriestPlaningController extends Controller
         if (!$priestplaning = PriestPlaning::find($id)) {
             abort(404, "No priestplaning found with id $id");
         }
-        return response()->json($planing);
+        return response()->json($priestplaning);
     }
 
 
@@ -168,18 +175,45 @@ class PriestPlaningController extends Controller
 
       public function findPriestPlaning(Request $req, $id, $data)
     {
-        $role = Priest::find($id);
+         $role = Priest::find($id);
         if($role == null) {
             $notFoundError = new APIError;
             $notFoundError->setStatus("404");
             $notFoundError->setCode("NOT_FOUND");
             $notFoundError->setMessage("Priest type with id " . $id . " not found");
             return response()->json($notFoundError, 404);
-        }
+        } 
 
         $intervalle = Times::select('times.*',  'priest_planings.*', 'priest_planings.id as priest_planing_id')
         ->join('priest_planings', ['priest_planings.id' => 'times.priest_planings_id' ])
         ->where(['priest_planings.user_utype_id' => $id])
+        ->where(['priest_planings.date' => $data])
+        ->simplePaginate( $req->has('limit') ? $req->limit : 15);
+        return response()->json($intervalle);
+    } 
+
+   /*  public function findPriest(Request $req, $data)
+    {
+         
+
+        $intervalle = Times::select('times.*','users.first_name','users.last_name', 'priest_planings.*', 'priest_planings.id as priest_planing_id')
+        ->join('priest_planings', ['priest_planings.id' => 'times.priest_planings_id' ])
+        ->join('priests', ['priests.user_id' => 'priest_planings.user_utype_id' ])
+        ->join('users', ['users.id' => 'user_utypes.id' ])
+        ->where(['priest_planings.date' => $data])
+        ->simplePaginate( $req->has('limit') ? $req->limit : 15);
+        return response()->json($intervalle);
+    }  */
+
+    public function findPriest(Request $req, $data)
+    {
+         
+
+        $intervalle = Times::select('times.*','users.first_name','users.last_name', 'priest_planings.*', 'priest_planings.id as priest_planing_id')
+        ->join('priest_planings','priest_planings.id' ,'=',  'times.priest_planings_id' )
+        ->join('priests', 'priests.user_utype_id' ,'=',  'priest_planings.user_utype_id' )
+        ->join('user_utypes', 'user_utypes.id' ,'=',  'priest_planings.user_utype_id' )
+        ->join('users', 'users.id','=', 'user_utypes.user_id' )
         ->where(['priest_planings.date' => $data])
         ->simplePaginate( $req->has('limit') ? $req->limit : 15);
         return response()->json($intervalle);

@@ -615,10 +615,11 @@ Route::group(['prefix' => 'planification'],function (){
     Route::group(['prefix' => 'priestplanings'],function (){
         Route::get('/', 'Planification\PriestPlaningController@index');
         Route::get('/search', 'Planification\PriestPlaningController@search');
-        Route::get('/{id}/{data}/priestplanings', 'Planification\PriestPlaningController@findPriestPlaning');
+        Route::get('/{id}/{data}', 'Planification\PriestPlaningController@findPriestPlaning');
+        Route::get('/{data}', 'Planification\PriestPlaningController@findPriest');
         Route::get('/{id}', 'Planification\PriestPlaningController@find');
         Route::post('/{id}', 'Planification\PriestPlaningController@update');
-        Route::post('/', 'Planification\PriestPlaningController@create');
+        Route::post('/create/{id}', 'Planification\PriestPlaningController@create');
         Route::delete('/{id}', 'Planification\PriestPlaningController@destroy');
     });
     
