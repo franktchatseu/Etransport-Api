@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Request;
 
 use App\Http\Controllers\Controller;
+use App\Models\APIError;
 use App\Models\Request\IntentionMass;
 use Illuminate\Http\Request;
 
@@ -41,9 +42,9 @@ class IntentionMassController extends Controller
         ]);
 
         $data = new IntentionMass();
-        $data->date = $datas['data'];
+        $data->date = $datas['date'];
         $data->intention = $datas['intention'];
-        $data->content = $datas['content'];
+        $data->content = $datas['content']?? null;
         $data->mass = $datas['mass'];
         $data->amount = $datas['amount'];
         $data->status = 'PENDING';
