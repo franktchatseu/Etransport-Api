@@ -18,7 +18,7 @@ class MenuController extends Controller
      */
     public function index(Request $req)
     {
-        $data = Menu::simplePaginate($req->has('limit') ? $req->limit : 15);
+        $data = Menu::orderBy('id','desc')->simplePaginate($req->has('limit') ? $req->limit : 5);
         return response()->json($data);
     }
 
@@ -111,7 +111,6 @@ class MenuController extends Controller
 
         $this->validate($request->all(), [
             'name' => 'required',
-            'logo' => '',
         ]);
         
          

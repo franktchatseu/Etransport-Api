@@ -17,7 +17,7 @@ class AttributeController extends Controller
      */
     public function index(Request $req)
     {
-        $data = Attribute::simplePaginate($req->has('limit') ? $req->limit : 15);
+        $data = Attribute::simplePaginate($req->has('limit') ? $req->limit : 5);
         return response()->json($data);
     }
 
@@ -102,9 +102,7 @@ class AttributeController extends Controller
         $data = $request->except('photo');
 
         $this->validate($data, [
-            'name' => 'required|unique:attributes|min:2',
-            'type' => '',
-            
+            'name' => 'required',            
         ]);
         
         if ($request->name) $attribute->name = $data['name'];

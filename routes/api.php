@@ -606,6 +606,7 @@ Route::group(['prefix' => 'associations'], function () {
         Route::get('/search', 'Association\AssociationController@search');
         Route::get('/{id}', 'Association\AssociationController@find');
         Route::get('/{id}/type', 'Association\AssociationController@findTypeAssociation');
+        Route::get('/{id}/parish', 'Association\AssociationController@findParishAssociation');
         Route::delete('/{id}', 'Association\AssociationController@destroy');
         Route::post('/', 'Association\AssociationController@store');
         Route::match(['post', 'put'], '/{id}', 'Association\AssociationController@update');
@@ -782,6 +783,7 @@ Route::group(['prefix' => 'actualities'], function () {
         Route::match(['post', 'put'], '/{id}', 'Actuality\SubMenuController@update');
         Route::post('/', 'Actuality\SubMenuController@store');
         Route::get('/{slug}/menu', 'Actuality\SubMenuController@findSubMenu');
+	Route::get('/{id}/menus', 'Actuality\SubMenuController@findSubMenuId');
         Route::delete('/{id}', 'Actuality\SubMenuController@destroy');
     });
 
