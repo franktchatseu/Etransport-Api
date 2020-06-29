@@ -15,7 +15,7 @@ class ReportProblemSeeder extends Seeder
     {
         factory(ReportProblem::class, 100)->make()->each(function ($reportProblem) use ($faker) {
             $utypes = App\Models\Person\UserUtype::all();
-            $reportProblem->utype_id = $faker->randomElement($utypes)->id;
+            $reportProblem->person_id = $faker->randomElement($utypes)->id;
             $reportProblem->save();
         });
     }

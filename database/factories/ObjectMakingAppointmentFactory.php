@@ -9,6 +9,7 @@ $factory->define(ObjectMakingAppointment::class, function (Faker $faker) {
     return [
         //
         'label' => $faker->sentence,
-        'description' => $faker->sentence
+        'description' => $faker->sentence,
+        'type' => $faker->randomElement(['MASS', 'APPOINTMENT', 'MASS_ASKING'])
     ];
 });
