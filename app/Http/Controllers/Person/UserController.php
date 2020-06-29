@@ -45,8 +45,8 @@ class UserController extends Controller
 
         $data['avatar'] = '';
         //upload image
-        if ($file = $req->file('files')) {
-            $filePaths = $this->saveMultipleImages($this, $req, 'files', 'users');
+        if ($file = $req->file('avatar')) {
+            $filePaths = $this->saveSingleImage($this, $req, 'avatar', 'users');
             $data['avatar'] = json_encode(['images' => $filePaths]);
         }
         
@@ -113,8 +113,8 @@ class UserController extends Controller
         }
 
         //upload image
-        if ($file = $req->file('files')) {
-            $filePaths = $this->saveSingleImage($this, $req, 'files', 'users');
+        if ($file = $req->file('avatar')) {
+            $filePaths = $this->saveSingleImage($this, $req, 'avatar', 'users');
             $data['avatar'] = json_encode(['images' => $filePaths]);
         }
 
