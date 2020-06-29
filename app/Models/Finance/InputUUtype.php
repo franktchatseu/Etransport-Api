@@ -7,4 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class InputUUtype extends Model
 {
     protected $table = 'input_uutypes';
+    protected $guarded = [];
 }

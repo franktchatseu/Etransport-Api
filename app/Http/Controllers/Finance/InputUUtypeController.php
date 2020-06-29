@@ -10,7 +10,11 @@ use App\Models\Finance\Input;
 use App\Models\Finance\Nature;
 use App\Models\Person\UserUtype;
 use App\Models\Person\User;
+use App\Models\Setting\Parish;
 use Carbon\Carbon;
+
+use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\Storage;
 
 
 
@@ -58,8 +62,16 @@ class InputUUtypeController extends Controller
             'provenance' => 'required',
             'country' => 'required',
             'pseudo' => 'required',
+            'bill' => 'required',
+            'parish_id' => 'required',
+            
         ]);
         
+        $namepdf =$request->provenance.'_'.$request->city.'.pdf';
+        $pdf = PDF::loadHtml($request->amount);
+        $pdf->save(public_path('/uploads/bills/').$namepdf);
+
+
         $uutype = UserUtype::find($request->user_utype_id);
         if($uutype == null) {
             $notFound = new APIError;
@@ -80,6 +92,15 @@ class InputUUtypeController extends Controller
             return response()->json($notFound, 404);
         }
 
+        $parish = Parish::find($request->parish_id);
+        if($parish == null) {
+            $notFound = new APIError;
+            $notFound->setStatus("404");
+            $notFound->setCode("ENTER_THE_PARISH_ID");
+            $notFound->setMessage("parish_id does not exist");
+            return response()->json($notFound, 404);
+        }
+
             $inputuutype = new InputUUtype();
             $inputuutype->user_utype_id = $uutype->id;
             $inputuutype->input_id = $input->id;
@@ -90,10 +111,26 @@ class InputUUtypeController extends Controller
             $inputuutype->provenance = $data['provenance'];
             $inputuutype->country = $data['country'];
             $inputuutype->pseudo = $data['pseudo'];
+            $inputuutype->parish_id = $data['parish_id'];
+            if ($request->status) $inputuutype->status = $request->status;
+            if(isset($request->bill)){
+                $file = $request->file('bill');
+                $path = null;
+                if($file != null){
+                    $extension = $file->getClientOriginalExtension();
+                    $relativeDestination = "uploads/bills";
+                    $destinationPath = public_path($relativeDestination);
+                    $safeName = "document".time().'.'.$extension;
+                    $file->move($destinationPath, $safeName);
+                    $path = "$relativeDestination/$safeName";
+                }
+                $inputuutype->bill_url = url($path);
+            }
             $inputuutype->save();
        
         return response()->json($inputuutype);
     }
+
 
     /**
      * Create a request For Mass on database
@@ -221,17 +258,31 @@ class InputUUtypeController extends Controller
 
             return response()->json($notFound, 404);
         }
+        if($req->parish_id){
             $transaction = InputUUtype::select('input_uutypes.*')
-                ->join('user_utypes', 'input_uutypes.user_utype_id', '=', 'user_utypes.id')
-                ->join('users', 'user_utypes.user_id', '=', 'users.id')
-                ->where(['users.id' => $id])->orderBy('date', 'desc')
-                ->simplePaginate($req->has('limit') ? $req->limit : 15)
-                ->groupBy(function($date) {
-                    return Carbon::parse($date->created_at)->format('M');
-                });
-                
-            return response()->json($transaction);
+            ->join('user_utypes', 'input_uutypes.user_utype_id', '=', 'user_utypes.id')
+            ->join('users', 'user_utypes.user_id', '=', 'users.id')
+            ->join('parishs', 'input_uutypes.parish_id', '=', 'parishs.id')
+            ->join('inputs', 'input_uutypes.input_id', '=', 'inputs.id')
+            ->join('natures', 'inputs.nature_id', '=', 'natures.id')
+            ->where(['users.id' => $id],['parishs.id' => $req->parish_id])->orderBy('date', 'desc')
+            ->simplePaginate($req->has('limit') ? $req->limit : 15)
+            ->groupBy(function($date) {
+                return Carbon::parse($date->created_at)->format('Y');
+            });
             
+            
+        return response()->json($transaction);
+        
+        }else{
+            $notFound = new APIError;
+            $notFound->setStatus("404");
+            $notFound->setCode("ENTER_THE_PARISH_ID");
+            $notFound->setMessage("parish_id does not exist");
+
+            return response()->json($notFound, 401);
+        }
+           
     }   
     
     
@@ -251,11 +302,26 @@ class InputUUtypeController extends Controller
 
             return response()->json($notFound, 404);
         }
+
+        if($req->parish_id){
+
+
+        }else{
+            $notFound = new APIError;
+            $notFound->setStatus("404");
+            $notFound->setCode("ENTER_THE_PARISH_ID");
+            $notFound->setMessage("parish_id does not exist");
+
+            return response()->json($notFound, 401);
+        }
             $transaction = InputUUtype::select('input_uutypes.*')
                 ->join('inputs', 'input_uutypes.input_id', '=', 'inputs.id')
                 ->join('natures', 'inputs.nature_id', '=', 'natures.id')
-                ->where(['natures.id' => $natures->id])->orderBy('input_uutypes.date', 'desc')
-                ->simplePaginate($req->has('limit') ? $req->limit : 15);
+                ->join('parishs', 'input_uutypes.parish_id', '=', 'parishs.id')
+                ->where(['natures.id' => $natures->id],['parishs.id' => $req->parish_id])->orderBy('input_uutypes.date', 'desc')
+                ->simplePaginate($req->has('limit') ? $req->limit : 15)->groupBy(function($date) {
+                    return Carbon::parse($date->created_at)->format('Y');
+                });
             return response()->json($transaction);
     }   
     
