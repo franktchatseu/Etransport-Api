@@ -28,10 +28,10 @@ class CreateMakingAppointementsTable extends Migration
             $table->softDeletes();
         });
 
-        Schema::table('intention_masses', function (Blueprint $table) {
-            $table->unsignedBigInteger('object_id');
-            $table->foreign('object_id')->references('id')->on('object_making_appointments')->onDelete('cascade');
-        });
+        // Schema::table('intention_masses', function (Blueprint $table) {
+        //     $table->unsignedBigInteger('object_id');
+        //     $table->foreign('object_id')->references('id')->on('object_making_appointments')->onDelete('cascade');
+        // });
     }
 
     /**

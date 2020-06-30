@@ -49,7 +49,7 @@ class MakeAppointmentController extends Controller
         $data = new MakingAppointment();
         $data->hour = $datas['hour'];
         $data->date = $datas['date'];
-        $data->comment = $datas['comment'];
+        $data->comment = $datas['comment'] ?? null;
         $data->object_id = $datas['object_id'];
         $data->person_id = $datas['person_id'];
         $data->status = 'PENDING';

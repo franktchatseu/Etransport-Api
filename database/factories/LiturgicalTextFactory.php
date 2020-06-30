@@ -9,6 +9,6 @@ $factory->define(LiturgicalText::class, function (Faker $faker) {
     return [
         'title' => $faker->text(20),
         'contenu' => $faker->sentence,
-        'image' => json_encode(['https://picsum.photos/200/300']),
+        'image' => url('https://picsum.photos/200/300'),
     ];
 });
