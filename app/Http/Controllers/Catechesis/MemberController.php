@@ -112,8 +112,6 @@ class MemberController extends Controller
             'status'
         ]);
 
-
-
         $this->validate($data, [
             'is_finish' => 'required',
             'has_win' => 'required',

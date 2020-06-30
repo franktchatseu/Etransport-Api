@@ -69,7 +69,6 @@ class DatabaseSeeder extends Seeder
       ParishAlbumSeeder::class,
       PhotoSeeder::class,
       UserParishSeeder::class,
-
     ]);
     
 
@@ -86,16 +85,6 @@ class DatabaseSeeder extends Seeder
     $this->call([
       // PublicitySeeder::class,
     ]);
-
-    // module actualité
-    // $this->call([
-    //   AttributeSeeder::class,
-    //   MenuSeeder::class,
-    //   AttributeMenuSeeder::class,
-    //   SubMenuSeeder::class,
-    //   ArticleSeeder::class,
-    //   ArticleAttributeMenuSeeder::class
-    // ]);
 
     // module catechesis
     // $this->call([
@@ -132,16 +121,16 @@ class DatabaseSeeder extends Seeder
     // ]);
 
     // module catechese
-    // $this->call([
-    //   QuarterSeeder::class,
-    //   EvaluationSeeder::class,
-    //   TimeCardSeeder::class,
-    //   PatternSeeder::class,
-    //   PlugSeeder::class,
-    //   CathedralPresenceSeeder::class,
-    //   UserCatechesisSeeder::class,
-    //   CatechesisPresenceSeeder::class
-    // ]);
+    $this->call([
+      // QuarterSeeder::class,
+      // EvaluationSeeder::class,
+      // TimeCardSeeder::class,
+      // PatternSeeder::class,
+      // PlugSeeder::class,
+      // CathedralPresenceSeeder::class,
+      // UserCatechesisSeeder::class,
+      // CatechesisPresenceSeeder::class
+    ]);
 
     // module planification
     $this->call([]);
@@ -158,41 +147,32 @@ class DatabaseSeeder extends Seeder
     // ]);
 
     // module association
-    // $this->call([
-    //   TypeAssociationSeeder::class,
-    //   AssociationSeeder::class,
-    //   EvenementSeeder::class,
-    //   StatutSeeder::class,
-    //   MemberAssociationSeeder::class,
-    //   EventPresenceMemberAssociationSeeder::class
-    // ]);
-
-    // $this->call([
-    //   TypeAssociationSeeder::class,
-    //   AssociationSeeder::class,
+    $this->call([
+      TypeAssociationSeeder::class,
+      AssociationSeeder::class,
     //   EvenementSeeder::class,
     //   StatutSeeder::class,
     //   MemberAssociationSeeder::class,
     //   EventPresenceMemberAssociationSeeder::class,
-    // ]);
+    ]);
 
     // module statistic
     /* $this->call([]); */
 
     // module sacrament
-    $this->call([
-      SacramentCategorySeeder::class,
-      SacramentSeeder::class,
-      UserSacramentSeeder::class,
-    ]);
+    // $this->call([
+    //   SacramentCategorySeeder::class,
+    //   SacramentSeeder::class,
+    //   UserSacramentSeeder::class,
+    // ]);
 
     //module Planification
     $this->call([
       ObjectMakingAppointmentSeeder::class,
       MakeAppointmentSeeder::class,
       AnointingSickSeeder::class,
-      IntentionMassSeeder::class,
       ObjectRequestMassSeeder::class,
+      IntentionMassSeeder::class,
       RequestMassSeeder::class,
       ReportProblemSeeder::class,
       TypePlaningSeeder::class,

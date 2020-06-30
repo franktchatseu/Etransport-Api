@@ -15,10 +15,10 @@ class CreateMakingAppointementsTable extends Migration
     {
         Schema::create('making_appointments', function (Blueprint $table) {
             $table->increments('id');
-            $table->time('request_hour');
-            $table->date('request_date');
-            $table->text('request_comment');
-            $table->enum('state',['PENDING', 'APPROVED', 'REJECTED']);
+            $table->string('hour');
+            $table->date('date');
+            $table->text('comment')->nullable();
+            $table->enum('status',['PENDING', 'APPROVED', 'REJECTED'])->default('PENDING');
             $table->unsignedBigInteger('object_id');
             $table->unsignedBigInteger('person_id');
 
@@ -26,6 +26,11 @@ class CreateMakingAppointementsTable extends Migration
             $table->foreign('object_id')->references('id')->on('object_making_appointments')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
+        });
+
+        Schema::table('intention_masses', function (Blueprint $table) {
+            $table->unsignedBigInteger('object_id');
+            $table->foreign('object_id')->references('id')->on('object_making_appointments')->onDelete('cascade');
         });
     }
 

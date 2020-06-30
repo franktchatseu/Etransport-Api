@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Planification;
 use App\Http\Controllers\Controller;
 use App\Models\Planification\UserPlanning;
 use Illuminate\Http\Request;
+use Carbon\Carbon; // You need to import Carbon
 
 class UserPlanningController extends Controller
 {
@@ -144,10 +145,43 @@ class UserPlanningController extends Controller
 
     public function findAssociationPlaning(Request $req, $id)
     {
-        $planing = UserPlanning::select('user_planings.*', 'user_planings.id as uplaning_id', 'planings.*', 'planings.id as id_planing')
-        ->join('planings', 'user_planings.planing_id', '=', 'planings.id')
-        ->where(['user_planings.user_utype_id' => $id])
+        $planing = UserPlanning::select('user_plannings.*', 'user_planings.id as uplaning_id', 'planings.*', 'planings.id as id_planing')
+        ->join('planings', 'user_plannings.planing_id', '=', 'planings.id')
+        ->where(['user_plannings.user_utype_id' => $id])
         ->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($planing);
+    }
+
+    public function findPriestPlaning(Request $req, $id)
+    {
+        $planing = UserPlanning::select('user_plannings.*', 'user_plannings.id as uplaning_id', 'planings.*', 'planings.id as id_planing')
+        ->join('planings', 'user_plannings.planing_id', '=', 'planings.id')
+        ->where(['user_plannings.user_utype_id' => $id])
+        ->simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($planing);
+    }
+
+    /* public function findAskDisponibility(Request $req,$id)
+    {
+        $planing = UserPlanning::select('user_planning.*','user_')
+    } */
+    public function transformTimetamp(Request $req)
+    {
+        $data = $req->except('date_end'); 
+        $current_time = Carbon::now()->toDayDateTimeString(); // Wed, May 17, 2017 10:42 PM
+        $current_timestamp = Carbon::now()->timestamp; // Unix timestamp 1495062127 
+        return $current_timestamp = now()->timestamp;
+
+        /* $planing = Userplanning::select('date_start,date_end')->whereUserUtypeId($id)->simplePaginate($req->has('limit') ? $req->limit : 15));
+        if($current_time < $planing->date_start || $current_time > $planing->date_end){
+
+
+        }
+         */
+    }
+
+    public function convert()
+    {
+        
     }
 }

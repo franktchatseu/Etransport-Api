@@ -14,6 +14,10 @@ use App\Models\Person\Parishional;
 use App\Models\Person\Priest;
 use App\Models\Setting\ParishPatrimony;
 use Illuminate\Http\Request;
+use App\Models\Extra\Group;
+use Illuminate\Support\Facades\DB;
+
+
 
 class ParishController extends Controller
 {
@@ -154,6 +158,20 @@ class ParishController extends Controller
             $apiError->setCode("PARISH_NOT_FOUND");
             return response()->json($apiError, 404);
         }
+        
+        return response()->json($parish); 
+    }
+
+    public function findWithAlbum(Request $req, $id)
+    {
+        $parish = Parish::where($id)->get();
+        if (!$parish) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PARISH_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+
         //recuperation du nombre total de fidel
         $countparish = Parishional::select(Parishional::raw('count(*) as total'))->first();
         $nbreofparish = $countparish['total'];
@@ -190,8 +208,6 @@ class ParishController extends Controller
             'patrimonies' => $patrimonie
         ]);
 
-
-
     }
 
     public function findParishAlbum(Request $req, $id)
@@ -223,5 +239,37 @@ class ParishController extends Controller
         }
         return response()->json($contact);
     }
+
+    public function findGroupbyType(Request $req, $id)
+    {
+        $parish = Parish::find($id);
+        if (!$parish) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+
+        //$groups = Group::whereParishId($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
+        
+        $groups= Group::select('groups.*',
+                                'grouptypes.id as grouptype_id'
+                                )
+        ->join('grouptypes','groups.grouptypes_id','=','grouptypes.id')
+        //->join('grouptypes','groups.grouptypes_id','=','grouptypes.id')
+        ->where(['groups.parishs_id' =>$id])
+        ->simplePaginate($req->has('limit') ? $req->limit : 15);
+
+        /*$groups = DB::table('groups')
+                ->join('grouptypes','grouptypes.id','=','groups.grouptypes_id')
+                ->join('parishs','parishs.id','=','groups.parishs_id')
+                ->select('groups.*','parishs.name as parish','grouptypes.nom as grouptypes')
+                ->where('groups.parishs_id','=',$id)
+                ->simplePaginate($req->has('limit') ? $req->limit : 15);*/
+      
+        return response()->json($groups);
+    }
+
+   
 
 }

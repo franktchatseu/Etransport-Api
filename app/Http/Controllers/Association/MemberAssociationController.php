@@ -31,20 +31,19 @@ class MemberAssociationController extends Controller
         $data = $request->except('photo');
 
         $this->validate($data, [
-            'raisonAdhesion' => 'required',
-            'date_adhesion' => 'required',
-            'status' => 'in:PENDING,REJECTED,ACCEPTED',
-            'user_id' => 'required',
-            'statut_id' => 'required',
-            'association_id' => 'required'
+            'user_utype_id' => 'required',
+            'association_id' => 'required',
+            'name' => 'required',
+            'telephone' => 'required',
+            'raisonAdhesion' => 'required'
+
         ]);
 
             $memberAssociation = new MemberAssociation();
             $memberAssociation->raisonAdhesion = $data['raisonAdhesion'];
-            $memberAssociation->date_adhesion = $data['date_adhesion'];
-            $memberAssociation->status = $data['status'];
-            $memberAssociation->user_id = $data['user_id'];
-            $memberAssociation->statut_id = $data['statut_id'];
+            $memberAssociation->name = $data['name'];
+            $memberAssociation->telephone = $data['telephone'];
+            $memberAssociation->user_utype_id = $data['user_utype_id'];
             $memberAssociation->association_id = $data['association_id'];
             $memberAssociation->save();
        
@@ -74,7 +73,7 @@ class MemberAssociationController extends Controller
             'raisonAdhesion' => 'required',
             'date_adhesion' => 'required',
             'status' => 'in:PENDING,REJECTED,ACCEPTED',
-            'user_id' => 'required',
+            'user_utype_id' => 'required',
             'statut_id' => 'required',
             'association_id' => 'required'
 
@@ -82,7 +81,7 @@ class MemberAssociationController extends Controller
         if (null !== $data['raisonAdhesion']) $memberAssociation->raisonAdhesion = $data['raisonAdhesion'];
         if (null !== $data['date_adhesion']) $memberAssociation->date_adhesion = $data['date_adhesion'];
         if (null !== $data['status']) $memberAssociation->status = $data['status'];
-        if (null !== $data['user_id']) $memberAssociation->user_id = $data['user_id'];
+        if (null !== $data['user_utype_id']) $memberAssociation->user_utype_id = $data['user_utype_id'];
         if (null !== $data['statut_id']) $memberAssociation->status_id = $data['statut_id'];
         if (null !== $data['association_id']) $memberAssociation->association_id = $data['association_id'];
 
@@ -154,6 +153,8 @@ class MemberAssociationController extends Controller
         ->join('users', 'member_associations.user_id', '=', 'users.id' )
         ->join('statuts', 'member_associations.statut_id', '=', 'statuts.id' )
         ->where(['member_associations.user_id' => $id])
+        //->join('users', 'member_associations.user_id', '=', 'users.id' )
+        ->where(['member_associations.user_utype_id' => $id])
         ->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($memberAssociation);
     }
