@@ -198,7 +198,7 @@ class AssociationController extends Controller
     public function findParishAssociation(Request $req, $id)
     {
         $parishAssociation =  DB::table('associations')
-        ->select('associations.id','associations.name','associations.slogan','users.first_name as responsable_first_name','users.last_name as responsable_last_name','associations.rencontre','type_associations.name as type_association_name')
+        ->select('associations.id','associations.name','associations.lieu','associations.slogan','users.first_name as responsable_first_name','users.last_name as responsable_last_name','associations.rencontre','type_associations.name as type_association_name')
         ->join('parishs', 'parishs.id', '=', 'associations.user_id' )
         ->join('users', 'users.id', '=', 'associations.parish_id' )
         ->join('type_associations', 'type_associations.id', '=', 'associations.type_id' )

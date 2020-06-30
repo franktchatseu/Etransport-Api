@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Association\MemberAssociation;
 use Illuminate\Http\Request;
 use App\Models\APIError;
-
+use Carbon\Carbon;
 class MemberAssociationController extends Controller
 {
     /**
@@ -43,6 +43,7 @@ class MemberAssociationController extends Controller
             $memberAssociation->raisonAdhesion = $data['raisonAdhesion'];
             $memberAssociation->name = $data['name'];
             $memberAssociation->telephone = $data['telephone'];
+            $memberAssociation->date_adhesion = Carbon::now();
             $memberAssociation->user_utype_id = $data['user_utype_id'];
             $memberAssociation->association_id = $data['association_id'];
             $memberAssociation->save();
