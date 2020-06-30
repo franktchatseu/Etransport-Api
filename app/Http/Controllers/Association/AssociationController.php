@@ -187,7 +187,7 @@ class AssociationController extends Controller
 
     public function findTypeAssociation(Request $req, $id)
     {
-        $parishAssociation = Association::select('associations.id','associations.name as association_name','type_associations.name as name_type_association','associations.slogan','users.first_name','users.last_name','parishs.name as name_parish')
+        $parishAssociation = Association::select('associations.id','associations.name as association_name','associations.photo as photo ','type_associations.name as name_type_association','associations.slogan','users.first_name','users.last_name','parishs.name as name_parish')
         ->join('parishs', 'associations.parish_id', '=', 'parishs.id' )
         ->join('type_associations', 'associations.type_id', '=', 'type_associations.id' )
         ->join('users', 'associations.user_id', '=', 'users.id' )
