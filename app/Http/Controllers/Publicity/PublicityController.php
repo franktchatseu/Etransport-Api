@@ -7,13 +7,22 @@ use App\Models\Publicity\Publicity;
 use Illuminate\Http\Request;
 use App\Models\APIError;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class PublicityController extends Controller
 {
   
     public function index(Request $req)
     {
-        $data = Publicity::simplePaginate($req->has('limit') ? $req->limit : 15);
+        if($req->limit)
+            $data = DB::table('publicities')
+            ->inRandomOrder()
+            ->take($req->limit)->get();
+       else{
+            $data = DB::table('publicities')
+            ->inRandomOrder()
+            ->take(4)->get(); 
+        }
         return response()->json($data);
     }
 

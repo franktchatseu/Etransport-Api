@@ -16,6 +16,7 @@ class CreateInputTable extends Migration
         Schema::create('inputs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_utype_id')->nullable();
+            $table->unsignedBigInteger('pattern_donation_id')->nullable();
             $table->unsignedBigInteger('parish_id');
             $table->unsignedBigInteger('transaction_id');
             $table->unsignedBigInteger('nature_id');
@@ -34,6 +35,7 @@ class CreateInputTable extends Migration
             $table->date('end_date')->nullable();
             $table->timestamps();
             $table->foreign('user_utype_id')->references('id')->on('user_utypes');
+            $table->foreign('pattern_donation_id')->references('id')->on('pattern_donations');
             $table->foreign('parish_id')->references('id')->on('parishs');
             $table->foreign('nature_id')->references('id')->on('natures')->onDelete('cascade');
         });

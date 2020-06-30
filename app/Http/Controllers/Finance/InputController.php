@@ -7,6 +7,7 @@ use App\Models\Finance\Input;
 use Illuminate\Http\Request;
 use App\Models\APIError;
 use App\Models\Finance\Nature;
+use App\Models\Finance\PatternDonation;
 use App\Models\Person\UserUtype;
 use App\Models\Person\User;
 use App\Models\Setting\Parish;
@@ -63,6 +64,19 @@ class InputController extends Controller
                 return response()->json($notFound, 404);
             }
             $input->user_utype_id = $uutype->id;
+        }
+
+        if($request->pattern_donation_id){
+            $pattern_donation = PatternDonation::find($request->pattern_donation_id);
+            if($pattern_donation == null) {
+                $notFound = new APIError;
+                $notFound->setStatus("404");
+                $notFound->setCode("PATTERN_NOT_FOUND");
+                $notFound->setMessage("pattern_donation with id " . $request->pattern_donation_id. " not found");
+    
+                return response()->json($notFound, 404);
+            }
+            $input->pattern_donation_id = $pattern_donation->id;
         }
        
         

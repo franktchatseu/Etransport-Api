@@ -44,25 +44,26 @@ class DatabaseSeeder extends Seeder
 
         // module setting
         $this->call([
-            //  ParishSeeder::class,
-            //  ParishPatrimonySeeder::class,
-            // MassSheduleSeeder::class
+              ParishSeeder::class,
+              ParishPatrimonySeeder::class,
+             MassSheduleSeeder::class
         ]);
 
        // $this->call(CityAndCountrySeeder::class);
         
         // module setting
         $this->call([
-            // ProfessionSeeder::class,
-            // UserSeeder::class,
-            // UtypeSeeder::class,
+            //  ProfessionSeeder::class,
+            //  UserSeeder::class,
+            //  UtypeSeeder::class,
+            //  PatternDonationSeeder::class,
             // $this->call(SettingSeeder::class);
              // $this->call(LaratrustSeeder::class),
             //  ParishSeeder::class,
-            // ProfessionSeeder::class,
-            // UserSeeder::class,
-            // UtypeSeeder::class,
-            // UserUtypeSeeder::class,
+            //  ProfessionSeeder::class,
+            //  UserSeeder::class,
+            //  UtypeSeeder::class,
+            //  UserUtypeSeeder::class,
             // InputSeeder::class,
             // ParishSeeder::class,
             // UserUtypeSeeder::class,
@@ -111,21 +112,21 @@ class DatabaseSeeder extends Seeder
           $this->call([
                //$this->call(SettingSeeder::class);
                //$this->call(LaratrustSeeder::class);
-            //    ProfessionSeeder::class,
-            //    UserSeeder::class,
-            //    UtypeSeeder::class,
-                //ParishSeeder::class,
-            //    UserUtypeSeeder::class,
-            //    PriestSeeder::class,
-            //    AlbumSeeder::class,
-            //    ParishionalSeeder::class,
-            //    CathechumeneSeeder::class,
-            //    ContactSeeder::class, /*  */
-              //  AgendaSeeder::class,
-              //  ProfessionSeeder::class,
-              //  UserSeeder::class,
-              //  UtypeSeeder::class,
-              //  ParishSeeder::class,
+               ProfessionSeeder::class,
+               UserSeeder::class,
+               UtypeSeeder::class,
+                ParishSeeder::class,
+               UserUtypeSeeder::class,
+               PriestSeeder::class,
+               AlbumSeeder::class,
+               ParishionalSeeder::class,
+               CathechumeneSeeder::class,
+               ContactSeeder::class, /*  */
+               AgendaSeeder::class,
+               ProfessionSeeder::class,
+               UserSeeder::class,
+               UtypeSeeder::class,
+               ParishSeeder::class,
               //  UserUtypeSeeder::class,
               //  PriestSeeder::class,
               //  AlbumSeeder::class,
