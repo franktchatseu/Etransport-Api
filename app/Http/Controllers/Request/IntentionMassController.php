@@ -36,7 +36,7 @@ class IntentionMassController extends Controller
         $this->validate($datas, [
             'date' => 'required',
             'intention' => 'required',
-            'mass' => 'required',
+            'mass_id' => 'required',
             'amount' => 'required',
             'person_id' => 'required',
         ]);
@@ -45,7 +45,7 @@ class IntentionMassController extends Controller
         $data->date = $datas['date'];
         $data->intention = $datas['intention'];
         $data->content = $datas['content']?? null;
-        $data->mass = $datas['mass'];
+        $data->mass_id = $datas['mass_id'];
         $data->amount = $datas['amount'];
         $data->status = 'PENDING';
         $data->person_id = $datas['person_id'];
