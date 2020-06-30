@@ -202,7 +202,6 @@ class DatabaseSeeder extends Seeder
       LiturgicalTypeSeeder::class,
       EntryTypeSeeder::class,
       LiturgicalTypeEntryTypeSeeder::class,
-      LiturgicalTextSeeder::class,
     ]);
 
     Schema::enableForeignKeyConstraints();
