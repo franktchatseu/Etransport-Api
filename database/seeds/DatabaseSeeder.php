@@ -63,7 +63,6 @@ class DatabaseSeeder extends Seeder
       AssociationSeeder::class,
       MemberAssociationSeeder::class,
       AlbumSeeder::class,
-      InputUUtypeSeeder::class,
       // CatechistSeeder::class,
       InputSeeder::class,
       
