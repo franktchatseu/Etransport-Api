@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Association\Association;
 use App\Models\Association\TypeAssociation;
-
+use App\Models\Association\MemberAssociation;
+use App\Models\APIError;
+ use DB;
 class AssociationController extends Controller
 {
     public function index (Request $req)
@@ -144,8 +146,45 @@ class AssociationController extends Controller
             $apiError->setCode("ASSOCIATION_NOT_FOUND");
             return response()->json($apiError, 404);
         }
+
+        
         return response()->json($assoc);
     }
+    //detail des membres associations avec les membres dubur
+    public function findWithMemberBureau($id)
+    {
+        $assoc = Association::find($id);
+        if (!$assoc) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("ASSOCIATION_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+
+        $memberAssociation = MemberAssociation::select('member_associations.association_id as association_id','users.first_name','users.last_name','users.avatar','statuts.name_post')
+        
+        ->join('associations', 'member_associations.association_id', '=', 'associations.id' )
+        ->join('user_utypes', 'member_associations.user_utype_id', '=', 'user_utypes.id' )
+        ->join('users', 'user_utypes.user_id', '=', 'users.id' )
+        ->join('statuts', 'member_associations.statut_id', '=', 'statuts.id' )
+        ->where(['member_associations.association_id' => $id])
+       // ->where('statuts.name_post','!=','member')
+        ->get();
+
+        return response()->json([
+                'association_id' =>  $assoc->id,
+                'name' =>  $assoc->name,
+                'slogan' =>   $assoc->logo,
+                'description' =>   $assoc->description,
+                'date_creation' =>  $assoc->dateCreation,
+                'reglement' => $assoc->reglement,
+                'created_at' => $assoc->created_at,
+                'updated_at' => $assoc->updated_at,
+                'memberofbureau' => $memberAssociation
+            
+        ]);
+    }
+
 
     public function findTypeAssociation(Request $req, $id)
     {
@@ -161,13 +200,14 @@ class AssociationController extends Controller
     //recuperation des associations d'une paroisse donnee
     public function findParishAssociation(Request $req, $id)
     {
-        $parishAssociation = Association::select('associations.id','associations.name as association_name','type_associations.name as name_type_association','type_associations.id as type_id','associations.slogan','parishs.name as name_parish')
-        ->join('parishs', 'associations.parish_id', '=', 'parishs.id' )
-        ->join('type_associations', 'associations.type_id', '=', 'type_associations.id' )
-        ->join('users', 'associations.user_id', '=', 'users.id' )
+        $parishAssociation =  DB::table('associations')
+        ->select('associations.id','associations.name','associations.slogan','associations.created_at','type_associations.name as type_association_name')
+        ->join('parishs', 'parishs.id', '=', 'associations.parish_id' )
+        ->join('type_associations', 'type_associations.id', '=', 'associations.type_id' )
         ->where(['associations.parish_id' => $id])
-      
-        ->simplePaginate($req->has('limit') ? $req->limit : 15);
+        ->get()
+        ->groupBy('type_association_name');
+        
         return response()->json($parishAssociation);
     }
 

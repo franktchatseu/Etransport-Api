@@ -42,6 +42,24 @@ class CatechistController extends Controller
 
         return response()->json($catechist);
     }
+    public function create(Request $req)
+    {
+        $data = $req->except('birth_certificate');
+        $this->validate($data, [
+            'user_id' => 'required',
+            'catechist_date' => 'required',
+            'catechist_place' => 'required',
+           
+        ]);
+        $catechist = new Catechist();
+        $catechist->user_id = $data['user_id'];
+        $catechist->catechist_date = $data['catechist_date'];
+        $catechist->catechist_place = $data['catechist_place'];
+       
+
+        $catechist->save();
+        return response()->json($catechist);
+    }
 
     // public function search(Request $req)
     // {
@@ -77,9 +95,10 @@ class CatechistController extends Controller
             $apiError->setCode("CATHECHIST_NOT_FOUND");
             return response()->json($apiError, 404);
         }
-      
         return response()->json($catechist->id);
+
     }
+
     public function destroy($id)
     {
         $catechist = Catechist::find($id);
@@ -103,8 +122,27 @@ class CatechistController extends Controller
             $apiError->setCode("CATHECHIST_NOT_FOUND");
             return response()->json($apiError, 404);
         }
+        $data = $req->except('birth_certificate');
+        $this->validate($data, [
+            
+            'catechist_date' => 'required',
+            'catechist_place' => 'required',
+           
+        ]);
+        $catechist = new Catechist();
+        
+        if ( $data['catechist_date']) $catechist->catechist_date = $data['catechist_date'];
+        if ( $data['catechist_place']) $catechist->catechist_place = $data['catechist_place'];
         
         $catechist->update();
         return response()->json($catechist);
-    }
+    }/* 
+    public function findUserCatechist(Request $req, $id)
+    {
+        $userCatechesis = Catechist::select('catechists.*','catechists.id as catechists_id','catechesis.*')
+        ->join('catechesis', 'catechists.catechesis_id', '=', 'catechesis.id' )
+        ->where(['catechists.user_id' => $id])
+        ->simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($userCatechesis);
+    } */
 }

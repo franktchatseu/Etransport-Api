@@ -33,7 +33,6 @@ class MemberAssociationController extends Controller
         $this->validate($data, [
             'raisonAdhesion' => 'required',
             'date_adhesion' => 'required',
-            'status' => 'in:PENDING,REJECTED,ACCEPTED',
             'user_utype_id' => 'required',
             'statut_id' => 'required',
             'association_id' => 'required'
@@ -42,9 +41,9 @@ class MemberAssociationController extends Controller
             $memberAssociation = new MemberAssociation();
             $memberAssociation->raisonAdhesion = $data['raisonAdhesion'];
             $memberAssociation->date_adhesion = $data['date_adhesion'];
-            $memberAssociation->status = $data['status'];
             $memberAssociation->user_utype_id = $data['user_utype_id'];
             $memberAssociation->statut_id = $data['statut_id'];
+            $memberAssociation->status = "PENDING";
             $memberAssociation->association_id = $data['association_id'];
             $memberAssociation->save();
        
