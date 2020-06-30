@@ -165,7 +165,7 @@ Route::group(['prefix' => 'settings'], function () {
     Route::group(['prefix' => 'parishs'], function () {
         Route::get('/', 'Setting\ParishController@index');
         Route::get('/search', 'Setting\ParishController@search');
-        Route::get('/{id}', 'Setting\ParishController@find');
+        Route::get('/{id}', 'Setting\ParishController@findWithAlbum');
         Route::get('/{id}/groupbytypes', 'Setting\ParishController@findGroupbyType');
         Route::get('/{id}/masschedules', 'Setting\ParishController@findmassSchedules');
         Route::get('/{id}/parishpatrimonies', 'Setting\ParishController@findParishPatrimonies');
