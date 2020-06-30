@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Setting;
 use App\Http\Controllers\Controller;
 use App\Models\APIError;
 use App\Models\Setting\Album;
+use App\Models\Setting\Photo;
 use App\Models\Setting\Contact;
 use App\Models\Setting\MassShedule;
 use App\Models\Setting\Parish;
+use App\Models\Person\Parishional;
+use App\Models\Person\Priest;
 use App\Models\Setting\ParishPatrimony;
 use Illuminate\Http\Request;
 
@@ -150,8 +153,44 @@ class ParishController extends Controller
             $apiError->setCode("PARISH_NOT_FOUND");
             return response()->json($apiError, 404);
         }
-        
-        return response()->json($parish);
+        //recuperation du nombre total de fidel
+        $countparish = Parishional::select(Parishional::raw('count(*) as total'))->first();
+        $nbreofparish = $countparish['total'];
+        $albums = Photo::select('photos.*')
+        ->join('albums', ['albums.id' => 'photos.album_id'])
+        ->join('parish_albums', ['parish_albums.album_id' => 'albums.id'])
+        ->join('parishs', ['parishs.id' => 'parish_albums.parish_id'])
+        ->where('parishs.id', '=',$id)
+        ->get();
+        //on ajoute le chemin du backend
+        foreach ($albums as $album) {
+           $album->picture =  url($album->picture);
+        }
+        //recuperation du cure de la paroisse
+        $priest = Priest::where('parish_id','=',$id)->get();
+        //recuperation du patrimoine paroissiale
+        $patrimonie = ParishPatrimony::where('parish_id','=',$id)->get();
+
+        return response()->json([
+            'parish' => [
+                'name' =>  $parish->name,
+                'logo' =>  url($parish->logo),
+                'nb_paroissien' =>  $nbreofparish,
+                'decision_creation' => $parish->decision_creation,
+                'nb_structure'   => $parish->nbr_of_structure,
+                'nb_service' => $parish->nbr_of_service,
+                'nb_group' => $parish->nbr_of_group,
+                'nb_ceb' => $parish->nbr_of_ceb,
+                'nb_station' => $parish->nbr_of_station,
+                'nb_seminariste' => $parish->nbr_of_seminarist,
+            ],
+            'priest' => $priest,
+            'photos' => $albums,
+            'patrimonies' => $patrimonie
+        ]);
+
+
+
     }
 
     public function findParishAlbum(Request $req, $id)

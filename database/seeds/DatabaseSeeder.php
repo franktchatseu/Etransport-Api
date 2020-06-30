@@ -58,12 +58,12 @@ class DatabaseSeeder extends Seeder
             // UtypeSeeder::class,
             // $this->call(SettingSeeder::class);
              // $this->call(LaratrustSeeder::class),
-             ParishSeeder::class,
-            ProfessionSeeder::class,
-            UserSeeder::class,
-            UtypeSeeder::class,
-            UserUtypeSeeder::class,
-            InputSeeder::class,
+            //  ParishSeeder::class,
+            // ProfessionSeeder::class,
+            // UserSeeder::class,
+            // UtypeSeeder::class,
+            // UserUtypeSeeder::class,
+            // InputSeeder::class,
             // ParishSeeder::class,
             // UserUtypeSeeder::class,
             // PriestSeeder::class,
@@ -71,16 +71,16 @@ class DatabaseSeeder extends Seeder
             // ParishionalSeeder::class,
             // CathechumeneSeeder::class,
             // ContactSeeder::class,
-            ProfessionSeeder::class,
-            ParishSeeder::class,
-            UserSeeder::class,
-            UtypeSeeder::class,
-            UserUtypeSeeder::class,
-            PriestSeeder::class,
-            AlbumSeeder::class,
-            ParishionalSeeder::class,
-            CathechumeneSeeder::class,
-            ContactSeeder::class,
+            // ProfessionSeeder::class,
+            // ParishSeeder::class,
+            // UserSeeder::class,
+            // UtypeSeeder::class,
+            // UserUtypeSeeder::class,
+            // PriestSeeder::class,
+            // AlbumSeeder::class,
+            // ParishionalSeeder::class,
+            // CathechumeneSeeder::class,
+            // ContactSeeder::class,
         ]);
 
         // module messagerie
@@ -121,18 +121,18 @@ class DatabaseSeeder extends Seeder
             //    ParishionalSeeder::class,
             //    CathechumeneSeeder::class,
             //    ContactSeeder::class, /*  */
-               AgendaSeeder::class,
-               ProfessionSeeder::class,
-               UserSeeder::class,
-               UtypeSeeder::class,
-               ParishSeeder::class,
-               UserUtypeSeeder::class,
-               PriestSeeder::class,
-               AlbumSeeder::class,
-              // catechistSeeder::class,
-               ParishionalSeeder::class,
-               CathechumeneSeeder::class,
-               ContactSeeder::class, /*  */
+              //  AgendaSeeder::class,
+              //  ProfessionSeeder::class,
+              //  UserSeeder::class,
+              //  UtypeSeeder::class,
+              //  ParishSeeder::class,
+              //  UserUtypeSeeder::class,
+              //  PriestSeeder::class,
+              //  AlbumSeeder::class,
+              // // catechistSeeder::class,
+              //  ParishionalSeeder::class,
+              //  CathechumeneSeeder::class,
+              //  ContactSeeder::class, /*  */
              //  ParishionalSeeder::class,
              //  CathechumeneSeeder::class,
               // ContactSeeder::class, /*  */
@@ -223,12 +223,12 @@ class DatabaseSeeder extends Seeder
 
           // module association
            $this->call([
-                TypeAssociationSeeder::class,
-                AssociationSeeder::class,
-                EvenementSeeder::class,
-                StatutSeeder::class,
-                MemberAssociationSeeder::class,
-                EventPresenceMemberAssociationSeeder::class
+                // TypeAssociationSeeder::class,
+                // AssociationSeeder::class,
+                // EvenementSeeder::class,
+                // StatutSeeder::class,
+                // MemberAssociationSeeder::class,
+                // EventPresenceMemberAssociationSeeder::class
            ]);
 
           // $this->call([
@@ -252,13 +252,13 @@ class DatabaseSeeder extends Seeder
 
           //module Planification
           $this->call([
-               ObjectMakingAppointmentSeeder::class,
-               MakeAppointmentSeeder::class,
-               AnointingSickSeeder::class,
-               IntentionMassSeeder::class,
-               ObjectRequestMassSeeder::class,
-               RequestMassSeeder::class,
-               ReportProblemSeeder::class
+              //  ObjectMakingAppointmentSeeder::class,
+              //  MakeAppointmentSeeder::class,
+              //  AnointingSickSeeder::class,
+              //  IntentionMassSeeder::class,
+              //  ObjectRequestMassSeeder::class,
+              //  RequestMassSeeder::class,
+              //  ReportProblemSeeder::class
                /*    TypePlaningSeeder::class,
            PlaningSeeder::class,
            AssociationPlaningSeeder::class,

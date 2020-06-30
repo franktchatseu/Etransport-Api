@@ -193,7 +193,17 @@ class SubMenuController extends Controller
                 $submenu = Sub_Menu::whereMenuId($menus->id)->simplePaginate($req->has('limit') ? $req->limit : 15);
             }
 
-        return response()->json($submenu);
+        return response()->json($menus->id);
+        
+    }
+
+    public function findSubMenuId(Request $req, $id)
+    {
+    
+                $submenus = Sub_Menu::orderBy('id','desc')->whereMenuId($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
+         
+
+        return response()->json($submenus);
         
     }
   

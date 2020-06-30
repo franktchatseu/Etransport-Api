@@ -72,6 +72,10 @@ Route::group(['prefix' => 'persons'], function () {
         Route::get('/{type}/to-chat', 'Person\UserUtypeController@findUserByType');
     });
 
+    Route::group(['prefix' => 'user-parishs'],function (){
+        Route::match(['post', 'put'],'/{id}', 'Person\MigrationParishController@migrateparish');
+    });
+
     Route::group(['prefix' => 'catechists'], function () {
         Route::get('/','Person\CatechistController@get');
         Route::get('/{id}', 'Person\CatechistController@find');
@@ -133,7 +137,8 @@ Route::group(['prefix' => 'persons'], function () {
         Route::get('/search', 'Person\ParishionalController@search');
         Route::get('/{id}', 'Person\ParishionalController@find');
         Route::delete('/{id}', 'Person\ParishionalController@find');
-        Route::post('/', 'Person\ParishionalController@store');
+        //Route::post('/', 'Person\ParishionalController@store');
+        Route::post('/', 'Person\ParishionalController@create');
         Route::match(['post', 'put'], '/{id}', 'Person\ParishionalController@update');
     });
 
@@ -601,6 +606,7 @@ Route::group(['prefix' => 'associations'], function () {
         Route::get('/search', 'Association\AssociationController@search');
         Route::get('/{id}', 'Association\AssociationController@find');
         Route::get('/{id}/type', 'Association\AssociationController@findTypeAssociation');
+        Route::get('/{id}/parish', 'Association\AssociationController@findParishAssociation');
         Route::delete('/{id}', 'Association\AssociationController@destroy');
         Route::post('/', 'Association\AssociationController@store');
         Route::match(['post', 'put'], '/{id}', 'Association\AssociationController@update');
@@ -777,6 +783,7 @@ Route::group(['prefix' => 'actualities'], function () {
         Route::match(['post', 'put'], '/{id}', 'Actuality\SubMenuController@update');
         Route::post('/', 'Actuality\SubMenuController@store');
         Route::get('/{slug}/menu', 'Actuality\SubMenuController@findSubMenu');
+	Route::get('/{id}/menus', 'Actuality\SubMenuController@findSubMenuId');
         Route::delete('/{id}', 'Actuality\SubMenuController@destroy');
     });
 
