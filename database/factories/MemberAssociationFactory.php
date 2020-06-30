@@ -9,6 +9,8 @@ $factory->define(MemberAssociation::class, function (Faker $faker) {
     return [
         'raisonAdhesion' => $faker->sentence,
         'date_adhesion' => $faker->date,
-        'status' => $faker->randomElement(['PENDING', 'REJECTED', 'ACCEPTED']),
+        'name' => 'Frank',
+        'telephone' => '696812610',
+        'status' => $faker->randomElement(['MEMBER','SECRETAIRE','CENSEUR','PRESIDENT','VICE_PRESIDENT']),
     ];
 });

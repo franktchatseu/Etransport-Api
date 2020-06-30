@@ -59,10 +59,14 @@ class DatabaseSeeder extends Seeder
       UserUtypeSeeder::class,
       ContactSeeder::class,
       PriestSeeder::class,
+      ParishionalSeeder::class,
+      TypeAssociationSeeder::class,
+      AssociationSeeder::class,
+      MemberAssociationSeeder::class,
       AlbumSeeder::class,
       InputUUtypeSeeder::class,
       // CatechistSeeder::class,
-      ParishionalSeeder::class,
+      
       CathechumeneSeeder::class,
       ContactSeeder::class,
       AgendaSeeder::class, /*  */
@@ -148,11 +152,10 @@ class DatabaseSeeder extends Seeder
 
     // module association
     $this->call([
-      TypeAssociationSeeder::class,
-      AssociationSeeder::class,
+      
     //   EvenementSeeder::class,
     //   StatutSeeder::class,
-    //   MemberAssociationSeeder::class,
+       
     //   EventPresenceMemberAssociationSeeder::class,
     ]);
 

@@ -163,16 +163,17 @@ class AssociationController extends Controller
             return response()->json($apiError, 404);
         }
 
-        $memberAssociation = MemberAssociation::select('member_associations.association_id as association_id','users.first_name','users.last_name','users.avatar','statuts.name_post')
+        $memberAssociation = MemberAssociation::select('member_associations.association_id as association_id','users.first_name','users.last_name','users.avatar')
         
         ->join('associations', 'member_associations.association_id', '=', 'associations.id' )
         ->join('user_utypes', 'member_associations.user_utype_id', '=', 'user_utypes.id' )
         ->join('users', 'user_utypes.user_id', '=', 'users.id' )
-        ->join('statuts', 'member_associations.statut_id', '=', 'statuts.id' )
         ->where(['member_associations.association_id' => $id])
        // ->where('statuts.name_post','!=','member')
         ->get();
-
+       /* foreach ($memberAssociation as $member) {
+            $member->a =  url($member->picture);
+         }*/
         return response()->json([
                 'association_id' =>  $assoc->id,
                 'name' =>  $assoc->name,
@@ -187,7 +188,7 @@ class AssociationController extends Controller
 
     public function findTypeAssociation(Request $req, $id)
     {
-        $parishAssociation = Association::select('associations.id','associations.name as association_name','associations.photo as photo ','type_associations.name as name_type_association','associations.slogan','users.first_name','users.last_name','parishs.name as name_parish')
+        $parishAssociation = Association::select('associations.id','associations.name as association_name','associations.photo as ','type_associations.name as name_type_association','associations.slogan','users.first_name','users.last_name','parishs.name as name_parish')
         ->join('parishs', 'associations.parish_id', '=', 'parishs.id' )
         ->join('type_associations', 'associations.type_id', '=', 'type_associations.id' )
         ->join('users', 'associations.user_id', '=', 'users.id' )
