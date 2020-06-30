@@ -14,7 +14,7 @@ class AssociationController extends Controller
     public function index (Request $req)
     {
       
-        $data = Association::implePaginate($req->has('limit') ? $req->limit : 15);
+        $data = Association::simplePaginate($req->has('limit') ? $req->limit : 15);
         foreach($data as $assoc){
             $type = TypeAssociation::whereId($assoc->typeId)->first();
             $assoc['type'] = $type;
@@ -163,7 +163,7 @@ class AssociationController extends Controller
             return response()->json($apiError, 404);
         }
 
-        $memberAssociation = MemberAssociation::select('member_associations.association_id as association_id','users.first_name','users.last_name','users.avatar as avatar')
+        $memberAssociation = MemberAssociation::select('member_associations.association_id as association_id','users.first_name','users.last_name','users.avatar as avatar','users.tel as tel','users.email as email','member_associations.status  as poste')
         
         ->join('associations', 'member_associations.association_id', '=', 'associations.id' )
         ->join('user_utypes', 'member_associations.user_utype_id', '=', 'user_utypes.id' )
@@ -171,9 +171,9 @@ class AssociationController extends Controller
         ->where(['member_associations.association_id' => $id])
        // ->where('statuts.name_post','!=','member')
         ->get();
-        foreach ($memberAssociation as $member) {
+        /*foreach ($memberAssociation as $member) {
             $member->avatar =  url($member->avatar);
-         }
+         }*/
         return response()->json([
                 'association_id' =>  $assoc->id,
                 'name' =>  $assoc->name,
