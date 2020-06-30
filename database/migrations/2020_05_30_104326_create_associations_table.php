@@ -21,6 +21,8 @@ class CreateAssociationsTable extends Migration
             $table->string('name');
             $table->string('slogan')->nullable();
             $table->text('description')->nullable();
+            $table->string('lieu')->nullable();
+            $table->text('rencontre')->nullable();
             $table->date('dateCreation')->nullable();
             $table->string('reglement')->nullable();
             $table->timestamps();

@@ -56,7 +56,7 @@ class DatabaseSeeder extends Seeder
     $this->call([
       UserSeeder::class,
       UtypeSeeder::class,
-      //UserUtypeSeeder::class,
+      UserUtypeSeeder::class,
       ContactSeeder::class,
       PriestSeeder::class,
       AlbumSeeder::class,

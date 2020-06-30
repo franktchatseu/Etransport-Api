@@ -15,7 +15,7 @@ class AgendaSeeder extends Seeder
         //
         factory(Agenda::class, 21)->make()->each(function ($agenda) use ($faker) {
             $parish = Parish::all();
-            $agenda->parish_id = $faker->randomElement($parish)->id;;
+            $agenda->parish_id = $faker->randomElement($parish)->id;
             $agenda->save();
         });
     }
