@@ -43,7 +43,8 @@ class LiturgicalTextController extends Controller
             'title' => 'required',
             'description' => 'required',
             'image' => '',
-            'type_entry_type_id' => 'required:exists:liturgical_type_entry_types,id'
+            'type_entry_type_id' => 'required:exists:liturgical_type_entry_types,id',
+            'parish_id' => 'required:exists:liturgical_type_entry_types,id'
          ]);
          
          $data['image'] = '';
@@ -58,6 +59,7 @@ class LiturgicalTextController extends Controller
             $liturgicalText->description = $data['description'];
             $liturgicalText->avatar = $data['avatar'];
             $liturgicalText->type_entry_type_id = $data['type_entry_type_id'];
+            $liturgicalText->parish_id = $data['parish_id'];
             $liturgicalText->save();
        
         return response()->json($liturgicalText);
@@ -165,11 +167,12 @@ class LiturgicalTextController extends Controller
             abort(404, "No liturgical found with id $id");
         }
         $liturgicaltext = [
-            'id' => $liturgical->id,
+          'id' => $liturgical->id,
           'title' =>  $liturgical->title,
           'contenu' => $liturgical->contenu,
           'image' => $liturgical->image,
-          'type_id'=>$liturgical->type_entry_type_id
+          'type_id'=>$liturgical->type_entry_type_id,
+          'parish_id'=>$liturgical->parish_id
         ];
         return response()->json($liturgicaltext);
     }
@@ -191,7 +194,8 @@ class LiturgicalTextController extends Controller
 
     public function findLiturgicalByType($slug)
     {
-        $liturgical = LiturgicalText::select('liturgical_texts.title', 
+        $liturgical = LiturgicalText::select('liturgical_texts.title',
+                                            'liturgical_texts.parish_id', 
                                             'entry_types.title as type_title')
                                             ->where(['liturgical_types.slug' => $slug])
                                             ->join('liturgical_type_entry_types', 'liturgical_texts.type_entry_type_id', '=', 'liturgical_type_entry_types.id')
