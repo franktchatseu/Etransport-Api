@@ -13,7 +13,8 @@ class AssociationController extends Controller
 {
     public function index (Request $req)
     {
-        $data = Association::simplePaginate($req->has('limit') ? $req->limit : 15);
+      
+        $data = Association::implePaginate($req->has('limit') ? $req->limit : 15);
         foreach($data as $assoc){
             $type = TypeAssociation::whereId($assoc->typeId)->first();
             $assoc['type'] = $type;
@@ -140,6 +141,7 @@ class AssociationController extends Controller
 
     public function find($id)
     {
+        
         if (!$assoc = Association::find($id)) {
             $apiError = new APIError;
             $apiError->setStatus("404");

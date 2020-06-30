@@ -83,7 +83,7 @@ class DatabaseSeeder extends Seeder
 
     // module publicité
     $this->call([
-      // PublicitySeeder::class,
+       PublicitySeeder::class,
     ]);
 
     // module catechesis

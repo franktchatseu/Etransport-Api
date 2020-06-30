@@ -13,7 +13,7 @@ class PublicityController extends Controller
   
     public function index(Request $req)
     {
-        $data = Publicity::simplePaginate($req->has('limit') ? $req->limit : 15);
+        $data = Publicity::inRandomOrder()->simplePaginate($req->has('limit') ? $req->limit : 4);
         return response()->json($data);
     }
 
