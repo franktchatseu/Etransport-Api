@@ -643,6 +643,8 @@ Route::group(['prefix' => 'planification'],function (){
     Route::group(['prefix' => 'planings'],function (){
         Route::get('/', 'Planification\PlaningController@index');
         Route::get('/{id}', 'Planification\PlaningController@find');
+        Route::get('/find/{id}', 'Planification\PlaningController@finds');
+        Route::get('/{id}/{par}', 'Planification\PlaningController@findPlaningByParish');
         Route::get('/search', 'Planification\PlaningController@search');
         Route::post('/{id}', 'Planification\PlaningController@update');
         Route::post('/', 'Planification\PlaningController@create');
