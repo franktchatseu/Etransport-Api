@@ -38,8 +38,8 @@ class DatabaseSeeder extends Seeder
         
         //module finance
         $this->call([
-         NatureSeeder::class,
-         InputSeeder::class
+          NatureSeeder::class,
+        //  InputSeeder::class
         ]); 
 
         // module setting
@@ -63,7 +63,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             UtypeSeeder::class,
             UserUtypeSeeder::class,
-            InputUUtypeSeeder::class,
+            InputSeeder::class,
             // ParishSeeder::class,
             // UserUtypeSeeder::class,
             // PriestSeeder::class,
@@ -114,7 +114,7 @@ class DatabaseSeeder extends Seeder
             //    ProfessionSeeder::class,
             //    UserSeeder::class,
             //    UtypeSeeder::class,
-                ParishSeeder::class,
+                //ParishSeeder::class,
             //    UserUtypeSeeder::class,
             //    PriestSeeder::class,
             //    AlbumSeeder::class,

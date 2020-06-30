@@ -63,7 +63,7 @@ Route::group(['prefix' => 'persons'], function () {
     Route::group(['prefix' => 'user-utypes'], function () {
         Route::get('/', 'Person\UserUtypeController@index');
         Route::get('/search', 'Person\UserUtypeController@search');
-        Route::post('/', 'Person\UserUtypeController@create');
+        Route::post('/', 'Person\UserUtypeController@store');
         Route::get('/{id}', 'Person\UserUtypeController@find');
         Route::get('/{id}/parishs', 'Person\UserUtypeController@findUserParishsWithStatus');
         Route::match(['post', 'put'],'/{id}/activate-parishs', 'Person\UserUtypeController@activateUserParish');
@@ -274,15 +274,15 @@ Route::group(['prefix' => 'finances'], function () {
         Route::match(['post', 'put'], '/{id}', 'Finance\NatureController@update');
     });
 
-    Route::group(['prefix' => 'inputuutypes'], function () {
-        Route::get('/', 'Finance\InputUUtypeController@index');
-        Route::get('/{id}/mytransactions', 'Finance\InputUUtypeController@findTransactionByUser');
-        Route::get('/transactionsbynatures', 'Finance\InputUUtypeController@findTransactionByNature');
-        Route::get('/search', 'Finance\InputUUtypeController@search');
-        Route::get('/{id}', 'Finance\InputUUtypeController@find');
-        Route::delete('/{id}', 'Finance\InputUUtypeController@destroy');
-        Route::post('/', 'Finance\InputUUtypeController@store');
-        Route::match(['post', 'put'], '/{id}', 'Finance\InputUUtypeController@update');
+    Route::group(['prefix' => 'inputs'], function () {
+        Route::get('/', 'Finance\InputController@index');
+        Route::get('/{id}/mytransactions', 'Finance\InputController@findTransactionByUser');
+        Route::get('/transactionsbynatures', 'Finance\InputController@findTransactionByNature');
+        Route::get('/search', 'Finance\InputController@search');
+        Route::get('/{id}', 'Finance\InputController@find');
+        Route::delete('/{id}', 'Finance\InputController@destroy');
+        Route::post('/', 'Finance\InputController@store');
+        Route::match(['post', 'put'], '/{id}', 'Finance\InputController@update');
     });
 
     Route::group(['prefix' => 'tarifs'], function () {

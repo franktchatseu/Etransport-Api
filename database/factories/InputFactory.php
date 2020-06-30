@@ -12,5 +12,14 @@ $factory->define(Input::class, function (Faker $faker) {
         'reason' => $faker->text(100),
         'start_date' => $faker->date,
         'end_date' => $faker->date,
+        'date' => $faker->date(),
+        'city' => $faker->sentence,
+        'country' => $faker->sentence,
+        'pseudo' => $faker->sentence,
+        'status' => $faker->boolean(),
+        'bill_url' => url('uploads/blogs/blogs.5edba4d14f1dc5.78797280.pdf'),
+        'transaction_id' => $faker->numberBetween(1,100),
+        'provenance' => $faker->sentence,
+        'reference' => $faker->text(50)
     ];
 });

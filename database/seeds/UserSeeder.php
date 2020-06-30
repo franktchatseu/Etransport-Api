@@ -12,7 +12,7 @@ class UserSeeder extends Seeder
      */
     public function run(\Faker\Generator $faker)
     {
-        factory(User::class, 20)->make()->each(function ($user) use ($faker) {
+        factory(User::class, 10)->make()->each(function ($user) use ($faker) {
             $professions = \App\Models\Person\Profession::all();
             $user->profession_id = $faker->randomElement($professions)->id;
             $user->save();

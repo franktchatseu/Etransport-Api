@@ -16,6 +16,7 @@ class CreateNatureTable extends Migration
         Schema::create('natures', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('slug')->unique();
             $table->string('description');
             $table->enum('status', ['ELEVE', 'ETUDIANT', 'HOMME', 'FEMME']);
             $table->double('amount');

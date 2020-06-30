@@ -34,7 +34,7 @@ class UserUtypeController extends Controller
         $this->validate($data, [
             'type_id' => 'required',
             'user_id' => 'required:exists:users,id',
-            'parish_id' => 'required'
+            'parish_id' => 'required:exists:parishs,id'
         ]);
 
         $uutype = new UserUtype();

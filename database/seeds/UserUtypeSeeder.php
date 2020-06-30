@@ -12,7 +12,7 @@ class UserUtypeSeeder extends Seeder
      */
     public function run(\Faker\Generator $faker)
     {
-        factory(App\Models\Person\UserUtype::class, 20)->make()->each(function ($uutype) use ($faker) {
+        factory(App\Models\Person\UserUtype::class, 10)->make()->each(function ($uutype) use ($faker) {
             $users = App\Models\Person\User::all();
             $utypes = App\Models\Person\Utype::all();
             $parish = App\Models\Setting\Parish::all();
