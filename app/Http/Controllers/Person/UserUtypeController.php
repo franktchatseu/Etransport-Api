@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Person;
 
 use App\Http\Controllers\Controller;
+use App\Models\APIError;
 use App\Models\Person\UserUtype;
 use Illuminate\Http\Request;
 use App\Models\Person\Utype;
@@ -41,6 +42,7 @@ class UserUtypeController extends Controller
         $uutype->user_id = $data['user_id'];
         $uutype->type_id = $data['type_id'];
         $uutype->parish_id = $data['parish_id'];
+        
         $uutype->save();
        
         return response()->json($uutype);

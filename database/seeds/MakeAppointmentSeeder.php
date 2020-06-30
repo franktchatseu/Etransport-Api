@@ -19,6 +19,7 @@ class MakeAppointmentSeeder extends Seeder
             $user_utypes = App\Models\Person\UserUtype::all();
             $object = App\Models\Request\ObjectMakingAppointment::all();
             $usersacrment->person_id = $faker->randomElement($user_utypes)->id;
+            // $usersacrment->priest_id = $faker->randomElement($user_utypes)->id;
             $usersacrment->object_id = $faker->randomElement($object)->id;
             $usersacrment->save();
         });

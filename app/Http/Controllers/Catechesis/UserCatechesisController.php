@@ -30,12 +30,12 @@ class UserCatechesisController extends Controller
         $data = $request->except('photo');
 
         $this->validate($data, [
-            'user_id' => 'required',
+            'user_utype_id' => 'required',
             'catechesis_id' => 'required'
         ]);
 
             $userCatechesis = new UserCatechesis();
-            $userCatechesis->user_id = $data['user_id'];
+            $userCatechesis->user_utype_id = $data['user_utype_id'];
             $userCatechesis->catechesis_id = $data['catechesis_id'];
             $userCatechesis->save();
        
@@ -62,11 +62,11 @@ class UserCatechesisController extends Controller
         $data = $req->except('photo');
 
         $this->validate($data, [
-            'user_id' => 'required',
+            'user_utype_id' => 'required',
             'catechesis_id' => 'required'
         ]);
 
-        if ( $data['user_id']) $userCatechesis->user_id = $data['user_id'];
+        if ( $data['user_utype_id']) $userCatechesis->user_utype_id = $data['user_utype_id'];
         if ( $data['catechesis_id']) $userCatechesis->catechesis_id = $data['catechesis_id'];
         $userCatechesis->update();
 
@@ -140,8 +140,8 @@ class UserCatechesisController extends Controller
     public function findNameUserCatechesis(Request $req, $id)
     {
         $userNameCatechesis = UserCatechesis::select('user_catechesis.*','user_catechesis.id as user_catechesis_id','users.*')
-        ->join('users', 'user_catechesis.user_id', '=', 'users.id' )
-        ->where(['user_catechesis.catechesis_id' => $id])
+        ->join('users', 'user_catechesis.users_id', '=', 'users.id' )
+        ->where(['user_catechesis.user_id' => $id])
         ->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($userNameCatechesis);
     }

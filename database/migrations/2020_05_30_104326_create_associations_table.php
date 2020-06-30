@@ -19,8 +19,11 @@ class CreateAssociationsTable extends Migration
             $table->unsignedBigInteger('parish_id');
             $table->unsignedBigInteger('user_id');
             $table->string('name');
+            $table->string('photo');
             $table->string('slogan')->nullable();
             $table->text('description')->nullable();
+            $table->string('lieu')->nullable();
+            $table->text('rencontre')->nullable();
             $table->date('dateCreation')->nullable();
             $table->string('reglement')->nullable();
             $table->timestamps();

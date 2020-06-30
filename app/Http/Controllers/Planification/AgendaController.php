@@ -40,7 +40,7 @@ class AgendaController extends Controller
         $hebdo_date =Carbon::now()->subDays(7);
         //dd($hebdo_date);
         $agendas = DB:: table('agendas')->where('parish_id',$parish->id)->whereBetween('date_agenda', array($hebdo_date, $now_date))->orderBy('date_agenda','desc')->get()->groupBy(function($date) {
-            return Carbon::parse($date->date_agenda)->format('d'); // grouping by years
+            return Carbon::parse($date->date_agenda)->format('W'); // grouping by years
             //return Carbon::parse($date->created_at)->format('m'); // grouping by months
         });
         return response()->json($agendas);

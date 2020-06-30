@@ -14,9 +14,9 @@ class UserParishSeeder extends Seeder
     public function run(\Faker\Generator $faker)
     {
         factory(UserParish::class, 100)->make()->each(function ($userparish) use ($faker) {
-            $user = App\Models\Person\User::all();
+            $user_utype = \App\Models\Person\UserUtype::all();
             $parish = App\Models\Setting\Parish::all();
-            $userparish->user_id = $faker->randomElement($user)->id;
+            $userparish->user_utype_id = $faker->randomElement($user_utype)->id;
             $userparish->parish_id = $faker->randomElement($parish)->id;
             $userparish->save();
             

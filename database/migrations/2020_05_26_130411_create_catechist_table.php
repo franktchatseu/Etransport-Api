@@ -19,8 +19,8 @@ class CreateCatechistTable extends Migration
             $table->string('catechist_place');
             $table->timestamps();
 
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('user_utype_id');
+            $table->foreign('user_utype_id')->references('id')->on('user_utypes')->onDelete('cascade');
         });
     }
 

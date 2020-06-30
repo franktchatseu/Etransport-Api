@@ -13,9 +13,9 @@ class UserCatechesisSeeder extends Seeder
     public function run(\Faker\Generator $faker)
     {
         factory(UserCatechesis::class, 100)->make()->each(function ($usercatechesis) use ($faker) {
-            $users = App\Models\Person\User::all();
+            $user_utypes = \App\Models\Person\UserUtype::all();
             $catechesis = App\Models\Catechesis\Catechesis::all();
-            $usercatechesis->user_id = $faker->randomElement($users)->id;
+            $usercatechesis->user_utype_id = $faker->randomElement($user_utypes)->id;
             $usercatechesis->catechesis_id = $faker->randomElement($catechesis)->id;
             $usercatechesis->save();
         });

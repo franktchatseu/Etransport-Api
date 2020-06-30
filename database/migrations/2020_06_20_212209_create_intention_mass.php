@@ -15,12 +15,12 @@ class CreateIntentionMass extends Migration
     {
         Schema::create('intention_masses', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->date('request_date');
-            $table->date('intention');
+            $table->date('date');
+            $table->text('intention');
             $table->text('content')->nullable();
-            $table->string('photo');
-            $table->unsignedBigInteger('ammount');
-            $table->enum('status',['REJECTED','PENDING','ACCEPTED']);
+            $table->string('mass');
+            $table->unsignedBigInteger('amount');
+            $table->enum('status',['REJECTED','PENDING','ACCEPTED'])->default('REJECTED');
             $table->unsignedBigInteger('person_id');
             $table->timestamps();
             $table->softDeletes();

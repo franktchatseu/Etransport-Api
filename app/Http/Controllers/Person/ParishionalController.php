@@ -7,6 +7,7 @@ use App\Models\Person\Parishional;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\Person\User;
+use App\Models\APIError;
 
 class ParishionalController extends Controller
 {
@@ -97,14 +98,14 @@ class ParishionalController extends Controller
         $this->validate($data, [
             'quarter' => 'required',
             'isBaptist' => 'required',
-            'user_id' => 'required:exists:users,id'
+            'user_utype_id' => 'required:exists:user_utypes,id'
          ]);
 
 
             $parishional = new Parishional();
             $parishional->quarter = $data['quarter'];
             $parishional->isBaptist = $data['isBaptist'];
-            $parishional->user_id = $data['user_id'];
+            $parishional->user_utype_id = $data['user_utype_id'];
             $parishional->save();
        
         return response()->json($parishional);

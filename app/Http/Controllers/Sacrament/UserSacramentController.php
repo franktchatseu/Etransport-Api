@@ -40,7 +40,7 @@ class UserSacramentController extends Controller
         $data = $req->except('photo');
 
         $this->validate($data, [
-            'user_id' => 'required:exists:users,id',
+            'user_utype_id' => 'required:exists:user_utypes,id',
             'sacrament_id' => 'required:exists:sacraments,id',
             'request' => '',
             'isAspire' => 'required'
@@ -50,7 +50,7 @@ class UserSacramentController extends Controller
             $userSacrament = new UserSacrament();
             $userSacrament->request = $data['request'];
             $userSacrament->isAspire = $data['isAspire'];
-            $userSacrament->user_id = $data['user_id'];
+            $userSacrament->user_utype_id = $data['user_utype_id'];
             $userSacrament->sacrament_id = $data['sacrament_id'];
             $userSacrament->save();
        
@@ -99,14 +99,14 @@ class UserSacramentController extends Controller
         $this->validate($data, [
             'request' => '',
             'isAspire' => 'required',
-            'user_id' => 'required:exists:users,id',
+            'user_utype_id' => 'required:exists:user_utypes,id',
             'sacrament_id' => 'required:exists:sacraments,id'
          ]);
 
         
          if ( $data['request']) $userSacrament->request = $data['request'];
          if ( $data['isAspire']) $userSacrament->isAspire = $data['isAspire'];
-         if ( $data['user_id']) $userSacrament->user_id = $data['user_id'];
+         if ( $data['user_utype_id']) $userSacrament->user_utype_id = $data['user_utype_id'];
         if ( $data['sacrament_id']) $userSacrament->sacrament_id = $data['sacrament_id'];
 
         
