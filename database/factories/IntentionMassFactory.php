@@ -7,7 +7,6 @@ use Faker\Generator as Faker;
 
 $factory->define(IntentionMass::class, function (Faker $faker) {
     return [
-        'mass' => $faker->name(),
         'content' => $faker->text(),
         'amount' => $faker->numberBetween(10, 100000),
         'date' => $faker->date(),

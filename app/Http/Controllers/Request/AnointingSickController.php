@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Request;
 
 use App\Http\Controllers\Controller;
+use App\Models\APIError;
 use App\Models\Request\AnointingSick;
 use Illuminate\Http\Request;
 
@@ -43,7 +44,7 @@ class AnointingSickController extends Controller
             'hour' => 'required',
             'comment' => 'required',
             'person_id' => 'required',
-            'status' => 'required|in:REJECTED,PENDING,ACCEPTED',
+            // 'status' => 'required|in:REJECTED,PENDING,ACCEPTED',
         ]);
 
         if ($request->file('avatar') ?? null) {
@@ -52,7 +53,7 @@ class AnointingSickController extends Controller
         }
 
         $data = new AnointingSick();
-        $data->avatar = $datas['avatar'];
+        $data->avatar = $datas['avatar'] ?? null;
         $data->assisted_person = $datas['assisted_person'];
         $data->age = $datas['age'];
         $data->gender = $datas['gender'];
@@ -62,7 +63,7 @@ class AnointingSickController extends Controller
         $data->date = $datas['date'];
         $data->hour = $datas['hour'];
         $data->comment = $datas['comment'];
-        $data->status = $datas['status'];
+        $data->status = 'PENDING';
         $data->person_id = $datas['person_id'];
 
         $data->save();

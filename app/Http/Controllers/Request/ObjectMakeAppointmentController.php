@@ -137,7 +137,7 @@ class ObjectMakeAppointmentController extends Controller
         return response()->json($data);
     }
 
-    public function findByType(Request $req, $type)
+    public function findType(Request $req, $type)
     {
         $data = ObjectMakingAppointment::whereType($type)->simplePaginate($req->has('limit') ? $req->limit : 1000);
         if (!$data) {
@@ -146,6 +146,17 @@ class ObjectMakeAppointmentController extends Controller
             $apiError->setCode("ObjectMakingAppointment_NOT_FOUND");
             return response()->json($apiError, 404);
         }
+        
+        return response()->json($data);
+    }
+
+    public function findByType($type){
+        $data = ObjectMakingAppointment :: select('object_making_appointments.id',
+                                                  'object_making_appointments.type',
+                                                  'object_making_appointments.label')
+        ->where(['object_making_appointments.type' => $type])
+        ->get();
+
         return response()->json($data);
     }
 }

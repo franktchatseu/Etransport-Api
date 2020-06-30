@@ -15,9 +15,9 @@ class IntentionMassSeeder extends Seeder
     {
         factory(IntentionMass::class, 100)->make()->each(function ($intentionmass) use ($faker) {
             $user_utypes = App\Models\Person\UserUtype::all();
-            $objects = App\Models\Request\ObjectMakingAppointment::all();
+            $mass = App\Models\Setting\MassShedule::all();
             $intentionmass->person_id = $faker->randomElement($user_utypes)->id;
-            $intentionmass->object_id = $faker->randomElement($objects)->id;
+            $intentionmass->mass_id = $faker->randomElement($mass)->id;
             $intentionmass->save();
         });
     }

@@ -164,7 +164,14 @@ class LiturgicalTextController extends Controller
         if (!$liturgical = LiturgicalText::find($id)) {
             abort(404, "No liturgical found with id $id");
         }
-        return response()->json($liturgical);
+        $liturgicaltext = [
+            'id' => $liturgical->id,
+          'title' =>  $liturgical->title,
+          'contenu' => $liturgical->contenu,
+          'image' => $liturgical->image,
+          'type_id'=>$liturgical->type_entry_type_id
+        ];
+        return response()->json($liturgicaltext);
     }
 
     public function findLiturgicalText(Request $req, $slug)
@@ -182,16 +189,16 @@ class LiturgicalTextController extends Controller
         return response()->json($liturgical);
     }
 
-    public function findLiturgicalByType(Request $req, $id)
+    public function findLiturgicalByType($slug)
     {
-        $liturgical = LiturgicalText::select('liturgical_texts.*', 
-                                            'entry_types.*')
-                                            ->where(['entry_types.id' => $id])
+        $liturgical = LiturgicalText::select('liturgical_texts.title', 
+                                            'entry_types.title as type_title')
+                                            ->where(['liturgical_types.slug' => $slug])
                                             ->join('liturgical_type_entry_types', 'liturgical_texts.type_entry_type_id', '=', 'liturgical_type_entry_types.id')
                                             ->join('liturgical_types', 'liturgical_type_entry_types.type_id', '=', 'liturgical_types.id')
-                                             ->join('entry_types', 'liturgical_type_entry_types.entry_type_id', '=', 'entry_types.id')
-                                            
-        ->simplePaginate($req->has('limit') ? $req->limit : 15);
+                                            ->join('entry_types', 'liturgical_type_entry_types.entry_type_id', '=', 'entry_types.id')
+                                            ->get()
+                                            ->groupBy('type_title');
         return response()->json($liturgical);
     }
 }
