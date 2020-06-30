@@ -13,7 +13,11 @@ class PublicityController extends Controller
   
     public function index(Request $req)
     {
-        $data = Publicity::orderBy('view_numbers','asc')->inRandomOrder()->simplePaginate($req->has('limit') ? $req->limit : 4);
+        $data = Publicity::orderBy('view_numbers','asc')->orderBy('priority','desc')->inRandomOrder()->simplePaginate($req->has('limit') ? $req->limit : 4);
+        foreach($data as $pub){
+            $pub['view_numbers'] = $pub['view_numbers']+1;
+            $pub->update();
+        }
         return response()->json($data);
     }
 
