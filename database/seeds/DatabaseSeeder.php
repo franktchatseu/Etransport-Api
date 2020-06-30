@@ -39,6 +39,7 @@ class DatabaseSeeder extends Seeder
     // module setting
     $this->call([
       ParishSeeder::class,
+      AgendaSeeder::class,
       ParishPatrimonySeeder::class,
       MassSheduleSeeder::class,
       AlbumSeeder::class,
@@ -57,6 +58,8 @@ class DatabaseSeeder extends Seeder
       UserSeeder::class,
       UtypeSeeder::class,
       UserUtypeSeeder::class,
+      TypeAssociationSeeder::class,
+      AssociationSeeder::class,
       ContactSeeder::class,
       PriestSeeder::class,
       AlbumSeeder::class,
