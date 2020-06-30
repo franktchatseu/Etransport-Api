@@ -879,6 +879,7 @@ Route::group(['prefix' => 'requests'],function (){
         Route::post('/{id}', 'Request\IntentionMassController@update');
         Route::post('/', 'Request\IntentionMassController@store');
         Route::delete('/{id}', 'Request\IntentionMassController@destroy');
+        Route::get('/masss', 'Setting\MassSheduleController@getMass');
     });
 
     Route::group(['prefix' => 'anointing_sicks'],function (){

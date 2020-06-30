@@ -164,7 +164,14 @@ class LiturgicalTextController extends Controller
         if (!$liturgical = LiturgicalText::find($id)) {
             abort(404, "No liturgical found with id $id");
         }
-        return response()->json($liturgical);
+        $liturgicaltext = [
+            'id' => $liturgical->id,
+          'title' =>  $liturgical->title,
+          'contenu' => $liturgical->contenu,
+          'image' => $liturgical->image,
+          'type_id'=>$liturgical->type_entry_type_id
+        ];
+        return response()->json($liturgicaltext);
     }
 
     public function findLiturgicalText(Request $req, $slug)
@@ -184,9 +191,7 @@ class LiturgicalTextController extends Controller
 
     public function findLiturgicalByType($slug)
     {
-        $liturgical = LiturgicalText::select('liturgical_texts.*', 
-                                            'entry_types.*',
-                                            'liturgical_types.*',
+        $liturgical = LiturgicalText::select('liturgical_texts.title', 
                                             'entry_types.title as type_title')
                                             ->where(['liturgical_types.slug' => $slug])
                                             ->join('liturgical_type_entry_types', 'liturgical_texts.type_entry_type_id', '=', 'liturgical_type_entry_types.id')

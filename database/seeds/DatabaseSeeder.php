@@ -56,7 +56,7 @@ class DatabaseSeeder extends Seeder
     $this->call([
       UserSeeder::class,
       UtypeSeeder::class,
-      //UserUtypeSeeder::class,
+      UserUtypeSeeder::class,
       ContactSeeder::class,
       PriestSeeder::class,
       AlbumSeeder::class,
@@ -189,6 +189,14 @@ class DatabaseSeeder extends Seeder
       SubMenuSeeder::class,
       ArticleSeeder::class,
       ArticleAttributeMenuSeeder::class,
+    ]);
+
+    //module liturgical
+    $this->call([
+      LiturgicalTypeSeeder::class,
+      EntryTypeSeeder::class,
+      LiturgicalTypeEntryTypeSeeder::class,
+      LiturgicalTextSeeder::class,
     ]);
 
     Schema::enableForeignKeyConstraints();
