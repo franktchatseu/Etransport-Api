@@ -192,15 +192,18 @@ class LiturgicalTextController extends Controller
         return response()->json($liturgical);
     }
 
-    public function findLiturgicalByType($slug)
+    public function findLiturgicalByType($slug, $parishId)
     {
         $liturgical = LiturgicalText::select('liturgical_texts.title',
                                             'liturgical_texts.parish_id', 
-                                            'entry_types.title as type_title')
+                                            'entry_types.title as type_title',
+                                            'liturgical_types.slug')
                                             ->where(['liturgical_types.slug' => $slug])
+                                            ->where(['liturgical_texts.parish_id' => $parishId])
                                             ->join('liturgical_type_entry_types', 'liturgical_texts.type_entry_type_id', '=', 'liturgical_type_entry_types.id')
                                             ->join('liturgical_types', 'liturgical_type_entry_types.type_id', '=', 'liturgical_types.id')
                                             ->join('entry_types', 'liturgical_type_entry_types.entry_type_id', '=', 'entry_types.id')
+                                            ->join('parishs', 'liturgical_texts.parish_id', '=', 'parishs.id')
                                             ->get()
                                             ->groupBy('type_title');
         return response()->json($liturgical);

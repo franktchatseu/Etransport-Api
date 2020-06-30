@@ -971,7 +971,7 @@ Route::group(['prefix' => 'liturgicals'],function(){
         Route::post('/', 'Liturgical\LiturgicalTextController@store');
         Route::delete('/{id}', 'Liturgical\LiturgicalTextController@destroy');
         Route::get('/{slug}/liturgical_types', 'Liturgical\LiturgicalTextController@findLiturgicalText');
-        Route::get('/{slug}/entry_types', 'Liturgical\LiturgicalTextController@findLiturgicalByType');
+        Route::get('/{slug}/entry_types/{id}/parish', 'Liturgical\LiturgicalTextController@findLiturgicalByType');
     });
 
 });
