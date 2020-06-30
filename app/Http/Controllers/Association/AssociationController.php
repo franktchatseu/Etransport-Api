@@ -163,7 +163,7 @@ class AssociationController extends Controller
             return response()->json($apiError, 404);
         }
 
-        $memberAssociation = MemberAssociation::select('member_associations.association_id as association_id','users.first_name','users.last_name','users.avatar')
+        $memberAssociation = MemberAssociation::select('member_associations.association_id as association_id','users.first_name','users.last_name','users.avatar as avatar')
         
         ->join('associations', 'member_associations.association_id', '=', 'associations.id' )
         ->join('user_utypes', 'member_associations.user_utype_id', '=', 'user_utypes.id' )
@@ -171,9 +171,9 @@ class AssociationController extends Controller
         ->where(['member_associations.association_id' => $id])
        // ->where('statuts.name_post','!=','member')
         ->get();
-       /* foreach ($memberAssociation as $member) {
-            $member->a =  url($member->picture);
-         }*/
+        foreach ($memberAssociation as $member) {
+            $member->avatar =  url($member->avatar);
+         }
         return response()->json([
                 'association_id' =>  $assoc->id,
                 'name' =>  $assoc->name,
