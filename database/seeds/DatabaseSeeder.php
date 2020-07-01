@@ -227,6 +227,12 @@ class DatabaseSeeder extends Seeder
                 // ArticleAttributeMenuSeeder::class,
            ]);
 
+          // module notification
+          $this->call([
+            ParishionalMessagesSeeder::class
+          ]);
+
+
           Schema::enableForeignKeyConstraints();
           Model::reguard();
      }
