@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableProgramme extends Migration
+class CreateWordofpriestsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class CreateTableProgramme extends Migration
      */
     public function up()
     {
-        Schema::create('programmes', function (Blueprint $table) {
+        Schema::create('wordofpriests', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('jour',['LUNDI','MARDI','MERCREDI','JEUDI','VENDREDI','SAMEDI','DIMANCHE']);
-            $table->time('heure_debut');
-            $table->time('heure_fin');
-            $table->text('description');
-            $table->text('contact');
-            $table->enum('type',['REGULIER','IRREGULIER']);
-            $table->date('date_planifiee');
+            $table->text('title');
+            $table->text('contenu');
+            $table->string('picture_priest');
             $table->unsignedBigInteger('parish_id');
             $table->foreign('parish_id')->references('id')->on('parishs');
             $table->timestamps();
@@ -35,6 +31,6 @@ class CreateTableProgramme extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_programme');
+        Schema::dropIfExists('wordofpriests');
     }
 }

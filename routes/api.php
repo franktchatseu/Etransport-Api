@@ -212,6 +212,12 @@ Route::group(['prefix' => 'settings'], function () {
         Route::match(['post', 'put'], '/{id}', 'Setting\AlbumController@update');
         Route::post('/', 'Setting\AlbumController@store');
     });
+    Route::group(['prefix' => 'wordofpriests'], function () {
+        Route::get('/', 'Setting\WordofpriestController@index');
+        Route::get('/{id}/parish', 'Setting\WordofpriestController@findWordPriest');
+      
+    });
+
 
     Route::group(['prefix' => 'photos'], function () {
         Route::get('/', 'Setting\PhotoController@index');
