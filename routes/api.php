@@ -218,8 +218,12 @@ Route::group(['prefix' => 'settings'], function () {
         Route::get('/{id}/parish', 'Setting\WordofpriestController@findWordPriest');
       
     });
-
-
+    Route::group(['prefix' => 'parish_themes'], function () {
+        Route::get('/', 'Setting\Parish_themeController@index');
+        Route::get('/{id}/parish', 'Setting\Parish_themeController@findParishTheme');
+      
+    });
+     
     Route::group(['prefix' => 'photos'], function () {
         Route::get('/', 'Setting\PhotoController@index');
         Route::get('/{id}', 'Setting\PhotoController@find');

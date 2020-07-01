@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Setting;
 use App\Http\Controllers\Controller;
 use App\Models\Setting\Parish_theme;
 use Illuminate\Http\Request;
+use App\Models\APIError;
+use App\Models\Setting\Parish;
 
 class Parish_themeController extends Controller
 {
@@ -82,5 +84,26 @@ class Parish_themeController extends Controller
     public function destroy(Parish_theme $parish_theme)
     {
         //
+    }
+    //recuperer le theme paroissiale recent de la paroisse
+    public function findParishTheme($id)
+    {
+        //
+        $parish = Parish::find($id);
+        
+        //return response()->json($parish->name);
+        if (!$parish) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PARISH_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+        //on recupere le mot
+        $parish_theme = Parish_theme::select('parish_themes.*')
+        ->orderBy('created_at','desc')
+        ->where('parish_id','=',$id)->first();
+        //on met addresse du serveur sur image
+        $parish_theme->image=url($parish_theme->image);
+        return response()->json($parish_theme);
     }
 }
