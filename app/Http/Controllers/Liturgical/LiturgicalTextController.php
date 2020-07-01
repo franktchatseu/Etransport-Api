@@ -194,7 +194,7 @@ class LiturgicalTextController extends Controller
 
     public function findLiturgicalByType($slug, $parishId)
     {
-        $liturgical = LiturgicalText::select('liturgical_texts.title',
+        $liturgical = LiturgicalText::select('liturgical_texts.title','liturgical_texts.id',
                                             'liturgical_texts.parish_id', 
                                             'entry_types.title as type_title',
                                             'liturgical_types.slug')
