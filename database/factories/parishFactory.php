@@ -16,6 +16,7 @@ $factory->define(Parish::class, function (Faker $faker) {
         'nbr_of_ceb' => $faker->numberBetween(1,100),
         'nbr_of_station' => $faker->numberBetween(1,100),
         'nbr_of_seminarist' => $faker->numberBetween(1,100),
+        'logo' =>  $faker->text(10),
     ];
 });
           

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Notification;
 
 use App\Http\Controllers\Controller;
 use App\Models\Notification\ParishionalMessages;
+use App\Models\APIError;
 use Illuminate\Http\Request;
 
 class ParishionalMessagesController extends Controller

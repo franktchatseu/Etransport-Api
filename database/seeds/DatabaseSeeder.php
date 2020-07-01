@@ -70,6 +70,8 @@ class DatabaseSeeder extends Seeder
       LiturgicalTypeEntryTypeSeeder::class,
       LiturgicalTextSeeder::class,
       ParishionalMessagesSeeder::class,
+      ParishionalMessagesSeeder::class,
+      UserParishionalMessageSeeder::class,
       ContactSeeder::class,
       PriestSeeder::class,
       ParishionalSeeder::class,

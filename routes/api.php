@@ -52,13 +52,21 @@ Route::group(['prefix' => 'parishs'], function () {
 // Notification module : 'middleware' => 'auth:api',
 Route::group(['prefix' => 'notifications'], function () { 
     
-Route::group(['prefix' => 'parishional-messages'], function () {
-    Route::get('/', 'Notification\ParishionalMessagesController@index');
-    Route::get('/{id}', 'Notification\ParishionalMessagesController@find');
-    Route::match(['post', 'put'], '/{id}', 'Notification\ParishionalMessagesController@update');
-    Route::post('/', 'Notification\ParishionalMessagesController@create');
-    Route::delete('/{id}', 'Notification\ParishionalMessagesController@destroy');
-});
+    Route::group(['prefix' => 'parishional-messages'], function () {
+        Route::get('/', 'Notification\ParishionalMessagesController@index');
+        Route::get('/{id}', 'Notification\ParishionalMessagesController@find');
+        Route::match(['post', 'put'], '/{id}', 'Notification\ParishionalMessagesController@update');
+        Route::post('/', 'Notification\ParishionalMessagesController@create');
+        Route::delete('/{id}', 'Notification\ParishionalMessagesController@destroy');
+    });
+
+    Route::group(['prefix' => 'user-parishional-messages'], function () {
+        Route::get('/', 'Notification\UserParishionalMessageController@index');
+        Route::get('/{id}', 'Notification\UserParishionalMessageController@find');
+        Route::match(['post', 'put'], '/{id}', 'Notification\UserParishionalMessageController@update');
+        Route::post('/', 'Notification\UserParishionalMessageController@create');
+        Route::delete('/user/{user_id}/parishional-message/{parishional_message_id}', 'Notification\UserParishionalMessageController@destroy');
+    });
 
 });
 
