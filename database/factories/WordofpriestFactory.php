@@ -9,7 +9,6 @@ $factory->define(Wordofpriest::class, function (Faker $faker) {
     return [
         //
         'title' => $faker->name,
-        'picture_priest' => "/uploads/logo1.png",
         'contenu' =>  $faker->text(),
     ];
 });

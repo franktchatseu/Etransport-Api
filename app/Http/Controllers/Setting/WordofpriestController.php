@@ -84,11 +84,13 @@ class WordofpriestController extends Controller
             return response()->json($apiError, 404);
         }
         //on recupere le mot
-        $wordofpriest = Wordofpriest::select('wordofpriests.*')
+        $wordofpriest = Wordofpriest::select('wordofpriests.*','parishs.picture_priest as picture_priest')
+        ->join('parishs', ['parishs.id' => 'wordofpriests.parish_id'])
         ->orderBy('created_at','desc')
         ->where('parish_id','=',$id)->first();
         //on met addresse du serveur sur image
-        $wordofpriest->picture_priest=url($wordofpriest->picture_priest);
+        if($wordofpriest)
+            $wordofpriest->picture_priest=url($wordofpriest->picture_priest);
         return response()->json($wordofpriest);
     }
 }

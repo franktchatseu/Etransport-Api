@@ -99,11 +99,13 @@ class Parish_themeController extends Controller
             return response()->json($apiError, 404);
         }
         //on recupere le mot
-        $parish_theme = Parish_theme::select('parish_themes.*')
+        $parish_theme = Parish_theme::select('parish_themes.*','parishs.name_priest')
+        ->join('parishs', ['parishs.id' => 'parish_themes.parish_id'])
         ->orderBy('created_at','desc')
         ->where('parish_id','=',$id)->first();
         //on met addresse du serveur sur image
-        $parish_theme->image=url($parish_theme->image);
+        if($parish_theme)
+            $parish_theme->image=url($parish_theme->image);
         return response()->json($parish_theme);
     }
 }

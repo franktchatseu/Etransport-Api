@@ -17,7 +17,7 @@ class CreateWordofpriestsTable extends Migration
             $table->bigIncrements('id');
             $table->text('title');
             $table->text('contenu');
-            $table->string('picture_priest');
+            //$table->string('picture_priest');
             $table->unsignedBigInteger('parish_id');
             $table->foreign('parish_id')->references('id')->on('parishs');
             $table->timestamps();
