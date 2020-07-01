@@ -15,7 +15,7 @@ class AnointingSickController extends Controller
      * @param  \Illuminate\Http\Request  $req
      * @return \Illuminate\Http\Response
      */
-    public function index (Request $req)
+    public function index(Request $req)
     {
         $data = AnointingSick::simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($data);
@@ -31,45 +31,43 @@ class AnointingSickController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->except('photo');
-        $this->validate($data, [
+        $datas = $request->except('photo');
+        $this->validate($datas, [
             'assisted_person' => 'required',
             'age' => 'required',
             'gender' => 'required|in:M,F',
             'quater' => 'required',
             'disease_nature' => 'required',
-            'is_baptized' => 'required',
-            'request_date' => 'required',
+            'is_baptisted' => 'required',
+            'date' => 'required',
+            'hour' => 'required',
             'comment' => 'required',
             'person_id' => 'required',
             'status' => 'required|in:REJECTED,PENDING,ACCEPTED',
         ]);
 
-        
-        if ( $request->file('avatar') ?? null) {
-            $filePaths = $this->saveSingleImage($this, $request, 'avatar', 'anoiting');
-            $data['avatar'] = json_encode(['images' => $filePaths]);
-            $anointingSick->avatar = $data['avatar'] ;
-        }else{
-            $anointingSick->avatar =null ;
+        if ($request->file('avatar') ?? null) {
+            $filePaths = $this->saveSingleImage($this, $request, 'avatar', 'anoitings');
+            $datas['avatar'] = json_encode(['images' => $filePaths]);
         }
 
-            $anointingSick = new AnointingSick();
-            $anointingSick->assisted_person = $data['assisted_person'];
-            $anointingSick->age = $data['age'];
-            $anointingSick->gender = $data['gender'];
-            $anointingSick->quater = $data['quater'];
-            $anointingSick->disease_nature = $data['disease_nature'];
-            $anointingSick->is_baptized = $data['is_baptized'];
-            $anointingSick->request_date = $data['request_date'];
-            $anointingSick->comment = $data['comment'];
-            $anointingSick->status = $data['status'];
-            $anointingSick->person_id = $data['person_id'];
- 
-            
-            $anointingSick->save();
-       
-        return response()->json($anointingSick);
+        $data = new AnointingSick();
+        $data->avatar = $datas['avatar'];
+        $data->assisted_person = $datas['assisted_person'];
+        $data->age = $datas['age'];
+        $data->gender = $datas['gender'];
+        $data->quater = $datas['quater'];
+        $data->disease_nature = $datas['disease_nature'];
+        $data->is_baptisted = $datas['is_baptisted'];
+        $data->date = $datas['date'];
+        $data->hour = $datas['hour'];
+        $data->comment = $datas['comment'];
+        $data->status = $datas['status'];
+        $data->person_id = $datas['person_id'];
+
+        $data->save();
+
+        return response()->json($data);
     }
 
     /**
@@ -82,44 +80,45 @@ class AnointingSickController extends Controller
      */
     public function update(Request $req, $id)
     {
-        $anointingSick = AnointingSick::find($id);
-        if (!$anointingSick) {
+        $data = AnointingSick::find($id);
+        if (!$data) {
             abort(404, "No anointingSick found with id $id");
         }
 
-        $data = $req->except('photo');
+        $datas = $req->except('photo');
 
-        $this->validate($data, [
-            'assisted_person' => 'required',
-            'age' => 'required',
-            'gender' => 'required',
-            'quater' => 'required',
-            'disease_nature' => 'required',
-            'is_baptized' => 'required',
-            'request_date' => 'required',
-        ]);
+        // $this->validate($data, [
+        //     'assisted_person' => 'required',
+        //     'age' => 'required',
+        //     'gender' => 'required',
+        //     'quater' => 'required',
+        //     'disease_nature' => 'required',
+        //     'is_baptisted' => 'required',
+        //     'date' => 'required',
+        // ]);
 
         if ($file = $req->file('avatar')) {
             $filePaths = $this->saveSingleImage($this, $req, 'avatar', 'anoiting');
-            $data['avatar'] = json_encode(['images' => $filePaths]);
+            $datas['avatar'] = json_encode(['images' => $filePaths]);
         }
-        
+
         if (isset($data['avatar']))
-             $anointingSick->avatar = $data['avatar'];
-        
-        if (null !== $data['assisted_person']) $anointingSick->assisted_person = $data['assisted_person'];
-        if (null !== $data['age']) $anointingSick->age = $data['age'];
-        if (null !== $data['gender']) $anointingSick->gender = $data['gender'];
-        if (null !== $data['quater']) $anointingSick->quater = $data['quater'];
-        if (null !== $data['disease_nature']) $anointingSick->disease_nature = $data['disease_nature'];
-        if (null !== $data['is_baptized']) $anointingSick->is_baptized = $data['is_baptized'];
-        if (null !== $data['request_date']) $anointingSick->request_date = $data['request_date'];
-        if (null !== $data['comment']) $anointingSick->comment = $data['comment'];
-        if (null !== $data['status']) $anointingSick->status = $data['status'];
+            $data->avatar = $datas['avatar'];
 
-        $anointingSick->update();
+        if (null !== $data['assisted_person']) $data->assisted_person = $datas['assisted_person'];
+        if (null !== $data['age']) $data->age = $datas['age'];
+        if (null !== $data['gender']) $data->gender = $datas['gender'];
+        if (null !== $data['quater']) $data->quater = $datas['quater'];
+        if (null !== $data['disease_nature']) $data->disease_nature = $datas['disease_nature'];
+        if (null !== $data['is_baptisted']) $data->is_baptisted = $datas['is_baptisted'];
+        if (null !== $data['hour']) $data->hour = $datas['hour'];
+        if (null !== $data['date']) $data->date = $datas['date'];
+        if (null !== $data['comment']) $data->comment = $datas['comment'];
+        if (null !== $data['status']) $data->status = $datas['status'];
 
-        return response()->json($anointingSick);
+        $data->update();
+
+        return response()->json($data);
     }
 
     /**
@@ -131,11 +130,11 @@ class AnointingSickController extends Controller
      */
     public function destroy($id)
     {
-        if (!$anointingSick = AnointingSick::find($id)) {
+        if (!$data = AnointingSick::find($id)) {
             abort(404, "No anointingSick found with id $id");
         }
 
-        $anointingSick->delete();      
+        $data->delete();
         return response()->json();
     }
 
@@ -168,9 +167,21 @@ class AnointingSickController extends Controller
      */
     public function find($id)
     {
-        if (!$anointingSick = AnointingSick::find($id)) {
+        if (!$data = AnointingSick::find($id)) {
             abort(404, "No anointingSick found with id $id");
         }
-        return response()->json($anointingSick);
+        return response()->json($data);
+    }
+
+    public function findAllForUser(Request $req, $id)
+    {
+        $data = AnointingSick::wherePerson_id($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
+        if (!$data) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("ANOINTINGSICK_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+        return response()->json($data);
     }
 }

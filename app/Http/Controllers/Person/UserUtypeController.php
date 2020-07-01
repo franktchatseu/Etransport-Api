@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Person;
 
 use App\Http\Controllers\Controller;
+use App\Models\APIError;
 use App\Models\Person\UserUtype;
 use Illuminate\Http\Request;
 use App\Models\Person\Utype;
@@ -41,6 +42,7 @@ class UserUtypeController extends Controller
         $uutype->user_id = $data['user_id'];
         $uutype->type_id = $data['type_id'];
         $uutype->parish_id = $data['parish_id'];
+        
         $uutype->save();
        
         return response()->json($uutype);
@@ -115,7 +117,7 @@ class UserUtypeController extends Controller
         ->join('users', ['users.id' => 'user_utypes.user_id' ])
         ->join('parishs', ['user_utypes.parish_id' => 'parishs.id' ])
         ->select('users.*', 'user_utypes.*', 'user_utypes.id as user_utype_id', 'parishs.name as parish_name')        
-        ->simplePaginate($req->has('limit') ? $req->limit : 15);
+        ->simplePaginate($req->has('limit') ? $req->limit : 6);
 
         return response()->json($users);
     }

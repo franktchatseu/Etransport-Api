@@ -20,9 +20,10 @@ class CreateAnointingSick extends Migration
             $table->enum('gender',['F', 'M']);
             $table->string('quater');
             $table->string('disease_nature');
-            $table->boolean('is_baptized');
+            $table->boolean('is_baptisted')->default(false);
             $table->string('avatar')->nullable();
-            $table->date('request_date');
+            $table->date('date'); 
+            $table->string('hour');
             $table->text('comment');
             $table->unsignedBigInteger('person_id');
             $table->enum('status',['REJECTED','PENDING','ACCEPTED']);

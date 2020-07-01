@@ -30,7 +30,9 @@ class AssociationController extends Controller
         
         $this->validate($request->all(), [
             'name' => 'required',
-            'type_id' => 'required'
+            'type_id' => 'required',
+            'parish_id' => 'required',
+            'user_id' => 'required',
         ]);
         $data = [];
         if ($request->has('reglement')) {
@@ -40,85 +42,17 @@ class AssociationController extends Controller
 
         $data = array_merge($data, $request->only([
             'name', 
-            'type_id', 
+            'type_id',
+            'parish_id',
+            'user_id', 
             'slogan', 
             'description', 
-            'dateCreation']));
+            'dateCreation'
+        ]));
         $assoc = Association::create($data);
         $assoc->reglement = json_decode($assoc->reglement);
         return response()->json($assoc);
     }
-
-
-        /* 
-        $this->validate($request->all(), [
-            'name' => 'required',
-            'type_id' => 'required'
-        ]);
-
-        $data = [];
-        if ($request->has('reglement')) {
-            $filePaths = $this->uploadMultipleFiles($request, 'reglement', 'archivings',['file','mimes:pdf,doc,ppt,xls,rtf']);
-            $data['reglement'] = json_encode([$filePaths]);
-        }
-        $data = array_merge($data, $request->only([
-            'name', 
-            'type_id', 
-            'slogan', 
-            'description', 
-            'dateCreation']));
-            
-        $assoc = Association::create($data);
-        $assoc->reglement = json_decode($assoc->reglement);
-        return response()->json($assoc); */
-//    }
-
-/*     public function store(Request $request)
-    {
-        $data = $request->except('');
-
-        $this->validate($data, [
-            'name' => 'required',
-            'type_id' => 'required',
-            'slogan' => '',
-            'description' => '',
-            'dateCreation' => ''
-        ]);
-
-      
-        $data['reglement'] = '';
-        //upload image
-        if ($file = $request->file('file')) {
-            $filePaths = $this->saveMultipleImages($this, $request, 'reglement', 'association');
-            $data['file'] = json_encode(['file' => $filePaths]);
-        }
-
-       /*  if(isset($request->file)){
-            $file = $request->file('file');
-            $path = null;
-            if($file != null){
-                $extension = $file->getClientOriginalExtension();
-                $relativeDestination = "uploads/associations";
-                $destinationPath = public_path($relativeDestination);
-                $safeName = "document".time().'.'.$extension;
-                $file->move($destinationPath, $safeName);
-                $path = "$relativeDestination/$safeName";
-            }
-            $data['file'] = $path;
-
-        } */
-/* 
-        $associ = new Association();
-        $associ->name = $data['name'];
-        $associ->type_id = $data['type_id'];
-        $associ->slogan = $data['slogan'];
-        $associ->description = $data['description'];
-        $associ->dateCreation = $data['dateCreation'];
-        $associ->reglement = $data['file'];
-        $associ->save();
-              
-        return response()->json($associ);
-    }  */
 
 
     public function show($id)
@@ -155,7 +89,9 @@ class AssociationController extends Controller
 
         $this->validate($request->all(), [
             'name' => 'required',
-            'type_id' => 'required'
+            'type_id' => 'required',
+            'parish_id' => 'required',
+            'user_id' => 'required',
         ]);
         $data = [];
         if ($request->has('reglement')) {
@@ -165,7 +101,9 @@ class AssociationController extends Controller
 
         $data = array_merge($data, $request->only([
             'name', 
-            'type_id', 
+            'type_id',
+            'parish_id',
+            'user_id', 
             'slogan', 
             'description', 
             'dateCreation']));
@@ -208,4 +146,32 @@ class AssociationController extends Controller
         }
         return response()->json($assoc);
     }
+
+    public function findTypeAssociation(Request $req, $id)
+    {
+        $parishAssociation = Association::select('associations.id','associations.name as association_name','type_associations.name as name_type_association','associations.slogan','users.first_name','users.last_name','parishs.name as name_parish')
+        ->join('parishs', 'associations.parish_id', '=', 'parishs.id' )
+        ->join('type_associations', 'associations.type_id', '=', 'type_associations.id' )
+        ->join('users', 'associations.user_id', '=', 'users.id' )
+        ->where(['associations.type_id' => $id])
+        ->simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($parishAssociation);
+    }
+
+    //recuperation des associations d'une paroisse donnee
+    public function findParishAssociation(Request $req, $id)
+    {
+        $parishAssociation = Association::select('associations.id','associations.name as association_name','type_associations.name as name_type_association','type_associations.id as type_id','associations.slogan','parishs.name as name_parish')
+        ->join('parishs', 'associations.parish_id', '=', 'parishs.id' )
+        ->join('type_associations', 'associations.type_id', '=', 'type_associations.id' )
+        ->join('users', 'associations.user_id', '=', 'users.id' )
+        ->where(['associations.parish_id' => $id])
+      
+        ->simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($parishAssociation);
+    }
+
+
+
+    
 }

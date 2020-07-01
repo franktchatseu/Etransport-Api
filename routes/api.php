@@ -34,6 +34,8 @@ Route::group(['prefix' => 'extras'], function () {
     Route::get('postes', 'Extra\ExtraController@getPosts');
     Route::get('groupes', 'Extra\ExtraController@getGroups');
     Route::get('cebs', 'Extra\ExtraController@getCebs');
+    Route::Post('/', 'Extra\ApplyGroupController@create');
+
 });
 
 
@@ -41,6 +43,10 @@ Route::group(['prefix' => 'extras'], function () {
 Route::group(['prefix' => 'messageries'], function () { });
 
 Route::group(['prefix' => 'parishs'], function () {
+    Route::get('list', 'Setting\ParishController@index');
+    Route::get('/{id}/album', 'Setting\ParishController@findWithAlbum');
+
+
     
 });
 // Notification module : 'middleware' => 'auth:api',
@@ -65,13 +71,14 @@ Route::group(['prefix' => 'persons'], function () {
         Route::get('/search', 'Person\UserController@search');
         Route::get('/{id}', 'Person\UserController@find');
         Route::match(['post', 'put'], '/{id}', 'Person\UserController@update');
+        Route::post('/reset','Person\UserController@forgotPassword');
         Route::delete('/{id}', 'Person\UserController@destroy');
     });
 
-    Route::group(['prefix' => 'user-utypes'], function () {
+    Route::group(['prefix' => 'user_utypes'], function () {
         Route::get('/', 'Person\UserUtypeController@index');
         Route::get('/search', 'Person\UserUtypeController@search');
-        Route::post('/', 'Person\UserUtypeController@create');
+        Route::post('/', 'Person\UserUtypeController@store');
         Route::get('/{id}', 'Person\UserUtypeController@find');
         Route::get('/{id}/parishs', 'Person\UserUtypeController@findUserParishsWithStatus');
         Route::match(['post', 'put'],'/{id}/activate-parishs', 'Person\UserUtypeController@activateUserParish');
@@ -140,7 +147,7 @@ Route::group(['prefix' => 'persons'], function () {
         Route::get('/', 'Person\ParishionalController@index');
         Route::get('/search', 'Person\ParishionalController@search');
         Route::get('/{id}', 'Person\ParishionalController@find');
-        Route::delete('/{id}', 'Person\ParishionalController@find');
+        Route::delete('/{id}', 'Person\ParishionalController@destroy');
         Route::post('/', 'Person\ParishionalController@store');
         Route::match(['post', 'put'], '/{id}', 'Person\ParishionalController@update');
     });
@@ -166,6 +173,7 @@ Route::group(['prefix' => 'settings'], function () {
         Route::get('/', 'Setting\ParishController@index');
         Route::get('/search', 'Setting\ParishController@search');
         Route::get('/{id}', 'Setting\ParishController@find');
+        Route::get('/{id}/groupbytypes', 'Setting\ParishController@findGroupbyType');
         Route::get('/{id}/masschedules', 'Setting\ParishController@findmassSchedules');
         Route::get('/{id}/parishpatrimonies', 'Setting\ParishController@findParishPatrimonies');
         Route::get('/{id}/contact', 'Setting\ParishController@findContacts');
@@ -190,6 +198,16 @@ Route::group(['prefix' => 'settings'], function () {
         Route::delete('/{id}', 'Setting\ParishPatrimonyController@delete');
         Route::post('/', 'Setting\ParishPatrimonyController@store');
         Route::match(['post', 'put'], '/{id}', 'Setting\ParishPatrimonyController@update');
+    });
+
+    Route::group(['prefix' => 'seminarians'], function () {
+        Route::get('/', 'Setting\SeminarianController@index');
+        Route::get('/search', 'Setting\SeminarianController@search');
+        Route::get('/{id}', 'Setting\SeminarianController@find');
+        Route::get('/parish/{id}', 'Setting\SeminarianController@parishSeminarians');
+        Route::delete('/{id}', 'Setting\SeminarianController@destroy');
+        Route::post('/', 'Setting\SeminarianController@store');
+        Route::match(['post', 'put'], '/{id}', 'Setting\SeminarianController@update');
     });
 
     Route::group(['prefix' => 'albums'], function () {
@@ -282,6 +300,17 @@ Route::group(['prefix' => 'finances'], function () {
         Route::match(['post', 'put'], '/{id}', 'Finance\NatureController@update');
     });
 
+    Route::group(['prefix' => 'inputuutypes'], function () {
+        Route::get('/', 'Finance\InputUUtypeController@index');
+        Route::get('/{id}/mytransactions', 'Finance\InputUUtypeController@findTransactionByUser');
+        Route::get('/transactionsbynatures', 'Finance\InputUUtypeController@findTransactionByNature');
+        Route::get('/search', 'Finance\InputUUtypeController@search');
+        Route::get('/{id}', 'Finance\InputUUtypeController@find');
+        Route::delete('/{id}', 'Finance\InputUUtypeController@destroy');
+        Route::post('/', 'Finance\InputUUtypeController@store');
+        Route::match(['post', 'put'], '/{id}', 'Finance\InputUUtypeController@update');
+    });
+
     Route::group(['prefix' => 'tarifs'], function () {
         Route::get('/', 'Finance\TarifController@index');
         Route::get('/search', 'Finance\TarifController@search');
@@ -289,6 +318,13 @@ Route::group(['prefix' => 'finances'], function () {
         Route::match(['post', 'put'], '/{id}', 'Finance\TarifController@update');
         Route::delete('/{id}', 'Finance\TarifController@destroy'); 
     });
+});
+Route::group(['prefix' => 'person'], function () {
+
+
+        Route::get('/', 'ParishController@index');
+        Route::get('/search', 'ParishController@search');
+
 });
 
 
@@ -354,6 +390,7 @@ Route::group(['prefix' => 'catechesis'], function () {
     Route::group(['prefix' => 'annual-members'], function () {
         Route::get('/', 'Catechesis\AnnualMemberController@index');
         Route::get('/{id}', 'Catechesis\AnnualMemberController@find');
+        Route::get('/{id}/classmember', 'Catechesis\AnnualMemberController@getMemberByClass');
         Route::post('/', 'Catechesis\AnnualMemberController@create');
         Route::delete('/{id}', 'Catechesis\AnnualMemberController@destroy');
         Route::get('/search', 'Catechesis\AnnualMemberController@search');
@@ -440,6 +477,7 @@ Route::group(['prefix' => 'catechesis'], function () {
         Route::get('/search', 'Catechesis\CathedralPresenceController@search');
         Route::get('/{id}', 'Catechesis\CathedralPresenceController@find');
         Route::get('/{id}/annualmember', 'Catechesis\CathedralPresenceController@findCathedralPesences');
+        Route::get('/{id}/presencemember', 'Catechesis\CathedralPresenceController@findPesencesListOfMember');
         Route::delete('/{id}', 'Catechesis\CathedralPresenceController@destroy');
         Route::post('/', 'Catechesis\CathedralPresenceController@store');
         Route::match(['post', 'put'], '/{id}', 'Catechesis\CathedralPresenceController@update');
@@ -449,6 +487,7 @@ Route::group(['prefix' => 'catechesis'], function () {
         Route::get('/search', 'Catechesis\CatechesisPresenceController@search');
         Route::get('/{id}', 'Catechesis\CatechesisPresenceController@find');
         Route::get('/{id}/user_catechesis', 'Catechesis\CatechesisPresenceController@findcatechesisPresences');
+        Route::get('/{id}/presence_catechesis', 'Catechesis\CatechesisPresenceController@findcatechesisOfPresences');
         Route::delete('/{id}', 'Catechesis\CatechesisPresenceController@destroy');
         Route::post('/', 'Catechesis\CatechesisPresenceController@store');
         Route::match(['post', 'put'], '/{id}', 'Catechesis\CatechesisPresenceController@update');
@@ -577,13 +616,14 @@ Route::group(['prefix' => 'sacrament'], function () {
     Route::group(['prefix' => 'user_sacraments'], function () {
         Route::get('/', 'Sacrament\UserSacramentController@index');
         Route::get('/search', 'Sacrament\UserSacramentController@search');
+        Route::get('/search/{user_id}', 'Sacrament\UserSacramentController@search');
         Route::get('/{id}', 'Sacrament\UserSacramentController@find');
         Route::get('/{id}/users', 'Sacrament\UserSacramentController@findUserSacrament');
         Route::delete('/{id}', 'Sacrament\UserSacramentController@destroy');
         Route::post('/', 'Sacrament\UserSacramentController@store');
         Route::match(['post', 'put'], '/{id}', 'Sacrament\UserSacramentController@update');
     });
-
+    
 });
 
 // associations module : 'middleware' => 'auth:api',
@@ -593,6 +633,8 @@ Route::group(['prefix' => 'associations'], function () {
         Route::get('/', 'Association\AssociationController@index');
         Route::get('/search', 'Association\AssociationController@search');
         Route::get('/{id}', 'Association\AssociationController@find');
+        Route::get('/{id}/type', 'Association\AssociationController@findTypeAssociation');
+        Route::get('/{id}/parish', 'Association\AssociationController@findParishAssociation');
         Route::delete('/{id}', 'Association\AssociationController@destroy');
         Route::post('/', 'Association\AssociationController@store');
         Route::match(['post', 'put'], '/{id}', 'Association\AssociationController@update');
@@ -614,11 +656,13 @@ Route::group(['prefix' => 'associations'], function () {
         Route::post('/', 'Association\EvenementController@store');
         Route::match(['post', 'put'], '/{id}', 'Association\EvenementController@update');
     });
-    Route::group(['prefix' => 'member_association'], function () {
+    Route::group(['prefix' => 'member_associations'], function () {
         Route::get('/', 'Association\MemberAssociationController@index');
         Route::get('/search', 'Association\MemberAssociationController@search');
         Route::get('/{id}', 'Association\MemberAssociationController@find');
-        Route::get('/{id}/users', 'Association\MemberAssociationController@findMemberAssociation');
+        Route::get('/{id}/users', 'Association\MemberAssociationController@findMemberAssociationUser');
+        Route::get('/{id}/associations', 'Association\MemberAssociationController@findAllMemberAssociation');
+        Route::get('/{id}/bureauAssociations', 'Association\MemberAssociationController@findBureauMemberAssociation');
         Route::delete('/{id}', 'Association\MemberAssociationController@destroy');
         Route::post('/', 'Association\MemberAssociationController@store');
         Route::match(['post', 'put'], '/{id}', 'Association\MemberAssociationController@update');
@@ -652,6 +696,9 @@ Route::group(['prefix' => 'planification'],function (){
         Route::post('/{id}', 'Planification\PlaningController@update');
         Route::post('/', 'Planification\PlaningController@create');
         Route::delete('/{id}', 'Planification\PlaningController@destroy');
+        Route::get('/{parish_id}/hebdo', 'Planification\AgendaController@getAgendaByHebdo');
+        Route::get('/{parish_id}/mensuelle', 'Planification\AgendaController@getAgendaByMensuelle');
+        Route::get('/{parish_id}/trimestre', 'Planification\AgendaController@getAgendaByTrimestre');
     }); 
 
     Route::group(['prefix' => 'type_planings'],function (){
@@ -691,7 +738,7 @@ Route::group(['prefix' => 'messageries'],function (){
         Route::get('/', 'Messagerie\ChatGroupController@index');
         Route::get('/search', 'Messagerie\ChatGroupController@search');
         Route::get('/{id}/users', 'Messagerie\ChatGroupController@findUsersGroup');
-        Route::get('/{id}/messages', 'Messagerie\ChatGroupController@findMessages');
+        Route::get('/{id}/messages', 'persons\Messagerie\ChatGroupController@findMessages');
         Route::get('/{id}/for-user', 'Messagerie\ChatGroupController@findGroupsForUSer');
         Route::get('/{id}', 'Messagerie\ChatGroupController@find');
         Route::post('/{id}', 'Messagerie\ChatGroupController@update');
@@ -705,7 +752,7 @@ Route::group(['prefix' => 'messageries'],function (){
         Route::post('/{id}', 'Messagerie\ChatMemberGroupController@update');
         Route::post('/', 'Messagerie\ChatMemberGroupController@store');
         Route::delete('/{id}', 'Messagerie\ChatMemberGroupController@destroy');
-    });
+    }); 
 
     Route::group(['prefix' => 'chat-discussions'],function (){
         Route::get('/', 'Messagerie\ChatDiscussionController@index');
@@ -726,7 +773,7 @@ Route::group(['prefix' => 'messageries'],function (){
         Route::post('/', 'Messagerie\ChatMessageDuoController@store');
         Route::delete('/{id}', 'Messagerie\ChatMessageDuoController@destroy');
     });
-
+    
 });
 
 // actuality module : 'middleware' => 'auth:api',
@@ -764,6 +811,7 @@ Route::group(['prefix' => 'actualities'], function () {
         Route::match(['post', 'put'], '/{id}', 'Actuality\SubMenuController@update');
         Route::post('/', 'Actuality\SubMenuController@store');
         Route::get('/{slug}/menu', 'Actuality\SubMenuController@findSubMenu');
+	Route::get('/{id}/menus', 'Actuality\SubMenuController@findSubMenuId');
         Route::delete('/{id}', 'Actuality\SubMenuController@destroy');
     });
 
@@ -786,42 +834,130 @@ Route::group(['prefix' => 'actualities'], function () {
     }); 
 });
 
-Route::group(['prefix' => 'request'],function (){
-    Route::group(['prefix' => 'make_appointment'],function (){
-        Route::get('/', 'Request\MakeAppointmentController@get');
+Route::group(['prefix' => 'requests'],function (){
+    Route::group(['prefix' => 'make-appointments'],function (){
+        Route::get('/', 'Request\MakeAppointmentController@index');
         Route::get('/{id}', 'Request\MakeAppointmentController@find');
+        Route::get('/user/{id}', 'Request\MakeAppointmentController@findAllForUser');
         Route::get('/search', 'Request\MakeAppointmentController@search');
         Route::post('/{id}', 'Request\MakeAppointmentController@update');
-        Route::post('/', 'Request\MakeAppointmentController@create');
+        Route::post('/', 'Request\MakeAppointmentController@store');
+        Route::get('/{id}/user', 'Request\MakeAppointmentController@findAllForUser');
         Route::delete('/{id}', 'Request\MakeAppointmentController@delete');
     });
 
-    Route::group(['prefix' => 'object_make_appointment'],function (){
-        Route::get('/', 'Request\ObjectMakeAppointmentController@get');
+    Route::group(['prefix' => 'object-make-appointments'],function (){
+        Route::get('/', 'Request\ObjectMakeAppointmentController@index');
         Route::get('/{id}', 'Request\ObjectMakeAppointmentController@find');
         Route::get('/search', 'Request\ObjectMakeAppointmentController@search');
         Route::post('/{id}', 'Request\ObjectMakeAppointmentController@update');
-        Route::post('/', 'Request\ObjectMakeAppointmentController@create');
+        Route::post('/', 'Request\ObjectMakeAppointmentController@store');
+        Route::get('/{type}/type', 'Request\ObjectMakeAppointmentController@findByType');
         Route::delete('/{id}', 'Request\ObjectMakeAppointmentController@delete');
     });
 
-    Route::group(['prefix' => 'intention_mass'],function (){
+    Route::group(['prefix' => 'intention-masses'],function (){
         Route::get('/', 'Request\IntentionMassController@index');
         Route::get('/{id}', 'Request\IntentionMassController@find');
         Route::get('/search', 'Request\IntentionMassController@search');
+        Route::get('/{id}/user', 'Request\IntentionMassController@findAllForUser');
         Route::post('/{id}', 'Request\IntentionMassController@update');
         Route::post('/', 'Request\IntentionMassController@store');
         Route::delete('/{id}', 'Request\IntentionMassController@destroy');
     });
 
-    Route::group(['prefix' => 'anointing_sick'],function (){
+    Route::group(['prefix' => 'anointing-sicks'],function (){
         Route::get('/', 'Request\AnointingSickController@index');
         Route::get('/{id}', 'Request\AnointingSickController@find');
         Route::get('/search', 'Request\AnointingSickController@search');
+        Route::get('/{id}/user', 'Request\AnointingSickController@findAllForUser');
         Route::post('/{id}', 'Request\AnointingSickController@update');
         Route::post('/', 'Request\AnointingSickController@store');
         Route::delete('/{id}', 'Request\AnointingSickController@destroy');
     });
+
+    Route::group(['prefix' => 'report-problems'],function (){
+        Route::get('/', 'Request\ReportProblemController@index');
+        Route::get('/{id}/search', 'Request\ReportProblemController@search');
+        Route::get('/{id}', 'Request\ReportProblemController@find');
+        Route::get('/{id}/user', 'Request\ReportProblemController@findAllForUser');
+        Route::post('/{id}', 'Request\ReportProblemController@update');
+        Route::post('/', 'Request\ReportProblemController@store');
+        Route::delete('/{id}', 'Request\ReportProblemController@destroy');
+    });
+    
+    Route::group(['prefix' => 'setting-requests'],function (){
+        Route::get('/', 'Request\SettingRequestController@index');
+        Route::get('/{id}/search', 'Request\SettingRequestController@search');
+        Route::get('/{id}/user', 'Request\SettingRequestController@findAllForUser');
+        Route::get('/{slug}', 'Request\SettingRequestController@findBySlug');
+        Route::post('/{id}', 'Request\SettingRequestController@update');
+        Route::post('/', 'Request\SettingRequestController@store');
+        Route::delete('/{id}', 'Request\SettingRequestController@destroy');
+    });
+
+    Route::group(['prefix' => 'request-masses'],function (){
+        Route::get('/', 'Request\RequestMassController@get');
+        Route::get('/{id}', 'Request\RequestMassController@find');
+        Route::get('/{id}/user', 'Request\RequestMassController@findAllForUser');
+        Route::get('/search', 'Request\RequestMassController@search');
+        Route::post('/{id}', 'Request\RequestMassController@update');
+        Route::post('/', 'Request\RequestMassController@store');
+        Route::delete('/{id}', 'Request\RequestMassController@delete');
+    });
+
+    Route::group(['prefix' => 'object-request-masses'],function (){
+        Route::get('/', 'Request\ObjectRequestMassController@get');
+        Route::get('/{id}', 'Request\ObjectRequestMassController@find');
+        Route::get('/search', 'Request\ObjectRequestMassController@search');
+        Route::post('/{id}', 'Request\ObjectRequestMassController@update');
+        Route::post('/', 'Request\ObjectRequestMassController@store');
+        Route::delete('/{id}', 'Request\ObjectRequestMassController@delete');
+    });
+});
+
+//liturgical module : 'middleware' => 'auth:api'
+Route::group(['prefix' => 'liturgicals'],function(){
+    Route::group(['prefix' => 'liturgical_types'], function () {
+        Route::get('/', 'Liturgical\LiturgicalTypeController@index');
+        Route::get('/{id}', 'Liturgical\LiturgicalTypeController@find');
+        Route::match(['post', 'put'], '/{id}', 'Liturgical\LiturgicalTypeController@update');
+        Route::get('/search', 'Liturgical\LiturgicalTypeController@search');
+        Route::post('/', 'Liturgical\LiturgicalTypeController@store');
+        Route::delete('/{id}', 'Liturgical\LiturgicalTypeController@destroy');
+    });
+    
+    Route::group(['prefix' => 'entry_types'], function () {
+        Route::get('/', 'Liturgical\EntryTypeController@index');
+        Route::get('/{id}', 'Liturgical\EntryTypeController@find');
+        Route::match(['post', 'put'], '/{id}', 'Liturgical\EntryTypeController@update');
+        Route::get('/search', 'Liturgical\EntryTypeController@search');
+        Route::post('/', 'Liturgical\EntryTypeController@store');
+        Route::delete('/{id}', 'Liturgical\EntryTypeController@destroy');
+    });
+
+
+    Route::group(['prefix' => 'liturgical_type_entry_types'], function () {
+        Route::get('/', 'Liturgical\LiturgicalTypeEntryTypeController@index');
+        Route::get('/{id}', 'Liturgical\LiturgicalTypeEntryTypeController@find');
+        Route::match(['post', 'put'], '/{id}', 'Liturgical\LiturgicalTypeEntryTypeController@update');
+        Route::get('/search', 'Liturgical\LiturgicalTypeEntryTypeController@search');
+        Route::post('/', 'Liturgical\LiturgicalTypeEntryTypeController@store');
+        Route::delete('/{id}', 'Liturgical\LiturgicalTypeEntryTypeController@destroy');
+    });
+
+
+    Route::group(['prefix' => 'liturgical_texts'], function () {
+        Route::get('/', 'Liturgical\LiturgicalTextController@index');
+        Route::get('/{id}', 'Liturgical\LiturgicalTextController@find');
+        Route::match(['post', 'put'], '/{id}', 'Liturgical\LiturgicalTextController@update');
+        Route::get('/search', 'Liturgical\LiturgicalTextController@search');
+        Route::post('/', 'Liturgical\LiturgicalTextController@store');
+        Route::delete('/{id}', 'Liturgical\LiturgicalTextController@destroy');
+        Route::get('/{slug}/liturgical_types', 'Liturgical\LiturgicalTextController@findLiturgicalText');
+        Route::get('/{id}/entry_types', 'Liturgical\LiturgicalTextController@findLiturgicalByType');
+    });
+
 });
 
 // Publicity module : 'middleware' => 'auth:api',

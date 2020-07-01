@@ -5,16 +5,10 @@ namespace App\Http\Controllers;
 
 use DB;
 use App\Models\APIError;
-use App\Models\Person\Role;
-use App\Models\Person\User;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Auth;
 use \Carbon\Carbon;
 use App\Models\Person\Parishional;
-use App\Models\person\Priest;
-use App\Models\Person\Cathechumene;
-use App\Models\Person\Catechist;
 use App\Models\Person\UserUtype;
 
 class AuthController extends Controller
@@ -23,7 +17,56 @@ class AuthController extends Controller
 
 
     /**
-     * Login the user with email and password
+     * @OA\Post(
+     *     path="/auth/token",
+     *     tags={"auth"},
+     *     summary="Login user",
+     *     description="Login the user with email and password",
+     *     operationId="AuthController@login",
+     *     @OA\Parameter(
+     *          name="email",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="password",
+     *         in="query",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="<pre>
+     *          {
+     *              user: User,
+     *              roles: Role,
+     *              permissions: Permission,
+     *              token: {
+     *                  access_token: string,
+     *                  token_type:  'Bearer'
+     *                  expires_at:   string
+     *              }
+     *          }
+     *          </pre>",
+     *     ),
+     *     @OA\Response(
+     *          response=400,
+     *          description="ERR_01: Tous les champs sont requis",
+     *          @OA\JsonContent(ref="#/components/schemas/APIError")
+     *      ),
+     *      @OA\Response(
+     *         response=401,
+     *         description="<pre>
+     *                      AUTH_LOGIN: Login ou mot de passe incorrect.
+     *                  </pre>",
+     *         @OA\JsonContent(ref="#/components/schemas/APIError")
+     *      )
+     * )
      */
     public function login(Request $req)
     {
@@ -45,7 +88,7 @@ class AuthController extends Controller
             $token->save();
 
             // fetch all type
-            $types = UserUtype::select('utypes.value', 'user_utypes.id', 'parishs.name as parish_name', 'parishs.id as parish_id', 'user_utypes.is_active as parish_is_active')
+            $types = UserUtype::select('utypes.id as utype_id', 'utypes.value', 'user_utypes.id', 'parishs.name as parish_name', 'parishs.id as parish_id', 'user_utypes.is_active as parish_is_active')
             ->join('utypes', 'user_utypes.type_id', '=', 'utypes.id')
             ->join('parishs', 'user_utypes.parish_id', '=', 'parishs.id')
             ->where([
@@ -60,8 +103,9 @@ class AuthController extends Controller
                     $allTypes[] = $value->value;
                 }
                 if (in_array($value->value, $allTypes)) {
-                    $profiles[strtolower($value->value)] = Parishional::where(['user_id' => $user->id])->first();
+                    $profiles[strtolower($value->value)] = UserUtype::where(['user_id' => $user->id])->first();
                     $profiles[strtolower($value->value)]['identifiant'] = $value->id;
+                    $profiles[strtolower($value->value)]['utype_id'] = $value->utype_id;
                     $profiles[strtolower($value->value)]['parish'] = [
                         'parish_name' => $value->parish_name, 
                         'parish_id'=> $value->parish_id,
@@ -92,8 +136,24 @@ class AuthController extends Controller
 
 
 
+
     /**
-     * Log out current logged user
+     * @OA\Delete(
+     *     path="/auth/token",
+     *     tags={"auth"},
+     *     summary="Logs out current logged",
+     *     operationId="AuthController@logout",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation"
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized.",
+     *         @OA\JsonContent(ref="#/components/schemas/APIError")
+     *      ),
+     *     security={{"api_key": {}}}
+     * )
      */
     public function logout(Request $req)
     {
@@ -106,8 +166,25 @@ class AuthController extends Controller
 
 
 
+
     /**
-     * Get the current logged user
+     * @OA\Get(
+     *     path="/auth/user",
+     *     tags={"auth"},
+     *     summary="Get the current logged user",
+     *     operationId="AuthController@user",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Return User model",
+     *         @OA\JsonContent(ref="#/components/schemas/User")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized.",
+     *         @OA\JsonContent(ref="#/components/schemas/APIError")
+     *      ),
+     *     security={{"api_key": {}}}
+     * )
      */
     public function user()
     {
@@ -117,7 +194,26 @@ class AuthController extends Controller
 
 
     /**
-     * Get all permissions of logged user
+     * @OA\Get(
+     *     path="/auth/permissions",
+     *     tags={"auth"},
+     *     summary="Get all permission of logged user",
+     *     operationId="AuthController@permissions",
+     *     @OA\Response(
+     *         response=200,
+     *         description="json array of permission: Permission[]",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/Permission")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized.",
+     *         @OA\JsonContent(ref="#/components/schemas/APIError")
+     *      ),
+     *     security={{"api_key": {}}}
+     * )
      */
     public function permissions()
     {
@@ -126,8 +222,28 @@ class AuthController extends Controller
     }
 
 
+
     /**
-     * Get all roles of logged user
+     * @OA\Get(
+     *     path="/auth/roles",
+     *     tags={"auth"},
+     *     summary="Get all roles of logged user",
+     *     operationId="AuthController@roles",
+     *     @OA\Response(
+     *         response=200,
+     *         description="json array of role: Role[]",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/Role")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="AUTH_00: Unauthorized.",
+     *         @OA\JsonContent(ref="#/components/schemas/APIError")
+     *      ),
+     *     security={{"api_key": {}}}
+     * )
      */
     public function roles()
     {
@@ -137,7 +253,26 @@ class AuthController extends Controller
 
 
     /**
-     * Get all teams of logged user
+     * @OA\Get(
+     *     path="/auth/teams",
+     *     tags={"auth"},
+     *     summary="Get all team of logged user",
+     *     operationId="AuthController@teams",
+     *     @OA\Response(
+     *         response=200,
+     *         description="json array of role: Team[]",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/Team")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="AUTH_00: Unauthorized.",
+     *         @OA\JsonContent(ref="#/components/schemas/APIError")
+     *      ),
+     *     security={{"api_key": {}}}
+     * )
      */
     public function teams()
     {

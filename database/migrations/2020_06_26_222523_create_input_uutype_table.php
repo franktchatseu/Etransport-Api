@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UserInputTable extends Migration
+class CreateInputUutypeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class UserInputTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_inputs', function (Blueprint $table) {
+        Schema::create('input_uutypes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_utype_id');
+            $table->unsignedBigInteger('parish_id');
             $table->unsignedBigInteger('input_id');
             $table->unsignedBigInteger('transaction_id');
             $table->unsignedBigInteger('amount');
@@ -24,8 +25,12 @@ class UserInputTable extends Migration
             $table->string('provenance');
             $table->string('country');
             $table->string('pseudo');
+            $table->boolean('status')->default(true);
+            $table->string('bill_url');
+            $table->timestamps();
             $table->foreign('user_utype_id')->references('id')->on('user_utypes');
-            // $table->foreign('input_id')->references('id')->on('inputs');
+            $table->foreign('parish_id')->references('id')->on('parishs');
+            $table->foreign('input_id')->references('id')->on('inputs');
         });
     }
 
@@ -36,8 +41,6 @@ class UserInputTable extends Migration
      */
     public function down()
     {
-        Schema::table('user_inputs', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('input_uutypes');
     }
 }

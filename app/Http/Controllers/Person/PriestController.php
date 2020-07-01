@@ -48,7 +48,7 @@ class PriestController extends Controller
             'ordination_place' => 'required',
             'ordination_godfather' => 'required',
             'career' => 'required',
-            'user_id' => 'required:exists:users,id'
+            'user_utype_id' => 'required:exists:user_utypes,id'
         ]);
 
             $priest = new Priest();
@@ -56,7 +56,7 @@ class PriestController extends Controller
             $priest->ordination_place = $data['ordination_place'];
             $priest->ordination_godfather = $data['ordination_godfather'];
             $priest->career = $data['career'];
-            $priest->user_id = $data['user_id'];
+            $priest->user_utype_id = $data['user_utype_id'];
             $priest->save();
        
         return response()->json($priest);

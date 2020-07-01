@@ -61,6 +61,11 @@ class LaratrustSeeder extends Seeder
                     'last_name' => 'Bill Gates',
                     'language' => 'fr',
                     'gender' => 'M',
+                    'is_married' => '1',
+                    'is_baptisted' => '0',
+                    'district' => 'doul',
+                    'profession_id' => '1',
+                    'profession' => 'informaticien',
                     'password' => bcrypt('password')
                 ]);
                 $user->attachRole($role);

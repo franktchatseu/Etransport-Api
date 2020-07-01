@@ -4,6 +4,14 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 use App\Models\Catechesis\Catechesis;
+// use App\Models\Request\ObjectMakingAppointment;
+// use App\Models\Request\ObjectRequestMass;
+// use App\Models\Request\MakingAppointment;
+// use App\Models\Request\AnointingSick;
+// use App\Models\Request\IntentionMass;
+// use App\Models\Request\RequestMass;
+// use App\Models\Request\ReportProblem;
+
 
 class DatabaseSeeder extends Seeder
 {

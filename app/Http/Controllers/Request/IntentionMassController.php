@@ -8,14 +8,14 @@ use Illuminate\Http\Request;
 
 class IntentionMassController extends Controller
 {
-    /**
-     * Display a list of intension mass from database
+        /**
+     * Display a list of Anointing Sick from database
      * @author Brell Sanwouo
      * @email sanwouobrell@gmail.com
      * @param  \Illuminate\Http\Request  $req
      * @return \Illuminate\Http\Response
      */
-    public function index (Request $req)
+    public function index(Request $req)
     {
         $data = IntentionMass::simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($data);
@@ -23,7 +23,7 @@ class IntentionMassController extends Controller
 
 
     /**
-     * Create an intention mass on database
+     * Create an Anointing Sick on database
      * @author Brell Sanwouo
      * @email sanwouobrell@gmail.com
      * @param  \Illuminate\Http\Request  $request
@@ -31,36 +31,31 @@ class IntentionMassController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->except('photo');
-
-        $this->validate($data, [
-            'ammount' => 'required',
-            'request_date' => 'required',
+        $datas = $request->except('photo');
+        $this->validate($datas, [
+            'date' => 'required',
             'intention' => 'required',
-            'status' => 'required|in:REJECTED,PENDING,ACCEPTED',
+            'mass' => 'required',
+            'amount' => 'required',
             'person_id' => 'required',
         ]);
 
-        if ( $request->file('photo') ?? null) {
-            $filePaths = $this->saveSingleImage($this, $request, 'photo', 'intentionMass');
-            $data['photo'] = json_encode(['images' => $filePaths]);
-        }
+        $data = new IntentionMass();
+        $data->date = $datas['data'];
+        $data->intention = $datas['intention'];
+        $data->content = $datas['content'];
+        $data->mass = $datas['mass'];
+        $data->amount = $datas['amount'];
+        $data->status = 'PENDING';
+        $data->person_id = $datas['person_id'];
 
-            $intentionMass = new IntentionMass();
-            $intentionMass->ammount = $data['ammount'];
-            $intentionMass->request_date = $data['request_date'];
-            $intentionMass->intention = $data['intention'];
-            $intentionMass->status = $data['status'];
-            $intentionMass->person_id = $data['person_id'];
-            $intentionMass->photo = $data['photo'] ?? null;
-            
-            $intentionMass->save();
-       
-        return response()->json($intentionMass);
+        $data->save();
+
+        return response()->json($data);
     }
 
     /**
-     * Update an intention mass on database
+     * Update an Anointing Sick on database
      * @author Brell Sanwouo
      * @email sanwouobrell@gmail.com
      * @param  \Illuminate\Http\Request  $request
@@ -69,40 +64,40 @@ class IntentionMassController extends Controller
      */
     public function update(Request $req, $id)
     {
-        $intentionMass = IntentionMass::find($id);
-        if (!$intentionMass) {
-            abort(404, "No intentionMass found with id $id");
+        $data = IntentionMass::find($id);
+        if (!$data) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("IntentionMass_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
-        $this->validate($data, [
-            'ammount' => 'required',
-            'request_date' => 'required',
-            'intention' => 'required',
-            'status' => 'required|in:REJECTED,PENDING,ACCEPTED',
-        ]);
+        $datas = $req->all();
 
-        if ($file = $req->file('photo')) {
-            $filePaths = $this->saveSingleImage($this, $req, 'photo', 'intentionMass');
-            $data['photo'] = json_encode(['images' => $filePaths]);
-            $intentionMass->photo = $data['photo'];
-        }else{
-            $intentionMass->photo = null;
-        }
-        
-        if (null !== $data['ammount'])  $intentionMass->ammount = $data['ammount'];
-        if (null !== $data['request_date'])  $intentionMass->request_date = $data['request_date'];
-        if (null !== $data['intention'])  $intentionMass->intention = $data['intention'];
-        if (null !== $data['status'])  $intentionMass->status = $data['status'];
-        if (null !== $data['person_id'])  $intentionMass->status = $data['person_id'];
+        // $this->validate($data, [
+        //     'assisted_person' => 'required',
+        //     'age' => 'required',
+        //     'gender' => 'required',
+        //     'quater' => 'required',
+        //     'disease_nature' => 'required',
+        //     'is_baptisted' => 'required',
+        //     'date' => 'required',
+        // ]);
 
+        if (null !== $data['date']) $data->date = $datas['date'];
+        if (null !== $data['intention']) $data->intention = $datas['intention'];
+        if (null !== $data['content']) $data->content = $datas['content'];
+        if (null !== $data['mass']) $data->mass = $datas['mass'];
+        if (null !== $data['amount']) $data->amount = $datas['amount'];
+        if (null !== $data['status']) $data->status = $datas['status'];
+    
+        $data->update();
 
-        $intentionMass->update();
-
-        return response()->json($intentionMass);
+        return response()->json($data);
     }
 
     /**
-     * Remove an intention mass from database
+     * Remove an Anointing Sick from database
      * @author Brell Sanwouo
      * @email sanwouobrell@gmail.com
      * @param  $id
@@ -110,16 +105,19 @@ class IntentionMassController extends Controller
      */
     public function destroy($id)
     {
-        if (!$intentionMass = IntentionMass::find($id)) {
-            abort(404, "No intentionMass found with id $id");
+        if (!$data = IntentionMass::find($id)) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("IntentionMass_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
-        $intentionMass->delete();      
+        $data->delete();
         return response()->json();
     }
 
     /**
-     * Search an intention mass from database
+     * Search an Anointing Sick from database
      * @author Brell Sanwouo
      * @email sanwouobrell@gmail.com
      * @param  \Illuminate\Http\Request  $req
@@ -139,7 +137,7 @@ class IntentionMassController extends Controller
     }
 
     /**
-     * Find an intention mass from database
+     * Find an Anointing Sick from database
      * @author Brell Sanwouo
      * @email sanwouobrell@gmail.com
      * @param  $id
@@ -147,9 +145,24 @@ class IntentionMassController extends Controller
      */
     public function find($id)
     {
-        if (!$intentionMass = IntentionMass::find($id)) {
-            abort(404, "No intentionMass found with id $id");
+        if (!$data = IntentionMass::find($id)) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("IntentionMass_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
-        return response()->json($intentionMass);
-    } 
+        return response()->json($data);
+    }
+
+    public function findAllForUser(Request $req, $id)
+    {
+        $data = IntentionMass::wherePerson_id($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
+        if (!$data) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("IntentionMass_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+        return response()->json($data);
+    }
 }

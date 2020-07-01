@@ -15,93 +15,102 @@ use App\Models\APIError;
 
 class MakeAppointmentController extends Controller
 {
-    //
+    /**
+     * Display a list of Anointing Sick from database
+     * @author Brell Sanwouo
+     * @email sanwouobrell@gmail.com
+     * @param  \Illuminate\Http\Request  $req
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $req)
+    {
+        $data = MakingAppointment::simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($data);
+    }
 
-    public function create (Request $request){
-        $request->validate([
-            'request_hour' => 'required',
-            'request_date' => 'required',
-            'request_comment' => 'required',
-            'object_id' => 'required',
+
+    /**
+     * Create an Anointing Sick on database
+     * @author Brell Sanwouo
+     * @email sanwouobrell@gmail.com
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $datas = $request->all();
+        $this->validate($datas, [
+            'hour' => 'required',
+            'date' => 'required',
             'person_id' => 'required',
-            'state' => 'required|in:PENDING,APPROVED,REJECTED'
+            'object_id' => 'required'
         ]);
-        
-        $data = $request->only([  
-            'request_hour', 
-            'request_date',
-            'request_comment',
-            'state',
-            'object_id',
-            'person_id'
-        ]);
-        $appointment = MakingAppointment::create($data);
-        return response()->json($appointment);
+
+        $data = new MakingAppointment();
+        $data->hour = $datas['hour'];
+        $data->date = $datas['date'];
+        $data->comment = $datas['comment'];
+        $data->object_id = $datas['object_id'];
+        $data->person_id = $datas['person_id'];
+        $data->status = 'PENDING';
+        $data->person_id = $datas['person_id'];
+
+        $data->save();
+
+        return response()->json($data);
     }
 
-    public function update(Request $request, $id){
-        $appointment = MakingAppointment::find($id);
-        if($appointment == null){
-            $apiError = new APIError();
-            $apiError->setStatus("404");
-            $apiError->setCode("MakingAppointment_ID_NOT_EXISTING");
-            $apiError->setErrors(['id' => 'Making Appointment id not existing']);
-
-            return response()->json($apiError, 404);
-        }
-        
-        $request->validate([
-            'state' => 'required|in:PENDING,APPROVED,REJECTED',
-        ]);
-
-        $data = $request->only([
-            'request_hour', 
-            'request_date',
-            'request_comment',
-            'state',
-            'object_id',
-            'person_id'
-        ]);
-
-        $appointment->update($data);
-        return response()->json($appointment);
-    }
-
-    public function find($id){
-        $appointment = MakingAppointment::find($id);
-        if($appointment == null) {
-            $unauthorized = new APIError;
-            $unauthorized->setStatus("404");
-            $unauthorized->setCode("appointment_NOT_FOUND");
-            $unauthorized->setMessage("appointment id not existing");
-
-            return response()->json($unauthorized, 404); 
+    /**
+     * Update an Anointing Sick on database
+     * @author Brell Sanwouo
+     * @email sanwouobrell@gmail.com
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $req, $id)
+    {
+        $data = MakingAppointment::find($id);
+        if (!$data) {
+            abort(404, "No MakingAppointment found with id $id");
         }
 
-        return response()->json($appointment);
+        $datas = $req->all();
+
+        if (null !== $data['hour']) $data->hour = $datas['hour'];
+        if (null !== $data['date']) $data->date = $datas['date'];
+        if (null !== $data['comment']) $data->comment = $datas['comment'];
+        if (null !== $data['status']) $data->status = $datas['status'];
+
+        $data->update();
+
+        return response()->json($data);
     }
 
-    public function get(Request $request){
-        $limit = $request->limit;
-        $page = $request->page; 
-        $appointments = MakingAppointment::simplePaginate($request->has('limit') ? $req->limit : 15);
-        return response()->json($appointments);
-    }
-
-
-    public function delete($id){
-        $appointment = MakingAppointment::find($id);
-        if($appointment ==null){
-            $unauthorized = new APIError;
-            $unauthorized->setStatus("404");
-            $unauthorized->setCode("appointment_NOT_FOUND");
-            $unauthorized->setMessage("No appointment found with id $id");
-            return response()->json($unauthorized, 404); 
+    /**
+     * Remove an Anointing Sick from database
+     * @author Brell Sanwouo
+     * @email sanwouobrell@gmail.com
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        if (!$data = MakingAppointment::find($id)) {
+            abort(404, "No MakingAppointment found with id $id");
         }
-        $appointment->delete($appointment);
-        return null;
+
+        $data->delete();
+        return response()->json();
     }
 
+    /**
+     * Search an Anointing Sick from database
+     * @author Brell Sanwouo
+     * @email sanwouobrell@gmail.com
+     * @param  \Illuminate\Http\Request  $req
+     * @return \Illuminate\Http\Response
+     */
     public function search(Request $req)
     {
         $this->validate($req->all(), [
@@ -115,4 +124,30 @@ class MakeAppointmentController extends Controller
         return response()->json($data);
     }
 
+    /**
+     * Find an Anointing Sick from database
+     * @author Brell Sanwouo
+     * @email sanwouobrell@gmail.com
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function find($id)
+    {
+        if (!$data = MakingAppointment::find($id)) {
+            abort(404, "No MakingAppointment found with id $id");
+        }
+        return response()->json($data);
+    }
+
+    public function findAllForUser(Request $req, $id)
+    {
+        $data = MakingAppointment::wherePerson_id($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
+        if (!$data) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("MakingAppointment_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+        return response()->json($data);
+    }
 }
