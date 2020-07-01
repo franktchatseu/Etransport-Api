@@ -237,7 +237,8 @@ class DatabaseSeeder extends Seeder
 
           // module notification
           $this->call([
-            ParishionalMessagesSeeder::class
+            ParishionalMessagesSeeder::class,
+            UserParishionalMessageSeeder::class
           ]);
 
 
