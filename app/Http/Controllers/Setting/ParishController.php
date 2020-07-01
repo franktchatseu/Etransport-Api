@@ -164,7 +164,9 @@ class ParishController extends Controller
 
     public function findWithAlbum(Request $req, $id)
     {
-        $parish = Parish::where($id)->get();
+        $parish = Parish::where('id','=',$id)->first();
+        
+        //return response()->json($parish->name);
         if (!$parish) {
             $apiError = new APIError;
             $apiError->setStatus("404");
@@ -186,7 +188,7 @@ class ParishController extends Controller
            $album->picture =  url($album->picture);
         }
         //recuperation du cure de la paroisse
-        $priest = Priest::where('parish_id','=',$id)->get();
+        $priest = Priest::where('parish_id','=',$id)->first();
         //recuperation du patrimoine paroissiale
         $patrimonie = ParishPatrimony::where('parish_id','=',$id)->get();
 
@@ -207,6 +209,7 @@ class ParishController extends Controller
             'photos' => $albums,
             'patrimonies' => $patrimonie
         ]);
+     
 
     }
 
