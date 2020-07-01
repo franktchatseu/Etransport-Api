@@ -28,8 +28,8 @@ class UserParishionalMessageController extends Controller
         return response()->json($user->parishionalMessages);
     }
 
-    public function destroy($id) {
-        if (!$user_parishional_message = UserParishionalMessage::find($id)) {
+    public function destroy($user_id, $parishional_message_id) {
+        if (!$user_parishional_message = UserParishionalMessage::whereUserIdAndParishionalMessageId($user_id, $parishional_message_id)->first()) {
             $apiError = new APIError;
             $apiError->setStatus("404");
             $apiError->setCode("USER_PARISHIONAL_MESSAGE_NOT_FOUND");

@@ -65,7 +65,7 @@ Route::group(['prefix' => 'notifications'], function () {
         Route::get('/{id}', 'Notification\UserParishionalMessageController@find');
         Route::match(['post', 'put'], '/{id}', 'Notification\UserParishionalMessageController@update');
         Route::post('/', 'Notification\UserParishionalMessageController@create');
-        Route::delete('/{id}', 'Notification\UserParishionalMessageController@destroy');
+        Route::delete('/user/{user_id}/parishional-message/{parishional_message_id}', 'Notification\UserParishionalMessageController@destroy');
     });
 
 });
