@@ -64,6 +64,7 @@ class DatabaseSeeder extends Seeder
       EntryTypeSeeder::class,
       LiturgicalTypeEntryTypeSeeder::class,
       LiturgicalTextSeeder::class,
+      ParishionalMessagesSeeder::class,
       ContactSeeder::class,
       PriestSeeder::class,
       ParishionalSeeder::class,
