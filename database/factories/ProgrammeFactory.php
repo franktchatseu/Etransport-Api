@@ -11,7 +11,7 @@ $factory->define(Programme::class, function (Faker $faker) {
         'heure_debut' => $faker->time,
         'heure_fin' => $faker->time,
         'description' => $faker->sentence,
-        'contact' => '696812610',
+        'contact' => $faker->phoneNumber(),
         'type' => $faker->randomElement(['REGULIER','IRREGULIER']),
         'date_planifiee' => $faker->date,
     ];

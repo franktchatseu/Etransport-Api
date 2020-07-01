@@ -17,6 +17,7 @@ use App\Models\Setting\Programme;
 use Illuminate\Http\Request;
 use App\Models\Extra\Group;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 
 
@@ -237,11 +238,13 @@ class ParishController extends Controller
            $album->picture =  url($album->picture);
         }
         //recuperation du programme des messes
-        
-        //recuperation de tous les pretres de la paroisse
-        $programmes = Programme::select('programmes.*')
-        ->where('programmes.parish_id',$id)->get();
+        $now_date =  Carbon::now();
+        $hebdo_date =Carbon::now()->subDays(7);
 
+        $programmes = Programme::select('programmes.*')
+        ->whereBetween('created_at', array($hebdo_date, $now_date))
+        ->where('programmes.parish_id',$id)->get()
+        ->groupBy('jour');
         return response()->json([
             'parish' => [
                 'parish_id' => $parish->id,
