@@ -1,9 +1,8 @@
 <?php
 
-use App\Models\Setting\Parish;
 use Illuminate\Database\Seeder;
 
-class ParishSeeder extends Seeder
+class patterndonationSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,8 +11,8 @@ class ParishSeeder extends Seeder
      */
     public function run(\Faker\Generator $faker)
     {
-        factory(Parish::class, 10)->make()->each(function ($parish) use ($faker) {
-            $parish->save();
+        factory(PatternDonation::class, 10)->make()->each(function ($pattern) use ($faker) {
+            $pattern->save();
         });
     }
 }

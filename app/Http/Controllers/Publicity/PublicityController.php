@@ -7,6 +7,7 @@ use App\Models\Publicity\Publicity;
 use Illuminate\Http\Request;
 use App\Models\APIError;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class PublicityController extends Controller
 {

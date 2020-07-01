@@ -95,6 +95,10 @@ Route::group(['prefix' => 'persons'], function () {
         Route::get('/{type}/to-chat', 'Person\UserUtypeController@findUserByType');
     });
 
+    Route::group(['prefix' => 'user-parishs'],function (){
+        Route::match(['post', 'put'],'/{id}', 'Person\MigrationParishController@migrateparish');
+    });
+
     Route::group(['prefix' => 'catechists'], function () {
         Route::get('/','Person\CatechistController@get');
         Route::get('/{id}', 'Person\CatechistController@find');
@@ -157,6 +161,9 @@ Route::group(['prefix' => 'persons'], function () {
         Route::get('/', 'Person\ParishionalController@index');
         Route::get('/search', 'Person\ParishionalController@search');
         Route::get('/{id}', 'Person\ParishionalController@find');
+        Route::delete('/{id}', 'Person\ParishionalController@find');
+        //Route::post('/', 'Person\ParishionalController@store');
+        Route::post('/', 'Person\ParishionalController@create');
         Route::delete('/{id}', 'Person\ParishionalController@destroy');
         Route::post('/', 'Person\ParishionalController@store');
         Route::match(['post', 'put'], '/{id}', 'Person\ParishionalController@update');
@@ -294,6 +301,14 @@ Route::group(['prefix' => 'finances'], function () {
         Route::match(['post', 'put'], '/{id}', 'Finance\AccountController@update');
     });
 
+    Route::group(['prefix' => 'patterndonations'], function () {
+        Route::get('/', 'Finance\PatternDonationController@get');
+        Route::get('/{id}', 'Finance\PatternDonationController@find');
+        Route::delete('/{id}', 'Finance\PatternDonationController@destroy');
+        Route::post('/', 'Finance\PatternDonationController@store');
+        Route::match(['post', 'put'], '/{id}', 'Finance\PatternDonationController@update');
+    });
+
     Route::group(['prefix' => 'requests'], function () {
         Route::get('/', 'Finance\RequestForMassController@index');
         Route::get('/{id}', 'Finance\RequestForMassController@find');
@@ -321,15 +336,15 @@ Route::group(['prefix' => 'finances'], function () {
         Route::match(['post', 'put'], '/{id}', 'Finance\NatureController@update');
     });
 
-    Route::group(['prefix' => 'inputuutypes'], function () {
-        Route::get('/', 'Finance\InputUUtypeController@index');
-        Route::get('/{id}/mytransactions', 'Finance\InputUUtypeController@findTransactionByUser');
-        Route::get('/transactionsbynatures', 'Finance\InputUUtypeController@findTransactionByNature');
-        Route::get('/search', 'Finance\InputUUtypeController@search');
-        Route::get('/{id}', 'Finance\InputUUtypeController@find');
-        Route::delete('/{id}', 'Finance\InputUUtypeController@destroy');
-        Route::post('/', 'Finance\InputUUtypeController@store');
-        Route::match(['post', 'put'], '/{id}', 'Finance\InputUUtypeController@update');
+    Route::group(['prefix' => 'inputs'], function () {
+        Route::get('/', 'Finance\InputController@index');
+        Route::get('/{id}/mytransactions', 'Finance\InputController@findTransactionByUser');
+        Route::get('/transactionsbynatures', 'Finance\InputController@findTransactionByNature');
+        Route::get('/search', 'Finance\InputController@search');
+        Route::get('/{id}', 'Finance\InputController@find');
+        Route::delete('/{id}', 'Finance\InputController@destroy');
+        Route::post('/', 'Finance\InputController@store');
+        Route::match(['post', 'put'], '/{id}', 'Finance\InputController@update');
     });
 
     Route::group(['prefix' => 'tarifs'], function () {
