@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Catechesis\Programme;
+use App\Models\Setting\Programme;
 use App\Models\Setting\Parish;
 class ProgrammeSeeder extends Seeder
 {

@@ -13,6 +13,7 @@ use App\Models\Setting\ParishAlbum;
 use App\Models\Person\Parishional;
 use App\Models\Person\Priest;
 use App\Models\Setting\ParishPatrimony;
+use App\Models\Setting\Programme;
 use Illuminate\Http\Request;
 use App\Models\Extra\Group;
 use Illuminate\Support\Facades\DB;
@@ -208,6 +209,46 @@ class ParishController extends Controller
             'priest' => $priest,
             'photos' => $albums,
             'patrimonies' => $patrimonie
+        ]);
+     
+
+    }
+
+     
+    public function parishPresentation(Request $req, $id)
+    {
+         $parish = Parish::find($id); 
+        //return response()->json($parish->name);
+        if (!$parish) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PARISH_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+
+        $albums = Photo::select('photos.*')
+        ->join('albums', ['albums.id' => 'photos.album_id'])
+        ->join('parish_albums', ['parish_albums.album_id' => 'albums.id'])
+        ->join('parishs', ['parishs.id' => 'parish_albums.parish_id'])
+        ->where('parishs.id', '=',$id)
+        ->get();
+        //on ajoute le chemin du backend
+        foreach ($albums as $album) {
+           $album->picture =  url($album->picture);
+        }
+        //recuperation du programme des messes
+        
+        //recuperation de tous les pretres de la paroisse
+        $programmes = Programme::select('programmes.*')
+        ->where('programmes.parish_id',$id)->get();
+
+        return response()->json([
+            'parish' => [
+                'parish_id' => $parish->id,
+                'photos' => $albums,
+            ],
+
+            'programmes' => $programmes
         ]);
      
 
