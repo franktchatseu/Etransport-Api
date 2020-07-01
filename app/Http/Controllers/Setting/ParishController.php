@@ -162,10 +162,10 @@ class ParishController extends Controller
         return response()->json($parish); 
     }
 
+   
     public function findWithAlbum(Request $req, $id)
     {
-        $parish = Parish::where('id','=',$id)->first();
-        
+         $parish = Parish::find($id); 
         //return response()->json($parish->name);
         if (!$parish) {
             $apiError = new APIError;
