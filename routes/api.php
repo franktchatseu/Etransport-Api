@@ -273,6 +273,14 @@ Route::group(['prefix' => 'finances'], function () {
         Route::match(['post', 'put'], '/{id}', 'Finance\AccountController@update');
     });
 
+    Route::group(['prefix' => 'patterndonations'], function () {
+        Route::get('/', 'Finance\PatternDonationController@get');
+        Route::get('/{id}', 'Finance\PatternDonationController@find');
+        Route::delete('/{id}', 'Finance\PatternDonationController@destroy');
+        Route::post('/', 'Finance\PatternDonationController@store');
+        Route::match(['post', 'put'], '/{id}', 'Finance\PatternDonationController@update');
+    });
+
     Route::group(['prefix' => 'requests'], function () {
         Route::get('/', 'Finance\RequestForMassController@index');
         Route::get('/{id}', 'Finance\RequestForMassController@find');
