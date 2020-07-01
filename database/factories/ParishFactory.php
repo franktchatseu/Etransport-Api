@@ -9,6 +9,8 @@ $factory->define(Parish::class, function (Faker $faker) {
     return [
         'name' =>  $faker->text(20),
         'logo' =>  'upload/image.png',
+        'email' => $faker->unique()->safeEmail(),
+        'phone' => $faker->phoneNumber(),
         'name_priest' =>  $faker->text(20),
         'picture_priest' =>  'upload/image.png',
         'description' => $faker->text(),

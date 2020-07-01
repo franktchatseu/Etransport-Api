@@ -244,17 +244,17 @@ class ParishController extends Controller
         $programmes = Programme::select('programmes.*')
         ->whereBetween('created_at', array($hebdo_date, $now_date))
         ->where('programmes.parish_id',$id)->get();
-        //recuperation des contacts de la paroisse
-        $contacts = Contact::select('contacts.id','contacts.email','contacts.phones as telephone','contacts.PO_BOX')->whereParishId($id)->get();
+
         return response()->json([
             'parish' => [
                 'parish_id' => $parish->id,
                 'description' => $parish->description,
+                'email' => $parish->email,
+                'phone' => $parish->phone,
                 'photos' => $albums,
             ],
 
             'programmes' => $programmes,
-            'contacts' => $contacts
         ]);
      
 
