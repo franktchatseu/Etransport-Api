@@ -2,14 +2,16 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\Catechesis\Programme;
+use App\Models\Setting\Programme;
 use Faker\Generator as Faker;
 
 $factory->define(Programme::class, function (Faker $faker) {
     return [
-        'duree' => $faker->numberBetween(1,100),
         'jour' => $faker->randomElement(['LUNDI','MARDI','MERCREDI','JEUDI','VENDREDI','SAMEDI','DIMANCHE']),
         'heure_debut' => $faker->time,
+        'heure_fin' => $faker->time,
+        'description' => $faker->sentence,
+        'contact' => $faker->phoneNumber(),
         'type' => $faker->randomElement(['REGULIER','IRREGULIER']),
         'date_planifiee' => $faker->date,
     ];

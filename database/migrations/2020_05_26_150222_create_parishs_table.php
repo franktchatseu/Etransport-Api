@@ -17,6 +17,9 @@ class CreateParishsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('logo');
+            $table->string('name_priest');
+            $table->string('picture_priest');
+            $table->text('description');
             $table->string('decision_creation');
             $table->date('Pattern_date');
             $table->integer('nbr_of_structure');

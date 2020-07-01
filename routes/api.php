@@ -140,6 +140,7 @@ Route::group(['prefix' => 'persons'], function () {
         Route::get('/find/{id}', 'Person\PriestController@find');
         Route::get('/search', 'Person\PriestController@search');
         Route::delete('/{id}', 'Person\PriestController@destroy');
+        Route::get('/{id}/parish', 'Person\PriestController@getAllPriestByParish');
         Route::match(['post', 'put'], '/{id}', 'Person\PriestController@update');
         Route::post('/', 'Person\PriestController@store');
     });
@@ -174,6 +175,7 @@ Route::group(['prefix' => 'settings'], function () {
         Route::get('/', 'Setting\ParishController@index');
         Route::get('/search', 'Setting\ParishController@search');
         Route::get('/{id}', 'Setting\ParishController@findWithAlbum');
+        Route::get('/{id}/presentation', 'Setting\ParishController@parishPresentation');
         Route::get('/{id}/groupbytypes', 'Setting\ParishController@findGroupbyType');
         Route::get('/{id}/masschedules', 'Setting\ParishController@findmassSchedules');
         Route::get('/{id}/parishpatrimonies', 'Setting\ParishController@findParishPatrimonies');
@@ -220,7 +222,17 @@ Route::group(['prefix' => 'settings'], function () {
         Route::match(['post', 'put'], '/{id}', 'Setting\AlbumController@update');
         Route::post('/', 'Setting\AlbumController@store');
     });
-
+    Route::group(['prefix' => 'wordofpriests'], function () {
+        Route::get('/', 'Setting\WordofpriestController@index');
+        Route::get('/{id}/parish', 'Setting\WordofpriestController@findWordPriest');
+      
+    });
+    Route::group(['prefix' => 'parish_themes'], function () {
+        Route::get('/', 'Setting\Parish_themeController@index');
+        Route::get('/{id}/parish', 'Setting\Parish_themeController@findParishTheme');
+      
+    });
+     
     Route::group(['prefix' => 'photos'], function () {
         Route::get('/', 'Setting\PhotoController@index');
         Route::get('/{id}', 'Setting\PhotoController@find');

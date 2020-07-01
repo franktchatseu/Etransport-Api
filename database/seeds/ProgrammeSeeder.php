@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Catechesis\Programme;
-
+use App\Models\Setting\Programme;
+use App\Models\Setting\Parish;
 class ProgrammeSeeder extends Seeder
 {
     /**
@@ -13,6 +13,8 @@ class ProgrammeSeeder extends Seeder
     public function run(\Faker\Generator $faker)
     {
         factory(Programme::class, 100)->make()->each(function ($programme) use ($faker) {
+            $parish = Parish::all();
+            $programme->parish_id = $faker->randomElement($parish)->id;
             $programme->save();
         });
     }
