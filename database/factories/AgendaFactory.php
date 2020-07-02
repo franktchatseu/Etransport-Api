@@ -8,6 +8,8 @@ use Faker\Generator as Faker;
 $factory->define(Agenda::class, function (Faker $faker) {
     return [
         'date_agenda' =>  $faker->date,
+        'titre' => $faker->name,
+        'logo' => "/uploads/agenda/logo1.png",
         'heure' => $faker->time,
         'activite' =>  $faker->sentence,
         'porteur' =>  $faker->name,

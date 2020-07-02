@@ -4,8 +4,8 @@ namespace App\Models\Finance;
 
 use Illuminate\Database\Eloquent\Model;
 
-class InputUUtype extends Model
+class PatternDonation extends Model
 {
-    protected $table = 'input_uutypes';
+    protected $table = 'pattern_donations';
     protected $guarded = [];
 }

@@ -13,9 +13,11 @@ use App\Models\Setting\ParishAlbum;
 use App\Models\Person\Parishional;
 use App\Models\Person\Priest;
 use App\Models\Setting\ParishPatrimony;
+use App\Models\Setting\Programme;
 use Illuminate\Http\Request;
 use App\Models\Extra\Group;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 
 
@@ -162,9 +164,11 @@ class ParishController extends Controller
         return response()->json($parish); 
     }
 
+   
     public function findWithAlbum(Request $req, $id)
     {
-        $parish = Parish::where($id)->get();
+         $parish = Parish::find($id); 
+        //return response()->json($parish->name);
         if (!$parish) {
             $apiError = new APIError;
             $apiError->setStatus("404");
@@ -186,7 +190,7 @@ class ParishController extends Controller
            $album->picture =  url($album->picture);
         }
         //recuperation du cure de la paroisse
-        $priest = Priest::where('parish_id','=',$id)->get();
+        $priest = Priest::where('parish_id','=',$id)->first();
         //recuperation du patrimoine paroissiale
         $patrimonie = ParishPatrimony::where('parish_id','=',$id)->get();
 
@@ -207,6 +211,52 @@ class ParishController extends Controller
             'photos' => $albums,
             'patrimonies' => $patrimonie
         ]);
+     
+
+    }
+
+     
+    public function parishPresentation(Request $req, $id)
+    {
+         $parish = Parish::find($id); 
+        //return response()->json($parish->name);
+        if (!$parish) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PARISH_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+
+        $albums = Photo::select('photos.*')
+        ->join('albums', ['albums.id' => 'photos.album_id'])
+        ->join('parish_albums', ['parish_albums.album_id' => 'albums.id'])
+        ->join('parishs', ['parishs.id' => 'parish_albums.parish_id'])
+        ->where('parishs.id', '=',$id)
+        ->get();
+        //on ajoute le chemin du backend
+        foreach ($albums as $album) {
+           $album->picture =  url($album->picture);
+        }
+        //recuperation du programme des messes
+        $now_date =  Carbon::now();
+        $hebdo_date =Carbon::now()->subDays(7);
+
+        $programmes = Programme::select('programmes.*')
+        ->whereBetween('created_at', array($hebdo_date, $now_date))
+        ->where('programmes.parish_id',$id)->get();
+
+        return response()->json([
+            'parish' => [
+                'parish_id' => $parish->id,
+                'description' => $parish->description,
+                'email' => $parish->email,
+                'phone' => $parish->phone,
+                'photos' => $albums,
+            ],
+
+            'programmes' => $programmes,
+        ]);
+     
 
     }
 

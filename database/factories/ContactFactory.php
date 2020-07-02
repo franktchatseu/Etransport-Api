@@ -10,7 +10,7 @@ $factory->define(Contact::class, function (Faker $faker) {
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         // 'email_verified_at' => now(),
-        'phones'=> json_encode([$faker->phoneNumber]),
+        'phones' => $faker->phoneNumber(),
         'PO_BOX'=>$faker->postcode,
 
 

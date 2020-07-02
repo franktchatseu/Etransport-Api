@@ -7,13 +7,18 @@ use App\Models\Publicity\Publicity;
 use Illuminate\Http\Request;
 use App\Models\APIError;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class PublicityController extends Controller
 {
   
     public function index(Request $req)
     {
-        $data = Publicity::simplePaginate($req->has('limit') ? $req->limit : 15);
+        $data = Publicity::orderBy('view_numbers','asc')->orderBy('priority','desc')->inRandomOrder()->simplePaginate($req->has('limit') ? $req->limit : 4);
+        foreach($data as $pub){
+            $pub['view_numbers'] = $pub['view_numbers']+1;
+            $pub->update();
+        }
         return response()->json($data);
     }
 

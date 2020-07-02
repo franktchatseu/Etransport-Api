@@ -13,6 +13,7 @@ class AssociationController extends Controller
 {
     public function index (Request $req)
     {
+      
         $data = Association::simplePaginate($req->has('limit') ? $req->limit : 15);
         foreach($data as $assoc){
             $type = TypeAssociation::whereId($assoc->typeId)->first();
@@ -140,6 +141,7 @@ class AssociationController extends Controller
 
     public function find($id)
     {
+        
         if (!$assoc = Association::find($id)) {
             $apiError = new APIError;
             $apiError->setStatus("404");
@@ -161,25 +163,23 @@ class AssociationController extends Controller
             return response()->json($apiError, 404);
         }
 
-        $memberAssociation = MemberAssociation::select('member_associations.association_id as association_id','users.first_name','users.last_name','users.avatar','statuts.name_post')
+        $memberAssociation = MemberAssociation::select('member_associations.association_id as association_id','users.first_name','users.last_name','users.avatar as avatar','users.tel as tel','users.email as email','member_associations.status  as poste')
         
         ->join('associations', 'member_associations.association_id', '=', 'associations.id' )
         ->join('user_utypes', 'member_associations.user_utype_id', '=', 'user_utypes.id' )
         ->join('users', 'user_utypes.user_id', '=', 'users.id' )
-        ->join('statuts', 'member_associations.statut_id', '=', 'statuts.id' )
         ->where(['member_associations.association_id' => $id])
        // ->where('statuts.name_post','!=','member')
         ->get();
-
+        /*foreach ($memberAssociation as $member) {
+            $member->avatar =  url($member->avatar);
+         }*/
         return response()->json([
                 'association_id' =>  $assoc->id,
                 'name' =>  $assoc->name,
                 'slogan' =>   $assoc->logo,
                 'description' =>   $assoc->description,
-                'date_creation' =>  $assoc->dateCreation,
                 'reglement' => $assoc->reglement,
-                'created_at' => $assoc->created_at,
-                'updated_at' => $assoc->updated_at,
                 'memberofbureau' => $memberAssociation
             
         ]);
@@ -188,7 +188,7 @@ class AssociationController extends Controller
 
     public function findTypeAssociation(Request $req, $id)
     {
-        $parishAssociation = Association::select('associations.id','associations.name as association_name','type_associations.name as name_type_association','associations.slogan','users.first_name','users.last_name','parishs.name as name_parish')
+        $parishAssociation = Association::select('associations.id','associations.name as association_name','associations.photo as ','type_associations.name as name_type_association','associations.slogan','users.first_name','users.last_name','parishs.name as name_parish')
         ->join('parishs', 'associations.parish_id', '=', 'parishs.id' )
         ->join('type_associations', 'associations.type_id', '=', 'type_associations.id' )
         ->join('users', 'associations.user_id', '=', 'users.id' )
@@ -200,15 +200,23 @@ class AssociationController extends Controller
     //recuperation des associations d'une paroisse donnee
     public function findParishAssociation(Request $req, $id)
     {
-        $parishAssociation =  DB::table('associations')
-        ->select('associations.id','associations.name','associations.slogan','associations.created_at','type_associations.name as type_association_name')
-        ->join('parishs', 'parishs.id', '=', 'associations.parish_id' )
+        $parishAssociations =  DB::table('associations')
+        ->select('associations.id','associations.name','associations.lieu','associations.slogan', 'associations.photo as photo', 'users.first_name as responsable_first_name','users.tel as responsable_tel','users.last_name as responsable_last_name','associations.rencontre','type_associations.name as type_association_name')
+        ->join('parishs', 'parishs.id', '=', 'associations.user_id' )
+        ->join('users', 'users.id', '=', 'associations.parish_id' )
         ->join('type_associations', 'type_associations.id', '=', 'associations.type_id' )
         ->where(['associations.parish_id' => $id])
         ->get()
-        ->groupBy('type_association_name');
-        
-        return response()->json($parishAssociation);
+        ->groupBy('type_association_name');;
+        foreach ($parishAssociations as $parishAssociation) {
+            foreach ($parishAssociation as $item) {
+                //dd($item);
+                $item->photo =  url($item->photo);
+                //$parishAssociation->photo =  url($parishAssociation->photo);
+             }
+            //$parishAssociation->photo =  url($parishAssociation->photo);
+        }
+        return response()->json($parishAssociations);
     }
 
 

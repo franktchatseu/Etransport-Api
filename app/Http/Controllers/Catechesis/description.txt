@@ -1,5 +1,5 @@
 ********************** ADRIENNE ***********************
-Les tables manipulées sont : members, transports, member_tsransport, authorizations, annualmember_authorizations
+Les tables manipulées sont : members, transports, member_transport, authorizations, annualmember_authorizations
 
 1- Création des migrations 
 2- Création des modèles Transport et MemberTransport

@@ -12,7 +12,7 @@ class ParishSeeder extends Seeder
      */
     public function run(\Faker\Generator $faker)
     {
-        factory(Parish::class, 100)->make()->each(function ($parish) use ($faker) {
+        factory(Parish::class, 10)->make()->each(function ($parish) use ($faker) {
             $parish->save();
         });
     }

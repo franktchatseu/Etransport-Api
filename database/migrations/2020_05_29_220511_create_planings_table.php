@@ -20,14 +20,14 @@ class CreatePlaningsTable extends Migration
             $table->date('date_end');
             $table->string('nature');
             $table->string('description');
-            $table->unsignedBigInteger('user_utype_id');
+            $table->unsignedBigInteger('parish_id');
             $table->string('place');
             $table->string('activity');
             $table->string('activityPro');
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreign('user_utype_id')->references('id')->on('user_utypes');
+            $table->foreign('parish_id')->references('id')->on('parishs');
 
         });
     }
