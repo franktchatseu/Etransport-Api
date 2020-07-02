@@ -46,17 +46,21 @@ class SacramentController extends Controller
             'category_id' => 'required:exists:sacrament_categories,id'
          ]);
 
+         if(isset($req->background_image)){
          $file = $req->file('background_image');
-        $path = null;
-        if($file != null){
-            $extension = $file->getClientOriginalExtension();
-            $relativeDestination = "uploads/sacraments/backgrounds";
-            $destinationPath = public_path($relativeDestination);
-            $safeName = "background_image".time().'.'.$extension;
-            $file->move($destinationPath, $safeName);
-            $path = url("$relativeDestination/$safeName");
-        }
+         $path = null;
+         if($file != null){
+             $req->validate(['background_image'=>'image|max:20000']);
+             $extension = $file->getClientOriginalExtension();
+             $relativeDestination = "uploads/sacraments/backgrounds";
+             $destinationPath = public_path($relativeDestination);
+             $safeName = "background_image".time().'.'.$extension;
+             $file->move($destinationPath, $safeName);
+             $path = url("$relativeDestination/$safeName");
+         }
+         $data['background_image'] = $path;
 
+         }
          if(isset($req->composition_file)){
             $file = $req->file('composition_file');
             $path = null;
@@ -92,6 +96,7 @@ class SacramentController extends Controller
             $sacrament->description = $data['description'];
             $sacrament->category_id = $data['category_id'];
             $sacrament->contenu_composition = $data['contenu_composition'];
+            $sacrament->background_image = $data['background_image'];
             $sacrament->composition_file = $data['composition_file'];
             $sacrament->inscription_file = $data['inscription_file'];
             $sacrament->save();
@@ -145,6 +150,27 @@ class SacramentController extends Controller
             'category_id' => 'required:exists:sacrament_categories,id',
          ]);
 
+         if(isset($req->background_image)){
+            $file = $req->file('background_image');
+            $path = null;
+            if($file != null){
+             $extension = $file->getClientOriginalExtension();
+             $relativeDestination = "uploads/sacraments/backgrounds";
+             $destinationPath = public_path($relativeDestination);
+             $safeName = "background_image".time().'.'.$extension;
+             $file->move($destinationPath, $safeName);
+             $path = url("$relativeDestination/$safeName");
+             if ($sacrament->composition_file) {
+                $oldImagePath = public_path($sacrament->composition_file);
+                if (file_exists($oldImagePath)) {
+                    @unlink($oldImagePath);
+                }
+            }
+         }
+         $data['background_image'] = $path;
+
+         }
+         
          if(isset($req->composition_file)){
             $file = $req->file('composition_file');
             $path = null;
