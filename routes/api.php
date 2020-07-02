@@ -102,6 +102,7 @@ Route::group(['prefix' => 'persons'], function () {
     Route::group(['prefix' => 'contacts'], function () {
         Route::get('/','Person\ContactController@get');
         Route::get('/{id}', 'Person\ContactController@find');
+        Route::get('/{id}/parish', 'Person\ContactController@findContactWithParish');
         Route::get('/search', 'Person\ContactController@search');
         Route::delete('/{id}', 'Person\ContactController@destroy');
         Route::match(['post','put'],'/{id}', 'Person\ContactController@update');
@@ -874,7 +875,7 @@ Route::group(['prefix' => 'requests'],function (){
         Route::delete('/{id}', 'Request\MakeAppointmentController@delete');
     });
 
-    Route::group(['prefix' => 'object-make-appointments'],function (){
+    Route::group(['prefix' => 'object_make_appointments'],function (){
         Route::get('/', 'Request\ObjectMakeAppointmentController@index');
         Route::get('/{id}', 'Request\ObjectMakeAppointmentController@find');
         Route::get('/search', 'Request\ObjectMakeAppointmentController@search');
@@ -884,7 +885,7 @@ Route::group(['prefix' => 'requests'],function (){
         Route::delete('/{id}', 'Request\ObjectMakeAppointmentController@delete');
     });
 
-    Route::group(['prefix' => 'intention-masses'],function (){
+    Route::group(['prefix' => 'intention_masses'],function (){
         Route::get('/', 'Request\IntentionMassController@index');
         Route::get('/{id}', 'Request\IntentionMassController@find');
         Route::get('/search', 'Request\IntentionMassController@search');
@@ -892,9 +893,10 @@ Route::group(['prefix' => 'requests'],function (){
         Route::post('/{id}', 'Request\IntentionMassController@update');
         Route::post('/', 'Request\IntentionMassController@store');
         Route::delete('/{id}', 'Request\IntentionMassController@destroy');
+        Route::get('/masss', 'Setting\MassSheduleController@getMass');
     });
 
-    Route::group(['prefix' => 'anointing-sicks'],function (){
+    Route::group(['prefix' => 'anointing_sicks'],function (){
         Route::get('/', 'Request\AnointingSickController@index');
         Route::get('/{id}', 'Request\AnointingSickController@find');
         Route::get('/search', 'Request\AnointingSickController@search');
@@ -904,7 +906,7 @@ Route::group(['prefix' => 'requests'],function (){
         Route::delete('/{id}', 'Request\AnointingSickController@destroy');
     });
 
-    Route::group(['prefix' => 'report-problems'],function (){
+    Route::group(['prefix' => 'report_problems'],function (){
         Route::get('/', 'Request\ReportProblemController@index');
         Route::get('/{id}/search', 'Request\ReportProblemController@search');
         Route::get('/{id}', 'Request\ReportProblemController@find');
@@ -914,7 +916,7 @@ Route::group(['prefix' => 'requests'],function (){
         Route::delete('/{id}', 'Request\ReportProblemController@destroy');
     });
     
-    Route::group(['prefix' => 'setting-requests'],function (){
+    Route::group(['prefix' => 'setting_requests'],function (){
         Route::get('/', 'Request\SettingRequestController@index');
         Route::get('/{id}/search', 'Request\SettingRequestController@search');
         Route::get('/{id}/user', 'Request\SettingRequestController@findAllForUser');
@@ -924,7 +926,7 @@ Route::group(['prefix' => 'requests'],function (){
         Route::delete('/{id}', 'Request\SettingRequestController@destroy');
     });
 
-    Route::group(['prefix' => 'request-masses'],function (){
+    Route::group(['prefix' => 'request_masses'],function (){
         Route::get('/', 'Request\RequestMassController@get');
         Route::get('/{id}', 'Request\RequestMassController@find');
         Route::get('/{id}/user', 'Request\RequestMassController@findAllForUser');
@@ -934,7 +936,7 @@ Route::group(['prefix' => 'requests'],function (){
         Route::delete('/{id}', 'Request\RequestMassController@delete');
     });
 
-    Route::group(['prefix' => 'object-request-masses'],function (){
+    Route::group(['prefix' => 'object_request_masses'],function (){
         Route::get('/', 'Request\ObjectRequestMassController@get');
         Route::get('/{id}', 'Request\ObjectRequestMassController@find');
         Route::get('/search', 'Request\ObjectRequestMassController@search');
@@ -983,7 +985,7 @@ Route::group(['prefix' => 'liturgicals'],function(){
         Route::post('/', 'Liturgical\LiturgicalTextController@store');
         Route::delete('/{id}', 'Liturgical\LiturgicalTextController@destroy');
         Route::get('/{slug}/liturgical_types', 'Liturgical\LiturgicalTextController@findLiturgicalText');
-        Route::get('/{id}/entry_types', 'Liturgical\LiturgicalTextController@findLiturgicalByType');
+        Route::get('/{slug}/entry_types/{id}/parish', 'Liturgical\LiturgicalTextController@findLiturgicalByType');
     });
 
 });

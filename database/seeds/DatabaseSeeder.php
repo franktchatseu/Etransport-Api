@@ -197,6 +197,14 @@ class DatabaseSeeder extends Seeder
       ArticleAttributeMenuSeeder::class,
     ]);
 
+    //module liturgical
+    $this->call([
+      LiturgicalTypeSeeder::class,
+      EntryTypeSeeder::class,
+      LiturgicalTypeEntryTypeSeeder::class,
+      LiturgicalTextSeeder::class,
+    ]);
+
     Schema::enableForeignKeyConstraints();
     Model::reguard();
   }

@@ -18,7 +18,7 @@ class CreateIntentionMass extends Migration
             $table->date('date');
             $table->text('intention');
             $table->text('content')->nullable();
-            $table->string('mass');
+            $table->unsignedBigInteger('mass_id');
             $table->unsignedBigInteger('amount');
             $table->enum('status',['REJECTED','PENDING','ACCEPTED'])->default('REJECTED');
             $table->unsignedBigInteger('person_id');
@@ -26,6 +26,7 @@ class CreateIntentionMass extends Migration
             $table->softDeletes();
             
             $table->foreign('person_id')->references('id')->on('user_utypes')->onDelete('cascade');
+            $table->foreign('mass_id')->references('id')->on('mass_shedules')->onDelete('cascade');
         });
     }
 

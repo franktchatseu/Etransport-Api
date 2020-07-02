@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Request;
 
 use App\Http\Controllers\Controller;
+use App\Models\APIError;
 use App\Models\Request\IntentionMass;
 use Illuminate\Http\Request;
 
@@ -35,16 +36,16 @@ class IntentionMassController extends Controller
         $this->validate($datas, [
             'date' => 'required',
             'intention' => 'required',
-            'mass' => 'required',
+            'mass_id' => 'required',
             'amount' => 'required',
             'person_id' => 'required',
         ]);
 
         $data = new IntentionMass();
-        $data->date = $datas['data'];
+        $data->date = $datas['date'];
         $data->intention = $datas['intention'];
-        $data->content = $datas['content'];
-        $data->mass = $datas['mass'];
+        $data->content = $datas['content']?? null;
+        $data->mass_id = $datas['mass_id'];
         $data->amount = $datas['amount'];
         $data->status = 'PENDING';
         $data->person_id = $datas['person_id'];

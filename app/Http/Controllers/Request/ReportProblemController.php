@@ -48,7 +48,7 @@ class ReportProblemController extends Controller
         $data->nature = $datas['nature'];
         $data->concern = $datas['concern'];
         $data->details = $datas['details'];
-        $data->image = $datas['image'];
+        $data->image = $datas['image'] ?? null;
         $data->status = 'PENDING';
         $data->person_id = $datas['person_id'];
 

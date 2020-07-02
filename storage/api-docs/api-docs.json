@@ -1,0 +1,474 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "E-Church API",
+        "description": "This is a Swagger Documentation for E-Church API,\n *       All the APIError are in APIError model format",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/auth/token": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Login user",
+                "description": "Login the user with email and password",
+                "operationId": "AuthController@login",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "<pre>\n     *          {\n     *              user: User,\n     *              roles: Role,\n     *              permissions: Permission,\n     *              token: {\n     *                  access_token: string,\n     *                  token_type:  'Bearer'\n     *                  expires_at:   string\n     *              }\n     *          }\n     *          </pre>"
+                    },
+                    "400": {
+                        "description": "ERR_01: Tous les champs sont requis",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/APIError"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "<pre>\n     *                      AUTH_LOGIN: Login ou mot de passe incorrect.\n     *                  </pre>",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/APIError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Logs out current logged",
+                "operationId": "AuthController@logout",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/APIError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/auth/user": {
+            "get": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Get the current logged user",
+                "operationId": "AuthController@user",
+                "responses": {
+                    "200": {
+                        "description": "Return User model",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/APIError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/auth/permissions": {
+            "get": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Get all permission of logged user",
+                "operationId": "AuthController@permissions",
+                "responses": {
+                    "200": {
+                        "description": "json array of permission: Permission[]",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Permission"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/APIError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/auth/roles": {
+            "get": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Get all roles of logged user",
+                "operationId": "AuthController@roles",
+                "responses": {
+                    "200": {
+                        "description": "json array of role: Role[]",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Role"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "AUTH_00: Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/APIError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/auth/teams": {
+            "get": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Get all team of logged user",
+                "operationId": "AuthController@teams",
+                "responses": {
+                    "200": {
+                        "description": "json array of role: Team[]",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Team"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "AUTH_00: Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/APIError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "APIError": {
+                "title": "APIError",
+                "properties": {
+                    "code": {
+                        "type": "string",
+                        "example": "ERR_01"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Certains champs sont mal remplis !"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "400"
+                    },
+                    "errors": {
+                        "type": "object",
+                        "example": "{ email: ['Email adress is invalid']}"
+                    }
+                },
+                "type": "object"
+            },
+            "Permission": {
+                "title": "Permission",
+                "properties": {
+                    "id": {
+                        "description": "Unique ID",
+                        "type": "int",
+                        "example": "1"
+                    },
+                    "name": {
+                        "description": "Unique Permission name",
+                        "type": "string",
+                        "example": "article-c"
+                    },
+                    "display_name": {
+                        "description": "Name to display",
+                        "type": "string",
+                        "example": "Create article"
+                    },
+                    "description": {
+                        "description": "Permission description",
+                        "type": "string",
+                        "example": "Permission for article creation"
+                    },
+                    "created_at": {
+                        "description": "Creation date <b style='color:red;'>readonly</b>",
+                        "type": "timestamp",
+                        "example": "2019-10-14 12:00:00"
+                    },
+                    "updated_at": {
+                        "description": "Last time entity has been updated <b style='color:red;'>readonly</b>",
+                        "type": "timestamp",
+                        "example": "2019-10-14 12:00:00"
+                    }
+                },
+                "type": "object"
+            },
+            "Role": {
+                "title": "Role",
+                "properties": {
+                    "id": {
+                        "description": "Unique ID",
+                        "type": "int",
+                        "example": "1"
+                    },
+                    "name": {
+                        "description": "Unique role name",
+                        "type": "string",
+                        "example": "user"
+                    },
+                    "display_name": {
+                        "description": "Name to display to users",
+                        "type": "string",
+                        "example": "Simple user role"
+                    },
+                    "description": {
+                        "description": "Role description",
+                        "type": "string",
+                        "example": "Role for simple user of system, role for mobile's app user"
+                    },
+                    "created_at": {
+                        "description": "Creation date <b style='color:red;'>readonly</b>",
+                        "type": "timestamp",
+                        "example": "2019-10-14 12:00:00"
+                    },
+                    "updated_at": {
+                        "description": "Last time entity has been updated <b style='color:red;'>readonly</b>",
+                        "type": "timestamp",
+                        "example": "2019-10-14 12:00:00"
+                    }
+                },
+                "type": "object"
+            },
+            "Team": {
+                "title": "Team",
+                "properties": {
+                    "id": {
+                        "description": "Unique ID",
+                        "type": "int",
+                        "example": "1"
+                    },
+                    "name": {
+                        "description": "Unique team name",
+                        "type": "string",
+                        "example": "user"
+                    },
+                    "display_name": {
+                        "description": "Name to display to users",
+                        "type": "string",
+                        "example": "Team of 'Product #1'"
+                    },
+                    "description": {
+                        "description": "Team description",
+                        "type": "string",
+                        "example": "Team for simple user of system, role for mobile's app user"
+                    },
+                    "created_at": {
+                        "description": "Creation date",
+                        "type": "timestamp",
+                        "example": "2019-10-14 12:00:00"
+                    },
+                    "updated_at": {
+                        "description": "Last time entity has been updated",
+                        "type": "timestamp",
+                        "example": "2019-10-14 12:00:00"
+                    }
+                },
+                "type": "object"
+            },
+            "User": {
+                "title": "User",
+                "required": [
+                    "first_name",
+                    "password",
+                    "email",
+                    "is_citizen",
+                    "category_id"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "Unique ID",
+                        "type": "int",
+                        "example": "1"
+                    },
+                    "first_name": {
+                        "description": "User's first name",
+                        "type": "string",
+                        "example": "John"
+                    },
+                    "last_name": {
+                        "description": "User's last name",
+                        "type": "string",
+                        "example": "Doe"
+                    },
+                    "email": {
+                        "description": "E-mail address",
+                        "type": "string",
+                        "example": "johndoe@gmail.com"
+                    },
+                    "tel": {
+                        "description": "Phone number",
+                        "type": "string",
+                        "example": "+237673173481"
+                    },
+                    "last_login": {
+                        "description": "User's last login date. <b style='color:red;'>readonly</b>",
+                        "type": "timestamp",
+                        "example": "2019-10-14 12:00:00"
+                    },
+                    "expired_at": {
+                        "description": "User's account expiration date",
+                        "type": "timestamp",
+                        "example": "2019-10-14 12:00:00"
+                    },
+                    "password": {
+                        "description": "User's password",
+                        "type": "string",
+                        "example": "******"
+                    },
+                    "avatar": {
+                        "description": "User's url picture",
+                        "type": "string",
+                        "example": "http://localhost:8000/uploads/users/exampl.jpg"
+                    },
+                    "created_at": {
+                        "description": "User's creation date <b style='color:red;'>readonly</b>",
+                        "type": "timestamp",
+                        "example": "2019-10-14 12:00:00"
+                    },
+                    "updated_at": {
+                        "description": "Last time user has been updated <b style='color:red;'>readonly</b>",
+                        "type": "timestamp",
+                        "example": "2019-10-14 12:00:00"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "api_key": {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "auth",
+            "description": "Authentication operations"
+        },
+        {
+            "name": "users",
+            "description": "Operations about users"
+        },
+        {
+            "name": "permissions",
+            "description": "Operations about permissions"
+        },
+        {
+            "name": "roles",
+            "description": "Operations about roles"
+        }
+    ],
+    "externalDocs": {
+        "description": "Find out more about Swagger",
+        "url": "http://swagger.io"
+    }
+}

@@ -159,5 +159,11 @@ class MassSheduleController extends Controller
         $massShedule->delete();      
         return response()->json();
     }
+
+    public function getMass(Request $req){
+        $mass = MassShedule::select('mass_shedules.context', 
+                                    'mass_shedules.id as id_mass')->get();
+        return response()->json($mass);
+    }
 }
 
