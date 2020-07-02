@@ -19,7 +19,7 @@ class CreateParishionalMessagesTable extends Migration
             $table->string('type');
             $table->text('description');
             $table->text('photo');
-            $table->date('effective_date')->nullable();
+            $table->timestamp('effective_date')->nullable();
             $table->timestamps();
         });
     }

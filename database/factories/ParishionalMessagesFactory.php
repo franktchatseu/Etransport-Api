@@ -11,6 +11,6 @@ $factory->define(ParishionalMessages::class, function (Faker $faker) {
         'type' => $faker->text(8),
         'description' => $faker->sentence(),
         'photo' => $faker->randomElement(['assets/images/logo-e-church.jpeg', 'assets/images/nonemessage.png', 'assets/images/font1.jpeg', 'assets/images/font2.png']),
-        'effective_date' => $faker->date(),
+        'effective_date' => $faker->date('Y-m-d H:i:s')
     ];
 });

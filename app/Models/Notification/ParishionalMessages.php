@@ -8,4 +8,5 @@ class ParishionalMessages extends Model
 {
     protected $table = 'parishional_messages';
     protected $guarded = [];
+
 }
