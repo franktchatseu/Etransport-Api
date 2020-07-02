@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Finance\PatternDonation;
 use Illuminate\Database\Seeder;
 
 class patterndonationSeeder extends Seeder
@@ -11,7 +12,7 @@ class patterndonationSeeder extends Seeder
      */
     public function run(\Faker\Generator $faker)
     {
-        factory(PatternDonation::class, 10)->make()->each(function ($pattern) use ($faker) {
+        factory(PatternDonation::class, 5)->make()->each(function ($pattern) use ($faker) {
             $pattern->save();
         });
     }

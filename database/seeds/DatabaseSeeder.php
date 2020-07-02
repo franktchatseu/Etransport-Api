@@ -52,11 +52,18 @@ class DatabaseSeeder extends Seeder
       MassSheduleSeeder::class,
     ]);
 
+    // module finance
+    $this->call([
+      patterndonationSeeder::class,
+      NatureSeeder::class
+    ]);
+
     // module person
     $this->call([
       UserSeeder::class,
       UtypeSeeder::class,
       UserUtypeSeeder::class,
+      InputSeeder::class,
       TypeAssociationSeeder::class,
       AssociationSeeder::class,
       LiturgicalTypeSeeder::class,
@@ -77,7 +84,7 @@ class DatabaseSeeder extends Seeder
       SacramentCategorySeeder::class,
       SacramentSeeder::class,
       UserSacramentSeeder::class,
-      ContactSeeder::class
+      ContactSeeder::class,
       //CatechistSeeder::class,
       
       // CathechumeneSeeder::class,

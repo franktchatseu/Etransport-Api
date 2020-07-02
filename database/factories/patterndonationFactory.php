@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(PatternDonation::class, function (Faker $faker) {
     return [
-            'name' => $faker->sentence,
+            'name' => $faker->unique()->text(20),
             'description' => $faker->sentence
     ];
 });
