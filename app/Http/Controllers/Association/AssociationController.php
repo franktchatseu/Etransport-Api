@@ -200,16 +200,23 @@ class AssociationController extends Controller
     //recuperation des associations d'une paroisse donnee
     public function findParishAssociation(Request $req, $id)
     {
-        $parishAssociation =  DB::table('associations')
-        ->select('associations.id','associations.name','associations.lieu','associations.slogan','users.first_name as responsable_first_name','users.tel as responsable_tel','users.last_name as responsable_last_name','associations.rencontre','type_associations.name as type_association_name')
+        $parishAssociations =  DB::table('associations')
+        ->select('associations.id','associations.name','associations.lieu','associations.slogan', 'associations.photo as photo', 'users.first_name as responsable_first_name','users.tel as responsable_tel','users.last_name as responsable_last_name','associations.rencontre','type_associations.name as type_association_name')
         ->join('parishs', 'parishs.id', '=', 'associations.user_id' )
         ->join('users', 'users.id', '=', 'associations.parish_id' )
         ->join('type_associations', 'type_associations.id', '=', 'associations.type_id' )
         ->where(['associations.parish_id' => $id])
         ->get()
-        ->groupBy('type_association_name');
-        
-        return response()->json($parishAssociation);
+        ->groupBy('type_association_name');;
+        foreach ($parishAssociations as $parishAssociation) {
+            foreach ($parishAssociation as $item) {
+                //dd($item);
+                $item->photo =  url($item->photo);
+                //$parishAssociation->photo =  url($parishAssociation->photo);
+             }
+            //$parishAssociation->photo =  url($parishAssociation->photo);
+        }
+        return response()->json($parishAssociations);
     }
 
 

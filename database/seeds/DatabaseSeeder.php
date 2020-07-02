@@ -32,13 +32,14 @@ class DatabaseSeeder extends Seeder
       // _GroupSeeder::class,
     ]);
 
-    // $this->call(CityAndCountrySeeder::class);
+    //$this->call(CityAndCountrySeeder::class);
     $this->call(SettingSeeder::class);
     // $this->call(LaratrustSeeder::class);
 
     // module setting
     $this->call([
       ParishSeeder::class,
+      AgendaSeeder::class,
       Parish_themeSeeder::class,
       WordofpriestSeeder::class,
       ProgrammeSeeder::class,
@@ -62,20 +63,29 @@ class DatabaseSeeder extends Seeder
       UserSeeder::class,
       UtypeSeeder::class,
       UserUtypeSeeder::class,
-      ContactSeeder::class,
-      PriestSeeder::class,
-      ParishionalSeeder::class,
       TypeAssociationSeeder::class,
       AssociationSeeder::class,
-      MemberAssociationSeeder::class,
+      // LiturgicalTypeSeeder::class,
+      // EntryTypeSeeder::class,
+      // LiturgicalTypeEntryTypeSeeder::class,
+      // LiturgicalTextSeeder::class,
+      // ParishionalMessagesSeeder::class,
+      // ParishionalMessagesSeeder::class,
+      // UserParishionalMessageSeeder::class,
+      // ContactSeeder::class,
+      // PriestSeeder::class,
+      // ParishionalSeeder::class,
+      // TypeAssociationSeeder::class,
+      // AssociationSeeder::class,
+      // MemberAssociationSeeder::class,
       AlbumSeeder::class,
       InputUUtypeSeeder::class,
       // CatechistSeeder::class,
       
-      CathechumeneSeeder::class,
-      ContactSeeder::class,
-      AgendaSeeder::class, /*  */
-      UserParishSeeder::class,
+      // CathechumeneSeeder::class,
+      // ContactSeeder::class,
+      // AgendaSeeder::class, /*  */
+      // UserParishSeeder::class,
     ]);
     
 
@@ -195,6 +205,13 @@ class DatabaseSeeder extends Seeder
       SubMenuSeeder::class,
       ArticleSeeder::class,
       ArticleAttributeMenuSeeder::class,
+    ]);
+
+    //module liturgical
+    $this->call([
+      // LiturgicalTypeSeeder::class,
+      // EntryTypeSeeder::class,
+      // LiturgicalTypeEntryTypeSeeder::class,
     ]);
 
     Schema::enableForeignKeyConstraints();

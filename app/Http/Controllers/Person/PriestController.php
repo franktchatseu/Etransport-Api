@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\person\Priest;
 use App\Models\Setting\Parish;
 use Illuminate\Http\Request;
+use App\Models\APIError;
 
 class PriestController extends Controller
 {
