@@ -51,6 +51,22 @@ Route::group(['prefix' => 'parishs'], function () {
 });
 // Notification module : 'middleware' => 'auth:api',
 Route::group(['prefix' => 'notifications'], function () { 
+    
+    Route::group(['prefix' => 'parishional-messages'], function () {
+        Route::get('/', 'Notification\ParishionalMessagesController@index');
+        Route::get('/{id}', 'Notification\ParishionalMessagesController@find');
+        Route::match(['post', 'put'], '/{id}', 'Notification\ParishionalMessagesController@update');
+        Route::post('/', 'Notification\ParishionalMessagesController@create');
+        Route::delete('/{id}', 'Notification\ParishionalMessagesController@destroy');
+    });
+
+    Route::group(['prefix' => 'user-parishional-messages'], function () {
+        Route::get('/', 'Notification\UserParishionalMessageController@index');
+        Route::get('/{id}', 'Notification\UserParishionalMessageController@find');
+        Route::match(['post', 'put'], '/{id}', 'Notification\UserParishionalMessageController@update');
+        Route::post('/', 'Notification\UserParishionalMessageController@create');
+        Route::delete('/user/{user_id}/parishional-message/{parishional_message_id}', 'Notification\UserParishionalMessageController@destroy');
+    });
 
 });
 
@@ -392,7 +408,7 @@ Route::group(['prefix' => 'catechesis'], function () {
         Route::get('/{id}', 'Catechesis\AuthorizationController@find');
         Route::delete('/{id}', 'Catechesis\AuthorizationController@destroy');
         Route::get('/search', 'Catechesis\AuthorizationController@search');
-        Route::put('/{id}', 'Catechesis\AuthorizationController@update');
+        Route::match(['post', 'put'],'/{id}', 'Catechesis\AuthorizationController@update');
     });
 
     Route::group(['prefix' => 'annual-members'], function () {
@@ -997,7 +1013,7 @@ Route::group(['prefix' => 'liturgicals'],function(){
 Route::group(['prefix' => 'publicities'], function () {
     Route::get('/', 'Publicity\PublicityController@index');
     Route::get('/{id}', 'Publicity\PublicityController@find');
-    Route::post('/{id}', 'Publicity\PublicityController@update');
+    Route::match(['post', 'put'], '/{id}', 'Publicity\PublicityController@update');
     Route::post('/', 'Publicity\PublicityController@create');
     Route::delete('/{id}', 'Publicity\PublicityController@destroy');
 });

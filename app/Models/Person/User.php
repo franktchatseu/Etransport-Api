@@ -147,4 +147,8 @@ class User extends Authenticatable
 
         return parent::__call($method, $parameters);
     }
+
+    public function parishionalMessages() {
+        return $this->belongsToMany('App\Models\Notification\ParishionalMessages', 'user_parishional_message', 'user_id', 'parishional_message_id');
+    }
 }
