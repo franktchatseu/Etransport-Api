@@ -862,6 +862,7 @@ Route::group(['prefix' => 'actualities'], function () {
 });
 
 Route::group(['prefix' => 'requests'],function (){
+    Route::get('/{id}', 'Request\RequestController@findAllDemande');
     Route::group(['prefix' => 'make-appointments'],function (){
         Route::get('/', 'Request\MakeAppointmentController@index');
         Route::get('/{id}', 'Request\MakeAppointmentController@find');
