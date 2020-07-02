@@ -122,6 +122,7 @@ Route::group(['prefix' => 'persons'], function () {
     Route::group(['prefix' => 'contacts'], function () {
         Route::get('/','Person\ContactController@get');
         Route::get('/{id}', 'Person\ContactController@find');
+        Route::get('/{id}/parish', 'Person\ContactController@findContactWithParish');
         Route::get('/search', 'Person\ContactController@search');
         Route::delete('/{id}', 'Person\ContactController@destroy');
         Route::match(['post','put'],'/{id}', 'Person\ContactController@update');
@@ -898,7 +899,8 @@ Route::group(['prefix' => 'actualities'], function () {
 });
 
 Route::group(['prefix' => 'requests'],function (){
-    Route::group(['prefix' => 'make_appointments'],function (){
+    Route::get('/{id}', 'Request\RequestController@findAllDemande');
+    Route::group(['prefix' => 'make-appointments'],function (){
         Route::get('/', 'Request\MakeAppointmentController@index');
         Route::get('/{id}', 'Request\MakeAppointmentController@find');
         Route::get('/user/{id}', 'Request\MakeAppointmentController@findAllForUser');

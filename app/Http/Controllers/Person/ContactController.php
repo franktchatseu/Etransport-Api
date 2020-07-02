@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Setting;
+namespace App\Http\Controllers\Person;
 
 use App\Http\Controllers\Controller;
 use App\Models\Setting\Contact;
@@ -61,6 +61,18 @@ class ContactController extends Controller
             return response()->json($apiError, 404);
         }
         return response()->json($contact);
+    }
+
+    public function findContactWithParish($id){
+        //recuperation de tous les contacts d'une paroisse donnee
+        $contacts = Contact::whereParishId($id)->get()->groupBy('type');
+        foreach($contacts as $contact){
+            foreach($contact as $cont){
+                 $cont->photo = url($cont->photo);
+             }
+        }
+        return response()->json($contacts);
+
     }
 
     /**
