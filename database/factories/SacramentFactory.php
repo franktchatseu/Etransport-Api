@@ -10,7 +10,8 @@ $factory->define(Sacrament::class, function (Faker $faker) {
         'title' => $faker->unique()->text(50),
         'description' => $faker->sentence,
         'contenu_composition' => $faker->sentence,
-        'composition_file' => url('/uploads/contracts/n_00804_contrat de travail.pdf'),
-        'inscription_file' => url('/uploads/contracts/n_00804_contrat de travail.pdf')
+        'background_image' => url('/uploads/intentionMass/int.5ef571a1df4803.31291867.png'),
+        'composition_file' => url('/uploads/sacraments/document_inscription1593725411.pdf'),
+        'inscription_file' => url('/uploads/sacraments/document_inscription1593725411.pdf')
       ];
 });

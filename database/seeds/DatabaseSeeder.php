@@ -175,11 +175,11 @@ class DatabaseSeeder extends Seeder
     /* $this->call([]); */
 
     // module sacrament
-    // $this->call([
-    //   SacramentCategorySeeder::class,
-    //   SacramentSeeder::class,
-    //   UserSacramentSeeder::class,
-    // ]);
+    $this->call([
+      SacramentCategorySeeder::class,
+      SacramentSeeder::class,
+      UserSacramentSeeder::class,
+    ]);
 
     //module Planification
     $this->call([

@@ -37,7 +37,7 @@ class SacramentController extends Controller
      */
     public function store(Request $req)
     {
-        $data = $req->except('photo');
+        $data = $req->except('');
 
         $this->validate($data, [
             'title' => 'required',
@@ -46,13 +46,24 @@ class SacramentController extends Controller
             'category_id' => 'required:exists:sacrament_categories,id'
          ]);
 
+         $file = $req->file('background_image');
+        $path = null;
+        if($file != null){
+            $extension = $file->getClientOriginalExtension();
+            $relativeDestination = "uploads/sacraments/backgrounds";
+            $destinationPath = public_path($relativeDestination);
+            $safeName = "background_image".time().'.'.$extension;
+            $file->move($destinationPath, $safeName);
+            $path = url("$relativeDestination/$safeName");
+        }
+
          if(isset($req->composition_file)){
             $file = $req->file('composition_file');
             $path = null;
             if($file != null){
                 $req->validate(['composition_file'=>'file|max:20000']);
                 $extension = $file->getClientOriginalExtension();
-                $relativeDestination = "uploads/sacraments";
+                $relativeDestination = "uploads/sacraments/documents";
                 $destinationPath = public_path($relativeDestination);
                 $safeName = "document_composition".time().'.'.$extension;
                 $file->move($destinationPath, $safeName);

@@ -19,6 +19,7 @@ class CreateSacramentsTable extends Migration
             $table->string('title');
             $table->string('description');
             $table->string('contenu_composition');
+            $table->string('background_image');
             $table->string('composition_file');
             $table->string('inscription_file');
             $table->timestamps();
