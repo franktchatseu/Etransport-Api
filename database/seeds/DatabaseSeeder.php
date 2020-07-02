@@ -52,19 +52,13 @@ class DatabaseSeeder extends Seeder
       MassSheduleSeeder::class,
     ]);
 
-    // module finance
-    $this->call([
-      NatureSeeder::class,
-      InputSeeder::class
-    ]);
-
     // module person
     $this->call([
-      UserSeeder::class,
-      UtypeSeeder::class,
-      UserUtypeSeeder::class,
-      TypeAssociationSeeder::class,
-      AssociationSeeder::class,
+      // UserSeeder::class,
+      // UtypeSeeder::class,
+      // UserUtypeSeeder::class,
+      // TypeAssociationSeeder::class,
+      // AssociationSeeder::class,
       // LiturgicalTypeSeeder::class,
       // EntryTypeSeeder::class,
       // LiturgicalTypeEntryTypeSeeder::class,
@@ -79,7 +73,7 @@ class DatabaseSeeder extends Seeder
       // AssociationSeeder::class,
       // MemberAssociationSeeder::class,
       AlbumSeeder::class,
-      InputUUtypeSeeder::class,
+      // InputUUtypeSeeder::class,
       // CatechistSeeder::class,
       
       // CathechumeneSeeder::class,
@@ -87,7 +81,12 @@ class DatabaseSeeder extends Seeder
       // AgendaSeeder::class, /*  */
       // UserParishSeeder::class,
     ]);
-    
+
+    // module finance
+    $this->call([
+      NatureSeeder::class,
+      InputSeeder::class
+    ]);
 
     // module messagerie
     $this->call([
@@ -191,10 +190,10 @@ class DatabaseSeeder extends Seeder
       IntentionMassSeeder::class,
       RequestMassSeeder::class,
       ReportProblemSeeder::class,
-      TypePlaningSeeder::class,
-      PlaningSeeder::class,
-      AssociationPlaningSeeder::class,
-      UserPlaningSeeder::class
+      // TypePlaningSeeder::class,
+      // PlaningSeeder::class,
+      // AssociationPlaningSeeder::class,
+      // UserPlaningSeeder::class
     ]);
 
     //module actuality
