@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Planification;
 use App\Http\Controllers\Controller;
 use App\Models\Planification\Planing;
 use Illuminate\Http\Request;
+use App\Models\APIError;
 
 class PlaningController extends Controller
 {
@@ -15,7 +16,11 @@ class PlaningController extends Controller
      */
     public function index(Request $req)
     {
-        $data = Planing::select('planings.*','type_planings.name')->join('type_planings','type_planings.id','=','planings.id')->simplePaginate($req->has('limit') ? $req->limit : 15);
+        $data = Planing::select('planings.*','parishs.name','type_planings.name','parishs.name as parish_name','type_planings.name as type_name')
+                         ->join('type_planings','type_planings.id','=','planings.type_id')
+                         ->join('parishs','planings.parish_id','=','parishs.id')
+                         ->simplePaginate($req->has('limit') ? $req->limit : 5);
+
         return response()->json($data);
     }
 
@@ -35,7 +40,7 @@ class PlaningController extends Controller
             'nature' => 'required',
             'activityPro' => 'required',
             'type_id' => 'required:exists:type_planings,id',
-            //'user_utype_id' => 'required:exists:user_utypes,id'
+            'parish_id' => 'required:exists:parishs,id'
         ]);
 
         $planing = new Planing();
@@ -45,7 +50,7 @@ class PlaningController extends Controller
         $planing->activityPro = $data['activityPro'];
         $planing->place = $data['place'];
         $planing->type_id = $data['type_id'];
-        $planing->user_utype_id = $data['user_utype_id'];
+        $planing->parish_id = $data['parish_id'];
         $planing->nature = $data['nature'];
 
         $planing->save();
@@ -64,11 +69,18 @@ class PlaningController extends Controller
 
     public function find(Request $req,$id)
     {
-        if (!$planing = Planing::find($id)) {
-            abort(404, "No planing found with id $id");
+        if (!$planing =Planing::find($id)) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PLANINGS_NOT_FOUND");
+            return response()->json($apiError, 404);
         }
 
-        $planings = Planing::select('planings.*','type_planings.name')->join('type_planings',['type_planings.id'=>'planings.id'])->where(['planings.id' => $id])->simplePaginate($req->has('limit') ? $req->limit : 15);
+        $planings = Planing::select('planings.*','parishs.name','type_planings.name','parishs.name as         parish_name','type_planings.name as type_name')
+                             ->join('type_planings',['type_planings.id'=>'planings.id'])
+			     ->join('parishs','planings.parish_id','=','parishs.id')
+                             ->where(['planings.id' => $id])
+			     ->simplePaginate($req->has('limit') ? $req->limit : 10);
         return response()->json($planings);
     }
 
@@ -105,6 +117,17 @@ class PlaningController extends Controller
         //
     }
 
+    public function finds(Request $req,$id)
+    {
+        if (!$planing =Planing::find($id)) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PLANINGS_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+        return response()->json($planing);
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -132,7 +155,7 @@ class PlaningController extends Controller
         if ( $data['activityPro']) $planing->activityPro = $data['activityPro'];
         if ( $data['place']) $planing->place = $data['place'];
         if ( $data['type_id']) $planing->type_id = $data['type_id'];
-        if ( $data['type_id']) $planing->user_utype_id = $data['user_utype_id'];
+        if ( $data['parish_id']) $planing->parish_id = $data['parish_id'];
         if ( $data['nature']) $planing->nature = $data['nature'];
 
         $planing->update();
@@ -152,5 +175,19 @@ class PlaningController extends Controller
         }
         $planing->delete();
         return response()->json();
+    }
+
+    public function findPlaningByParish(Request $req,$id,$par)
+    {
+        $planing= Planing::select('planings.*','parishs.name','planings.id as planing_id')
+                                 ->join('user_parishs','planings.parish_id','=','user_parishs.parish_id')
+                                 ->join('user_utypes','user_parishs.user_utype_id','=','user_utypes.id')
+                                 ->join('users','user_utypes.user_id','=','users.id')
+                                 ->join('parishs','user_parishs.parish_id','=','parishs.id')
+                                 ->where(['users.id' => $id])
+                                 ->where(['user_parishs.parish_id' => $par])
+                                 ->simplePaginate($req->has('limit') ? $req->limit : 10);
+
+        return response()->json($planing);
     }
 }
