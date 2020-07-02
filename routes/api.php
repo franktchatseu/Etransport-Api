@@ -594,6 +594,8 @@ Route::group(['prefix' => 'sacrament'], function () {
         Route::delete('/{id}', 'Sacrament\SacramentController@destroy');
         Route::post('/', 'Sacrament\SacramentController@store');
         Route::match(['post', 'put'], '/{id}', 'Sacrament\SacramentController@update');
+        Route::get('/print_composition/{id}','Sacrament\SacramentController@printCompositionFile');      
+        Route::get('/print_inscription/{id}','Sacrament\SacramentController@printInscriptionFile');
     });
 
     Route::group(['prefix' => 'sacrament_categories'], function () {

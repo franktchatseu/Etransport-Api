@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Sacrament;
 
 use App\Http\Controllers\Controller;
+use App\Models\APIError;
 use App\Models\Sacrament\Sacrament;
 use Illuminate\Http\Request;
 
@@ -41,6 +42,7 @@ class SacramentController extends Controller
         $this->validate($data, [
             'title' => 'required',
             'description' => 'required',
+            'contenu_composition' => 'required',
             'category_id' => 'required:exists:sacrament_categories,id'
          ]);
 
@@ -78,6 +80,7 @@ class SacramentController extends Controller
             $sacrament->title = $data['title'];
             $sacrament->description = $data['description'];
             $sacrament->category_id = $data['category_id'];
+            $sacrament->contenu_composition = $data['contenu_composition'];
             $sacrament->composition_file = $data['composition_file'];
             $sacrament->inscription_file = $data['inscription_file'];
             $sacrament->save();
@@ -127,6 +130,7 @@ class SacramentController extends Controller
         $this->validate($data, [
             'title' => 'required',
             'description' => 'required',
+            'contenu_composition' => 'required',
             'category_id' => 'required:exists:sacrament_categories,id',
          ]);
 
@@ -176,6 +180,7 @@ class SacramentController extends Controller
         
         if ( $data['title']) $sacrament->title = $data['title'];
         if ( $data['description']) $sacrament->description = $data['description'];
+        if ( $data['contenu_composition']) $sacrament->contenu_composition = $data['contenu_composition'];
         if ( $data['category_id']) $sacrament->category_id = $data['category_id'];
         if ( $data['composition_file']) $sacrament->composition_file = $data['composition_file'];
         if ( $data['inscription_file']) $sacrament->inscription_file = $data['inscription_file'];
@@ -224,5 +229,31 @@ class SacramentController extends Controller
         $sacrament->composition_file = url($sacrament->composition_file);
         $sacrament->inscription_file = url($sacrament->inscription_file);
         return response()->json($sacrament);
+    }
+
+    public function printCompositionFile($id){
+
+        $sacrament= Sacrament::find($id);
+        if($sacrament==null){
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("SACRAMENT_PAGE_NOT_FOUND");
+            $apiError->setMessage("page does not exist");
+            return response()->json($apiError, 404);
+        }
+       return response()->json(url($sacrament->composition_file));
+    }
+
+    public function printInscriptionFile($id){
+
+        $sacrament= Sacrament::find($id);
+        if($sacrament==null){
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("SACRAMENT_PAGE_NOT_FOUND");
+            $apiError->setMessage("page does not exist");
+            return response()->json($apiError, 404);
+        }
+        return response()->json(url($sacrament->inscription_file));
     }
 }
