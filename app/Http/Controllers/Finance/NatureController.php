@@ -172,6 +172,21 @@ class NatureController extends Controller
      * @param  \Illuminate\Http\Request  $req
      * @return \Illuminate\Http\Response
      */
+    public function getByCategorie(Request $req)
+    {
+            
+        if ($req->name && (Nature::whereName($req->name)->first() != null)) {
+            $data = Nature::whereName($req->name)->simplePaginate($req->has('limit') ? $req->limit : 15)->groupBy('status');
+            return response()->json($data);
+        }else{
+            $notFound = new APIError;
+            $notFound->setStatus("404");
+            $notFound->setCode("NANE_NOT_FOUND");
+            $notFound->setMessage("nature with name " . $req->name . " not found");
+            return response()->json($notFound, 404);
+        }
+    }
+
     public function find($id)
     {
         $nature = Nature::find($id);
