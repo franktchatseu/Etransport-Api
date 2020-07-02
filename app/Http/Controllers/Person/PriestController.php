@@ -4,6 +4,7 @@ namespace App\Http\Controllers\person;
 
 use App\Http\Controllers\Controller;
 use App\Models\person\Priest;
+use App\Models\Setting\Parish;
 use Illuminate\Http\Request;
 
 class PriestController extends Controller
@@ -158,5 +159,28 @@ class PriestController extends Controller
             return response()->json($apiError, 404);
         }
         return response()->json($priest);
+    }
+
+     //recuperation de tous les pretres de la paroisse
+     public function getAllPriestByParish($id){
+
+        $parish = Parish::find($id);
+        //return response()->json($parish->name);
+        if (!$parish) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("PARISH_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+        //recuperation de tous les pretres de la paroisse
+        $priests = Priest::select('users.first_name as parish_first_name','users.last_name as parish_last_name','users.avatar as parish_avatar','users.tel as parish_tel','users.email as email','priests.description','priests.function','priests.id as priest_id')
+        ->join('user_utypes', ['user_utypes.id' => 'priests.user_utype_id'])
+        ->join('users', ['users.id' => 'user_utypes.user_id'])
+        ->where('priests.parish_id',$id)->get();
+
+        foreach ($priests as $priest) {
+            $priest->parish_avatar =  url($priest->parish_avatar);
+         }
+        return response()->json($priests);
     }
 }
