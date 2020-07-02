@@ -301,6 +301,7 @@ Route::group(['prefix' => 'finances'], function () {
 
     Route::group(['prefix' => 'natures'], function () {
         Route::get('/', 'Finance\NatureController@index');
+        Route::get('/bycategorie', 'Finance\NatureController@getByCategorie');
         Route::get('/search', 'Finance\NatureController@search');
         Route::get('/{id}', 'Finance\NatureController@find');
         Route::delete('/{id}', 'Finance\NatureController@destroy');
