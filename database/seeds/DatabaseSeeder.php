@@ -64,27 +64,27 @@ class DatabaseSeeder extends Seeder
       UserUtypeSeeder::class,
       TypeAssociationSeeder::class,
       AssociationSeeder::class,
-      LiturgicalTypeSeeder::class,
-      EntryTypeSeeder::class,
-      LiturgicalTypeEntryTypeSeeder::class,
-      LiturgicalTextSeeder::class,
-      ParishionalMessagesSeeder::class,
-      ParishionalMessagesSeeder::class,
-      UserParishionalMessageSeeder::class,
-      ContactSeeder::class,
-      PriestSeeder::class,
-      ParishionalSeeder::class,
-      TypeAssociationSeeder::class,
-      AssociationSeeder::class,
-      MemberAssociationSeeder::class,
+      // LiturgicalTypeSeeder::class,
+      // EntryTypeSeeder::class,
+      // LiturgicalTypeEntryTypeSeeder::class,
+      // LiturgicalTextSeeder::class,
+      // ParishionalMessagesSeeder::class,
+      // ParishionalMessagesSeeder::class,
+      // UserParishionalMessageSeeder::class,
+      // ContactSeeder::class,
+      // PriestSeeder::class,
+      // ParishionalSeeder::class,
+      // TypeAssociationSeeder::class,
+      // AssociationSeeder::class,
+      // MemberAssociationSeeder::class,
       AlbumSeeder::class,
       // CatechistSeeder::class,
       InputSeeder::class,
       
-      CathechumeneSeeder::class,
-      ContactSeeder::class,
-      AgendaSeeder::class, /*  */
-      UserParishSeeder::class,
+      // CathechumeneSeeder::class,
+      // ContactSeeder::class,
+      // AgendaSeeder::class, /*  */
+      // UserParishSeeder::class,
     ]);
     
 
@@ -208,9 +208,9 @@ class DatabaseSeeder extends Seeder
 
     //module liturgical
     $this->call([
-      LiturgicalTypeSeeder::class,
-      EntryTypeSeeder::class,
-      LiturgicalTypeEntryTypeSeeder::class,
+      // LiturgicalTypeSeeder::class,
+      // EntryTypeSeeder::class,
+      // LiturgicalTypeEntryTypeSeeder::class,
     ]);
 
     Schema::enableForeignKeyConstraints();
