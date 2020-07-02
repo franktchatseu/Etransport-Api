@@ -638,6 +638,8 @@ Route::group(['prefix' => 'sacrament'], function () {
         Route::delete('/{id}', 'Sacrament\SacramentController@destroy');
         Route::post('/', 'Sacrament\SacramentController@store');
         Route::match(['post', 'put'], '/{id}', 'Sacrament\SacramentController@update');
+        Route::get('/print_composition/{id}','Sacrament\SacramentController@printCompositionFile');      
+        Route::get('/print_inscription/{id}','Sacrament\SacramentController@printInscriptionFile');
     });
 
     Route::group(['prefix' => 'sacrament_categories'], function () {
@@ -730,6 +732,8 @@ Route::group(['prefix' => 'planification'],function (){
     Route::group(['prefix' => 'planings'],function (){
         Route::get('/', 'Planification\PlaningController@index');
         Route::get('/{id}', 'Planification\PlaningController@find');
+        Route::get('/find/{id}', 'Planification\PlaningController@finds');
+        Route::get('/{id}/{par}', 'Planification\PlaningController@findPlaningByParish');
         Route::get('/search', 'Planification\PlaningController@search');
         Route::post('/{id}', 'Planification\PlaningController@update');
         Route::post('/', 'Planification\PlaningController@create');

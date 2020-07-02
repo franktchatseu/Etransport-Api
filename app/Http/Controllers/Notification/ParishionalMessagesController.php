@@ -23,8 +23,7 @@ class ParishionalMessagesController extends Controller
             'title' => 'required|string',
             'type' => 'required|string',
             'description' => 'required|string',
-            'effective_date' => 'required',
-            'photo' => 'required|file'
+            'effective_date' => 'required'
         ]);
 
         if ($file = $req->file('photo')) {
@@ -37,7 +36,7 @@ class ParishionalMessagesController extends Controller
         $parishional_message->type = $data['type'];
         $parishional_message->description = $data['description'];
         $parishional_message->photo = $data['photo'];
-        $parishional_message->effective_date = date($data['effective_date']);
+        $parishional_message->begin_hour = date($data['begin_hour']);
 
         $parishional_message->save();
         return response()->json($parishional_message, 201);
@@ -72,11 +71,11 @@ class ParishionalMessagesController extends Controller
             $data['photos'] = json_encode(['images' => $filePaths]);
         }
 
-        if (isset($data['photo'])) $parishional_message->photo = date($data['photo']);
+        if (isset($data['photo'])) $parishional_message->photo = $data['photo'];
         if (isset($data['title'])) $parishional_message->title = $data['title'];
-        if (isset($data['type'])) $parishional_message->type = date($data['type']);
-        if (isset($data['description'])) $parishional_message->description = date($data['description']);
-        if (isset($data['effective_date'])) $parishional_message->effective_date = date($data['effective_date']);
+        if (isset($data['type'])) $parishional_message->type = $data['type'];
+        if (isset($data['description'])) $parishional_message->description = $data['description'];
+        if (isset($data['begin_hour'])) $parishional_message->begin_hour = date($data['begin_hour']);
 
         $parishional_message->update();
 
