@@ -7,5 +7,4 @@ use Illuminate\Database\Eloquent\Model;
 class PatternDonation extends Model
 {
     protected $table = 'pattern_donations';
-    protected $guarded = [];
 }

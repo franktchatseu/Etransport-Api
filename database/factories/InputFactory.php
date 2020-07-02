@@ -17,7 +17,7 @@ $factory->define(Input::class, function (Faker $faker) {
         'country' => $faker->sentence,
         'pseudo' => $faker->sentence,
         'status' => $faker->boolean(),
-        'bill_url' => url('uploads/blogs/blogs.5edba4d14f1dc5.78797280.pdf'),
+        'bill_url' => url('uploads/uploads/bills/blanchiment d\'argent_dschang.pdf'),
         'transaction_id' => $faker->numberBetween(1,100),
         'provenance' => $faker->sentence,
         'reference' => $faker->text(50)

@@ -48,6 +48,7 @@ class DatabaseSeeder extends Seeder
 
     // module finance
     $this->call([
+      patterndonationSeeder::class,
       NatureSeeder::class
     ]);
 

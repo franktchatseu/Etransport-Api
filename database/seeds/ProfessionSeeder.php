@@ -28,9 +28,9 @@ class ProfessionSeeder extends Seeder
             ]);
         }
 
-        // factory(Profession::class, 21)->make()->each(function ($professions) use ($faker) {
-        //     $professions->save();
-        // });
+        factory(Profession::class, 21)->make()->each(function ($professions) use ($faker) {
+            $professions->save();
+        });
     }
     
 }

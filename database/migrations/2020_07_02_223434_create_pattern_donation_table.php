@@ -15,8 +15,8 @@ class CreatePatternDonationTable extends Migration
     {
         Schema::create('pattern_donations', function (Blueprint $table) {
             $table->id();         
-            $table->double('name')->unique();
-            $table->text('description')->nullable();
+            $table->string('name')->unique();
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }
