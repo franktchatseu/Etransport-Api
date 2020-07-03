@@ -10,21 +10,12 @@ class SettingSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(\Faker\Generator $faker)
     {
-        Setting::truncate();
-
-        $settings = [
-            [
-                'key' => 'an-example-key',
-                'value' => 'Une valeur de test',
-                'description' => "Un exemple d'utilisation de Setting"
-            ],
-        ];
-
-        foreach ($settings as $setting) {
-            Setting::create($setting);
-        }
-
+        factory(Setting::class, 10)->make()->each(function ($setting) use ($faker) {
+            $users = App\Models\Person\User::all();
+            $setting->user_id = $faker->randomElement($users)->id;
+            $setting->save();
+        });
     }
 }

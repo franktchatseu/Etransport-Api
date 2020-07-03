@@ -23,7 +23,7 @@ class CreateParishsTable extends Migration
             $table->string('picture_priest');
             $table->text('description');
             $table->string('decision_creation');
-            $table->date('Pattern_date');
+           // $table->date('Pattern_date');
             $table->integer('nbr_of_structure');
             $table->integer('nbr_of_service');
             $table->integer('nbr_of_group');

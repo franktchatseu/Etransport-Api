@@ -5,24 +5,50 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Setting\Setting;
 use App\Models\APIError;
+use App\Models\Setting\UserParish;
 
 
 class SettingController extends Controller
 {
 
-    public function create (Request $request){
-        $this->validate($request->all(), [
-            'key' => 'required | unique:settings'
-        ]);
-
+    public function updateSetting (Request $request){
+       
         $data = $request->only([
-            'key',
-            'value',
-            'description'
+            'hour_payer',
+            'angelus',
+            'misericorde',
+            'magnificat',
+            'langue',
+            'user_id',
+            'parish_id'
         ]);
 
-        $setting = Setting::create($data);
-        return response()->json($setting);
+        $this->validate($data, [
+            'hour_payer' => 'required',
+            'angelus' => 'required',
+            'misericorde' => 'required',
+            'magnificat' => 'required',
+            'langue' => 'required|min:2',
+           // 'user_id' => 'integer|required|exists:App\Person\User,id'
+
+        ]);
+        //on met a jour les infos du user
+        $setting = Setting::whereUserId($data['user_id'])->first();
+        $setting->hour_payer=$data['hour_payer'];
+        $setting->angelus=$data['angelus'];
+        $setting->misericorde=$data['misericorde'];
+        $setting->magnificat=$data['magnificat'];
+        $setting->langue=$data['langue'];
+        $setting->update();
+        //on change la paroisse de utilisateur
+        $userparishs = UserParish::join('user_utypes', ['user_utypes.user_utype_id' => 'user_parishs.user_utype_id'])
+        ->where('user_utypes.user_id',$data['user_id']);
+        foreach($userparishs as $up){
+            $up->parish_id=$data['parish_id'];
+            $up->update();
+        }
+        return response()->json($setting, 200);
+
     }
 
 

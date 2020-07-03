@@ -46,8 +46,11 @@ class ParishController extends Controller
 
         $this->validate($data, [
             'name' => 'required',
-            'decision_creation' => 'required',
-            'Pattern_date' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'description' => 'required',
+            'name_priest' => 'required',
+            'picture_priest' => 'required',
             'nbr_of_structure' => 'required',
             'nbr_of_service' => 'required',
             'nbr_of_group' => 'required',
@@ -56,16 +59,51 @@ class ParishController extends Controller
             'nbr_of_seminarist' => 'required'
          ]);
 
+
             $parish = new Parish();
             $parish->name = $data['name'];
-            $parish->decision_creation = $data['decision_creation'];
-            $parish->Pattern_date = $data['Pattern_date'];
+            $parish->description = $data['description'];
+            $parish->phone = $data['phone'];
+            $parish->email = $data['email'];
+            $parish->name_priest = $data['name_priest'];
+            $parish->decision_creation = "decison of creation";
+            //$parish->Pattern_date = Carbon::now();
             $parish->nbr_of_structure = $data['nbr_of_structure'];
             $parish->nbr_of_service = $data['nbr_of_service'];
             $parish->nbr_of_group = $data['nbr_of_group'];
             $parish->nbr_of_ceb = $data['nbr_of_ceb'];
             $parish->nbr_of_station = $data['nbr_of_station'];
             $parish->nbr_of_seminarist = $data['nbr_of_seminarist'];
+            $path = null;
+            $path1 = null;
+               //recuperation et sauvegarde des images
+         if(isset($req->logo) && isset($req->picture_priest)){
+            $logo = $req->file('logo');
+            $picture_priest = $req->file('picture_priest');
+           
+            if($logo != null){
+                $extension = $logo->getClientOriginalExtension();
+                $relativeDestination = "uploads/Parish";
+                $destinationPath = public_path($relativeDestination);
+                $safeName = "parish".time().'.'.$extension;
+                $logo->move($destinationPath, $safeName);
+                $path1 = url("$relativeDestination/$safeName");
+                
+            }
+            if($picture_priest != null){
+                $extension = $picture_priest->getClientOriginalExtension();
+                $relativeDestination = "uploads/Parish";
+                $destinationPath = public_path($relativeDestination);
+                $safeName = "picture_priest".time().'.'.$extension;
+                $picture_priest->move($destinationPath, $safeName);
+                $path2 = url("$relativeDestination/$safeName");
+            }
+             
+           
+        }
+        $parish->logo = $path1;
+        $parish->picture_priest =$path2;
+
             $parish->save();
        
         return response()->json($parish);
@@ -88,12 +126,12 @@ class ParishController extends Controller
             return response()->json($apiError, 404);
         }
 
-        $data = $req->except('photo');
-
         $this->validate($data, [
             'name' => 'required',
-            'decision_creation' => 'required',
-            'Pattern_date' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'description' => 'required',
+            'name_priest' => 'required',
             'nbr_of_structure' => 'required',
             'nbr_of_service' => 'required',
             'nbr_of_group' => 'required',
@@ -104,6 +142,10 @@ class ParishController extends Controller
 
         
          if ( $data['name'] ?? null) $parish->name = $data['name'];
+         if ( $data['email'] ?? null) $parish->email = $data['email'];
+         if ( $data['phone'] ?? null) $parish->phone = $data['phone'];
+         if ( $data['description'] ?? null) $parish->description = $data['description'];
+         if ( $data['name_priest'] ?? null) $parish->name_priest = $data['name_priest'];
          if ( $data['decision_creation'] ?? null) $parish->decision_creation = $data['decision_creation'];
          if ( $data['Pattern_date']?? null) $parish->Pattern_date = $data['Pattern_date'];
          if ( $data['nbr_of_structure'] ?? null) $parish->nbr_of_structure = $data['nbr_of_structure'];
@@ -112,6 +154,31 @@ class ParishController extends Controller
          if ( $data['nbr_of_ceb'] ?? null) $parish->nbr_of_ceb = $data['nbr_of_ceb'];
          if ( $data['nbr_of_station'] ?? null) $parish->nbr_of_station = $data['nbr_of_station'];
          if ( $data['nbr_of_seminarist'] ?? null) $parish->nbr_of_seminarist = $data['nbr_of_seminarist'];
+         //recuperation et sauvegarde des images
+         if(isset($req->logo)&& issset($req->picture_priest)){
+            $logo = $req->file('logo');
+            $path = null;
+            if($logo != null){
+                $extension = $file->getClientOriginalExtension();
+                $relativeDestination = "uploads/Parish";
+                $destinationPath = public_path($relativeDestination);
+                $safeName = "parish".time().'.'.$extension;
+                $logo->move($destinationPath, $safeName);
+                $path = url("$relativeDestination/$safeName");
+            }
+            if($picture_priest != null){
+                $extension = $file->getClientOriginalExtension();
+                $relativeDestination = "uploads/Parish";
+                $destinationPath = public_path($relativeDestination);
+                $safeName = "picture_priest".time().'.'.$extension;
+                $picture_priest->move($destinationPath, $safeName);
+                $path = url("$relativeDestination/$safeName");
+            }
+            $data['logo'] = $path;
+            $data['picture_priest'] = $path;
+            
+
+        }
         
         $parish->update();
 

@@ -15,9 +15,14 @@ class CreateSettingsTable extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('key')->unique();
-            $table->text('value')->nullable();
-            $table->string('description')->nullable();
+            $table->time('hour_payer')->unique();
+            $table->boolean('angelus')->nullable();
+            $table->boolean('misericorde')->nullable();
+            $table->boolean('magnificat')->nullable();
+            $table->enum('langue', ['en', 'fr']);
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+
             $table->timestamps();
         });
     }
