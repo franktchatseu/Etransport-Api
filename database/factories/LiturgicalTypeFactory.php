@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(LiturgicalType::class, function (Faker $faker) {
     return [
-        'title' => $faker->unique()->randomElement(['CHANTS','PRIERES']),
+        'title' => $faker->unique()->randomElement(['CHANTS','PRIERES','HOMELIE','SAINT DU JOUR','LECTURE DU JOUR']),
         'description' => $faker->sentence
     ];
 });

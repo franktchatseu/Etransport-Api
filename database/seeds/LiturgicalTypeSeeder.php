@@ -12,7 +12,7 @@ class LiturgicalTypeSeeder extends Seeder
      */
     public function run(\Faker\Generator $faker)
     {
-        factory(LiturgicalType::class, 2)->make()->each(function ($type) use ($faker) {
+        factory(LiturgicalType::class, 5)->make()->each(function ($type) use ($faker) {
             $type->slug = $type->title;
             $type->save();
         });
