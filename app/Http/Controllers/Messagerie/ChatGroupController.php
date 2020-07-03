@@ -52,6 +52,62 @@ class ChatGroupController extends Controller
         return response()->json($group);
     }
 
+    public function createMemberWithGroup(Request $req)
+    {
+        $data = $req->except('profile_group');
+
+        $this->validate($data, [
+            'name_group' => 'required',
+            'creator_id' => 'required',
+            'user_utype_id' => 'required:exists:user_utypes,id',
+        ]);
+
+        if ( $req->file('profile_group') ?? null) {
+            $filePaths = $this->saveSingleImage($this, $req, 'profile_group', 'groups');
+            $data['profile_group'] = json_encode(['images' => $filePaths]);
+        }
+
+        $group = new ChatGroup();
+        $group->name = $data['name_group'];
+        $group->profile = $data['profile_group'] ?? null;
+        $group->code_source = 'PRIEST_RESPONSE_US' ?? null;
+        $group->reference = $data['creator_id'] ?? null;
+        $group->save();
+       
+        $param= $group;
+        // return response()->json($group);
+
+        $chatGroup = ChatGroup::orderBy('id', 'DESC')->first();
+        $member = ChatMemberGroup::where([
+            ['chat_group_id', $chatGroup->id ],
+            ['user_utype_id', $data['user_utype_id']],
+        ])->get();
+        if ( count($member) == 0 ) {
+            $member = new ChatMemberGroup();
+            $member->status = 'ACCEPTED';
+            $member->chat_group_id = $chatGroup->id;
+            $member->user_utype_id = $data['user_utype_id'];
+            $member->save();
+            $param->member1= $member;
+        }
+        $member2 = ChatMemberGroup::where([
+            ['chat_group_id', $chatGroup->id ],
+            ['user_utype_id', $data['creator_id']],
+        ])->get();
+        if ( count($member2) == 0 ) {
+            $member2 = new ChatMemberGroup();
+            $member2->status = 'ACCEPTED';
+            $member2->chat_group_id = $chatGroup->id;
+            $member2->user_utype_id = $data['creator_id'];
+            $member2->save();
+            $param->creator= $member2;
+        }
+        
+
+
+        return response()->json($param);
+    }
+
     /**
      * Update the specified resource in storage.
      *

@@ -32,6 +32,8 @@ class DatabaseSeeder extends Seeder
       // _GroupSeeder::class,
     ]);
 
+ 
+
     // $this->call(CityAndCountrySeeder::class);
     $this->call(SettingSeeder::class);
     // $this->call(LaratrustSeeder::class);
@@ -76,14 +78,14 @@ class DatabaseSeeder extends Seeder
     ]);
     
 
-    // module messagerie
-    $this->call([
-      // ChatGroupSeeder::class,
-      // ChatMemberGroupSeeder::class,
-      // ChatMessageGroupSeeder::class,
-      // ChatDiscussionSeeder::class,
-      // ChatMessageDuoSeeder::class
-    ]);
+   // module messagerie
+   $this->call([
+    ChatGroupSeeder::class,
+    ChatMemberGroupSeeder::class,
+    ChatMessageGroupSeeder::class,
+    ChatDiscussionSeeder::class,
+    ChatMessageDuoSeeder::class
+  ]);
 
     // module publicité
     $this->call([
