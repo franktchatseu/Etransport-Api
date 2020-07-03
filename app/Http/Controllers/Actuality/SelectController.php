@@ -42,13 +42,19 @@ class SelectController extends Controller
             'value' => 'required|unique:selects',
             'attribute_id' => 'required'
         ]);
+        
+        $test = Select::whereValueOrId($request->value, $request->id)->first();
+        if (!$test) {
+            $Select = new Select();
+            $Select->value = $request->value;
+            $Select->attribute_id = $request->attribute_id;
+            $Select->save();
+            return response()->json($Select);
+        }
 
-        $Select = new Select();
-        $Select->value = $request->value;
-        $Select->attribute_id = $request->attribute_id;
-        $Select->save();
-       
-        return response()->json($Select);
+        $test->value = $request->value;
+        $test->update();       
+        return response()->json($test);
     }
 
     /**
