@@ -865,6 +865,14 @@ Route::group(['prefix' => 'actualities'], function () {
         Route::delete('/{id}', 'Actuality\AttributeController@destroy');
     });
 
+    Route::group(['prefix' => 'selects'], function () {
+        Route::get('/', 'Actuality\SelectController@index');
+        Route::get('/{id}', 'Actuality\SelectController@find');
+        Route::match(['post', 'put'], '/{id}', 'Actuality\SelectController@update');
+        Route::post('/', 'Actuality\SelectController@store');
+        Route::delete('/{id}', 'Actuality\SelectController@destroy');
+    });
+
     Route::group(['prefix' => 'submenus'], function () {
         Route::get('/', 'Actuality\SubMenuController@index');
         Route::get('/{id}', 'Actuality\SubMenuController@find');

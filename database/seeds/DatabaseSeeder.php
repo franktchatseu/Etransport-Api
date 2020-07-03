@@ -39,24 +39,24 @@ class DatabaseSeeder extends Seeder
     // module setting
     $this->call([
       ParishSeeder::class,
-      AgendaSeeder::class,
-      Parish_themeSeeder::class,
-      WordofpriestSeeder::class,
-      ProgrammeSeeder::class,
-      ParishPatrimonySeeder::class,
-      MassSheduleSeeder::class,
-      AlbumSeeder::class,
-      ParishAlbumSeeder::class,
-      PhotoSeeder::class,
-      ProfessionSeeder::class,
-      MassSheduleSeeder::class,
+      // AgendaSeeder::class,
+      // Parish_themeSeeder::class,
+      // WordofpriestSeeder::class,
+      // ProgrammeSeeder::class,
+      // ParishPatrimonySeeder::class,
+      // MassSheduleSeeder::class,
+      // AlbumSeeder::class,
+      // ParishAlbumSeeder::class,
+      // PhotoSeeder::class,
+      // ProfessionSeeder::class,
+      // MassSheduleSeeder::class,
     ]);
 
     // module person
     $this->call([
-      // UserSeeder::class,
-      // UtypeSeeder::class,
-      // UserUtypeSeeder::class,
+      UserSeeder::class,
+      UtypeSeeder::class,
+      UserUtypeSeeder::class,
       // TypeAssociationSeeder::class,
       // AssociationSeeder::class,
       // LiturgicalTypeSeeder::class,
@@ -67,12 +67,12 @@ class DatabaseSeeder extends Seeder
       // ParishionalMessagesSeeder::class,
       // UserParishionalMessageSeeder::class,
       // ContactSeeder::class,
-      // PriestSeeder::class,
-      // ParishionalSeeder::class,
+      PriestSeeder::class,
+      ParishionalSeeder::class,
       // TypeAssociationSeeder::class,
       // AssociationSeeder::class,
       // MemberAssociationSeeder::class,
-      AlbumSeeder::class,
+      // AlbumSeeder::class,
       // InputUUtypeSeeder::class,
       // CatechistSeeder::class,
       
@@ -84,8 +84,8 @@ class DatabaseSeeder extends Seeder
 
     // module finance
     $this->call([
-      NatureSeeder::class,
-      InputSeeder::class
+      // NatureSeeder::class,
+      // InputSeeder::class
     ]);
 
     // module messagerie
@@ -99,7 +99,7 @@ class DatabaseSeeder extends Seeder
 
     // module publicité
     $this->call([
-       PublicitySeeder::class,
+      //  PublicitySeeder::class,
     ]);
 
     // module catechesis
@@ -183,13 +183,13 @@ class DatabaseSeeder extends Seeder
 
     //module Planification
     $this->call([
-      ObjectMakingAppointmentSeeder::class,
-      MakeAppointmentSeeder::class,
-      AnointingSickSeeder::class,
-      ObjectRequestMassSeeder::class,
-      IntentionMassSeeder::class,
-      RequestMassSeeder::class,
-      ReportProblemSeeder::class,
+      // ObjectMakingAppointmentSeeder::class,
+      // MakeAppointmentSeeder::class,
+      // AnointingSickSeeder::class,
+      // ObjectRequestMassSeeder::class,
+      // IntentionMassSeeder::class,
+      // RequestMassSeeder::class,
+      // ReportProblemSeeder::class,
       // TypePlaningSeeder::class,
       // PlaningSeeder::class,
       // AssociationPlaningSeeder::class,

@@ -20,6 +20,16 @@ class CreateAttributeTable extends Migration
             $table->string('type')->default('text');
             $table->timestamps();
         });
+
+        Schema::create('selects', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('value')->unique();
+            $table->unsignedBigInteger('attribute_id');
+
+            $table->timestamps();
+
+            $table->foreign('attribute_id')->references('id')->on('attributes');
+        });
     }
 
     /**
