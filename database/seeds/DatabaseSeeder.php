@@ -27,6 +27,13 @@ class DatabaseSeeder extends Seeder
 
     // module extra
     $this->call([
+      ObjectMakingAppointmentSeeder::class,
+      MakeAppointmentSeeder::class,
+      AnointingSickSeeder::class,
+      ObjectRequestMassSeeder::class,
+      IntentionMassSeeder::class,
+      RequestMassSeeder::class,
+      ReportProblemSeeder::class,
       // _CebSeeder::class,
       // _PostSeeder::class,
       // _GroupSeeder::class,
