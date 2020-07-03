@@ -3,6 +3,9 @@
 use App\Models\Actuality\Article_Attribute_Menu;
 use Illuminate\Database\Seeder;
 use App\Models\Actuality\ArticleAttributeMenu;
+use App\Models\Actuality\Menu;
+use App\Models\Actuality\Sub_Menu;
+use App\Models\Actuality\Attribute_Menu;
 
 class ArticleAttributeMenuSeeder extends Seeder
 {
@@ -14,13 +17,32 @@ class ArticleAttributeMenuSeeder extends Seeder
     public function run(\Faker\Generator $faker)
     {
         
-        factory(Article_Attribute_Menu::class, 50)->make()->each(function($articleAttributeMenu) use ($faker) {
-            $article = App\Models\Actuality\Article::all();
-            $attributemenu = App\Models\Actuality\Attribute_Menu::all();
-            $articleAttributeMenu->article_id = $faker->randomElement($article)->id;
-            $articleAttributeMenu->attribute_menu_id = $faker->randomElement($attributemenu)->id;
-            $articleAttributeMenu->save();
-        });
+        // factory(Article_Attribute_Menu::class, 50)->make()->each(function($articleAttributeMenu) use ($faker) {
+            $articles = App\Models\Actuality\Article::all();
+            // $attributeMenus = Attribute_Menu::all();
+            
+            // dump(count($attributeMenus));
+            for($i = 0; $i < count($articles); $i++) {
+                $article = $articles[$i];
+                $attributeMenus = Sub_Menu::select('attribute_menus.id as attribute_menu_id')
+                ->join('menus', 'menus.id', '=', 'sub_menus.menu_id')
+                ->join('articles', 'articles.sub_menu_id', '=', 'sub_menus.id')
+                ->join('attribute_menus', 'attribute_menus.menu_id', '=', 'menus.id')
+                ->where('articles.id','=', $article->id)
+                ->get();
+                foreach ($attributeMenus as $key => $value) {
+                    // if ( count(Article_Attribute_Menu::where([ ['article_id', '=', $article->id], ['attribute_menu_id', '=', $value->id]])->get()) == 0 ) {
+                    Article_Attribute_Menu::create([
+                        'article_id' => $article->id,
+                        'attribute_menu_id' => $value->attribute_menu_id,
+                        'value' => 'Lorem ipsum dolor'
+                    ]);
+                    // }
+                }
+            }
+            
+           
+        // });
     }
 }
 

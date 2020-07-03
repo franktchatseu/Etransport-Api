@@ -67,8 +67,8 @@ class DatabaseSeeder extends Seeder
       // ParishionalMessagesSeeder::class,
       // UserParishionalMessageSeeder::class,
       // ContactSeeder::class,
-      PriestSeeder::class,
-      ParishionalSeeder::class,
+      // PriestSeeder::class,
+      // ParishionalSeeder::class,
       // TypeAssociationSeeder::class,
       // AssociationSeeder::class,
       // MemberAssociationSeeder::class,
@@ -199,9 +199,9 @@ class DatabaseSeeder extends Seeder
     //module actuality
     $this->call([
       AttributeSeeder::class,
-      MenuSeeder::class,
-      AttributeMenuSeeder::class,
-      SubMenuSeeder::class,
+      // MenuSeeder::class,
+      // AttributeMenuSeeder::class,
+      // SubMenuSeeder::class,
       ArticleSeeder::class,
       ArticleAttributeMenuSeeder::class,
     ]);

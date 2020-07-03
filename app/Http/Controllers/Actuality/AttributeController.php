@@ -44,11 +44,10 @@ class AttributeController extends Controller
             'type' => 'required',
         ]);
 
-            $attribute = new Attribute();
-            $attribute->name = $request->name;
-            $attribute->slug = Str::slug($request->name);
-            $attribute->type = $request->type;
-            $attribute->save();
+        $attribute = new Attribute();
+        $attribute->name = $request->name;
+        $attribute->slug = preg_replace('/[^a-zA-Z0-9_.]/', '', $request->name);
+        $attribute->save();
        
         return response()->json($attribute);
     }

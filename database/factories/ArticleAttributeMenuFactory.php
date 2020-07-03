@@ -8,6 +8,5 @@ use Faker\Generator as Faker;
 $factory->define(Article_Attribute_Menu::class, function (Faker $faker) {
     return [
         'value' =>  $faker->unique()->sentence,
-
     ];
 });

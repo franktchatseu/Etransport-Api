@@ -8,6 +8,9 @@ use App\Models\Actuality\Menu;
 use Illuminate\Http\Request;
 use App\Models\Actuality\Sub_Menu;
 use Illuminate\Support\Str;
+use App\Models\Actuality\Attribute_Menu;
+use App\Models\Actuality\Article;
+use App\Models\Actuality\Article_Attribute_Menu;
 
 class SubMenuController extends Controller
 {
@@ -205,6 +208,43 @@ class SubMenuController extends Controller
 
         return response()->json($submenus);
         
+    }
+
+    public function findArticlesBySubmenu($limit, $slug) {
+        
+        $datas = [];
+        $attributeIndex = [];
+        $submenu = Sub_Menu::whereSlug($slug)->first();
+        if ($submenu) {
+            $attributes = Attribute_Menu::whereMenuId($submenu->menu_id)
+            ->join('attributes', 'attributes.id', '=', 'attribute_menus.attribute_id')
+            ->select('attributes.*', 'attribute_menus.id as attribute_menu_id')
+            ->get();
+            foreach ($attributes as $key => $value) {
+                $attributeIndex[$value->attribute_menu_id] = preg_replace('/[^a-zA-Z0-9_.]/', '', $value->name);
+            }
+            $articles = Article::whereSubMenuId($submenu->id)
+            ->orderBy('articles.id', 'desc')
+            ->simplePaginate($limit ? $limit : 20);
+
+            foreach($articles as $key => $value) {
+                $values = Article_Attribute_Menu::whereArticleId($value->id)
+                ->get();
+                if (count($values) > 0) {
+                    $data = [];
+                    $data['name'] = $value->name;
+                    foreach($values as $keys => $avalue) {
+                        $data[$attributeIndex[$avalue->attribute_menu_id]] = $avalue->value;
+                    }
+                    $datas[] = $data;
+                }
+            }
+            return $datas;
+        }
+    }
+
+    public function findArticles(Request $request, $slug) {
+        return response()->json($this->findArticlesBySubmenu($request->limit ? $request->limit : 15, $slug));
     }
   
 }

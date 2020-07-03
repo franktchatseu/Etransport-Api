@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Attribute::class, function (Faker $faker) {
     return [
-        'name' =>  $faker->unique()->sentence,
-        'type' => $faker->randomElement(['text', 'number', 'select']),
+        // 'name' =>  $faker->unique()->sentence,
+        // 'type' => $faker->randomElement(['file', 'text', 'number', 'select']),
     ];
 });

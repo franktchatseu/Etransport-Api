@@ -846,6 +846,7 @@ Route::group(['prefix' => 'actualities'], function () {
         Route::get('/search', 'Actuality\MenuController@search');
         Route::get('/findAttributeMenu/{id}', 'Actuality\MenuController@findAttributeMenu');
         Route::post('/', 'Actuality\MenuController@store');
+        Route::get('/{slug}/articles', 'Actuality\MenuController@findArticles');
         Route::delete('/{id}', 'Actuality\MenuController@destroy');
     });
 
@@ -854,6 +855,7 @@ Route::group(['prefix' => 'actualities'], function () {
         Route::get('/{id}', 'Actuality\ArticleController@find');
         Route::match(['post', 'put'], '/{id}', 'Actuality\ArticleController@update');
         Route::post('/', 'Actuality\ArticleController@store');
+        
         Route::delete('/{id}', 'Actuality\ArticleController@destroy');
     });
 
@@ -880,7 +882,8 @@ Route::group(['prefix' => 'actualities'], function () {
         Route::match(['post', 'put'], '/{id}', 'Actuality\SubMenuController@update');
         Route::post('/', 'Actuality\SubMenuController@store');
         Route::get('/{slug}/menu', 'Actuality\SubMenuController@findSubMenu');
-	Route::get('/{id}/menus', 'Actuality\SubMenuController@findSubMenuId');
+        Route::get('/{slug}/articles', 'Actuality\SubMenuController@findArticles');
+	    Route::get('/{id}/menus', 'Actuality\SubMenuController@findSubMenuId');
         Route::delete('/{id}', 'Actuality\SubMenuController@destroy');
     });
 
