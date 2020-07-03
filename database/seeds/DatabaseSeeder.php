@@ -25,22 +25,8 @@ class DatabaseSeeder extends Seeder
     Model::unguard();
     Schema::disableForeignKeyConstraints();
 
-    // module extra
-    $this->call([
-      ObjectMakingAppointmentSeeder::class,
-      MakeAppointmentSeeder::class,
-      AnointingSickSeeder::class,
-      ObjectRequestMassSeeder::class,
-      IntentionMassSeeder::class,
-      RequestMassSeeder::class,
-      ReportProblemSeeder::class,
-      // _CebSeeder::class,
-      // _PostSeeder::class,
-      // _GroupSeeder::class,
-    ]);
-
     //$this->call(CityAndCountrySeeder::class);
-    $this->call(SettingSeeder::class);
+    // $this->call(SettingSeeder::class);
     // $this->call(LaratrustSeeder::class);
 
     // module setting
@@ -55,7 +41,7 @@ class DatabaseSeeder extends Seeder
       // AlbumSeeder::class,
       // ParishAlbumSeeder::class,
       // PhotoSeeder::class,
-      // ProfessionSeeder::class,
+      ProfessionSeeder::class,
       // MassSheduleSeeder::class,
     ]);
 
