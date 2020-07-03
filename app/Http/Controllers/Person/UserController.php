@@ -43,11 +43,20 @@ class UserController extends Controller
             // 'email' => ['required', 'email', Rule::unique('users', 'email')],
         ]);
 
-        $data['avatar'] = '';
-        //upload image
-        if ($file = $req->file('avatar')) {
-            $filePaths = $this->saveSingleImage($this, $req, 'avatar', 'users');
-            $data['avatar'] = json_encode(['images' => $filePaths]);
+        if(isset($req->avatar)){
+            $file = $req->file('avatar');
+            $path = null;
+            if($file != null){
+                $req->validate(['avatar'=>'image|max:20000']);
+                $extension = $file->getClientOriginalExtension();
+                $relativeDestination = "uploads/users/avatar";
+                $destinationPath = public_path($relativeDestination);
+                $safeName = "avatar".time().'.'.$extension;
+                $file->move($destinationPath, $safeName);
+                $path = url("$relativeDestination/$safeName");
+            }
+            $data['avatar'] = $path;
+   
         }
         
         $user = new User();
@@ -113,10 +122,26 @@ class UserController extends Controller
         }
 
         //upload image
-        if ($file = $req->file('avatar')) {
-            $filePaths = $this->saveSingleImage($this, $req, 'avatar', 'users');
-            $data['avatar'] = json_encode(['images' => $filePaths]);
-        }
+        if(isset($req->avatar)){
+            $file = $req->file('avatar');
+            $path = null;
+            if($file != null){
+             $extension = $file->getClientOriginalExtension();
+             $relativeDestination = "uploads/users/avatar";
+             $destinationPath = public_path($relativeDestination);
+             $safeName = "avatar".time().'.'.$extension;
+             $file->move($destinationPath, $safeName);
+             $path = url("$relativeDestination/$safeName");
+             if ($user->avatar) {
+                $oldImagePath = public_path($user->avatar);
+                if (file_exists($oldImagePath)) {
+                    @unlink($oldImagePath);
+                }
+            }
+         }
+         $data['avatar'] = $path;
+
+         }
 
         if (isset($data['login'])) $user->login = $data['login'];
         if (isset($data['email'])) $user->email = $data['email'];

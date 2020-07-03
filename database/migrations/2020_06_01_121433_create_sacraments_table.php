@@ -18,6 +18,8 @@ class CreateSacramentsTable extends Migration
             $table->unsignedBigInteger('category_id');
             $table->string('title');
             $table->string('description');
+            $table->string('contenu_composition');
+            $table->string('background_image');
             $table->string('composition_file');
             $table->string('inscription_file');
             $table->timestamps();
