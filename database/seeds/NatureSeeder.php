@@ -13,7 +13,8 @@ class NatureSeeder extends Seeder
     public function run(\Faker\Generator $faker)
     {
         factory(Nature::class, 50)->make()->each(function ($nature) use ($faker) {
-            $nature->save();
+           
+           $nature->save();
         });
     }
 }

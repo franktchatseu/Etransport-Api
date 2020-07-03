@@ -16,6 +16,8 @@ class InputSeeder extends Seeder
             $uutypes = App\Models\Person\UserUtype::all();
             $parishs= App\Models\Setting\Parish::all();
             $nature = App\Models\Finance\Nature::all();
+            $patterns = App\Models\Finance\PatternDonation::all();
+            $nature->pattern_id = $faker->randomElement($patterns)->id;
             $inputs->user_utype_id = $faker->randomElement($uutypes)->id;           
             $inputs->nature_id = $faker->randomElement($nature)->id;
             $inputs->parish_id = $faker->randomElement($parishs)->id;

@@ -27,6 +27,13 @@ class DatabaseSeeder extends Seeder
 
     // module extra
     $this->call([
+      ObjectMakingAppointmentSeeder::class,
+      MakeAppointmentSeeder::class,
+      AnointingSickSeeder::class,
+      ObjectRequestMassSeeder::class,
+      IntentionMassSeeder::class,
+      RequestMassSeeder::class,
+      ReportProblemSeeder::class,
       // _CebSeeder::class,
       // _PostSeeder::class,
       // _GroupSeeder::class,
@@ -52,29 +59,40 @@ class DatabaseSeeder extends Seeder
       // MassSheduleSeeder::class,
     ]);
 
+    // module finance
+    $this->call([
+      patterndonationSeeder::class,
+      NatureSeeder::class
+    ]);
+
     // module person
     $this->call([
       UserSeeder::class,
       UtypeSeeder::class,
       UserUtypeSeeder::class,
-      // TypeAssociationSeeder::class,
-      // AssociationSeeder::class,
-      // LiturgicalTypeSeeder::class,
-      // EntryTypeSeeder::class,
-      // LiturgicalTypeEntryTypeSeeder::class,
-      // LiturgicalTextSeeder::class,
-      // ParishionalMessagesSeeder::class,
-      // ParishionalMessagesSeeder::class,
-      // UserParishionalMessageSeeder::class,
-      // ContactSeeder::class,
-      // PriestSeeder::class,
-      // ParishionalSeeder::class,
-      // TypeAssociationSeeder::class,
-      // AssociationSeeder::class,
-      // MemberAssociationSeeder::class,
-      // AlbumSeeder::class,
-      // InputUUtypeSeeder::class,
-      // CatechistSeeder::class,
+      InputSeeder::class,
+      TypeAssociationSeeder::class,
+      AssociationSeeder::class,
+      LiturgicalTypeSeeder::class,
+      EntryTypeSeeder::class,
+      LiturgicalTypeEntryTypeSeeder::class,
+      LiturgicalTextSeeder::class,
+      ParishionalMessagesSeeder::class,
+      ParishionalMessagesSeeder::class,
+      UserParishionalMessageSeeder::class,
+      ContactSeeder::class,
+      PriestSeeder::class,
+      ParishionalSeeder::class,
+      TypeAssociationSeeder::class,
+      AssociationSeeder::class,
+      MemberAssociationSeeder::class,
+      AlbumSeeder::class,
+      //InputUUtypeSeeder::class,
+      SacramentCategorySeeder::class,
+      SacramentSeeder::class,
+      UserSacramentSeeder::class,
+      ContactSeeder::class,
+      //CatechistSeeder::class,
       
       // CathechumeneSeeder::class,
       // ContactSeeder::class,

@@ -330,6 +330,7 @@ Route::group(['prefix' => 'finances'], function () {
 
     Route::group(['prefix' => 'natures'], function () {
         Route::get('/', 'Finance\NatureController@index');
+        Route::get('/bycategorie', 'Finance\NatureController@getByCategorie');
         Route::get('/search', 'Finance\NatureController@search');
         Route::get('/{id}', 'Finance\NatureController@find');
         Route::delete('/{id}', 'Finance\NatureController@destroy');
@@ -729,11 +730,12 @@ Route::group(['prefix' => 'associations'], function () {
 
 
 Route::group(['prefix' => 'planification'],function (){
+
     Route::group(['prefix' => 'planings'],function (){
         Route::get('/', 'Planification\PlaningController@index');
         Route::get('/{id}', 'Planification\PlaningController@find');
         Route::get('/find/{id}', 'Planification\PlaningController@finds');
-        Route::get('/{id}/{par}', 'Planification\PlaningController@findPlaningByParish');
+        //Route::get('/{id}/{par}', 'Planification\PlaningController@findPlaningByParish');
         Route::get('/search', 'Planification\PlaningController@search');
         Route::post('/{id}', 'Planification\PlaningController@update');
         Route::post('/', 'Planification\PlaningController@create');
