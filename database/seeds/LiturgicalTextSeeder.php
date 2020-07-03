@@ -13,7 +13,7 @@ class LiturgicalTextSeeder extends Seeder
     public function run(\Faker\Generator $faker)
     {
         factory(LiturgicalText::class, 100)->make()->each(function ($typeentry) use ($faker) {
-            $type = \App\Models\Liturgical\LiturgicalType::all();
+            $type = \App\Models\Liturgical\LiturgicalTypeEntryType::all();
             $parish = \App\Models\Setting\Parish::all();
             $typeentry->type_entry_type_id = $faker->randomElement($type)->id;
             $typeentry->parish_id = $faker->randomElement($parish)->id;
