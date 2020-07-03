@@ -868,6 +868,7 @@ Route::group(['prefix' => 'actualities'], function () {
     Route::group(['prefix' => 'selects'], function () {
         Route::get('/', 'Actuality\SelectController@index');
         Route::get('/{id}', 'Actuality\SelectController@find');
+        Route::get('/{attribute}/values', 'Actuality\SelectController@findSelects');
         Route::match(['post', 'put'], '/{id}', 'Actuality\SelectController@update');
         Route::post('/', 'Actuality\SelectController@store');
         Route::delete('/{id}', 'Actuality\SelectController@destroy');

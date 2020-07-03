@@ -141,5 +141,10 @@ class SelectController extends Controller
         return response()->json();
     }
 
+    public function findSelects($attribute) {
+        $data = Select::whereAttributeId($attribute)
+        ->get();
+        return response()->json($data);
+    }
     
 }
