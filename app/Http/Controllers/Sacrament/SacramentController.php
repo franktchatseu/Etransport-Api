@@ -160,8 +160,8 @@ class SacramentController extends Controller
              $safeName = "background_image".time().'.'.$extension;
              $file->move($destinationPath, $safeName);
              $path = url("$relativeDestination/$safeName");
-             if ($sacrament->composition_file) {
-                $oldImagePath = public_path($sacrament->composition_file);
+             if ($sacrament->background_image) {
+                $oldImagePath = public_path($sacrament->background_image);
                 if (file_exists($oldImagePath)) {
                     @unlink($oldImagePath);
                 }
