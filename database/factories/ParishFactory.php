@@ -15,7 +15,7 @@ $factory->define(Parish::class, function (Faker $faker) {
         'picture_priest' =>  'upload/image.png',
         'description' => $faker->text(),
         'decision_creation' => $faker->text(100),
-        'Pattern_date' => $faker->date(),
+        //'Pattern_date' => $faker->date(),
         'nbr_of_structure' => $faker->numberBetween(1,100),
         'nbr_of_service' => $faker->numberBetween(1,100),
         'nbr_of_group' => $faker->numberBetween(1,100),

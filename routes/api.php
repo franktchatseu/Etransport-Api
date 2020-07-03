@@ -83,7 +83,7 @@ Route::group(['prefix' => 'persons'], function () {
         Route::delete('/{id}', 'Person\UserController@destroy');
     });
 
-    Route::group(['prefix' => 'user_utypes'], function () {
+    Route::group(['prefix' => 'user-utypes'], function () {
         Route::get('/', 'Person\UserUtypeController@index');
         Route::get('/search', 'Person\UserUtypeController@search');
         Route::post('/', 'Person\UserUtypeController@store');
@@ -122,6 +122,7 @@ Route::group(['prefix' => 'persons'], function () {
     Route::group(['prefix' => 'contacts'], function () {
         Route::get('/','Person\ContactController@get');
         Route::get('/{id}', 'Person\ContactController@find');
+        Route::get('/{id}/parish', 'Person\ContactController@findContactWithParish');
         Route::get('/search', 'Person\ContactController@search');
         Route::delete('/{id}', 'Person\ContactController@destroy');
         Route::match(['post','put'],'/{id}', 'Person\ContactController@update');
@@ -905,9 +906,14 @@ Route::group(['prefix' => 'actualities'], function () {
         Route::get('/{id}/articles', 'Actuality\Article_Attribute_MenuController@findArticleMenu');
     }); 
 });
+Route::group(['prefix' => 'settings'],function (){
+    Route::post('/{id}/user', 'Setting\SettingController@updateSetting');
+
+});
 
 Route::group(['prefix' => 'requests'],function (){
-    Route::group(['prefix' => 'make_appointments'],function (){
+    Route::get('/{id}', 'Request\RequestController@findAllDemande');
+    Route::group(['prefix' => 'make-appointments'],function (){
         Route::get('/', 'Request\MakeAppointmentController@index');
         Route::get('/{id}', 'Request\MakeAppointmentController@find');
         Route::get('/user/{id}', 'Request\MakeAppointmentController@findAllForUser');
@@ -917,7 +923,7 @@ Route::group(['prefix' => 'requests'],function (){
         Route::get('/{id}/user', 'Request\MakeAppointmentController@findAllForUser');
         Route::delete('/{id}', 'Request\MakeAppointmentController@delete');
     });
-
+  
     Route::group(['prefix' => 'object_make_appointments'],function (){
         Route::get('/', 'Request\ObjectMakeAppointmentController@index');
         Route::get('/{id}', 'Request\ObjectMakeAppointmentController@find');
