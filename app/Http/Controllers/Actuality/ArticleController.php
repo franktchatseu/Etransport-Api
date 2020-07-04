@@ -58,7 +58,7 @@ class ArticleController extends Controller
             $article->photo = json_encode(['image' => $filePaths]);
         }
 
-        if ($file = $request->file('fichier[]')) {
+        if ($file = $request->file('fichier')) {
             $filePaths = $this->saveMultipleImages($this, $request, 'fichier', 'articles');
             $article->fichier = json_encode(['images' => $filePaths]);
         }
