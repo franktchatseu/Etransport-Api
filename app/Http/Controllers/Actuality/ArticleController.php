@@ -43,16 +43,29 @@ class ArticleController extends Controller
         $this->validate($request->all(), [
             'user_id' => 'required',
             'sub_menu_id' => 'required',
-            'name' => 'required',
-            
+            'titre' => 'required',
         ]);
 
-            $article = new Article();
-            $article->user_id = $request->user_id;
-            $article->sub_menu_id = $request->sub_menu_id;
-            $article->name = $request->name;
-            
-            $article->save();
+        $article = new Article();
+        $article->user_id = $request->user_id;
+        $article->name = $request->name;
+        $article->titre = $request->titre;
+        $article->contenu_1 = $request->user_id;
+        $article->contenu_2 = $request->user_id;
+
+        if ($file = $request->file('photo')) {
+            $filePaths = $this->saveSingleImage($this, $request, 'photo', 'articles');
+            $article->photo = json_encode(['image' => $filePaths]);
+        }
+
+        if ($file = $request->file('fichier')) {
+            $filePaths = $this->saveMultipleImages($this, $request, 'photo', 'articles');
+            $article->fichier = json_encode(['image' => $filePaths]);
+        }
+        $article->sub_menu_id = $request->sub_menu_id;
+        $article->name = $request->name;
+           
+        $article->save();
        
         return response()->json($article);
     }

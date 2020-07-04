@@ -202,12 +202,9 @@ class DatabaseSeeder extends Seeder
 
     //module actuality
     $this->call([
-      AttributeSeeder::class,
-      // MenuSeeder::class,
-      // AttributeMenuSeeder::class,
+      MenuSeeder::class,
       // SubMenuSeeder::class,
       ArticleSeeder::class,
-      ArticleAttributeMenuSeeder::class,
     ]);
 
     //module liturgical

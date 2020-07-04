@@ -180,34 +180,14 @@ class MenuController extends Controller
 
     public function findArticlesBySubmenu($limit, $slug) {
         
-        $datas = [];
-        $attributeIndex = [];
         $submenu = Sub_Menu::whereSlug($slug)->first();
         if ($submenu) {
-            $attributes = Attribute_Menu::whereMenuId($submenu->menu_id)
-            ->join('attributes', 'attributes.id', '=', 'attribute_menus.attribute_id')
-            ->select('attributes.*', 'attribute_menus.id as attribute_menu_id')
-            ->get();
-            foreach ($attributes as $key => $value) {
-                $attributeIndex[$value->attribute_menu_id] = preg_replace('/[^a-zA-Z0-9_.]/', '', $value->name);
-            }
+            
             $articles = Article::whereSubMenuId($submenu->id)
-            ->orderBy('articles.id', 'desc')
+            ->orderBy('id', 'desc')
             ->simplePaginate($limit ? $limit : 20);
 
-            foreach($articles as $key => $value) {
-                $values = Article_Attribute_Menu::whereArticleId($value->id)
-                ->get();
-                if (count($values) > 0) {
-                    $data = [];
-                    $data['name'] = $value->name;
-                    foreach($values as $keys => $avalue) {
-                        $data[$attributeIndex[$avalue->attribute_menu_id]] = $avalue->value;
-                    }
-                    $datas[] = $data;
-                }
-            }
-            return $datas;
+            return $articles;
         }
     }
 
