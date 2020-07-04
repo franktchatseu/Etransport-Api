@@ -55,16 +55,20 @@ class ArticleController extends Controller
 
         if ($file = $request->file('photo')) {
             $filePaths = $this->saveSingleImage($this, $request, 'photo', 'articles');
-            $article->photo = json_encode(['image' => $filePaths]);
+            $article->photo = json_encode($filePaths);
         }
 
-        if ($file = $request->file('fichier')) {
-            $filePaths = $this->saveMultipleImages($this, $request, 'fichier', 'articles');
-            $article->fichier = json_encode(['images' => $filePaths]);
+        if ($request->has('countfile')) {
+	    $count = $request->countfile;
+            $filePaths = [];
+            for($i = 0; $i < $count; $i++) {
+	    	$filePaths[] = $this->saveSingleImage($this, $request, 'fichier'.$i, 'articles');
+	    } 
+            $article->fichier = json_encode($filePaths);
         }
         $article->sub_menu_id = $request->sub_menu_id;
         $article->date_de_publication = $request->date_de_publication;
-	    $article->parish_id = $request->parish_id;
+	$article->parish_id = $request->parish_id;
         $article->save();
        
         return response()->json($article);

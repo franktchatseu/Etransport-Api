@@ -61,9 +61,9 @@ class Controller extends BaseController
     public function saveMultipleImages($parent, $request, $key_validator, $directory)
     {
         $photos = [];
-        if( $files = $request->file('photos') ){
+        if( $files = $request->file($key_validator) ){
             $i = 1;
-            foreach($files as $file){
+            foreach($files as $key => $file){
                 $parent->validate($request->all(), [ $key_validator.'[]' => 'image|mimes:jpeg,png,jpg,gif,svg']);
                 $extension = $file->getClientOriginalExtension();
                 $destinationPath = public_path('uploads/'.$directory);
