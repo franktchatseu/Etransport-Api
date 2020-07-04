@@ -13,9 +13,12 @@ class ArticleSeeder extends Seeder
     public function run(\Faker\Generator $faker)
     {
         factory(Article::class, 100)->make()->each(function($article) use ($faker) {
-            $user = App\Models\Person\User::all();
+            $users = App\Models\Person\User::all();
             $submenu = App\Models\Actuality\Sub_Menu::all();
-            $article->user_id = $faker->randomElement($user)->id;
+            $parishs = App\Models\Setting\Parish::all();
+
+            $article->user_id = $faker->randomElement($users)->id;
+            $article->parish_id = $faker->randomElement($parishs)->id;
             $article->sub_menu_id = $faker->randomElement($submenu)->id;
             $article->save();
         });

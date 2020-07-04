@@ -185,37 +185,32 @@ class SubMenuController extends Controller
 
     public function findSubMenu(Request $req, $slug)
     {
-        if ($slug) {
-                if(!$menus = Menu::whereSlug($slug)->first()){ 
-                    $apiError = new APIError;
-                    $apiError->setStatus("404");
-                    $apiError->setCode("NAME_OF_MENU_NOT_FOUND");
-                    return response()->json($apiError, 404);   
-                }
-                
-                $submenu = Sub_Menu::whereMenuId($menus->id)->simplePaginate($req->has('limit') ? $req->limit : 15);
-            }
-
-        return response()->json($menus->id);
+        $submenus = [];
+        if(!$menus = Menu::whereSlug($slug)->first()){ 
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("NAME_OF_MENU_NOT_FOUND");
+            return response()->json($apiError, 404);   
+        }
+        $submenus = Sub_Menu::whereMenuId($menus->id)->simplePaginate($req->has('limit') ? $req->limit : 1000);
+        return response()->json($submenus);
         
     }
 
     public function findSubMenuId(Request $req, $id)
     {
     
-                $submenus = Sub_Menu::orderBy('id','desc')->whereMenuId($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
-         
-
+        $submenus = Sub_Menu::orderBy('id','desc')->whereMenuId($id)->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($submenus);
         
     }
 
-    public function findArticlesBySubmenu($limit, $slug) {
+    public function findArticlesBySubmenu($limit, $slug, $parishId) {
         
         $submenu = Sub_Menu::whereSlug($slug)->first();
         if ($submenu) {
             
-            $articles = Article::whereSubMenuId($submenu->id)
+            $articles = Article::whereSubMenuIdAndParishId($submenu->id, $parishId)
             ->orderBy('id', 'desc')
             ->simplePaginate($limit ? $limit : 20);
 
@@ -224,7 +219,7 @@ class SubMenuController extends Controller
     }
 
     public function findArticles(Request $request, $slug) {
-        return response()->json($this->findArticlesBySubmenu($request->limit ? $request->limit : 15, $slug));
+        return response()->json($this->findArticlesBySubmenu($request->limit ? $request->limit : 15, $slug, $request->parish_id));
     }
   
 }

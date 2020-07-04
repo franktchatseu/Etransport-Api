@@ -178,12 +178,12 @@ class MenuController extends Controller
         return response()->json();
     }
 
-    public function findArticlesBySubmenu($limit, $slug) {
+    public function findArticlesBySubmenu($limit, $slug, $parishId) {
         
         $submenu = Sub_Menu::whereSlug($slug)->first();
         if ($submenu) {
             
-            $articles = Article::whereSubMenuId($submenu->id)
+            $articles = Article::whereSubMenuIdAndParishId($submenu->id, $parishId)
             ->orderBy('id', 'desc')
             ->simplePaginate($limit ? $limit : 20);
 
@@ -199,7 +199,7 @@ class MenuController extends Controller
         if ($menu) {
             $submenus = Sub_Menu::whereMenuId($menu->id)->get();
             foreach ($submenus as $key => $value) {
-                $datas[$value->slug] = $this->findArticlesBySubmenu($request->limit ? $request->limit : 15, $value->slug);
+                $datas[$value->slug] = $this->findArticlesBySubmenu($request->limit ? $request->limit : 15, $value->slug, $request->parish_id);
             }
             return response()->json($datas);
         }

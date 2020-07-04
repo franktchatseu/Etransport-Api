@@ -24,10 +24,12 @@ class CreateArticleTable extends Migration
             $table->text('fichier')->nullable();
 
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('parish_id');
             $table->unsignedBigInteger('sub_menu_id');
             $table->timestamps();
             $table->foreign('sub_menu_id')->references('id')->on('sub_menus')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('parish_id')->references('id')->on('parishs')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('user_utypes')->onDelete('cascade');
         });
     }
 
