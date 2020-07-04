@@ -50,21 +50,21 @@ class ArticleController extends Controller
         $article->user_id = $request->user_id;
         $article->name = $request->name;
         $article->titre = $request->titre;
-        $article->contenu_1 = $request->user_id;
-        $article->contenu_2 = $request->user_id;
+        $article->contenu_1 = $request->contenu_1;
+        $article->contenu_2 = $request->contenu_2;
 
         if ($file = $request->file('photo')) {
             $filePaths = $this->saveSingleImage($this, $request, 'photo', 'articles');
             $article->photo = json_encode(['image' => $filePaths]);
         }
 
-        if ($file = $request->file('fichier')) {
-            $filePaths = $this->saveMultipleImages($this, $request, 'photo', 'articles');
-            $article->fichier = json_encode(['image' => $filePaths]);
+        if ($file = $request->file('fichier[]')) {
+            $filePaths = $this->saveMultipleImages($this, $request, 'fichier', 'articles');
+            $article->fichier = json_encode(['images' => $filePaths]);
         }
         $article->sub_menu_id = $request->sub_menu_id;
-        $article->name = $request->name;
-           
+        $article->date_de_publication = $request->date_de_publication;
+	    $article->parish_id = $request->parish_id;
         $article->save();
        
         return response()->json($article);
