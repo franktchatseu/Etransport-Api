@@ -25,8 +25,17 @@ class DatabaseSeeder extends Seeder
     Model::unguard();
     Schema::disableForeignKeyConstraints();
 
-    //$this->call(CityAndCountrySeeder::class);
-    // $this->call(SettingSeeder::class);
+    // module extra
+    $this->call([
+      // _CebSeeder::class,
+      // _PostSeeder::class,
+      // _GroupSeeder::class,
+    ]);
+
+ 
+
+    // $this->call(CityAndCountrySeeder::class);
+    $this->call(SettingSeeder::class);
     // $this->call(LaratrustSeeder::class);
 
     // module setting
@@ -92,14 +101,14 @@ class DatabaseSeeder extends Seeder
       // InputSeeder::class
     ]);
 
-    // module messagerie
-    $this->call([
-      // ChatGroupSeeder::class,
-      // ChatMemberGroupSeeder::class,
-      // ChatMessageGroupSeeder::class,
-      // ChatDiscussionSeeder::class,
-      // ChatMessageDuoSeeder::class
-    ]);
+   // module messagerie
+   $this->call([
+    ChatGroupSeeder::class,
+    ChatMemberGroupSeeder::class,
+    ChatMessageGroupSeeder::class,
+    ChatDiscussionSeeder::class,
+    ChatMessageDuoSeeder::class
+  ]);
 
     // module publicité
     $this->call([
