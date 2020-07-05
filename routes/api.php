@@ -1025,6 +1025,7 @@ Route::group(['prefix' => 'liturgicals'],function(){
         Route::get('/{id}', 'Liturgical\LiturgicalTypeEntryTypeController@find');
         Route::match(['post', 'put'], '/{id}', 'Liturgical\LiturgicalTypeEntryTypeController@update');
         Route::get('/search', 'Liturgical\LiturgicalTypeEntryTypeController@search');
+        Route::get('/types', 'Liturgical\LiturgicalTypeEntryTypeController@TypeAndEntry');
         Route::post('/', 'Liturgical\LiturgicalTypeEntryTypeController@store');
         Route::delete('/{id}', 'Liturgical\LiturgicalTypeEntryTypeController@destroy');
     });

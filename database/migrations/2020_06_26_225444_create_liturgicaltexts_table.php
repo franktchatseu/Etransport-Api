@@ -18,7 +18,7 @@ class CreateLiturgicaltextsTable extends Migration
             $table->unsignedBigInteger('type_entry_type_id');
             $table->unsignedBigInteger('parish_id');
             $table->string('title');
-            $table->string('contenu');
+            $table->text('contenu');
             $table->string('image')->nullable();
 
             $table->foreign('type_entry_type_id')->references('id')->on('liturgical_type_entry_types')->onDelete('cascade');

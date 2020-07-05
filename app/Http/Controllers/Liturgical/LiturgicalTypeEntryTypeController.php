@@ -42,13 +42,12 @@ class LiturgicalTypeEntryTypeController extends Controller
 
         $this->validate($data, [
             'type_id' => 'required:exists:liturgical_types,id',
-            'entry_type_id' => 'exists:entry_types,id'
          ]);
 
 
             $liturgicalTypeEntryType = new LiturgicalTypeEntryType();
              $liturgicalTypeEntryType->type_id = $data['type_id'];
-            $liturgicalTypeEntryType->entry_type_id = $data['entry_type_id'];
+            $liturgicalTypeEntryType->entry_type_id = $data['entry_type_id'] ?? null;
             $liturgicalTypeEntryType->save();
        
         return response()->json($liturgicalTypeEntryType);
@@ -146,4 +145,15 @@ class LiturgicalTypeEntryTypeController extends Controller
         return response()->json($liturgical);
     }
 
+    public function TypeAndEntry(Request $req)
+    {
+        $liturgical = LiturgicalTypeEntryType::select('liturgical_types.title as type',
+                                                      'entry_types.title as entry',
+                                                      'liturgical_type_entry_types.*')
+                                            ->join('liturgical_types', 'liturgical_type_entry_types.type_id', '=', 'liturgical_types.id')
+                                            ->join('entry_types', 'liturgical_type_entry_types.entry_type_id', '=', 'entry_types.id')
+                                            
+        ->simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($liturgical);
+    }
 }
