@@ -41,23 +41,32 @@ class LiturgicalTextController extends Controller
 
         $this->validate($data, [
             'title' => 'required',
-            'description' => 'required',
+            'contenu' => 'required',
             'image' => '',
             'type_entry_type_id' => 'required:exists:liturgical_type_entry_types,id',
             'parish_id' => 'required:exists:liturgical_type_entry_types,id'
          ]);
          
-         $data['image'] = '';
-         //upload image
-         if ($file = $req->file('files')) {
-             $filePaths = $this->saveMultipleImages($this, $req, 'files', 'liturgicals');
-             $data['image'] = json_encode(['images' => $filePaths]);
+         if(isset($req->image)){
+            $file = $req->file('image');
+            $path = null;
+            if($file != null){
+             $extension = $file->getClientOriginalExtension();
+             $relativeDestination = "uploads/liturgicals/image";
+             $destinationPath = public_path($relativeDestination);
+             $safeName = "image".time().'.'.$extension;
+             $file->move($destinationPath, $safeName);
+             $path = url("$relativeDestination/$safeName");
+             
+         }
+         $data['image'] = $path;
+
          }
  
             $liturgicalText = new LiturgicalText();
             $liturgicalText->title = $data['title'];
-            $liturgicalText->description = $data['description'];
-            $liturgicalText->avatar = $data['avatar'];
+            $liturgicalText->contenu = $data['contenu'];
+            $liturgicalText->image = $data['image'];
             $liturgicalText->type_entry_type_id = $data['type_entry_type_id'];
             $liturgicalText->parish_id = $data['parish_id'];
             $liturgicalText->save();
@@ -106,22 +115,34 @@ class LiturgicalTextController extends Controller
         $data = $req->except('photo');
 
         $this->validate($data, [
-            'title' => 'required',
-            'description' => 'required',
-            'image' => '',
-            'type_entry_type_id' => 'required:exists:liturgical_type_entry_types,id'
+            
          ]);
 
-         $data['image'] = '';
-         //upload image
-         if ($file = $req->file('files')) {
-             $filePaths = $this->saveMultipleImages($this, $req, 'files', 'liturgicals');
-             $data['image'] = json_encode(['images' => $filePaths]);
+         if(isset($req->image)){
+            $file = $req->file('image');
+            $path = null;
+            if($file != null){
+             $extension = $file->getClientOriginalExtension();
+             $relativeDestination = "uploads/liturgicals/backgrounds";
+             $destinationPath = public_path($relativeDestination);
+             $safeName = "image".time().'.'.$extension;
+             $file->move($destinationPath, $safeName);
+             $path = url("$relativeDestination/$safeName");
+             if ($liturgical->image) {
+                $oldImagePath = public_path($liturgical->image);
+                if (file_exists($oldImagePath)) {
+                    @unlink($oldImagePath);
+                }
+            }
          }
+         $data['image'] = $path;
+
+         }
+         
 
         
          if ( $data['title']) $liturgical->title = $data['title'];
-         if ( $data['description']) $liturgical->description = $data['description'];
+         if ( $data['contenu']) $liturgical->contenu = $data['contenu'];
          if (isset($data['avatar'])) $liturgical->avatar = $data['image'];
          if ( $data['entry_type_id']) $liturgical->entry_type_id = $data['type_entry_type_id'];
 

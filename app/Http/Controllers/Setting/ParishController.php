@@ -125,6 +125,7 @@ class ParishController extends Controller
             $apiError->setCode("PARISH_NOT_FOUND");
             return response()->json($apiError, 404);
         }
+        $data = $req->except('photo');
 
         $this->validate($data, [
             'name' => 'required',
@@ -155,11 +156,14 @@ class ParishController extends Controller
          if ( $data['nbr_of_station'] ?? null) $parish->nbr_of_station = $data['nbr_of_station'];
          if ( $data['nbr_of_seminarist'] ?? null) $parish->nbr_of_seminarist = $data['nbr_of_seminarist'];
          //recuperation et sauvegarde des images
-         if(isset($req->logo)&& issset($req->picture_priest)){
+
+         if(isset($req->logo)&& isset($req->picture_priest)){
+            $picture_priest = $req->file('picture_priest');
+
             $logo = $req->file('logo');
             $path = null;
             if($logo != null){
-                $extension = $file->getClientOriginalExtension();
+                $extension = $logo->getClientOriginalExtension();
                 $relativeDestination = "uploads/Parish";
                 $destinationPath = public_path($relativeDestination);
                 $safeName = "parish".time().'.'.$extension;
@@ -167,12 +171,12 @@ class ParishController extends Controller
                 $path = url("$relativeDestination/$safeName");
             }
             if($picture_priest != null){
-                $extension = $file->getClientOriginalExtension();
+                $extension = $picture_priest->getClientOriginalExtension();
                 $relativeDestination = "uploads/Parish";
                 $destinationPath = public_path($relativeDestination);
                 $safeName = "picture_priest".time().'.'.$extension;
                 $picture_priest->move($destinationPath, $safeName);
-                $path = url("$relativeDestination/$safeName");
+                $path2 = url("$relativeDestination/$safeName");
             }
             $data['logo'] = $path;
             $data['picture_priest'] = $path;
