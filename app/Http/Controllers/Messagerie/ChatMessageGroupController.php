@@ -41,26 +41,11 @@ class ChatMessageGroupController extends Controller
             $data['images'] = json_encode(['images' => $filePaths]);
         }
 
-         if($req->files){
-            $files = $req->file('files');
-            $path = null;
-            if($files != null){
-                $extension = $files->getClientOriginalExtension();
-                $relativeDestination = "uploads/Files-Discussions";
-                $destinationPath = public_path($relativeDestination);
-                $safeName = "document".time().'.'.$extension;
-                $files->move($destinationPath, $safeName);
-                $path = "$relativeDestination/$safeName";
-            }
-            $data['files'] = url($path);
-        }
-
         $message = new ChatMessageGroup();
         $message->sender_id = $data['sender_id'];
         $message->sender_name = $data['sender_name'];
         $message->group_id = $data['group_id'];
-        $message->files = $data['files'] ?? null;
-        $message->images = $data['images'] ?? null;
+        $message->files = $data['images'] ?? null;
         $message->message = $data['message'] ?? null;
         $message->save();
        

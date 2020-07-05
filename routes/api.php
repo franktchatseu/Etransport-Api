@@ -767,14 +767,17 @@ Route::group(['prefix' => 'messageries'],function (){
     
     Route::group(['prefix' => 'chat-groups'],function (){
         Route::get('/', 'Messagerie\ChatGroupController@index');
+        // Route::get('/findforumgroup', 'Messagerie\ChatGroupController@findForumGroup');
         Route::get('/search', 'Messagerie\ChatGroupController@search');
         Route::get('/{id}/users', 'Messagerie\ChatGroupController@findUsersGroup');
         Route::get('/{id}/messages', 'Messagerie\ChatGroupController@findMessages');
         Route::get('/{id}/for-user', 'Messagerie\ChatGroupController@findGroupsForUSer');
-        Route::post('/creatediscussionwithpriest', 'Messagerie\ChatGroupController@createMemberWithGroup');
+        Route::get('/{id}/search/groupofpriest', 'Messagerie\ChatGroupController@findGroupOfPriest');
+        // Route::get('{id}/finddiscussionwithpriest', 'Messagerie\ChatGroupController@findMessagesPriest');
         Route::get('/{id}', 'Messagerie\ChatGroupController@find');
         Route::post('/{id}', 'Messagerie\ChatGroupController@update');
         Route::post('/', 'Messagerie\ChatGroupController@store');
+        Route::post('{id}/priestgroup', 'Messagerie\ChatGroupController@createGroupPriest');
         Route::delete('/{id}', 'Messagerie\ChatGroupController@destroy');
     });
 
