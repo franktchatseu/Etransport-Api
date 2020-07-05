@@ -33,17 +33,19 @@ class ChatMessageGroupController extends Controller
         $this->validate($data, [
             'sender_id' => 'required:exists:chat_member_groups,id',
             'sender_name' => 'required',
+            'group_id' => 'required',
         ]);
 
-        if ( $req->file('files') ?? null) {
-            $filePaths = $this->saveSingleImage($this, $req, 'files', 'message_groups');
-            $data['files'] = json_encode(['images' => $filePaths]);
+        if ( $req->file('images') ?? null) {
+            $filePaths = $this->saveSingleImage($this, $req, 'images', 'message_groups');
+            $data['images'] = json_encode(['images' => $filePaths]);
         }
 
         $message = new ChatMessageGroup();
         $message->sender_id = $data['sender_id'];
         $message->sender_name = $data['sender_name'];
-        $message->files = $data['files'] ?? null;
+        $message->group_id = $data['group_id'];
+        $message->files = $data['images'] ?? null;
         $message->message = $data['message'] ?? null;
         $message->save();
        

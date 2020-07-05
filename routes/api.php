@@ -43,7 +43,7 @@ Route::group(['prefix' => 'extras'], function () {
 Route::group(['prefix' => 'messageries'], function () { });
 
 Route::group(['prefix' => 'parishs'], function () {
-    Route::get('list', 'Setting\ParishController@index');
+    Route::get('/list', 'Setting\ParishController@index');
     Route::get('/{id}/album', 'Setting\ParishController@findWithAlbum');
 
 
@@ -801,13 +801,17 @@ Route::group(['prefix' => 'messageries'],function (){
     
     Route::group(['prefix' => 'chat-groups'],function (){
         Route::get('/', 'Messagerie\ChatGroupController@index');
+        // Route::get('/findforumgroup', 'Messagerie\ChatGroupController@findForumGroup');
         Route::get('/search', 'Messagerie\ChatGroupController@search');
         Route::get('/{id}/users', 'Messagerie\ChatGroupController@findUsersGroup');
-        Route::get('/{id}/messages', 'persons\Messagerie\ChatGroupController@findMessages');
+        Route::get('/{id}/messages', 'Messagerie\ChatGroupController@findMessages');
         Route::get('/{id}/for-user', 'Messagerie\ChatGroupController@findGroupsForUSer');
+        Route::get('/{id}/search/groupofpriest', 'Messagerie\ChatGroupController@findGroupOfPriest');
+        // Route::get('{id}/finddiscussionwithpriest', 'Messagerie\ChatGroupController@findMessagesPriest');
         Route::get('/{id}', 'Messagerie\ChatGroupController@find');
         Route::post('/{id}', 'Messagerie\ChatGroupController@update');
         Route::post('/', 'Messagerie\ChatGroupController@store');
+        Route::post('{id}/priestgroup', 'Messagerie\ChatGroupController@createGroupPriest');
         Route::delete('/{id}', 'Messagerie\ChatGroupController@destroy');
     });
 
@@ -837,6 +841,11 @@ Route::group(['prefix' => 'messageries'],function (){
         Route::post('/{id}', 'Messagerie\ChatMessageDuoController@update');
         Route::post('/', 'Messagerie\ChatMessageDuoController@store');
         Route::delete('/{id}', 'Messagerie\ChatMessageDuoController@destroy');
+    });
+
+    Route::group(['prefix' => 'chat-message-groups'],function (){
+        Route::post('/', 'Messagerie\ChatMessageGroupController@store');
+        Route::delete('/{id}', 'Messagerie\ChatMessageGroupController@destroy');
     });
     
 });
