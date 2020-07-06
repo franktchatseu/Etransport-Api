@@ -110,7 +110,7 @@ class ArticleController extends Controller
      * @param  \App\Models\Person\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $req, $id)
+    public function update(Request $request, $id)
     {
         $article = Article::find($id);
         if (!$article) {
@@ -120,14 +120,10 @@ class ArticleController extends Controller
             return response()->json($apiError, 404);
         }
 
-        $data = $req->except('photo');
-
-        $this->validate($data, [
-            'user_id' => 'required|min:2',
-            'sub_menu_id' => 'required|min:2',
-            'name' => 'required',
-            
-        ]);
+	if (null !== $request->name) $article->name = $request->name;
+        if (null !== $request->titre) $article->titre = $request->titre;
+        if (null !== $request->contenu_1) $article->contenu_1 = $request->contenu_1;
+        if (null !== $request->contenu_2) $article->contenu_2 = $request->contenu_2;
 
         $article->update();
 

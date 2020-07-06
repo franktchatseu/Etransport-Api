@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
  
 
     // $this->call(CityAndCountrySeeder::class);
-    $this->call(SettingSeeder::class);
+    // $this->call(SettingSeeder::class);
     // $this->call(LaratrustSeeder::class);
 
     // module setting
