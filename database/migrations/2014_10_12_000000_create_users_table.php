@@ -46,17 +46,17 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('user_utypes', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('type_id');
-            $table->boolean('is_active')->default(true);
+        // Schema::create('user_utypes', function (Blueprint $table) {
+        //     $table->bigIncrements('id');
+        //     $table->unsignedBigInteger('user_id');
+        //     $table->unsignedBigInteger('type_id');
+        //     $table->boolean('is_active')->default(true);
 
 
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('type_id')->references('id')->on('utypes');
-            $table->timestamps();
-        });
+        //     $table->foreign('user_id')->references('id')->on('users');
+        //     $table->foreign('type_id')->references('id')->on('utypes');
+        //     $table->timestamps();
+        // });
     }
 
     /**

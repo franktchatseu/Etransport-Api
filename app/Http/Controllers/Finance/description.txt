@@ -1,3 +1,0 @@
-// controlleur realisé par theophane
-
-RequestForMassController.php

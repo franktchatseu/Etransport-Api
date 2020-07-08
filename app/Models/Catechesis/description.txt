@@ -1,9 +1,0 @@
-//model realisé par theophane
-
-CatechesisPresence.php
-CathedralPresence.php
-Evaluation.php
-Plug.php
-Pattern.php
-Quarter.php
-UserCatechesis
