@@ -47,7 +47,36 @@ Route::group(['prefix' => 'module2'], function () {
 // Module3 module : 'middleware' => 'auth:api',
 Route::group(['prefix' => 'module3'], function () {
 
-    Route::group(['prefix' => ''], function () {
+    Route::group(['prefix' => 'types'], function () {
+        Route::get('/', 'module3\typeController@index');
+        Route::get('/{id}', 'module3\typeController@find');
+        Route::match(['post', 'put'], '/{id}', 'module3\typeController@update');
+        Route::post('/', 'module3\typeController@create');
+        Route::delete('/{id}', 'module3\typeController@destroy');
+    });
+
+    Route::group(['prefix' => 'carosseries'], function () {
+        Route::get('/', 'module3\typeController@index');
+        Route::get('/{id}', 'module3\typeController@find');
+        Route::match(['post', 'put'], '/{id}', 'module3\typeController@update');
+        Route::post('/', 'module3\typeController@create');
+        Route::delete('/{id}', 'module3\typeController@destroy');
+    });
+
+    Route::group(['prefix' => 'marks'], function () {
+        Route::get('/', 'module3\typeController@index');
+        Route::get('/{id}', 'module3\typeController@find');
+        Route::match(['post', 'put'], '/{id}', 'module3\typeController@update');
+        Route::post('/', 'module3\typeController@create');
+        Route::delete('/{id}', 'module3\typeController@destroy');
+    });
+
+    Route::group(['prefix' => 'modeles'], function () {
+        Route::get('/', 'module3\typeController@index');
+        Route::get('/{id}', 'module3\typeController@find');
+        Route::match(['post', 'put'], '/{id}', 'module3\typeController@update');
+        Route::post('/', 'module3\typeController@create');
+        Route::delete('/{id}', 'module3\typeController@destroy');
     });
 
 });
