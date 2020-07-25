@@ -36,6 +36,7 @@ class TransportElementController extends Controller
             'email' => 'required',
             'function' => 'required',
         ]);
+        
         //upload image
         $path = "";
         if(isset($request->presentation_file)){
