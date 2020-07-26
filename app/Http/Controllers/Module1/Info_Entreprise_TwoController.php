@@ -37,6 +37,7 @@ class Info_Entreprise_TwoController extends Controller
     public function store(Request $request)
     {
         //
+     
     }
 
     /**
