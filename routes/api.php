@@ -54,6 +54,39 @@ Route::group(['prefix' => 'module2'], function () {
         Route::post('/', 'module2\FormationController@store');
         Route::delete('/{id}', 'module2\FormationController@destroy');
     });
+    Route::group(['prefix' => 'stepper_driver'], function () {
+        Route::get('/', 'Module2\Stepper_DriverController@index');
+        Route::get('/{number}', 'Module2\Stepper_DriverController@find');
+        Route::match(['post', 'put'], '/{number}', 'Module2\Stepper_DriverController@update');
+        Route::post('/', 'Module2\Stepper_DriverController@store');
+        Route::delete('/{number}', 'Module2\Stepper_DriverController@destroy');
+    });
+
+    Route::group(['prefix' => 'doc_identity_information'], function () {
+        Route::get('/', 'Module2\Doc_Indentity_InformationController@index');
+        Route::get('/{id}', 'Module2\Doc_Indentity_InformationController@find');
+        Route::match(['post', 'put'], '/{id}', 'Module2\Doc_Indentity_InformationController@update');
+        Route::post('/', 'Module2\Doc_Indentity_InformationController@store');
+        Route::delete('/{id}', 'Module2\Doc_Indentity_InformationController@destroy');
+    });
+    Route::group(['prefix' => 'nationalities'], function () {
+        Route::get('/', 'Module2\NationalityController@index');
+        Route::get('/{id}', 'Module2\NationalityController@find');
+        Route::match(['post', 'put'], '/{id}', 'Module2\NationalityController@update');
+        Route::post('/', 'Module2\NationalityController@store');
+        Route::delete('/{id}', 'Module2\NationalityController@destroy');
+        Route::get('/search', 'Module2\NationalityController@search');
+    });
+
+    Route::group(['prefix' => 'general_informations'], function () {
+        Route::get('/', 'Module2\General_InfoController@index');
+        Route::get('/{id}', 'Module2\General_InfoController@find');
+        Route::match(['post', 'put'], '/{id}', 'Module2\General_InfoController@update');
+        Route::post('/', 'Module2\General_InfoController@store');
+        Route::delete('/{id}', 'Module2\General_InfoController@destroy');
+        Route::get('/search', 'Module2\General_InfoController@search');
+
+    });
 
 });
 

@@ -28,11 +28,14 @@ class steppertreeController extends Controller
         $data = $request->all();
         $this->validate($data, [
             'value' => 'required',
+            'stepper_main_id' => 'required:exists:stepper_mains,id',
+
         ]);
       
         $stepper = new steppertree();
         $stepper->value = $data['value'];
         $stepper->status = 0;
+        $stepper->stepper_main_id = $data['stepper_main_id'];
          //on genere le numero unique du stepper lors de la premiere creation
         $datecreation = Carbon::now();
         $number = 'stepper'.'_'.$stepper->value.'_'.'status'.'_'.$stepper->status.$datecreation;

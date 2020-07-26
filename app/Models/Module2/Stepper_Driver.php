@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Stepper_Driver extends Model
 {
-    use SoftDeletes;
-
+    //
     protected $table = 'stepper_drivers';
-
 }
