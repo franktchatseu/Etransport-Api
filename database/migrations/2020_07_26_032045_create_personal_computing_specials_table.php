@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInfoEntrepriseTwosTable extends Migration
+class CreatePersonalComputingSpecialsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,19 @@ class CreateInfoEntrepriseTwosTable extends Migration
      */
     public function up()
     {
-        Schema::create('info_entreprise_twos', function (Blueprint $table) {
+        Schema::create('personal_computing_specials', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->Integer('location');
+            $table->Integer('name');
             $table->unsignedBigInteger('stepper_id');
-            $table->string('tel1');
+            $table->string('surmane');
             $table->string('tel2');
             $table->string('email');
             $table->string('langue');
-            $table->text('description_entreprise_service');
+            $table->text('tel1');
             $table->String('image');
-            $table->text('mission_enterprise');
-            $table->text('embition_enterprise');
-            $table->text('value_enterprise');
-            $table->time('open_hour');
-            $table->string('partner_enterprise');
+            $table->text('adress');
+            $table->text('gear_count');
+            $table->text('driver_number');
             $table->foreign('stepper_id')->references('id')->on('stepper_mains')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
@@ -41,6 +39,6 @@ class CreateInfoEntrepriseTwosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('info_entreprise_twos');
+        Schema::dropIfExists('personal_computing_specials');
     }
 }

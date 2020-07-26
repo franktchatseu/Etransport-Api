@@ -31,7 +31,12 @@ Route::group(['prefix' => 'auth'], function () {
 // Module1 module : 'middleware' => 'auth:api',
 Route::group(['prefix' => 'module1'], function () {
 
-    Route::group(['prefix' => ''], function () {
+    Route::group(['prefix' => 'personalcomputingspecial'], function () {
+        Route::get('/', 'module2\PersonalComputingSpecialController@index');
+        Route::get('/{id}', 'module2\PersonalComputingSpecialController@find');
+        Route::match(['post', 'put'], '/{id}', 'module2\PersonalComputingSpecialController@update');
+        Route::post('/', 'module2\PersonalComputingSpecialController@store');
+        Route::delete('/{id}', 'module2\PersonalComputingSpecialController@destroy');
     });
 
 });
