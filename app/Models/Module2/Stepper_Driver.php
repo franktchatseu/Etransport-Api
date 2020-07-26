@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Models\module3;
+namespace App\Models\Module2;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class caractertechone extends Model
+class Stepper_Driver extends Model
 {
     use SoftDeletes;
+
+    protected $table = 'stepper_drivers';
+
 }

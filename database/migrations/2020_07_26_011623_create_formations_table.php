@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSteppertreesTable extends Migration
+class CreateFormationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreateSteppertreesTable extends Migration
      */
     public function up()
     {
-        Schema::create('stepper_trees', function (Blueprint $table) {
+        Schema::create('formations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('number')->unique();
-            $table->integer('value');
-            $table->boolean('status');
+            $table->string('name');
+            $table->string('file');
+            $table->unsignedBigInteger('stepper_id');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('stepper_id')->references('id')->on('stepper_drivers');
         });
     }
 
@@ -30,6 +32,6 @@ class CreateSteppertreesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('stepper_trees');
+        Schema::dropIfExists('formations');
     }
 }

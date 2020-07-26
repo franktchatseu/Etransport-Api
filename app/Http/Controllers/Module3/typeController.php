@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\module3;
+namespace App\Http\Controllers\Module3;
 
 use App\Http\Controllers\Controller;
-use App\Models\module3\carosserie;
+use App\Models\module3\type;
 use Illuminate\Http\Request;
 
-class carosserieController extends Controller
+class typeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class carosserieController extends Controller
      */
     public function index(Request $req)
     {
-        $data = carosserie::orderBy('id','desc')->simplePaginate($req->has('limit') ? $req->limit : 15);
+        $data = type::orderBy('id','desc')->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($data);
     }
 
@@ -40,25 +40,25 @@ class carosserieController extends Controller
         $data = $req->except('photo');
 
         $this->validate($data, [
-            'color' => 'required',
+            'name' => 'required',
             'description' => 'required',
         ]);
 
-        $carosserie = new carosserie();
-        $carosserie->color = $data['color'];
-        $carosserie->description = $data['description'];
-        $carosserie->save();
+        $type = new type();
+        $type->name = $data['name'];
+        $type->description = $data['description'];
+        $type->save();
 
-        return response()->json($carosserie);
+        return response()->json($type);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\module3\carosserie  $carosserie
+     * @param  \App\Models\module3\type  $type
      * @return \Illuminate\Http\Response
      */
-    public function show(carosserie $carosserie)
+    public function show(type $type)
     {
         //
     }
@@ -66,10 +66,10 @@ class carosserieController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\module3\carosserie  $carosserie
+     * @param  \App\Models\module3\type  $type
      * @return \Illuminate\Http\Response
      */
-    public function edit(carosserie $carosserie)
+    public function edit(type $type)
     {
         //
     }
@@ -78,40 +78,40 @@ class carosserieController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\module3\carosserie  $carosserie
+     * @param  \App\Models\module3\type  $type
      * @return \Illuminate\Http\Response
      */
     public function update(Request $req, $id)
     {
-        $carosserie = carosserie::find($id);
-        if (!$carosserie) {
-            abort(404, "No carosserie found with id $id");
+        $type = type::find($id);
+        if (!$type) {
+            abort(404, "No type found with id $id");
         }
 
         $data = $req->except('photo');
 
        
-        if ( $data['color']) $carosserie->color = $data['color'];
-        if ( $data['description']) $carosserie->description = $data['description'];
+        if ( $data['name'] ?? null) $type->name = $data['name'];
+        if ( $data['description'] ?? null) $type->description = $data['description'];
 
 
-        $carosserie->update();
+        $type->update();
 
-        return response()->json($carosserie);
+        return response()->json($type);
     }
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\module3\carosserie  $carosserie
+     * @param  \App\Models\module3\type  $type
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        if (!$carosserie = carosserie::find($id)) {
-            abort(404, "No carosserie found with id $id");
+        if (!$type = type::find($id)) {
+            abort(404, "No type found with id $id");
         }
 
-        $carosserie->delete();
+        $type->delete();
         return response()->json();
     }
 
@@ -122,7 +122,7 @@ class carosserieController extends Controller
             'field' => 'present'
         ]);
 
-        $data = carosserie::where($req->field, 'like', "%$req->q%")
+        $data = type::where($req->field, 'like', "%$req->q%")
             ->simplePaginate($req->has('limit') ? $req->limit : 15);
 
         return response()->json($data);
@@ -130,10 +130,10 @@ class carosserieController extends Controller
 
     public function find($id)
     {
-        if (!$carosserie = carosserie::find($id)) {
-            abort(404, "No carosserie found with id $id");
+        if (!$type = type::find($id)) {
+            abort(404, "No type found with id $id");
         }
-        return response()->json($carosserie);
+        return response()->json($type);
     }
 
 }

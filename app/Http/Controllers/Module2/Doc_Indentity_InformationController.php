@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\module3;
+namespace App\Http\Controllers\Module2;
 
 use App\Http\Controllers\Controller;
-use App\Models\module3\model;
-use App\Models\module3\modele;
+use App\Models\Module2\Doc_Indentity_Information;
 use Illuminate\Http\Request;
 
-class modelController extends Controller
+class Doc_Indentity_InformationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -43,10 +42,10 @@ class modelController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\module3\model  $model
+     * @param  \App\Models\Module2\Doc_Indentity_Information  $doc_Indentity_Information
      * @return \Illuminate\Http\Response
      */
-    public function show(modele $model)
+    public function show(Doc_Indentity_Information $doc_Indentity_Information)
     {
         //
     }
@@ -54,10 +53,10 @@ class modelController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\module3\model  $model
+     * @param  \App\Models\Module2\Doc_Indentity_Information  $doc_Indentity_Information
      * @return \Illuminate\Http\Response
      */
-    public function edit(modele $model)
+    public function edit(Doc_Indentity_Information $doc_Indentity_Information)
     {
         //
     }
@@ -66,10 +65,10 @@ class modelController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\module3\model  $model
+     * @param  \App\Models\Module2\Doc_Indentity_Information  $doc_Indentity_Information
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, modele $model)
+    public function update(Request $request, Doc_Indentity_Information $doc_Indentity_Information)
     {
         //
     }
@@ -77,10 +76,10 @@ class modelController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\module3\model  $model
+     * @param  \App\Models\Module2\Doc_Indentity_Information  $doc_Indentity_Information
      * @return \Illuminate\Http\Response
      */
-    public function destroy(modele $model)
+    public function destroy(Doc_Indentity_Information $doc_Indentity_Information)
     {
         //
     }

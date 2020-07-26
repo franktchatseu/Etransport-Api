@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\module3;
+namespace App\Http\Controllers\Module3;
 
 use App\Http\Controllers\Controller;
-use App\Models\module3\type;
+use App\Models\module3\modele;
 use Illuminate\Http\Request;
 
-class typeController extends Controller
+class modelController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +15,9 @@ class typeController extends Controller
      */
     public function index(Request $req)
     {
-        $data = type::orderBy('id','desc')->simplePaginate($req->has('limit') ? $req->limit : 15);
+        $data = modele::orderBy('id','desc')->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($data);
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -44,21 +43,22 @@ class typeController extends Controller
             'description' => 'required',
         ]);
 
-        $type = new type();
-        $type->name = $data['name'];
-        $type->description = $data['description'];
-        $type->save();
+        $modele = new modele();
+        $modele->name = $data['name'];
+        $modele->description = $data['description'];
+        $modele->save();
 
-        return response()->json($type);
+        return response()->json($modele);
     }
+
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\module3\type  $type
+     * @param  \App\Models\module3\model  $model
      * @return \Illuminate\Http\Response
      */
-    public function show(type $type)
+    public function show(modele $model)
     {
         //
     }
@@ -66,10 +66,10 @@ class typeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\module3\type  $type
+     * @param  \App\Models\module3\model  $model
      * @return \Illuminate\Http\Response
      */
-    public function edit(type $type)
+    public function edit(modele $model)
     {
         //
     }
@@ -78,40 +78,40 @@ class typeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\module3\type  $type
+     * @param  \App\Models\module3\model  $model
      * @return \Illuminate\Http\Response
      */
     public function update(Request $req, $id)
     {
-        $type = type::find($id);
-        if (!$type) {
-            abort(404, "No type found with id $id");
+        $modele = modele::find($id);
+        if (!$modele) {
+            abort(404, "No modele found with id $id");
         }
 
         $data = $req->except('photo');
 
        
-        if ( $data['name']) $type->name = $data['name'];
-        if ( $data['description']) $type->description = $data['description'];
+        if ( $data['name'] ?? null) $modele->name = $data['name'];
+        if ( $data['description'] ?? null) $modele->description = $data['description'];
 
 
-        $type->update();
+        $modele->update();
 
-        return response()->json($type);
+        return response()->json($modele);
     }
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\module3\type  $type
+     * @param  \App\Models\module3\model  $model
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        if (!$type = type::find($id)) {
-            abort(404, "No type found with id $id");
+        if (!$modele = modele::find($id)) {
+            abort(404, "No modele found with id $id");
         }
 
-        $type->delete();
+        $modele->delete();
         return response()->json();
     }
 
@@ -122,7 +122,7 @@ class typeController extends Controller
             'field' => 'present'
         ]);
 
-        $data = type::where($req->field, 'like', "%$req->q%")
+        $data = modele::where($req->field, 'like', "%$req->q%")
             ->simplePaginate($req->has('limit') ? $req->limit : 15);
 
         return response()->json($data);
@@ -130,10 +130,10 @@ class typeController extends Controller
 
     public function find($id)
     {
-        if (!$type = type::find($id)) {
-            abort(404, "No type found with id $id");
+        if (!$modele = modele::find($id)) {
+            abort(404, "No modele found with id $id");
         }
-        return response()->json($type);
+        return response()->json($modele);
     }
 
 }

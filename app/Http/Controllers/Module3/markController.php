@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\module3;
+namespace App\Http\Controllers\Module3;
 
 use App\Http\Controllers\Controller;
 use App\Models\module3\mark;
@@ -92,8 +92,8 @@ class markController extends Controller
         $data = $req->except('photo');
 
        
-        if ( $data['name']) $mark->name = $data['name'];
-        if ( $data['description']) $mark->description = $data['description'];
+        if ( $data['name'] ?? null) $mark->name = $data['name'];
+        if ( $data['description'] ?? null) $mark->description = $data['description'];
 
 
         $mark->update();

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\module3;
+namespace App\Http\Controllers\Module2;
 
 use App\Http\Controllers\Controller;
-use App\Models\module3\steppertree;
+use App\Models\Module2\Nationality;
 use Illuminate\Http\Request;
 
-class steppertreeController extends Controller
+class NationalityController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,10 +42,10 @@ class steppertreeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\module3\steppertree  $steppertree
+     * @param  \App\Models\Module2\Nationality  $nationality
      * @return \Illuminate\Http\Response
      */
-    public function show(steppertree $steppertree)
+    public function show(Nationality $nationality)
     {
         //
     }
@@ -53,10 +53,10 @@ class steppertreeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\module3\steppertree  $steppertree
+     * @param  \App\Models\Module2\Nationality  $nationality
      * @return \Illuminate\Http\Response
      */
-    public function edit(steppertree $steppertree)
+    public function edit(Nationality $nationality)
     {
         //
     }
@@ -65,10 +65,10 @@ class steppertreeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\module3\steppertree  $steppertree
+     * @param  \App\Models\Module2\Nationality  $nationality
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, steppertree $steppertree)
+    public function update(Request $request, Nationality $nationality)
     {
         //
     }
@@ -76,10 +76,10 @@ class steppertreeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\module3\steppertree  $steppertree
+     * @param  \App\Models\Module2\Nationality  $nationality
      * @return \Illuminate\Http\Response
      */
-    public function destroy(steppertree $steppertree)
+    public function destroy(Nationality $nationality)
     {
         //
     }
