@@ -41,6 +41,6 @@ class CreateCaractertechonesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('caractertechones');
+        Schema::dropIfExists('caracter_tech_ones');
     }
 }

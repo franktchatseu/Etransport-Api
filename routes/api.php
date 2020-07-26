@@ -48,35 +48,53 @@ Route::group(['prefix' => 'module2'], function () {
 Route::group(['prefix' => 'module3'], function () {
 
     Route::group(['prefix' => 'types'], function () {
-        Route::get('/', 'module3\typeController@index');
-        Route::get('/{id}', 'module3\typeController@find');
-        Route::match(['post', 'put'], '/{id}', 'module3\typeController@update');
-        Route::post('/', 'module3\typeController@create');
-        Route::delete('/{id}', 'module3\typeController@destroy');
+        Route::get('/', 'Module3\typeController@index');
+        Route::get('/{id}', 'Module3\typeController@find');
+        Route::match(['post', 'put'], '/{id}', 'Module3\typeController@update');
+        Route::post('/', 'Module3\typeController@store');
+        Route::delete('/{id}', 'Module3\typeController@destroy');
     });
 
     Route::group(['prefix' => 'carosseries'], function () {
-        Route::get('/', 'module3\typeController@index');
-        Route::get('/{id}', 'module3\typeController@find');
-        Route::match(['post', 'put'], '/{id}', 'module3\typeController@update');
-        Route::post('/', 'module3\typeController@create');
-        Route::delete('/{id}', 'module3\typeController@destroy');
+        Route::get('/', 'Module3\carosserieController@index');
+        Route::get('/{id}', 'Module3\carosserieController@find');
+        Route::match(['post', 'put'], '/{id}', 'Module3\carosserieController@update');
+        Route::post('/', 'Module3\carosserieController@store');
+        Route::delete('/{id}', 'Module3\carosserieController@destroy');
     });
 
     Route::group(['prefix' => 'marks'], function () {
-        Route::get('/', 'module3\typeController@index');
-        Route::get('/{id}', 'module3\typeController@find');
-        Route::match(['post', 'put'], '/{id}', 'module3\typeController@update');
-        Route::post('/', 'module3\typeController@create');
-        Route::delete('/{id}', 'module3\typeController@destroy');
+        Route::get('/', 'Module3\markController@index');
+        Route::get('/{id}', 'Module3\markController@find');
+        Route::match(['post', 'put'], '/{id}', 'Module3\markController@update');
+        Route::post('/', 'Module3\markController@store');
+        Route::delete('/{id}', 'Module3\markController@destroy');
     });
 
     Route::group(['prefix' => 'modeles'], function () {
-        Route::get('/', 'module3\typeController@index');
-        Route::get('/{id}', 'module3\typeController@find');
-        Route::match(['post', 'put'], '/{id}', 'module3\typeController@update');
-        Route::post('/', 'module3\typeController@create');
-        Route::delete('/{id}', 'module3\typeController@destroy');
+        Route::get('/', 'Module3\modelController@index');
+        Route::get('/{id}', 'Module3\modelController@find');
+        Route::match(['post', 'put'], '/{id}', 'Module3\modelController@update');
+        Route::post('/', 'Module3\modelController@store');
+        Route::delete('/{id}', 'Module3\modelController@destroy');
+    });
+
+
+    Route::group(['prefix' => 'caractere_tech_ones'], function () {
+        Route::get('/', 'Module3\caractertechoneController@index');
+        Route::get('/{id}', 'Module3\caractertechoneController@find');
+        Route::match(['post', 'put'], '/{id}', 'Module3\caractertechoneController@update');
+        Route::post('/', 'Module3\caractertechoneController@store');
+        Route::delete('/{id}', 'Module3\caractertechoneController@destroy');
+    });
+
+
+    Route::group(['prefix' => 'gear_pictures'], function () {
+        Route::get('/', 'Module3\gearpictureController@index');
+        Route::get('/{id}', 'Module3\gearpictureController@find');
+        Route::match(['post', 'put'], '/{id}', 'Module3\gearpictureController@update');
+        Route::post('/', 'Module3\gearpictureController@store');
+        Route::delete('/{id}', 'Module3\gearpictureController@destroy');
     });
 
 });
