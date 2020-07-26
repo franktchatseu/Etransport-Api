@@ -97,6 +97,15 @@ Route::group(['prefix' => 'module3'], function () {
         Route::delete('/{id}', 'Module3\gearpictureController@destroy');
     });
 
+
+    Route::group(['prefix' => 'stepper_trees'], function () {
+        Route::get('/', 'Module3\steppertreeController@index');
+        Route::get('/{number}', 'Module3\steppertreeController@find');
+        Route::match(['post', 'put'], '/{number}', 'Module3\steppertreeController@update');
+        Route::post('/', 'Module3\steppertreeController@store');
+        Route::delete('/{number}', 'Module3\steppertreeController@destroy');
+    });
+
 });
 
 // Module4 module : 'middleware' => 'auth:api',

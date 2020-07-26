@@ -30,7 +30,6 @@ class ActorTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
          //
          $data = $request->all();
          $this->validate($data, [
