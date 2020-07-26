@@ -15,7 +15,18 @@ class CreateInfoEntrepriseOnesTable extends Migration
     {
         Schema::create('info_entreprise_ones', function (Blueprint $table) {
             $table->bigIncrements('id');
-           
+            $table->string('name');
+            $table->integer('taxpayer_number');
+            $table->integer('rccm_number');
+            $table->string('billing_address');
+            $table->integer('gear_number');
+            $table->integer('driver_number');
+            $table->string('manager_name');
+            $table->string('manager_function');
+            $table->string('manager_phone');
+            $table->string('manager_picture');
+            $table->unsignedBigInteger('stepper_main_id');
+            $table->foreign('stepper_main_id')->references('id')->on('stepper_mains');
             $table->timestamps();
         });
     }
