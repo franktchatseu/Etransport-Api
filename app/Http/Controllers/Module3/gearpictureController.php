@@ -46,7 +46,7 @@ class gearpictureController extends Controller
             'right_side_gear' => 'required',
             'insurance_patente' => 'required',
             'grey_card' => 'required',
-            'stepper_id' => 'required',
+            'stepper_id' => 'required:exists:stepper_trees,id',
         ]);
 
         /**

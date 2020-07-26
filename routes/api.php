@@ -39,7 +39,24 @@ Route::group(['prefix' => 'module1'], function () {
 // Module2 module : 'middleware' => 'auth:api',
 Route::group(['prefix' => 'module2'], function () {
 
-    Route::group(['prefix' => ''], function () {
+    
+    Route::group(['prefix' => 'nationalities'], function () {
+        Route::get('/', 'Module2\NationalityController@index');
+        Route::get('/{id}', 'Module2\NationalityController@find');
+        Route::match(['post', 'put'], '/{id}', 'Module2\NationalityController@update');
+        Route::post('/', 'Module2\NationalityController@store');
+        Route::delete('/{id}', 'Module2\NationalityController@destroy');
+        Route::get('/search', 'Module2\NationalityController@search');
+    });
+
+    Route::group(['prefix' => 'general_informations'], function () {
+        Route::get('/', 'Module2\General_InfoController@index');
+        Route::get('/{id}', 'Module2\General_InfoController@find');
+        Route::match(['post', 'put'], '/{id}', 'Module2\General_InfoController@update');
+        Route::post('/', 'Module2\General_InfoController@store');
+        Route::delete('/{id}', 'Module2\General_InfoController@destroy');
+        Route::get('/search', 'Module2\General_InfoController@search');
+
     });
 
 });
