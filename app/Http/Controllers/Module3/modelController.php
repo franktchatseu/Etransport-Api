@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\module3;
+namespace App\Http\Controllers\Module3;
 
 use App\Http\Controllers\Controller;
-use App\Models\module3\mark;
+use App\Models\module3\modele;
 use Illuminate\Http\Request;
 
-class markController extends Controller
+class modelController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +15,9 @@ class markController extends Controller
      */
     public function index(Request $req)
     {
-        $data = mark::orderBy('id','desc')->simplePaginate($req->has('limit') ? $req->limit : 15);
+        $data = modele::orderBy('id','desc')->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($data);
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -44,22 +43,22 @@ class markController extends Controller
             'description' => 'required',
         ]);
 
-        $mark = new mark();
-        $mark->name = $data['name'];
-        $mark->description = $data['description'];
-        $mark->save();
+        $modele = new modele();
+        $modele->name = $data['name'];
+        $modele->description = $data['description'];
+        $modele->save();
 
-        return response()->json($mark);
+        return response()->json($modele);
     }
 
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\module3\mark  $mark
+     * @param  \App\Models\module3\model  $model
      * @return \Illuminate\Http\Response
      */
-    public function show(mark $mark)
+    public function show(modele $model)
     {
         //
     }
@@ -67,10 +66,10 @@ class markController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\module3\mark  $mark
+     * @param  \App\Models\module3\model  $model
      * @return \Illuminate\Http\Response
      */
-    public function edit(mark $mark)
+    public function edit(modele $model)
     {
         //
     }
@@ -79,40 +78,40 @@ class markController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\module3\mark  $mark
+     * @param  \App\Models\module3\model  $model
      * @return \Illuminate\Http\Response
      */
     public function update(Request $req, $id)
     {
-        $mark = mark::find($id);
-        if (!$mark) {
-            abort(404, "No mark found with id $id");
+        $modele = modele::find($id);
+        if (!$modele) {
+            abort(404, "No modele found with id $id");
         }
 
         $data = $req->except('photo');
 
        
-        if ( $data['name']) $mark->name = $data['name'];
-        if ( $data['description']) $mark->description = $data['description'];
+        if ( $data['name']) $modele->name = $data['name'];
+        if ( $data['description']) $modele->description = $data['description'];
 
 
-        $mark->update();
+        $modele->update();
 
-        return response()->json($mark);
+        return response()->json($modele);
     }
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\module3\mark  $mark
+     * @param  \App\Models\module3\model  $model
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        if (!$mark = mark::find($id)) {
-            abort(404, "No mark found with id $id");
+        if (!$modele = modele::find($id)) {
+            abort(404, "No modele found with id $id");
         }
 
-        $mark->delete();
+        $modele->delete();
         return response()->json();
     }
 
@@ -123,7 +122,7 @@ class markController extends Controller
             'field' => 'present'
         ]);
 
-        $data = mark::where($req->field, 'like', "%$req->q%")
+        $data = modele::where($req->field, 'like', "%$req->q%")
             ->simplePaginate($req->has('limit') ? $req->limit : 15);
 
         return response()->json($data);
@@ -131,10 +130,10 @@ class markController extends Controller
 
     public function find($id)
     {
-        if (!$mark = mark::find($id)) {
-            abort(404, "No mark found with id $id");
+        if (!$modele = modele::find($id)) {
+            abort(404, "No modele found with id $id");
         }
-        return response()->json($mark);
+        return response()->json($modele);
     }
 
 }

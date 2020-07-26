@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\module3;
+namespace App\Http\Controllers\Module3;
 
 use App\Http\Controllers\Controller;
 use App\Models\module3\steppertree;

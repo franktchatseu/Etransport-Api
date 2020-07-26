@@ -16,7 +16,7 @@ class CreateSteppertreesTable extends Migration
         Schema::create('stepper_trees', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('number')->unique();
-            $table->string('value');
+            $table->integer('value');
             $table->boolean('status');
             $table->timestamps();
             $table->softDeletes();
