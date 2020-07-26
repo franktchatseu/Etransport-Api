@@ -30,6 +30,7 @@ class CreateInfoEntrepriseTwosTable extends Migration
             $table->unsignedBigInteger('stepper_main_id');
             $table->foreign('stepper_main_id')->references('id')->on('stepper_mains');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -38,12 +38,33 @@ Route::group(['prefix' => 'module1'], function () {
         Route::post('/', 'Module1\Info_Entreprise_OneController@store');
         Route::delete('/{id}', 'Module1\Info_Entreprise_OneController@destroy');
     });
+    Route::group(['prefix' => 'personalcomputingspecial'], function () {
+        Route::get('/', 'module2\PersonalComputingSpecialController@index');
+        Route::get('/{id}', 'module2\PersonalComputingSpecialController@find');
+        Route::match(['post', 'put'], '/{id}', 'module2\PersonalComputingSpecialController@update');
+        Route::post('/', 'module2\PersonalComputingSpecialController@store');
+        Route::delete('/{id}', 'module2\PersonalComputingSpecialController@destroy');
+    });
 });
 
 // Module2 module : 'middleware' => 'auth:api',
 Route::group(['prefix' => 'module2'], function () {
 
-  
+    Route::group(['prefix' => 'drivingpermits'], function () {
+        Route::get('/', 'module2\DrivingPermitController@index');
+        Route::get('/{id}', 'module2\DrivingPermitController@find');
+        Route::match(['post', 'put'], '/{id}', 'module2\DrivingPermitController@update');
+        Route::post('/', 'module2\DrivingPermitController@store');
+        Route::delete('/{id}', 'module2\DrivingPermitController@destroy');
+    });
+
+    Route::group(['prefix' => 'formations'], function () {
+        Route::get('/', 'module2\FormationController@index');
+        Route::get('/{id}', 'module2\FormationController@find');
+        Route::match(['post', 'put'], '/{id}', 'module2\FormationController@update');
+        Route::post('/', 'module2\FormationController@store');
+        Route::delete('/{id}', 'module2\FormationController@destroy');
+    });
     Route::group(['prefix' => 'stepper_driver'], function () {
         Route::get('/', 'Module2\Stepper_DriverController@index');
         Route::get('/{number}', 'Module2\Stepper_DriverController@find');
@@ -152,6 +173,31 @@ Route::group(['prefix' => 'module3'], function () {
         Route::post('/', 'Module3\steppertreeController@store');
         Route::delete('/{number}', 'Module3\steppertreeController@destroy');
     });
+
+    Route::group(['prefix' => 'caractertechtwos'], function () {
+        Route::get('/', 'module3\caracterTechTwoController@index');
+        Route::get('/{id}', 'module3\caracterTechTwoController@find');
+        Route::match(['post', 'put'], '/{id}', 'module3\caracterTechTwoController@update');
+        Route::post('/', 'module3\caracterTechTwoController@store');
+        Route::delete('/{id}', 'module3\caracterTechTwoController@destroy');
+    });
+
+    Route::group(['prefix' => 'carpapers'], function () {
+        Route::get('/', 'module3\CarPaperController@index');
+        Route::get('/{id}', 'module3\CarPaperController@find');
+        Route::match(['post', 'put'], '/{id}', 'module3\CarPaperController@update');
+        Route::post('/', 'module3\CarPaperController@store');
+        Route::delete('/{id}', 'module3\CarPaperController@destroy');
+    });
+
+    Route::group(['prefix' => 'descriptions'], function () {
+        Route::get('/', 'module3\DescriptionController@index');
+        Route::get('/{id}', 'module3\DescriptionController@find');
+        Route::match(['post', 'put'], '/{id}', 'module3\DescriptionController@update');
+        Route::post('/', 'module3\DescriptionController@store');
+        Route::delete('/{id}', 'module3\DescriptionController@destroy');
+    });
+
 
 
 });
