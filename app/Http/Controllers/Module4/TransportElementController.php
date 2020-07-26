@@ -75,7 +75,9 @@ class TransportElementController extends Controller
             $apiError->setCode("TransportElement");
             return response()->json($apiError, 404);
         }
-            return response()->json($transport);
+
+        $transport->presentation_file = url($transport->presentation_file);
+        return response()->json($transport);
     }
 
      

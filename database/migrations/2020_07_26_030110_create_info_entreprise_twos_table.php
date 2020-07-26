@@ -24,9 +24,9 @@ class CreateInfoEntrepriseTwosTable extends Migration
             $table->string('image');
             $table->text('enterprise_mission');
             $table->text('enterprise_ambition');
-            $table->text('entreprise_value');
+            $table->text('enterprise_value');
             $table->text('opening_hours'); 
-            $table->text('entreprise_partner');
+            $table->text('enterprise_partner');
             $table->unsignedBigInteger('stepper_main_id');
             $table->foreign('stepper_main_id')->references('id')->on('stepper_mains');
             $table->timestamps();

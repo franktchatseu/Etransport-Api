@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Module1;
 use App\Http\Controllers\Controller;
 use App\Models\Module1\Info_Entreprise_Two;
 use Illuminate\Http\Request;
+use App\Models\APIError;
+
 
 class Info_Entreprise_TwoController extends Controller
 {
@@ -13,65 +15,124 @@ class Info_Entreprise_TwoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $requests)
     {
-        //
+        
+        $entrepriseInfo = Info_Entreprise_Two::simplePaginate($request->has('limit') ? $request ->limit : 15);
+        return response()->json($entrepriseInfo);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    
+  
+    public function find($id){
+        $entrepriseInfo = Info_Entreprise_Two::find($id);
+        if (!$entrepriseInfo) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("ENTREPRISE_INFO_TWO_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+        $entrepriseInfo->image = url($entrepriseInfo->image);
+
+        return response()->json($entrepriseInfo);
+    }
     public function store(Request $request)
     {
-        //
-     
+
+        $data = $request->all();
+        $this->validate($data, [
+            'localisation' => 'required',
+            'phone1' => 'required',
+            'phone2' => 'required',
+            'email' => 'required',
+            'langue' => 'required',
+            'description_services' => 'required',
+            'enterprise_mission' => 'required',
+            'enterprise_ambition' => 'required',
+            'enterprise_value' => 'required',
+            'opening_hours' => 'required',
+            'enterprise_partner' => 'required',
+            'stepper_main_id' => 'required:exists:stepper_mains,id',
+        ]);
+      
+        $entrepriseInfoTwo = new Info_Entreprise_Two();
+        $entrepriseInfoTwo->localisation = $data['localisation'];
+        $entrepriseInfoTwo->phone1 = $data['phone1'];
+        $entrepriseInfoTwo->phone2 = $data['phone2'];
+        $entrepriseInfoTwo->email = $data['email'];
+        $entrepriseInfoTwo->langue = $data['langue'];
+        $entrepriseInfoTwo->description_services = $data['description_services'];
+        $entrepriseInfoTwo->enterprise_mission = $data['enterprise_mission'];
+        $entrepriseInfoTwo->enterprise_ambition = $data['enterprise_ambition'];
+        $entrepriseInfoTwo->enterprise_value = $data['enterprise_value'];
+        $entrepriseInfoTwo->opening_hours = $data['opening_hours'];
+        $entrepriseInfoTwo->enterprise_partner = $data['enterprise_partner'];
+        $entrepriseInfoTwo->stepper_main_id = $data['stepper_main_id'];
+
+        //recuperation de la photo du responsable
+         //upload image
+         $path = "";
+         if(isset($request->image)){
+             $file = $request->file('image'); 
+             if($file != null){
+                 $extension = $file->getClientOriginalExtension();
+                 $relativeDestination = "uploads/entrepriseInfoTwo";
+                 $destinationPath = public_path($relativeDestination);
+                 $safeName = "ImageInfoTwo".time().'.'.$extension;
+                 $file->move($destinationPath, $safeName);
+                 $path = "$relativeDestination/$safeName";
+             }
+         }
+         $entrepriseInfoTwo->image = $path;
+         $entrepriseInfoTwo->save();
+        return response()->json($entrepriseInfoTwo);
+            
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Module1\Info_Entreprise_Two  $info_Entreprise_Two
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Info_Entreprise_Two $info_Entreprise_Two)
+    
+    public function update(Request $request, $id)
     {
         //
-    }
+        $entrepriseInfoTwo = Info_Entreprise_Two::find($id);
+        if (!$entrepriseInfoTwo) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("ENTREPRISE_INFO_TWO_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+        
+        $data = $request->all();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Module1\Info_Entreprise_Two  $info_Entreprise_Two
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Info_Entreprise_Two $info_Entreprise_Two)
-    {
-        //
-    }
+        if ( $data['localisation']) $entrepriseInfoTwo->localisation = $data['localisation'];
+        if ( $data['phone1']) $entrepriseInfoTwo->phone1 = $data['phone1'];
+        if ( $data['phone2']) $entrepriseInfoTwo->phone2 = $data['phone2'];
+        if ( $data['email']) $entrepriseInfoTwo->email = $data['email'];
+        if ( $data['langue']) $entrepriseInfoTwo->langue = $data['langue'];
+        if ( $data['description_services']) $entrepriseInfoTwo->description_services = $data['description_services'];
+        if ( $data['enterprise_ambition']) $entrepriseInfoTwo->enterprise_ambition = $data['enterprise_ambition'];
+        if ( $data['enterprise_value']) $entrepriseInfoTwo->enterprise_value = $data['enterprise_value'];
+        if ( $data['opening_hours']) $entrepriseInfoTwo->opening_hours = $data['opening_hours'];
+        if ( $data['enterprise_partner']) $entrepriseInfoTwo->enterprise_partner = $data['enterprise_partner'];
+        if ( $data['stepper_main_id']) $entrepriseInfoTwo->stepper_main_id = $data['stepper_main_id'];
+           //upload image
+           $path = "";
+           if(isset($request->image)){
+               $file = $request->file('image'); 
+               if($file != null){
+                   $extension = $file->getClientOriginalExtension();
+                   $relativeDestination = "uploads/entrepriseInfoTwo";
+                   $destinationPath = public_path($relativeDestination);
+                   $safeName = "Image".time().'.'.$extension;
+                   $file->move($destinationPath, $safeName);
+                   $path = "$relativeDestination/$safeName";
+               }
+           }
+        
+        $entrepriseInfoTwo->image = $path;
+        $entrepriseInfoTwo->update();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Module1\Info_Entreprise_Two  $info_Entreprise_Two
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Info_Entreprise_Two $info_Entreprise_Two)
-    {
-        //
+        return response()->json($entrepriseInfoTwo);
     }
 
     /**
@@ -80,8 +141,18 @@ class Info_Entreprise_TwoController extends Controller
      * @param  \App\Models\Module1\Info_Entreprise_Two  $info_Entreprise_Two
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Info_Entreprise_Two $info_Entreprise_Two)
+    public function destroy($id)
     {
         //
+        $entrepriseInfo = Info_Entreprise_Two::find($id);
+        if (!$entrepriseInfo) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("ENTREPRISE_INFO_TWO_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+    
+        $entrepriseInfo->delete();      
+        return response()->json();
     }
 }

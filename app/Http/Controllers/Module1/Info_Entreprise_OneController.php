@@ -27,8 +27,8 @@ class Info_Entreprise_OneController extends Controller
             $apiError->setCode("ENTREPRISE_INFO_ONE_NOT_FOUND");
             return response()->json($apiError, 404);
         }
-    
-            return response()->json($entrepriseInfo);
+        $entrepriseInfo->manager_picture = url($entrepriseInfo->manager_picture);
+         return response()->json($entrepriseInfo);
     }
 
     public function store(Request $request)
@@ -134,7 +134,7 @@ class Info_Entreprise_OneController extends Controller
      * @param  \App\Models\Module1\Info_Entreprise_One  $info_Entreprise_One
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Info_Entreprise_One $info_Entreprise_One)
+    public function destroy($id)
     {
         //
         $entrepriseInfo = Info_Entreprise_One::find($id);
