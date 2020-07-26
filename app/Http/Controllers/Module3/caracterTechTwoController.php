@@ -15,7 +15,7 @@ class caracterTechTwoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $req)
     {
         //
         $data = CaracterTechTwo::simplePaginate($req->has('limit') ? $req->limit : 15);
@@ -30,6 +30,8 @@ class caracterTechTwoController extends Controller
      */
     public function store(Request $request)
     {
+        
+        $data = $request->all();
         $this->validate($data, [
             'semi_trailer_number' => 'required',
             'stepper_id' => 'required',
@@ -125,22 +127,22 @@ class caracterTechTwoController extends Controller
             return response()->json($apiError, 404);
         }
 
-        $data = $req->all();
-        
-        if ( $data['semi_trailer_number']) $caracter->semi_trailer_number = $data['semi_trailer_number'];
-        if ( $data['stepper_id']) $caracter->stepper_id = $data['stepper_id'];
-        if ( $data['essieux_tracteur_porteur_number']) $caracter->essieux_tracteur_porteur_number = $data['essieux_tracteur_porteur_number'];
-        if ( $data['place_nber']) $caracter->place_nber = $data['place_nber'];
-        if ( $data['interne_code']) $caracter->interne_code = $data['interne_code'];
-        if ( $data['effective_date']) $caracter->effective_date = $data['effective_date'];
-        if ( $data['fuel']) $caracter->fuel = $data['fuel'];
-        if ( $data['color']) $caracter->color = $data['color'];
-        if ( $data['option']) $caracter->option = $data['option'];
-        if ( $data['purchase_value']) $caracter->purchase_value = $data['purchase_value'];
-        if ( $data['kilometrage']) $caracter->kilometrage = $data['kilometrage'];
-        if ( $data['consommation_min']) $caracter->consommation_min = $data['consommation_min'];
-        if ( $data['consommation_max']) $caracter->consommation_max = $data['consommation_max'];
-        if ( $data['etat']) $caracter->etat = $data['etat'];
+        $data = $request->all();
+
+        if ( $request->semi_trailer_number) $caracter->semi_trailer_number = $data['semi_trailer_number'];
+        if ( $request->stepper_id) $caracter->stepper_id = $data['stepper_id'];
+        if ( $request->essieux_tracteur_porteur_number) $caracter->essieux_tracteur_porteur_number = $data['essieux_tracteur_porteur_number'];
+        if ( $request->place_nber) $caracter->place_nber = $data['place_nber'];
+        if ( $request->interne_code) $caracter->interne_code = $data['interne_code'];
+        if ( $request->effective_date) $caracter->effective_date = $data['effective_date'];
+        if ( $request->fuel) $caracter->fuel = $data['fuel'];
+        if ( $request->color) $caracter->color = $data['color'];
+        if ( $request->option) $caracter->option = $data['option'];
+        if ( $request->purchase_value) $caracter->purchase_value = $data['purchase_value'];
+        if ( $request->kilometrage) $caracter->kilometrage = $data['kilometrage'];
+        if ( $request->consommation_min) $caracter->consommation_min = $data['consommation_min'];
+        if ( $request->consommation_max) $caracter->consommation_max = $data['consommation_max'];
+        if ( $request->etat) $caracter->etat = $data['etat'];
 
         $caracter->update();
 

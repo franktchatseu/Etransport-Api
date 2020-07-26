@@ -24,6 +24,7 @@ class CreateDescriptionsTable extends Migration
             $table->text('observation');
             $table->string('owner');
             $table->foreign('stepper_id')->references('id')->on('stepper_trees')->onDelete('cascade');
+            $table->timestamps();
             $table->softDeletes();
         });
     }

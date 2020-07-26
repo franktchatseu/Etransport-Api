@@ -15,7 +15,7 @@ class CarPaperController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $req)
     {
         //
         $data = CarPaper::simplePaginate($req->has('limit') ? $req->limit : 15);
@@ -30,6 +30,8 @@ class CarPaperController extends Controller
      */
     public function store(Request $request)
     {
+        $data = $request->all();
+        
         $this->validate($data, [
             'patent_validation' => 'required',
             'stepper_id' => 'required',
@@ -85,12 +87,12 @@ class CarPaperController extends Controller
             return response()->json($apiError, 404);
         }
 
-        $data = $req->all();
+        $data = $request->all();
         
-        if ( $data['patent_validation']) $carpaper->patent_validation = $data['patent_validation'];
-        if ( $data['stepper_id']) $carpaper->stepper_id = $data['stepper_id'];
-        if ( $data['insurance_validation_date']) $carpaper->insurance_validation_date = $data['insurance_validation_date'];
-        if ( $data['technical_visit_date']) $carpaper->technical_visit_date = $data['technical_visit_date'];
+        if ( $request->patent_validation ?? null) $carpaper->patent_validation = $data['patent_validation'];
+        if ( $request->stepper_id ?? null) $carpaper->stepper_id = $data['stepper_id'];
+        if ( $request->insurance_validation_date ?? null) $carpaper->insurance_validation_date = $data['insurance_validation_date'];
+        if ( $request->technical_visit_date ?? null) $carpaper->technical_visit_date = $data['technical_visit_date'];
         
         $carpaper->patent_validation = $data['patent_validation'];
         $carpaper->stepper_id = $data['stepper_id'];

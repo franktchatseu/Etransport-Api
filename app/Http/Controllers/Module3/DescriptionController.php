@@ -14,7 +14,7 @@ class DescriptionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $req)
     {
         //
         $data = Description::simplePaginate($req->has('limit') ? $req->limit : 15);
@@ -29,6 +29,8 @@ class DescriptionController extends Controller
      */
     public function store(Request $request)
     {
+        $data = $request->all();
+
         $this->validate($data, [
             'required_workday' => 'required',
             'stepper_id' => 'required',
@@ -37,19 +39,21 @@ class DescriptionController extends Controller
             'usage' => 'required',
             'usual_location' => 'required',
             'observation' => 'required',
+            'owner' => 'required',
         ]);
 
-        $carpaper = new CarPaper();
-        $carpaper->required_workday = $data['required_workday'];
-        $carpaper->stepper_id = $data['stepper_id'];
-        $carpaper->time_required = $data['time_required'];
-        $carpaper->equipment = $data['equipment'];
-        $carpaper->usage = $data['usage'];
-        $carpaper->usual_location = $data['usual_location'];
-        $carpaper->observation = $data['observation'];
-        $carpaper->save();
+        $description = new Description();
+        $description->required_workday = $data['required_workday'];
+        $description->stepper_id = $data['stepper_id'];
+        $description->time_required = $data['time_required'];
+        $description->equipment = $data['equipment'];
+        $description->usage = $data['usage'];
+        $description->usual_location = $data['usual_location'];
+        $description->observation = $data['observation'];
+        $description->owner = $data['owner'];
+        $description->save();
        
-        return response()->json($carpaper);
+        return response()->json($description);
     }
 
     /**
@@ -101,8 +105,8 @@ class DescriptionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $carpaper = Description::find($id);
-        if (!$carpaper) {
+        $description = Description::find($id);
+        if (!$description) {
             $apiError = new APIError;
             $apiError->setStatus("404");
             $apiError->setCode("DESCRIPTION_NOT_FOUND");
@@ -110,27 +114,27 @@ class DescriptionController extends Controller
             return response()->json($apiError, 404);
         }
 
-        $data = $req->all();
+        $data = $request->all();
         
-        if ( $data['required_workday']) $carpaper->required_workday = $data['required_workday'];
-        if ( $data['stepper_id']) $carpaper->stepper_id = $data['stepper_id'];
-        if ( $data['time_required']) $carpaper->time_required = $data['time_required'];
-        if ( $data['equipment']) $carpaper->equipment = $data['equipment'];
-        if ( $data['usage']) $carpaper->usage = $data['usage'];
-        if ( $data['usual_location']) $carpaper->usual_location = $data['usual_location'];
-        if ( $data['observation']) $carpaper->observation = $data['observation'];
+        if ( $data['required_workday'] ?? null) $description->required_workday = $data['required_workday'];
+        if ( $data['stepper_id'] ?? null) $description->stepper_id = $data['stepper_id'];
+        if ( $data['time_required'] ?? null) $description->time_required = $data['time_required'];
+        if ( $data['equipment'] ?? null) $description->equipment = $data['equipment'];
+        if ( $data['usage'] ?? null) $description->usage = $data['usage'];
+        if ( $data['usual_location'] ?? null ) $description->usual_location = $data['usual_location'];
+        if ( $data['observation'] ?? null) $description->observation = $data['observation'];
         
-        $carpaper->required_workday = $data['required_workday'];
-        $carpaper->time_required = $data['time_required'];
-        $carpaper->equipment = $data['equipment'];
-        $carpaper->usage = $data['usage'];
-        $carpaper->stepper_id = $data['stepper_id'];
-        $carpaper->usual_location = $data['usual_location'];
-        $carpaper->observation = $data['observation'];
+        $description->required_workday = $data['required_workday'];
+        $description->time_required = $data['time_required'];
+        $description->equipment = $data['equipment'];
+        $description->usage = $data['usage'];
+        $description->stepper_id = $data['stepper_id'];
+        $description->usual_location = $data['usual_location'];
+        $description->observation = $data['observation'];
 
-        $carpaper->update();
+        $description->update();
 
-        return response()->json($carpaper);
+        return response()->json($description);
     }
 
     /**
