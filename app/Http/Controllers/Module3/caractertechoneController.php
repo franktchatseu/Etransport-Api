@@ -111,17 +111,17 @@ class caractertechoneController extends Controller
 
         $data = $req->except('photo');
 
-        if ($data['registration']) $caractertechone->registration = $data['registration'];
-        if ($data['country_registration']) $caractertechone->country_registration = $data['country_registration'];
-        if ($data['length']) $caractertechone->length = $data['length'];
-        if ($data['width']) $caractertechone->width = $data['width'];
-        if ($data['height']) $caractertechone->height = $data['height'];
-        if ($data['volume']) $caractertechone->volume = $data['volume'];
-        if ($data['total_weight']) $caractertechone->total_weight = $data['total_weight'];
-        if ($data['live_load']) $caractertechone->live_load = $data['live_load'];
-        if ($data['power']) $caractertechone->power = $data['power'];
-        if ($data['chassis_number']) $caractertechone->chassis_number = $data['chassis_number'];
-        if ($data['stepper_id']) $caractertechone->stepper_id = $data['stepper_id'];
+        if ($data['registration'] ?? null) $caractertechone->registration = $data['registration'];
+        if ($data['country_registration'] ?? null) $caractertechone->country_registration = $data['country_registration'];
+        if ($data['length'] ?? null) $caractertechone->length = $data['length'];
+        if ($data['width'] ?? null) $caractertechone->width = $data['width'];
+        if ($data['height'] ?? null) $caractertechone->height = $data['height'];
+        if ($data['volume'] ?? null) $caractertechone->volume = $data['volume'];
+        if ($data['total_weight'] ?? null) $caractertechone->total_weight = $data['total_weight'];
+        if ($data['live_load'] ?? null) $caractertechone->live_load = $data['live_load'];
+        if ($data['power'] ?? null) $caractertechone->power = $data['power'];
+        if ($data['chassis_number'] ?? null) $caractertechone->chassis_number = $data['chassis_number'];
+        if ($data['stepper_id'] ?? null) $caractertechone->stepper_id = $data['stepper_id'];
 
 
         $caractertechone->update();

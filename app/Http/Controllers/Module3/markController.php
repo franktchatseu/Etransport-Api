@@ -92,8 +92,8 @@ class markController extends Controller
         $data = $req->except('photo');
 
        
-        if ( $data['name']) $mark->name = $data['name'];
-        if ( $data['description']) $mark->description = $data['description'];
+        if ( $data['name'] ?? null) $mark->name = $data['name'];
+        if ( $data['description'] ?? null) $mark->description = $data['description'];
 
 
         $mark->update();

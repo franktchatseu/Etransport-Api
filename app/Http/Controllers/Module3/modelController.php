@@ -91,8 +91,8 @@ class modelController extends Controller
         $data = $req->except('photo');
 
        
-        if ( $data['name']) $modele->name = $data['name'];
-        if ( $data['description']) $modele->description = $data['description'];
+        if ( $data['name'] ?? null) $modele->name = $data['name'];
+        if ( $data['description'] ?? null) $modele->description = $data['description'];
 
 
         $modele->update();

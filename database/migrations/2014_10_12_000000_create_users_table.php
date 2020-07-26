@@ -40,12 +40,6 @@ class CreateUsersTable extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('utypes', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->enum('value', ['PRIEST', 'CATECHIST', 'CATECHUMEN', 'PARISHIONER', 'OTHER', 'ASSOCIATION_MANAGER', 'CATHECHESIS_COORDINATOR', 'PARISHIONER_SECRETARY']);
-            $table->timestamps();
-        });
-
         // Schema::create('user_utypes', function (Blueprint $table) {
         //     $table->bigIncrements('id');
         //     $table->unsignedBigInteger('user_id');

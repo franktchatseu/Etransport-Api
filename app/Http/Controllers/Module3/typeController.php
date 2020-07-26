@@ -91,8 +91,8 @@ class typeController extends Controller
         $data = $req->except('photo');
 
        
-        if ( $data['name']) $type->name = $data['name'];
-        if ( $data['description']) $type->description = $data['description'];
+        if ( $data['name'] ?? null) $type->name = $data['name'];
+        if ( $data['description'] ?? null) $type->description = $data['description'];
 
 
         $type->update();
