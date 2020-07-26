@@ -39,7 +39,13 @@ Route::group(['prefix' => 'module1'], function () {
 // Module2 module : 'middleware' => 'auth:api',
 Route::group(['prefix' => 'module2'], function () {
 
-    Route::group(['prefix' => ''], function () {
+  
+    Route::group(['prefix' => 'stepper_driver'], function () {
+        Route::get('/', 'Module2\Stepper_DriverController@index');
+        Route::get('/{number}', 'Module2\Stepper_DriverController@find');
+        Route::match(['post', 'put'], '/{number}', 'Module2\Stepper_DriverController@update');
+        Route::post('/', 'Module2\Stepper_DriverController@store');
+        Route::delete('/{number}', 'Module2\Stepper_DriverController@destroy');
     });
 
 });
@@ -105,6 +111,7 @@ Route::group(['prefix' => 'module3'], function () {
         Route::post('/', 'Module3\steppertreeController@store');
         Route::delete('/{number}', 'Module3\steppertreeController@destroy');
     });
+
 
 });
 

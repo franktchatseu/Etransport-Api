@@ -7,4 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Stepper_Driver extends Model
 {
     //
+    protected $table = 'stepper_drivers';
 }
