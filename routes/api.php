@@ -53,6 +53,7 @@ Route::group(['prefix' => 'module3'], function () {
         Route::match(['post', 'put'], '/{id}', 'Module3\typeController@update');
         Route::post('/', 'Module3\typeController@store');
         Route::delete('/{id}', 'Module3\typeController@destroy');
+        Route::get('/search', 'Module3\typeController@search');
     });
 
     Route::group(['prefix' => 'carosseries'], function () {
@@ -61,6 +62,8 @@ Route::group(['prefix' => 'module3'], function () {
         Route::match(['post', 'put'], '/{id}', 'Module3\carosserieController@update');
         Route::post('/', 'Module3\carosserieController@store');
         Route::delete('/{id}', 'Module3\carosserieController@destroy');
+        Route::get('/search', 'Module3\carosserieController@search');
+
     });
 
     Route::group(['prefix' => 'marks'], function () {
@@ -69,6 +72,8 @@ Route::group(['prefix' => 'module3'], function () {
         Route::match(['post', 'put'], '/{id}', 'Module3\markController@update');
         Route::post('/', 'Module3\markController@store');
         Route::delete('/{id}', 'Module3\markController@destroy');
+        Route::get('/search', 'Module3\markController@search');
+
     });
 
     Route::group(['prefix' => 'modeles'], function () {
@@ -77,6 +82,8 @@ Route::group(['prefix' => 'module3'], function () {
         Route::match(['post', 'put'], '/{id}', 'Module3\modelController@update');
         Route::post('/', 'Module3\modelController@store');
         Route::delete('/{id}', 'Module3\modelController@destroy');
+        Route::get('/search', 'Module3\modelController@search');
+
     });
 
 
@@ -86,6 +93,8 @@ Route::group(['prefix' => 'module3'], function () {
         Route::match(['post', 'put'], '/{id}', 'Module3\caractertechoneController@update');
         Route::post('/', 'Module3\caractertechoneController@store');
         Route::delete('/{id}', 'Module3\caractertechoneController@destroy');
+        Route::get('/search', 'Module3\caractertechoneController@search');
+
     });
 
 
@@ -95,6 +104,8 @@ Route::group(['prefix' => 'module3'], function () {
         Route::match(['post', 'put'], '/{id}', 'Module3\gearpictureController@update');
         Route::post('/', 'Module3\gearpictureController@store');
         Route::delete('/{id}', 'Module3\gearpictureController@destroy');
+        Route::get('/search', 'Module3\gearpictureController@search');
+
     });
 
 });

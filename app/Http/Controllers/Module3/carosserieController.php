@@ -91,8 +91,8 @@ class carosserieController extends Controller
         $data = $req->except('photo');
 
        
-        if ( $data['color']) $carosserie->color = $data['color'];
-        if ( $data['description']) $carosserie->description = $data['description'];
+        if ( $data['color'] ?? null) $carosserie->color = $data['color'];
+        if ( $data['description'] ?? null) $carosserie->description = $data['description'];
 
 
         $carosserie->update();
