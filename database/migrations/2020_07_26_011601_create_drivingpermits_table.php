@@ -13,9 +13,16 @@ class CreateDrivingpermitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('drivingpermits', function (Blueprint $table) {
-            $table->id();
+        Schema::create('driving_permits', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('number');
+            $table->date('date_issue');
+            $table->string('place_issue');
+            $table->unsignedBigInteger('stepper_id');
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('stepper_id')->references('id')->on('stepper_drivers');
         });
     }
 
@@ -26,6 +33,6 @@ class CreateDrivingpermitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('drivingpermits');
+        Schema::dropIfExists('driving_permits');
     }
 }

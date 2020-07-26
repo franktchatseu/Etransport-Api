@@ -14,8 +14,16 @@ class CreateDocIndentityInformationsTable extends Migration
     public function up()
     {
         Schema::create('doc_indentity_informations', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->string('identical_piece');
+            $table->string('piece_number');
+            $table->date('date_issue');
+            $table->string('place_issue');
+            $table->unsignedBigInteger('stepper_id');
             $table->timestamps();
+            $table->softDeletes();
+            
+            $table->foreign('stepper_id')->references('id')->on('stepper_drivers');
         });
     }
 

@@ -13,9 +13,12 @@ class CreateNationalitysTable extends Migration
      */
     public function up()
     {
-        Schema::create('nationalitys', function (Blueprint $table) {
-            $table->id();
+        Schema::create('nationalities', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->string('description');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -26,6 +29,6 @@ class CreateNationalitysTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nationalitys');
+        Schema::dropIfExists('nationalities');
     }
 }
