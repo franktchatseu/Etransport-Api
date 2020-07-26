@@ -5,27 +5,20 @@ namespace App\Http\Controllers\Module2;
 use App\Http\Controllers\Controller;
 use App\Models\Module2\DrivingPermit;
 use Illuminate\Http\Request;
+use App\Models\APIError;
 
 class DrivingPermitController extends Controller
 {
-    /**
+     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $req)
     {
         //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $data = DrivingPermit::simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($data);
     }
 
     /**
@@ -36,51 +29,97 @@ class DrivingPermitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        
+        $this->validate($data, [
+            'number' => 'required',
+            'stepper_id' => 'required',
+            'date_issue' => 'required',
+            'place_issue' => 'required'
+        ]);
+
+        $driverpermit = new DrivingPermit();
+        $driverpermit->number = $data['number'];
+        $driverpermit->stepper_id = $data['stepper_id'];
+        $driverpermit->date_issue = $data['date_issue'];
+        $driverpermit->place_issue = $data['place_issue'];
+        $driverpermit->save();
+       
+        return response()->json($driverpermit);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Module2\DrivingPermit  $drivingPermit
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(DrivingPermit $drivingPermit)
+    public function find($id)
     {
-        //
-    }
+        $driverpermit = DrivingPermit::find($id);
+        if (!$driverpermit) {
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Module2\DrivingPermit  $drivingPermit
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(DrivingPermit $drivingPermit)
-    {
-        //
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("DRIVING_PERMIT_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+
+        return response()->json($driverpermit);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Module2\DrivingPermit  $drivingPermit
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DrivingPermit $drivingPermit)
+    public function update(Request $request, $id)
     {
-        //
+        $driverpermit = DrivingPermit::find($id);
+        if (!$driverpermit) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("DRIVING_PERMIT_NOT_FOUND");
+
+            return response()->json($apiError, 404);
+        }
+
+        $data = $request->all();
+        
+        if ( $request->number ?? null) $driverpermit->number = $data['number'];
+        if ( $request->stepper_id ?? null) $driverpermit->stepper_id = $data['stepper_id'];
+        if ( $request->date_issue ?? null) $driverpermit->date_issue = $data['date_issue'];
+        if ( $request->place_issue ?? null) $driverpermit->place_issue = $data['place_issue'];
+        
+        $driverpermit->number = $data['number'];
+        $driverpermit->stepper_id = $data['stepper_id'];
+        $driverpermit->date_issue = $data['date_issue'];
+        $driverpermit->place_issue = $data['place_issue'];
+        $driverpermit->update();
+
+        return response()->json($driverpermit);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Module2\DrivingPermit  $drivingPermit
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DrivingPermit $drivingPermit)
+    public function destroy($id)
     {
-        //
+        $driverpermit = DrivingPermit::find($id);
+        if (!$driverpermit) {
+
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("DRIVING_PERMIT_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+
+        $driverpermit->delete();      
+        return response()->json();
     }
 }
