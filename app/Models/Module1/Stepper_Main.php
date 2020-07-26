@@ -7,4 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Stepper_Main extends Model
 {
     //
+    protected $table = 'stepper_mains';
+
 }

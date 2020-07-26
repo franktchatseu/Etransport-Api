@@ -14,8 +14,13 @@ class CreateStepperMainsTable extends Migration
     public function up()
     {
         Schema::create('stepper_mains', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->string('number')->unique();
+            $table->integer('value');
+            $table->boolean('status');
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 
