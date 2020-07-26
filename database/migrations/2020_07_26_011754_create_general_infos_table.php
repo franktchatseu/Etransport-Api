@@ -18,6 +18,7 @@ class CreateGeneralInfosTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->date('date_birth');
+            $table->string('place_birth');
             $table->string('email');
             $table->string('tel1');
             $table->string('tel2');

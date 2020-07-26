@@ -51,7 +51,7 @@ class caractertechoneController extends Controller
             'empty_weight' => 'required',
             'power' => 'required',
             'chassis_number' => 'required',
-            'stepper_id' => 'required',
+            'stepper_id' => 'required:exists:stepper_trees,id',
         ]);
 
         $caractertechone = new caractertechone();
