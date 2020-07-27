@@ -36,7 +36,7 @@ class CreateCaractertechonesTable extends Migration
 
             $table->foreign('stepper_id')->references('id')->on('stepper_trees');
             $table->foreign('type_id')->references('id')->on('types');
-            $table->foreign('model_id')->references('id')->on('modeles');
+            $table->foreign('model_id')->references('id')->on('models');
             $table->foreign('mark_id')->references('id')->on('marks');
             $table->foreign('carosserie_id')->references('id')->on('carosseries');
         });

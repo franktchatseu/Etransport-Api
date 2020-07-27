@@ -28,6 +28,7 @@ class TransportElementController extends Controller
         //
         $data = $request->except('presentation_file ');
         $this->validate($data, [
+            'type_id' => 'required:exists:actor_types,id',
             'name' => 'required',
             'description' => 'required',
             'localisation' => 'required',
@@ -52,6 +53,7 @@ class TransportElementController extends Controller
         }
 
         $transport = new TransportElement();
+        $transport->type_id = $data['type_id'];
         $transport->name = $data['name'];
         $transport->description = $data['description'];
         $transport->localisation = $data['localisation'];

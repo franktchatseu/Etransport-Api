@@ -15,6 +15,7 @@ class CreateTransportelementsTable extends Migration
     {
         Schema::create('transport_elements', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('type_id');
             $table->string('name');
             $table->text('description');
             $table->string('localisation')->nullable();
@@ -25,6 +26,9 @@ class CreateTransportelementsTable extends Migration
             $table->string('presentation_file');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('type_id')->references('id')->on('actor_types')->onDelete('cascade');
+
         });
     }
 
