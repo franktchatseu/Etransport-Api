@@ -147,18 +147,18 @@ class PersonalComputingSpecialController extends Controller
         if ( $request->tel1 ?? null) $personal->tel1 = $data['tel1'];
         if ( $request->image ?? null) 
         {
-            $file = $req->file('image');
+            $file = $request->file('image');
             $path = null;
             if ($file != null) {
-                $req->validate(['image' => 'image|max:20000']);
+                $request->validate(['image' => 'image|max:20000']);
                 $extension = $file->getClientOriginalExtension();
                 $relativeDestination = "uploads/e-transport/personal_computing_special/documents";
                 $destinationPath = public_path($relativeDestination);
                 $safeName = "image" . time() . '.' . $extension;
                 $file->move($destinationPath, $safeName);
                 $path = url("$relativeDestination/$safeName");
-                if ($gearpicture->image) {
-                    $oldImagePath = public_path($gearpicture->image);
+                if ($personal->image) {
+                    $oldImagePath = public_path($personal->image);
                     if (file_exists($oldImagePath)) {
                         @unlink($oldImagePath);
                     }

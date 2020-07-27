@@ -18,6 +18,10 @@ class CreateCaractertechonesTable extends Migration
             $table->string('registration');
             $table->string('country_registration');
             $table->unsignedBigInteger('stepper_id');
+            $table->unsignedBigInteger('type_id');
+            $table->unsignedBigInteger('model_id');
+            $table->unsignedBigInteger('mark_id');
+            $table->unsignedBigInteger('carosserie_id');
             $table->double('length');
             $table->double('width');
             $table->double('height');
@@ -31,6 +35,10 @@ class CreateCaractertechonesTable extends Migration
             $table->softDeletes();
 
             $table->foreign('stepper_id')->references('id')->on('stepper_trees');
+            $table->foreign('type_id')->references('id')->on('types');
+            $table->foreign('model_id')->references('id')->on('modeles');
+            $table->foreign('mark_id')->references('id')->on('marks');
+            $table->foreign('carosserie_id')->references('id')->on('carosseries');
         });
     }
 

@@ -51,6 +51,10 @@ class caractertechoneController extends Controller
             'empty_weight' => 'required',
             'power' => 'required',
             'chassis_number' => 'required',
+            'type_id' => 'required:exists:types,id',
+            'mark_id' => 'required:exists:marks,id',
+            'model_id' => 'required:exists:models,id',
+            'carosserie_id' => 'required:exists:carosseries,id',
             'stepper_id' => 'required:exists:stepper_trees,id',
         ]);
 
@@ -66,6 +70,10 @@ class caractertechoneController extends Controller
         $caractertechone->live_load = $data['live_load'];
         $caractertechone->power = $data['power'];
         $caractertechone->chassis_number = $data['chassis_number'];
+        $caractertechone->type_id = $data['type_id'];
+        $caractertechone->mark_id = $data['mark_id'];
+        $caractertechone->model_id = $data['model_id'];
+        $caractertechone->carosserie_id = $data['carosserie_id'];
         $caractertechone->stepper_id = $data['stepper_id'];
         $caractertechone->save();
 
@@ -121,6 +129,10 @@ class caractertechoneController extends Controller
         if ($data['live_load'] ?? null) $caractertechone->live_load = $data['live_load'];
         if ($data['power'] ?? null) $caractertechone->power = $data['power'];
         if ($data['chassis_number'] ?? null) $caractertechone->chassis_number = $data['chassis_number'];
+        if ($data['type_id'] ?? null)$caractertechone->type_id = $data['type_id'];
+        if ($data['mark_id'] ?? null)$caractertechone->mark_id = $data['mark_id'];
+        if ($data['model_id'] ?? null)$caractertechone->model_id = $data['model_id'];
+        if ($data['carosserie_id'] ?? null)$caractertechone->carosserie_id = $data['carosserie_id'];
         if ($data['stepper_id'] ?? null) $caractertechone->stepper_id = $data['stepper_id'];
 
 
