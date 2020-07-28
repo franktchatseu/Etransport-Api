@@ -63,22 +63,22 @@ Route::group(['prefix' => 'module1'], function () {
 });
 
 // Module2 module : 'middleware' => 'auth:api',
-Route::group(['prefix' => 'module2'], function () {
+Route::group(['prefix' => 'Module2'], function () {
 
     Route::group(['prefix' => 'drivingpermits'], function () {
-        Route::get('/', 'module2\DrivingPermitController@index');
-        Route::get('/{id}', 'module2\DrivingPermitController@find');
-        Route::match(['post', 'put'], '/{id}', 'module2\DrivingPermitController@update');
-        Route::post('/', 'module2\DrivingPermitController@store');
-        Route::delete('/{id}', 'module2\DrivingPermitController@destroy');
+        Route::get('/', 'Module2\DrivingPermitController@index');
+        Route::get('/{id}', 'Module2\DrivingPermitController@find');
+        Route::match(['post', 'put'], '/{id}', 'Module2\DrivingPermitController@update');
+        Route::post('/', 'Module2\DrivingPermitController@store');
+        Route::delete('/{id}', 'Module2\DrivingPermitController@destroy');
     });
 
     Route::group(['prefix' => 'formations'], function () {
-        Route::get('/', 'module2\FormationController@index');
-        Route::get('/{id}', 'module2\FormationController@find');
-        Route::match(['post', 'put'], '/{id}', 'module2\FormationController@update');
-        Route::post('/', 'module2\FormationController@store');
-        Route::delete('/{id}', 'module2\FormationController@destroy');
+        Route::get('/', 'Module2\FormationController@index');
+        Route::get('/{id}', 'Module2\FormationController@find');
+        Route::match(['post', 'put'], '/{id}', 'Module2\FormationController@update');
+        Route::post('/', 'Module2\FormationController@store');
+        Route::delete('/{id}', 'Module2\FormationController@destroy');
     });
     Route::group(['prefix' => 'stepper_driver'], function () {
         Route::get('/', 'Module2\Stepper_DriverController@index');
@@ -106,7 +106,9 @@ Route::group(['prefix' => 'module2'], function () {
 
     Route::group(['prefix' => 'general_informations'], function () {
         Route::get('/', 'Module2\General_InfoController@index');
+        Route::get('/allWithName', 'Module2\General_InfoController@allWithName');
         Route::get('/{id}', 'Module2\General_InfoController@find');
+        Route::get('/finds/{id}', 'Module2\General_InfoController@finds');
         Route::match(['post', 'put'], '/{id}', 'Module2\General_InfoController@update');
         Route::post('/', 'Module2\General_InfoController@store');
         Route::delete('/{id}', 'Module2\General_InfoController@destroy');
