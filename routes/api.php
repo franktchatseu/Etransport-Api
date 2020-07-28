@@ -222,7 +222,7 @@ Route::group(['prefix' => 'module4'], function () {
 
     Route::group(['prefix' => 'transportElement'], function () {
         Route::post('/', 'Module4\TransportElementController@store');
-        Route::post('/{id}', 'Module4\TransportElementController@update');
+        Route::match(['post', 'put'],'/{id}', 'Module4\TransportElementController@update');
         Route::delete('/{id}', 'Module4\TransportElementController@destroy');
         Route::get('/{id}', 'Module4\TransportElementController@find');
         Route::get('/', 'Module4\TransportElementController@index');
@@ -231,7 +231,7 @@ Route::group(['prefix' => 'module4'], function () {
 
     Route::group(['prefix' => 'actorType'], function () {
         Route::post('/', 'Module4\ActorTypeController@store');
-        Route::put('/{id}', 'Module4\ActorTypeController@update');
+        Route::match(['post', 'put'],'/{id}', 'Module4\ActorTypeController@update');
         Route::delete('/{id}', 'Module4\ActorTypeController@destroy');
         Route::get('/{id}', 'Module4\ActorTypeController@find');
         Route::get('/', 'Module4\ActorTypeController@index');

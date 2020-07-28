@@ -95,6 +95,7 @@ class TransportElementController extends Controller
         }
 
         $data = $request->all();
+        if ( $data['type_id'])$transport->type_id = $data['type_id'];
         if ( $data['name']) $transport->name = $data['name'];
         if ( $data['description']) $transport->description = $data['description'];
         if ( $data['phone1']) $transport->phone1 = $data['phone1'];
