@@ -19,6 +19,16 @@ class caractertechoneController extends Controller
         return response()->json($data);
     }
 
+    public function findAllCaracter(Request $req)
+    {
+        $data = caractertechone::select('caracter_tech_ones.*','carosseries.color','models.name','marks.name','models.name as model_name','marks.name as mark_name')
+                                 ->join('carosseries','caracter_tech_ones.carosserie_id','=','carosseries.id')
+                                 ->join('models','caracter_tech_ones.model_id','=','models.id')
+                                 ->join('marks','caracter_tech_ones.mark_id','=','marks.id')
+                                 ->simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($data);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

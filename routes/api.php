@@ -163,6 +163,7 @@ Route::group(['prefix' => 'module3'], function () {
 
     Route::group(['prefix' => 'caractere_tech_ones'], function () {
         Route::get('/', 'Module3\caractertechoneController@index');
+        Route::get('/findAllCaracter', 'Module3\caractertechoneController@findAllCaracter');
         Route::get('/{id}', 'Module3\caractertechoneController@find');
         Route::match(['post', 'put'], '/{id}', 'Module3\caractertechoneController@update');
         Route::post('/', 'Module3\caractertechoneController@store');
