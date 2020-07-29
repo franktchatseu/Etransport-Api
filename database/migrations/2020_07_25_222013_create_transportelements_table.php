@@ -20,7 +20,7 @@ class CreateTransportelementsTable extends Migration
             $table->text('description');
             $table->string('localisation')->nullable();
             $table->string('phone1');
-            $table->string('phone2');
+            $table->string('phone2')->nullable();
             $table->string('email');
             $table->string('function');
             $table->string('presentation_file');

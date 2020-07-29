@@ -33,7 +33,6 @@ class TransportElementController extends Controller
             'description' => 'required',
             'localisation' => 'required',
             'phone1' => 'required',
-            'phone2' => 'required',
             'email' => 'required',
             'function' => 'required',
         ]);
@@ -58,7 +57,7 @@ class TransportElementController extends Controller
         $transport->description = $data['description'];
         $transport->localisation = $data['localisation'];
         $transport->phone1 = $data['phone1'];
-        $transport->phone2 = $data['phone2'];
+        $transport->phone2 = $data['phone2'] ?? null;
         $transport->email = $data['email'];
         $transport->function = $data['function'];
         $transport->presentation_file = $path;
@@ -99,7 +98,7 @@ class TransportElementController extends Controller
         if ( $data['name']) $transport->name = $data['name'];
         if ( $data['description']) $transport->description = $data['description'];
         if ( $data['phone1']) $transport->phone1 = $data['phone1'];
-        if ( $data['phone2']) $transport->phone2 = $data['phone2'];
+        if ( $data['phone2'] ?? null) $transport->phone2 = $data['phone2'];
         if ( $data['email']) $transport->email = $data['email'];
         if ( $data['function']) $transport->function = $data['function'];
            //upload image
