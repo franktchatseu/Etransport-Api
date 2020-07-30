@@ -63,7 +63,7 @@ Route::group(['prefix' => 'module1'], function () {
 });
 
 // Module2 module : 'middleware' => 'auth:api',
-Route::group(['prefix' => 'module2'], function () {
+Route::group(['prefix' => 'Module2'], function () {
 
     Route::group(['prefix' => 'drivingpermits'], function () {
         Route::get('/', 'Module2\DrivingPermitController@index');
@@ -106,7 +106,9 @@ Route::group(['prefix' => 'module2'], function () {
 
     Route::group(['prefix' => 'general_informations'], function () {
         Route::get('/', 'Module2\General_InfoController@index');
+        Route::get('/allWithName', 'Module2\General_InfoController@allWithName');
         Route::get('/{id}', 'Module2\General_InfoController@find');
+        Route::get('/finds/{id}', 'Module2\General_InfoController@finds');
         Route::match(['post', 'put'], '/{id}', 'Module2\General_InfoController@update');
         Route::post('/', 'Module2\General_InfoController@store');
         Route::delete('/{id}', 'Module2\General_InfoController@destroy');
@@ -161,6 +163,7 @@ Route::group(['prefix' => 'module3'], function () {
 
     Route::group(['prefix' => 'caractere_tech_ones'], function () {
         Route::get('/', 'Module3\caractertechoneController@index');
+        Route::get('/findAllCaracter', 'Module3\caractertechoneController@findAllCaracter');
         Route::get('/{id}', 'Module3\caractertechoneController@find');
         Route::match(['post', 'put'], '/{id}', 'Module3\caractertechoneController@update');
         Route::post('/', 'Module3\caractertechoneController@store');

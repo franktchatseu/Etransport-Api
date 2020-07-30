@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Module2;
 use App\Http\Controllers\Controller;
 use App\Models\Module2\General_Info;
 use Illuminate\Http\Request;
+use App\Models\APIError;
 
 class General_InfoController extends Controller
 {
@@ -16,6 +17,15 @@ class General_InfoController extends Controller
     public function index(Request $req)
     {
         $data = General_Info::orderBy('id','desc')->simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($data);
+    }
+
+    public function allWithName(Request $req)
+    {
+        $data = General_Info::Select('general_infos.*','nationalities.name','stepper_drivers.number','stepper_drivers.value','stepper_drivers.status')
+                              ->join('nationalities','general_infos.nationality_id','=','nationalities.id')
+                              ->join('stepper_drivers','general_infos.stepper_id','=','stepper_drivers.id')
+                              ->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($data);
     }
 
@@ -200,5 +210,17 @@ class General_InfoController extends Controller
         return response()->json($General_Info);
     }
 
+    public function finds($id, Request $req)
+    {
+        if (!$General_Info = General_Info::find($id)) {
+            abort(404, "No General_Info found with id $id");
+        }
+        
+        $data = General_Info::Select('general_infos.*','nationalities.name')
+                              ->join('nationalities','general_infos.nationality_id','=','nationalities.id')
+                              ->where(['general_infos.id' => $id])
+                              ->simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($data);
+    }
 }
 
