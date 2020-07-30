@@ -16,8 +16,8 @@ class CreateDescriptionsTable extends Migration
         Schema::create('descriptions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('stepper_id');
-            $table->date('required_workday');
-            $table->time('time_required');
+            $table->integer('required_workday');
+            $table->integer('time_required');
             $table->text('equipment');
             $table->text('usage');
             $table->text('usual_location');
