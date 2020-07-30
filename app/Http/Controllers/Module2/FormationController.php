@@ -34,7 +34,6 @@ class FormationController extends Controller
         $this->validate($data, [
             'name' => 'required',
             'stepper_id' => 'required',
-            'file' => 'required',
         ]);
 
         if(isset($request->file)){
