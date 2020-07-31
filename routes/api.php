@@ -29,7 +29,7 @@ Route::group(['prefix' => 'auth'], function () {
 
 
 // Module1 module : 'middleware' => 'auth:api',
-Route::group(['prefix' => 'module1'], function () {
+Route::group(['prefix' => 'Module1'], function () {
 
     Route::group(['prefix' => 'stepper_main'], function () {
         Route::get('/', 'Module1\Stepper_MainController@index');
@@ -54,11 +54,11 @@ Route::group(['prefix' => 'module1'], function () {
         Route::delete('/{id}', 'Module1\Info_Entreprise_TwoController@destroy');
     });
     Route::group(['prefix' => 'personalcomputingspecial'], function () {
-        Route::get('/', 'module2\PersonalComputingSpecialController@index');
-        Route::get('/{id}', 'module2\PersonalComputingSpecialController@find');
-        Route::match(['post', 'put'], '/{id}', 'module2\PersonalComputingSpecialController@update');
-        Route::post('/', 'module2\PersonalComputingSpecialController@store');
-        Route::delete('/{id}', 'module2\PersonalComputingSpecialController@destroy');
+        Route::get('/', 'Module1\PersonalComputingSpecialController@index');
+        Route::get('/{id}', 'Module1\PersonalComputingSpecialController@find');
+        Route::match(['post', 'put'], '/{id}', 'Module1\PersonalComputingSpecialController@update');
+        Route::post('/', 'Module1\PersonalComputingSpecialController@store');
+        Route::delete('/{id}', 'Module1\PersonalComputingSpecialController@destroy');
     });
 });
 
@@ -119,7 +119,7 @@ Route::group(['prefix' => 'module2'], function () {
 });
 
 // Module3 module : 'middleware' => 'auth:api',
-Route::group(['prefix' => 'module3'], function () {
+Route::group(['prefix' => 'Module3'], function () {
 
     Route::group(['prefix' => 'types'], function () {
         Route::get('/', 'Module3\typeController@index');
@@ -165,6 +165,7 @@ Route::group(['prefix' => 'module3'], function () {
         Route::get('/', 'Module3\caractertechoneController@index');
         Route::get('/findAllCaracter', 'Module3\caractertechoneController@findAllCaracter');
         Route::get('/{id}', 'Module3\caractertechoneController@find');
+        Route::get('/{id}/findAllCaracterById', 'Module3\caractertechoneController@findAllCaracterById');
         Route::match(['post', 'put'], '/{id}', 'Module3\caractertechoneController@update');
         Route::post('/', 'Module3\caractertechoneController@store');
         Route::delete('/{id}', 'Module3\caractertechoneController@destroy');
