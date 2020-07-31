@@ -54,11 +54,11 @@ Route::group(['prefix' => 'Module1'], function () {
         Route::delete('/{id}', 'Module1\Info_Entreprise_TwoController@destroy');
     });
     Route::group(['prefix' => 'personalcomputingspecial'], function () {
-        Route::get('/', 'module2\PersonalComputingSpecialController@index');
-        Route::get('/{id}', 'module2\PersonalComputingSpecialController@find');
-        Route::match(['post', 'put'], '/{id}', 'module2\PersonalComputingSpecialController@update');
-        Route::post('/', 'module2\PersonalComputingSpecialController@store');
-        Route::delete('/{id}', 'module2\PersonalComputingSpecialController@destroy');
+        Route::get('/', 'Module1\PersonalComputingSpecialController@index');
+        Route::get('/{id}', 'Module1\PersonalComputingSpecialController@find');
+        Route::match(['post', 'put'], '/{id}', 'Module1\PersonalComputingSpecialController@update');
+        Route::post('/', 'Module1\PersonalComputingSpecialController@store');
+        Route::delete('/{id}', 'Module1\PersonalComputingSpecialController@destroy');
     });
 });
 
