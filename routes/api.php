@@ -29,7 +29,7 @@ Route::group(['prefix' => 'auth'], function () {
 
 
 // Module1 module : 'middleware' => 'auth:api',
-Route::group(['prefix' => 'module1'], function () {
+Route::group(['prefix' => 'Module1'], function () {
 
     Route::group(['prefix' => 'stepper_main'], function () {
         Route::get('/', 'Module1\Stepper_MainController@index');
@@ -119,7 +119,7 @@ Route::group(['prefix' => 'Module2'], function () {
 });
 
 // Module3 module : 'middleware' => 'auth:api',
-Route::group(['prefix' => 'module3'], function () {
+Route::group(['prefix' => 'Module3'], function () {
 
     Route::group(['prefix' => 'types'], function () {
         Route::get('/', 'Module3\typeController@index');
@@ -165,6 +165,7 @@ Route::group(['prefix' => 'module3'], function () {
         Route::get('/', 'Module3\caractertechoneController@index');
         Route::get('/findAllCaracter', 'Module3\caractertechoneController@findAllCaracter');
         Route::get('/{id}', 'Module3\caractertechoneController@find');
+        Route::get('/{id}/findAllCaracterById', 'Module3\caractertechoneController@findAllCaracterById');
         Route::match(['post', 'put'], '/{id}', 'Module3\caractertechoneController@update');
         Route::post('/', 'Module3\caractertechoneController@store');
         Route::delete('/{id}', 'Module3\caractertechoneController@destroy');
@@ -193,27 +194,27 @@ Route::group(['prefix' => 'module3'], function () {
     });
 
     Route::group(['prefix' => 'caractertechtwos'], function () {
-        Route::get('/', 'module3\caracterTechTwoController@index');
-        Route::get('/{id}', 'module3\caracterTechTwoController@find');
-        Route::match(['post', 'put'], '/{id}', 'module3\caracterTechTwoController@update');
-        Route::post('/', 'module3\caracterTechTwoController@store');
-        Route::delete('/{id}', 'module3\caracterTechTwoController@destroy');
+        Route::get('/', 'Module3\caracterTechTwoController@index');
+        Route::get('/{id}', 'Module3\caracterTechTwoController@find');
+        Route::match(['post', 'put'], '/{id}', 'Module3\caracterTechTwoController@update');
+        Route::post('/', 'Module3\caracterTechTwoController@store');
+        Route::delete('/{id}', 'Module3\caracterTechTwoController@destroy');
     });
 
     Route::group(['prefix' => 'carpapers'], function () {
-        Route::get('/', 'module3\CarPaperController@index');
-        Route::get('/{id}', 'module3\CarPaperController@find');
-        Route::match(['post', 'put'], '/{id}', 'module3\CarPaperController@update');
-        Route::post('/', 'module3\CarPaperController@store');
-        Route::delete('/{id}', 'module3\CarPaperController@destroy');
+        Route::get('/', 'Module3\CarPaperController@index');
+        Route::get('/{id}', 'Module3\CarPaperController@find');
+        Route::match(['post', 'put'], '/{id}', 'Module3\CarPaperController@update');
+        Route::post('/', 'Module3\CarPaperController@store');
+        Route::delete('/{id}', 'Module3\CarPaperController@destroy');
     });
 
     Route::group(['prefix' => 'descriptions'], function () {
-        Route::get('/', 'module3\DescriptionController@index');
-        Route::get('/{id}', 'module3\DescriptionController@find');
-        Route::match(['post', 'put'], '/{id}', 'module3\DescriptionController@update');
-        Route::post('/', 'module3\DescriptionController@store');
-        Route::delete('/{id}', 'module3\DescriptionController@destroy');
+        Route::get('/', 'Module3\DescriptionController@index');
+        Route::get('/{id}', 'Module3\DescriptionController@find');
+        Route::match(['post', 'put'], '/{id}', 'Module3\DescriptionController@update');
+        Route::post('/', 'Module3\DescriptionController@store');
+        Route::delete('/{id}', 'Module3\DescriptionController@destroy');
     });
 
 
