@@ -16,8 +16,11 @@ class General_InfoController extends Controller
      */
     public function index(Request $req)
     {
-        $data = General_Info::orderBy('id','desc')->simplePaginate($req->has('limit') ? $req->limit : 15);
-        return response()->json($data);
+        $data = General_Info::Select('general_infos.*','nationalities.name','stepper_drivers.*')
+        ->join('nationalities','general_infos.nationality_id','=','nationalities.id')
+        ->join('stepper_drivers','general_infos.stepper_id','=','stepper_drivers.id')
+        ->simplePaginate($req->has('limit') ? $req->limit : 15);
+    return response()->json($data);
     }
 
     public function allWithName(Request $req)
@@ -216,8 +219,9 @@ class General_InfoController extends Controller
             abort(404, "No General_Info found with id $id");
         }
         
-        $data = General_Info::Select('general_infos.*','nationalities.name')
+        $data = General_Info::Select('general_infos.*','nationalities.name','stepper_drivers.*')
                               ->join('nationalities','general_infos.nationality_id','=','nationalities.id')
+                              ->join('stepper_drivers','general_infos.stepper_id','=','stepper_drivers.id')
                               ->where(['general_infos.id' => $id])
                               ->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($data);

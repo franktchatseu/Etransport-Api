@@ -63,7 +63,7 @@ Route::group(['prefix' => 'module1'], function () {
 });
 
 // Module2 module : 'middleware' => 'auth:api',
-Route::group(['prefix' => 'Module2'], function () {
+Route::group(['prefix' => 'module2'], function () {
 
     Route::group(['prefix' => 'drivingpermits'], function () {
         Route::get('/', 'Module2\DrivingPermitController@index');
@@ -100,7 +100,7 @@ Route::group(['prefix' => 'Module2'], function () {
         Route::get('/{id}', 'Module2\NationalityController@find');
         Route::match(['post', 'put'], '/{id}', 'Module2\NationalityController@update');
         Route::post('/', 'Module2\NationalityController@store');
-        Route::delete('/{id}', 'Module2\NationalityController@destroy');
+        Route::delete('/{id}', 'Module2\Nationalit  yController@destroy');
         Route::get('/search', 'Module2\NationalityController@search');
     });
 
