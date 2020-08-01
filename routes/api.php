@@ -29,7 +29,7 @@ Route::group(['prefix' => 'auth'], function () {
 
 
 // Module1 module : 'middleware' => 'auth:api',
-Route::group(['prefix' => 'Module1'], function () {
+Route::group(['prefix' => 'module1'], function () {
 
     Route::group(['prefix' => 'stepper_main'], function () {
         Route::get('/', 'Module1\Stepper_MainController@index');
@@ -63,7 +63,7 @@ Route::group(['prefix' => 'Module1'], function () {
 });
 
 // Module2 module : 'middleware' => 'auth:api',
-Route::group(['prefix' => 'Module2'], function () {
+Route::group(['prefix' => 'module2'], function () {
 
     Route::group(['prefix' => 'drivingpermits'], function () {
         Route::get('/', 'Module2\DrivingPermitController@index');
@@ -119,7 +119,7 @@ Route::group(['prefix' => 'Module2'], function () {
 });
 
 // Module3 module : 'middleware' => 'auth:api',
-Route::group(['prefix' => 'Module3'], function () {
+Route::group(['prefix' => 'module3'], function () {
 
     Route::group(['prefix' => 'types'], function () {
         Route::get('/', 'Module3\typeController@index');
