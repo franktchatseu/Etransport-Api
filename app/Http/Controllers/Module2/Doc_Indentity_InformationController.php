@@ -47,7 +47,7 @@ class Doc_Indentity_InformationController extends Controller
     
    public function find($id)
     {
-        $doc = Doc_Indentity_Information::find($id);
+        $doc = Doc_Indentity_Information::where('stepper_id',$id)->first();
         if (!$doc) {
             $apiError = new APIError;
             $apiError->setStatus("404");
@@ -60,7 +60,7 @@ class Doc_Indentity_InformationController extends Controller
     public function update(Request $request,$id)
     {
         //
-         $DOC = Doc_Indentity_Information::find($id);
+         $DOC = Doc_Indentity_Information::where('stepper_id',$id)->first();
          if (!$DOC) {
              $apiError = new APIError;
              $apiError->setStatus("404");
