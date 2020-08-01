@@ -56,7 +56,7 @@ class DrivingPermitController extends Controller
      */
     public function find($id)
     {
-        $driverpermit = DrivingPermit::find($id);
+        $driverpermit = DrivingPermit::where('stepper_id',$id)->first();;
         if (!$driverpermit) {
 
             $apiError = new APIError;
@@ -77,7 +77,7 @@ class DrivingPermitController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $driverpermit = DrivingPermit::find($id);
+        $driverpermit = DrivingPermit::where('stepper_id',$id)->first();
         if (!$driverpermit) {
             $apiError = new APIError;
             $apiError->setStatus("404");
@@ -94,7 +94,6 @@ class DrivingPermitController extends Controller
         if ( $request->place_issue ?? null) $driverpermit->place_issue = $data['place_issue'];
         
         $driverpermit->number = $data['number'];
-        $driverpermit->stepper_id = $data['stepper_id'];
         $driverpermit->date_issue = $data['date_issue'];
         $driverpermit->place_issue = $data['place_issue'];
         $driverpermit->update();
