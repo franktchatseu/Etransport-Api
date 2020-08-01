@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Module2;
 use App\Http\Controllers\Controller;
 use App\Models\Module2\General_Info;
 use Illuminate\Http\Request;
+use App\Models\APIError;
 
 class General_InfoController extends Controller
 {
@@ -15,7 +16,19 @@ class General_InfoController extends Controller
      */
     public function index(Request $req)
     {
-        $data = General_Info::orderBy('id','desc')->simplePaginate($req->has('limit') ? $req->limit : 15);
+        $data = General_Info::Select('general_infos.*','nationalities.name','stepper_drivers.*')
+        ->join('nationalities','general_infos.nationality_id','=','nationalities.id')
+        ->join('stepper_drivers','general_infos.stepper_id','=','stepper_drivers.id')
+        ->simplePaginate($req->has('limit') ? $req->limit : 15);
+    return response()->json($data);
+    }
+
+    public function allWithName(Request $req)
+    {
+        $data = General_Info::Select('general_infos.*','nationalities.name','stepper_drivers.number','stepper_drivers.value','stepper_drivers.status')
+                              ->join('nationalities','general_infos.nationality_id','=','nationalities.id')
+                              ->join('stepper_drivers','general_infos.stepper_id','=','stepper_drivers.id')
+                              ->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($data);
     }
 
@@ -117,7 +130,7 @@ class General_InfoController extends Controller
      */
     public function update(Request $req, $id)
     {
-        $General_Info = General_Info::find($id);
+        $General_Info = General_Info::where('stepper_id',$id)->first();
         if (!$General_Info) {
             abort(404, "No General_Info found with id $id");
         }
@@ -156,7 +169,6 @@ class General_InfoController extends Controller
         if ( $data['address'] ?? null) $General_Info->address = $data['address'];
         if ( $data['avatar'] ?? null) $General_Info->avatar = $data['avatar'];
         if ( $data['nationality_id'] ?? null) $General_Info->nationality_id = $data['nationality_id'];
-        if ( $data['stepper_id'] ?? null) $General_Info->stepper_id = $data['stepper_id'];
         
         $General_Info->update();
 
@@ -194,11 +206,24 @@ class General_InfoController extends Controller
 
     public function find($id)
     {
-        if (!$General_Info = General_Info::find($id)) {
+        if (!$General_Info = General_Info::where('stepper_id',$id)->first()) {
             abort(404, "No General_Info found with id $id");
         }
         return response()->json($General_Info);
     }
 
+    public function finds($id, Request $req)
+    {
+        if (!$General_Info = General_Info::find($id)) {
+            abort(404, "No General_Info found with id $id");
+        }
+        
+        $data = General_Info::Select('general_infos.*','nationalities.name','stepper_drivers.*')
+                              ->join('nationalities','general_infos.nationality_id','=','nationalities.id')
+                              ->join('stepper_drivers','general_infos.stepper_id','=','stepper_drivers.id')
+                              ->where(['general_infos.id' => $id])
+                              ->simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($data);
+    }
 }
 

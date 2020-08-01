@@ -34,7 +34,6 @@ class FormationController extends Controller
         $this->validate($data, [
             'name' => 'required',
             'stepper_id' => 'required',
-            'file' => 'required',
         ]);
 
         if(isset($request->file)){
@@ -69,7 +68,7 @@ class FormationController extends Controller
      */
     public function find($id)
     {
-        $formation = Formation::find($id);
+        $formation = Formation::where('stepper_id',$id)->first();
         if (!$formation) {
 
             $apiError = new APIError;
@@ -90,7 +89,7 @@ class FormationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $formation = Formation::find($id);
+        $formation = Formation::where('stepper_id',$id)->first();
         if (!$formation) {
             $apiError = new APIError;
             $apiError->setStatus("404");
@@ -132,7 +131,6 @@ class FormationController extends Controller
         }
         
         $formation->name = $data['name'];
-        $formation->stepper_id = $data['stepper_id'];
         $formation->update();
 
         return response()->json($formation);

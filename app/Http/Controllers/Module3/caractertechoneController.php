@@ -19,6 +19,17 @@ class caractertechoneController extends Controller
         return response()->json($data);
     }
 
+    public function findAllCaracter(Request $req)
+    {
+        $data = caractertechone::select('caracter_tech_ones.*','carosseries.color','models.name','marks.name','types.name','models.name as model_name','marks.name as mark_name','types.name as type_name')
+                                 ->join('carosseries','caracter_tech_ones.carosserie_id','=','carosseries.id')
+                                 ->join('models','caracter_tech_ones.model_id','=','models.id')
+                                 ->join('marks','caracter_tech_ones.mark_id','=','marks.id')
+                                 ->join('types','caracter_tech_ones.type_id','=','types.id')
+                                 ->simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($data);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -177,4 +188,17 @@ class caractertechoneController extends Controller
         }
         return response()->json($caractertechone);
     }
+
+    public function findAllCaracterById(Request $req , $id)
+    {
+        $data = caractertechone::select('caracter_tech_ones.*','carosseries.color','models.name','marks.name','types.name','models.name as model_name','marks.name as mark_name','types.name as type_name')
+                                 ->join('carosseries','caracter_tech_ones.carosserie_id','=','carosseries.id')
+                                 ->join('models','caracter_tech_ones.model_id','=','models.id')
+                                 ->join('marks','caracter_tech_ones.mark_id','=','marks.id')
+                                 ->join('types','caracter_tech_ones.type_id','=','types.id')
+                                 ->where(['caracter_tech_ones.id' => $id])
+                                 ->simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($data);
+    }
+
 }
