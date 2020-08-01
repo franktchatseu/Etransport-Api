@@ -39,7 +39,6 @@ class DescriptionController extends Controller
             'usage' => 'required',
             'usual_location' => 'required',
             'observation' => 'required',
-            'owner' => 'required',
         ]);
 
         $description = new Description();

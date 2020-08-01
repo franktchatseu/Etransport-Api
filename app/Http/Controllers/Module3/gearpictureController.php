@@ -62,7 +62,7 @@ class gearpictureController extends Controller
                 $destinationPath = public_path($relativeDestination);
                 $safeName = "fore_gear" . time() . '.' . $extension;
                 $file->move($destinationPath, $safeName);
-                $path = url("$relativeDestination/$safeName");
+                $path = "$relativeDestination/$safeName";
             }
             $data['fore_gear'] = $path;
         }
@@ -80,7 +80,7 @@ class gearpictureController extends Controller
                 $destinationPath = public_path($relativeDestination);
                 $safeName = "rear_gear" . time() . '.' . $extension;
                 $file->move($destinationPath, $safeName);
-                $path = url("$relativeDestination/$safeName");
+                $path = "$relativeDestination/$safeName";
             }
             $data['rear_gear'] = $path;
         }
@@ -98,7 +98,7 @@ class gearpictureController extends Controller
                 $destinationPath = public_path($relativeDestination);
                 $safeName = "left_side_gear" . time() . '.' . $extension;
                 $file->move($destinationPath, $safeName);
-                $path = url("$relativeDestination/$safeName");
+                $path = "$relativeDestination/$safeName";
             }
             $data['left_side_gear'] = $path;
         }
@@ -116,7 +116,7 @@ class gearpictureController extends Controller
                 $destinationPath = public_path($relativeDestination);
                 $safeName = "right_side_gear" . time() . '.' . $extension;
                 $file->move($destinationPath, $safeName);
-                $path = url("$relativeDestination/$safeName");
+                $path = "$relativeDestination/$safeName";
             }
             $data['right_side_gear'] = $path;
         }
@@ -134,7 +134,7 @@ class gearpictureController extends Controller
                 $destinationPath = public_path($relativeDestination);
                 $safeName = "insurance_patente" . time() . '.' . $extension;
                 $file->move($destinationPath, $safeName);
-                $path = url("$relativeDestination/$safeName");
+                $path = "$relativeDestination/$safeName";
             }
             $data['insurance_patente'] = $path;
         }
@@ -152,7 +152,7 @@ class gearpictureController extends Controller
                 $destinationPath = public_path($relativeDestination);
                 $safeName = "grey_card" . time() . '.' . $extension;
                 $file->move($destinationPath, $safeName);
-                $path = url("$relativeDestination/$safeName");
+                $path = "$relativeDestination/$safeName";
             }
             $data['grey_card'] = $path;
         }
@@ -293,7 +293,7 @@ class gearpictureController extends Controller
                 $destinationPath = public_path($relativeDestination);
                 $safeName = "right_side_gear" . time() . '.' . $extension;
                 $file->move($destinationPath, $safeName);
-                $path = url("$relativeDestination/$safeName");
+                $path = "$relativeDestination/$safeName";
                 if ($gearpicture->right_side_gear) {
                     $oldImagePath = public_path($gearpicture->right_side_gear);
                     if (file_exists($oldImagePath)) {
@@ -317,7 +317,7 @@ class gearpictureController extends Controller
                 $destinationPath = public_path($relativeDestination);
                 $safeName = "insurance_patente" . time() . '.' . $extension;
                 $file->move($destinationPath, $safeName);
-                $path = url("$relativeDestination/$safeName");
+                $path = "$relativeDestination/$safeName";
                 if ($gearpicture->insurance_patente) {
                     $oldImagePath = public_path($gearpicture->insurance_patente);
                     if (file_exists($oldImagePath)) {
@@ -341,7 +341,7 @@ class gearpictureController extends Controller
                 $destinationPath = public_path($relativeDestination);
                 $safeName = "grey_card" . time() . '.' . $extension;
                 $file->move($destinationPath, $safeName);
-                $path = url("$relativeDestination/$safeName");
+                $path = "$relativeDestination/$safeName";
                 if ($gearpicture->grey_card) {
                     $oldImagePath = public_path($gearpicture->grey_card);
                     if (file_exists($oldImagePath)) {

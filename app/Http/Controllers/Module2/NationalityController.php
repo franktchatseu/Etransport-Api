@@ -15,7 +15,7 @@ class NationalityController extends Controller
      */
     public function index(Request $req)
     {
-        $data = Nationality::orderBy('id','desc')->simplePaginate($req->has('limit') ? $req->limit : 15);
+        $data = Nationality::orderBy('id','desc')->simplePaginate($req->has('limit') ? $req->limit : 5);
         return response()->json($data);
     }
 
