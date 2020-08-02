@@ -96,7 +96,7 @@ class caracterTechTwoController extends Controller
      */
     public function find($id)
     {
-        $taractertechtwo = CaracterTechTwo::find($id);
+        $taractertechtwo = CaracterTechTwo::where('stepper_id',$id)->first();
         if (!$taractertechtwo) {
 
             $apiError = new APIError;
@@ -118,7 +118,7 @@ class caracterTechTwoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $caracter = CaracterTechTwo::find($id);
+        $caracter = CaracterTechTwo::where('stepper_id',$id)->first();
         if (!$caracter) {
             $apiError = new APIError;
             $apiError->setStatus("404");

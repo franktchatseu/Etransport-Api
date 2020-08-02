@@ -57,7 +57,7 @@ class CarPaperController extends Controller
      */
     public function find($id)
     {
-        $carpaper = CarPaper::find($id);
+        $carpaper = CarPaper::where('stepper_id',$id)->first();
         if (!$carpaper) {
 
             $apiError = new APIError;
@@ -78,7 +78,7 @@ class CarPaperController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $carpaper = CarPaper::find($id);
+        $carpaper = CarPaper::where('stepper_id',$id)->first();
         if (!$carpaper) {
             $apiError = new APIError;
             $apiError->setStatus("404");

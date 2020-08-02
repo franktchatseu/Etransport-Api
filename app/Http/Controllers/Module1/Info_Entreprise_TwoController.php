@@ -25,7 +25,7 @@ class Info_Entreprise_TwoController extends Controller
     
   
     public function find($id){
-        $entrepriseInfo = Info_Entreprise_Two::find($id);
+        $entrepriseInfo = Info_Entreprise_Two::where('stepper_main_id',$id)->first();   ;
         if (!$entrepriseInfo) {
             $apiError = new APIError;
             $apiError->setStatus("404");
@@ -94,7 +94,8 @@ class Info_Entreprise_TwoController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $entrepriseInfoTwo = Info_Entreprise_Two::find($id);
+        
+        $entrepriseInfoTwo = Info_Entreprise_Two::where('stepper_main_id',$id)->first();
         if (!$entrepriseInfoTwo) {
             $apiError = new APIError;
             $apiError->setStatus("404");
@@ -114,7 +115,6 @@ class Info_Entreprise_TwoController extends Controller
         if ( $data['enterprise_value']) $entrepriseInfoTwo->enterprise_value = $data['enterprise_value'];
         if ( $data['opening_hours']) $entrepriseInfoTwo->opening_hours = $data['opening_hours'];
         if ( $data['enterprise_partner']) $entrepriseInfoTwo->enterprise_partner = $data['enterprise_partner'];
-        if ( $data['stepper_main_id']) $entrepriseInfoTwo->stepper_main_id = $data['stepper_main_id'];
            //upload image
            $path = "";
            if(isset($request->image)){

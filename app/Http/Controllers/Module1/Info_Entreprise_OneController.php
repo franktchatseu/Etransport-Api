@@ -20,7 +20,7 @@ class Info_Entreprise_OneController extends Controller
 
     public function find($id)
     {
-        $entrepriseInfo = Info_Entreprise_One::find($id);
+        $entrepriseInfo = Info_Entreprise_One::where('stepper_main_id',$id)->first();
         if (!$entrepriseInfo) {
             $apiError = new APIError;
             $apiError->setStatus("404");
@@ -84,7 +84,7 @@ class Info_Entreprise_OneController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $entrepriseInfo = Info_Entreprise_One::find($id);
+        $entrepriseInfo = Info_Entreprise_One::where('stepper_main_id',$id)->first();
         if (!$entrepriseInfo) {
             $apiError = new APIError;
             $apiError->setStatus("404");
