@@ -19,7 +19,7 @@ Route::pattern('id', '[0-9]+');
 Route::group(['prefix' => 'auth'], function () {
 
     Route::post('token', 'AuthController@login');
-    Route::post('persons/users', 'Person\UserController@create');
+    Route::post('users', 'UserController@store');
 
     //Route::group(['middleware' => 'auth:api'], function () {
         Route::get('user', 'AuthController@user');

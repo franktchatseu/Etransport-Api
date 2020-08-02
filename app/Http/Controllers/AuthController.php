@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Auth;
 use \Carbon\Carbon;
 use App\Models\Person\Parishional;
+use App\Models\Person\User;
 use App\Models\Person\UserUtype;
 
 class AuthController extends Controller
@@ -86,43 +87,18 @@ class AuthController extends Controller
                 $token->expires_at = Carbon::now()->addMonth();
             }
             $token->save();
-
+        
             // fetch all type
-            $types = UserUtype::select('utypes.id as utype_id', 'utypes.value', 'user_utypes.id', 'parishs.name as parish_name', 'parishs.id as parish_id', 'user_utypes.is_active as parish_is_active')
-            ->join('utypes', 'user_utypes.type_id', '=', 'utypes.id')
-            ->join('parishs', 'user_utypes.parish_id', '=', 'parishs.id')
-            ->where([
-                    'user_utypes.user_id' => $user->id, 
-                    'user_utypes.is_active' => true
-            ])->get();
+            $user = User::Where('id',$user->id)->first();
 
-            $allTypes = [];
-            $profiles = [];
-            foreach($types as $key => $value) {
-                if ( !in_array($value->value, $allTypes) ) {
-                    $allTypes[] = $value->value;
-                }
-                if (in_array($value->value, $allTypes)) {
-                    $profiles[strtolower($value->value)] = UserUtype::where(['user_id' => $user->id])->first();
-                    $profiles[strtolower($value->value)]['identifiant'] = $value->id;
-                    $profiles[strtolower($value->value)]['utype_id'] = $value->utype_id;
-                    $profiles[strtolower($value->value)]['parish'] = [
-                        'parish_name' => $value->parish_name, 
-                        'parish_id'=> $value->parish_id,
-                        'parish_is_active' => $value->parish_is_active
-                    ];
-                }
-            }
-            
             return response()->json([
                 'token' => [
                     'access_token' => $tokenResult->accessToken,
                     'token_type' => 'Bearer',
                     'expires_at'   => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString()
                 ],
-                'user' => ['infos' => $user, 'profiles' => $profiles, 'types' => $allTypes],
-                'roles' => $user->roles,
-                'permissions' => $user->allPermissions()
+                'user' => ['infos' => $user],
+               
             ]);
         } else {
             $unauthorized = new APIError;
@@ -163,7 +139,6 @@ class AuthController extends Controller
         }
         return response(null, 200);
     }
-
 
 
 
