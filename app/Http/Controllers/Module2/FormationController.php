@@ -80,6 +80,23 @@ class FormationController extends Controller
         return response()->json($formation);
     }
 
+
+   /* public function findFormation($id)
+    {
+        $formation = Formation::select('formations.*')
+                                ->join('general_infos','formations.id','=','general_infos.formation_id')
+                                ->where(['formations.stepper_id' => $id])->first();
+        if (!$formation) {
+
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("FORMATION_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+
+        return response()->json($formation);
+    }*/
+
     /**
      * Update the specified resource in storage.
      *

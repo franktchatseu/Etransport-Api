@@ -41,6 +41,7 @@ Route::group(['prefix' => 'module1'], function () {
 
     Route::group(['prefix' => 'info_entreprise_one'], function () {
         Route::get('/', 'Module1\Info_Entreprise_OneController@index');
+        Route::get('/findAllInfosEnterprise', 'Module1\Info_Entreprise_OneController@findAllInfosEnterprise');
         Route::get('/{id}', 'Module1\Info_Entreprise_OneController@find');
         Route::match(['post', 'put'], '/{id}', 'Module1\Info_Entreprise_OneController@update');
         Route::post('/', 'Module1\Info_Entreprise_OneController@store');
