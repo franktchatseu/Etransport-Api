@@ -19,7 +19,7 @@ class CreateCaracterTechTwosTable extends Migration
             $table->unsignedBigInteger('stepper_id');
             $table->Integer('essieux_tracteur_porteur_number');
             $table->Integer('place_nber');
-            $table->Integer('interne_code');
+            $table->string('interne_code');
             $table->date('effective_date');
             $table->text('fuel');
             $table->String('color');

@@ -18,7 +18,10 @@ class TransportElementController extends Controller
     public function index(Request $request)
     {
         //
-        $transport = TransportElement::simplePaginate($request->has('limit') ? $request ->limit : 15);
+        $transport = TransportElement::orderBy('id', 'desc')->simplePaginate($request->has('limit') ? $request ->limit : 10);
+        foreach ($transport as $dat) {
+            $dat->presentation_file = url($dat->presentation_file);
+        }
         return response()->json($transport);
     }
 
