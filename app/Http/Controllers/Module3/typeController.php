@@ -15,7 +15,7 @@ class typeController extends Controller
      */
     public function index(Request $req)
     {
-        $data = type::orderBy('id','desc')->simplePaginate($req->has('limit') ? $req->limit : 15);
+        $data = type::orderBy('id','desc')->simplePaginate($req->has('limit') ? $req->limit : 5);
         return response()->json($data);
     }
 
