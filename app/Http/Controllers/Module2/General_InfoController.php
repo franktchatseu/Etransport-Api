@@ -25,7 +25,7 @@ class General_InfoController extends Controller
 
     public function allWithName(Request $req)
     {
-        $data = General_Info::Select('general_infos.*','nationalities.name','stepper_drivers.number','stepper_drivers.value','stepper_drivers.status')
+        $data = General_Info::Select('general_infos.*','nationalities.name','stepper_drivers.number','stepper_drivers.value','stepper_drivers.status','nationalities.description')
                               ->join('nationalities','general_infos.nationality_id','=','nationalities.id')
                               ->join('stepper_drivers','general_infos.stepper_id','=','stepper_drivers.id')
                               ->simplePaginate($req->has('limit') ? $req->limit : 15);
