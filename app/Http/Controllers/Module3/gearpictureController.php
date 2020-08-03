@@ -201,7 +201,7 @@ class gearpictureController extends Controller
      */
     public function update(Request $req, $id)
     {
-        $gearpicture = gearpicture::find($id);
+        $gearpicture = gearpicture::where('stepper_id',$id)->first();
         if (!$gearpicture) {
             abort(404, "No gearpicture found with id $id");
         }
@@ -398,7 +398,7 @@ class gearpictureController extends Controller
 
     public function find($id)
     {
-        if (!$gearpicture = gearpicture::find($id)) {
+        if (!$gearpicture = gearpicture::where('stepper_id',$id)->first()) {
             abort(404, "No gearpicture found with id $id");
         }
         return response()->json($gearpicture);

@@ -123,7 +123,7 @@ class caractertechoneController extends Controller
      */
     public function update(Request $req, $id)
     {
-        $caractertechone = caractertechone::find($id);
+        $caractertechone = caractertechone::where('stepper_id',$id)->first();
         if (!$caractertechone) {
             abort(404, "No caractertechone found with id $id");
         }
@@ -183,7 +183,7 @@ class caractertechoneController extends Controller
 
     public function find($id)
     {
-        if (!$caractertechone = caractertechone::find($id)) {
+        if (!$caractertechone = caractertechone::where('stepper_id',$id)->first()) {
             abort(404, "No caractertechone found with id $id");
         }
         return response()->json($caractertechone);
