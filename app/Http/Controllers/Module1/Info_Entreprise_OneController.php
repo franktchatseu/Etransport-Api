@@ -25,6 +25,16 @@ class Info_Entreprise_OneController extends Controller
                                                ->simplePaginate($request->has('limit') ? $request ->limit : 15);
         return response()->json($entrepriseInfo);
     }
+
+    public function findAllInfosEnterpriseById(Request $request,$id)
+    {
+        //
+        $entrepriseInfo = Info_Entreprise_One::select('info_entreprise_ones.*','info_entreprise_twos.*')
+                                               ->join('info_entreprise_twos','info_entreprise_ones.stepper_main_id','=','info_entreprise_twos.stepper_main_id')
+                                               ->where(['info_entreprise_ones.stepper_main_id' => $id])
+                                               ->first();
+        return response()->json($entrepriseInfo);
+    }
     
 
     public function find($id)
