@@ -218,10 +218,9 @@ class General_InfoController extends Controller
             abort(404, "No General_Info found with id $id");
         }
         
-        $data = General_Info::Select('general_infos.*','nationalities.name','stepper_drivers.*')
-                              ->join('nationalities','general_infos.nationality_id','=','nationalities.id')
+        $data = General_Info::Select('general_infos.*','stepper_drivers.*')
                               ->join('stepper_drivers','general_infos.stepper_id','=','stepper_drivers.id')
-                              ->where(['general_infos.id' => $id])
+                              ->where(['general_infos.stepper_id' => $id])
                               ->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($data);
     }
