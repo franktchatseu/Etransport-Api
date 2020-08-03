@@ -16,7 +16,7 @@ class CreateCarosseriesTable extends Migration
         Schema::create('carosseries', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('color');
-            $table->string('description');
+            $table->text('description');
             $table->timestamps();
             $table->softDeletes();
         });
