@@ -17,6 +17,11 @@ class DatabaseSeeder extends Seeder
     Model::unguard();
     Schema::disableForeignKeyConstraints();
 
+     // person
+    $this->call([
+      UserSeeder::class
+      ]);
+
     // module1
     $this->call([
     ]);

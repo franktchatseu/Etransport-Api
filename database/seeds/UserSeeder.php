@@ -10,10 +10,13 @@ class UserSeeder extends Seeder
      *
      * @return void
      */
-    public function run(\Faker\Generator $faker)
+    public function run()
     {
-        factory(User::class, 1)->make()->each(function ($user) use ($faker) {
-            $user->save();
-        });
+        $user = new User();
+        $user->login = 'administrator';
+        $user->password = bcrypt('transport');
+        $user->first_name = 'John';
+        $user->last_name = 'Doe';
+        $user->save();
     }
 }
