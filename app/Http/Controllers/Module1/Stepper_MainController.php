@@ -7,6 +7,10 @@ use App\Models\Module1\Stepper_Main;
 use Illuminate\Http\Request;
 use App\Models\APIError;
 use Carbon\Carbon;
+use App\Models\Module2\General_Info;
+use App\Models\module3\caractertechone;
+
+
 
 
 
@@ -93,5 +97,42 @@ class Stepper_MainController extends Controller
         }
         $stepper->delete();      
         return response()->json();
+    }
+        
+
+    //recuperation de tous les chauffeurs et transporteur d'une entreprise donnee
+    public function getDriversAndCars(Request $req, $id){
+
+        $stepper = Stepper_Main::find($id);
+        if (!$stepper) {
+            $apiError = new APIError;
+            $apiError->setStatus("404");
+            $apiError->setCode("STEPPER_NOT_FOUND");
+            return response()->json($apiError, 404);
+        }
+
+        //recuperation de tous les chauffeurs
+        $drivers = General_Info::Select('general_infos.*','nationalities.name as country','stepper_drivers.*','nationalities.description')
+        ->join('nationalities','general_infos.nationality_id','=','nationalities.id')
+        ->join('stepper_drivers','general_infos.stepper_id','=','stepper_drivers.id')
+        ->join('stepper_mains','stepper_drivers.stepper_main_id','=','stepper_mains.id')
+        ->where('stepper_drivers.stepper_main_id','=',$id)
+        ->simplePaginate($req->has('limit') ? $req->limit : 15);
+        //recuperation des engins de cet entreprise
+        $cars = caractertechone::select('caracter_tech_ones.*','carosseries.color','models.name','marks.name','types.name','models.name as model_name','marks.name as mark_name','types.name as type_name','stepper_trees.*')
+        ->join('carosseries','caracter_tech_ones.carosserie_id','=','carosseries.id')
+        ->join('models','caracter_tech_ones.model_id','=','models.id')
+        ->join('marks','caracter_tech_ones.mark_id','=','marks.id')
+        ->join('types','caracter_tech_ones.type_id','=','types.id')
+        ->join('stepper_trees','caracter_tech_ones.stepper_id','=','stepper_trees.id')
+        ->join('stepper_mains','stepper_trees.stepper_main_id','=','stepper_mains.id')
+        ->where('stepper_trees.stepper_main_id','=',$id)
+        ->simplePaginate($req->has('limit') ? $req->limit : 15);
+
+        return response()->json([
+            
+            'drivers'=>$drivers,
+            'cars'=> $cars
+        ], 200);
     }
 }

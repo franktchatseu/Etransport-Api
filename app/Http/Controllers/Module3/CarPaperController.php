@@ -90,12 +90,10 @@ class CarPaperController extends Controller
         $data = $request->all();
         
         if ( $request->patent_validation ?? null) $carpaper->patent_validation = $data['patent_validation'];
-        if ( $request->stepper_id ?? null) $carpaper->stepper_id = $data['stepper_id'];
         if ( $request->insurance_validation_date ?? null) $carpaper->insurance_validation_date = $data['insurance_validation_date'];
         if ( $request->technical_visit_date ?? null) $carpaper->technical_visit_date = $data['technical_visit_date'];
         
         $carpaper->patent_validation = $data['patent_validation'];
-        $carpaper->stepper_id = $data['stepper_id'];
         $carpaper->insurance_validation_date = $data['insurance_validation_date'];
         $carpaper->technical_visit_date = $data['technical_visit_date'];
         $carpaper->update();

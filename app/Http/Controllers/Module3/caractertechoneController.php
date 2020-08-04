@@ -145,7 +145,6 @@ class caractertechoneController extends Controller
         if ($data['mark_id'] ?? null)$caractertechone->mark_id = $data['mark_id'];
         if ($data['model_id'] ?? null)$caractertechone->model_id = $data['model_id'];
         if ($data['carosserie_id'] ?? null)$caractertechone->carosserie_id = $data['carosserie_id'];
-        if ($data['stepper_id'] ?? null) $caractertechone->stepper_id = $data['stepper_id'];
 
 
         $caractertechone->update();

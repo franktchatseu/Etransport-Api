@@ -17,12 +17,25 @@ class Info_Entreprise_OneController extends Controller
         return response()->json($entrepriseInfo);
     }
 
+    public function getAll(Request $request)
+    {
+        //
+        $entrepriseInfo = Info_Entreprise_One::all();
+        return response()->json($entrepriseInfo);
+    }
+
     public function findAllInfosEnterprise(Request $request)
     {
         //
         $entrepriseInfo = Info_Entreprise_One::select('info_entreprise_ones.*','info_entreprise_twos.*')
                                                ->join('info_entreprise_twos','info_entreprise_ones.stepper_main_id','=','info_entreprise_twos.stepper_main_id')
+                                               ->join('stepper_mains','info_entreprise_ones.stepper_main_id','=','stepper_mains.id')
                                                ->simplePaginate($request->has('limit') ? $request ->limit : 15);
+                
+        //on met la photo du responsable
+        foreach( $entrepriseInfo as $entreprise){
+            $entreprise->manager_picture = url($entreprise->manager_picture);
+        }
         return response()->json($entrepriseInfo);
     }
 
