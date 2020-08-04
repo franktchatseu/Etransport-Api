@@ -1,6 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Module1\Stepper_Main;
+use App\Models\Module2\Stepper_Driver;
+use App\Models\Module3\steppertree;
+use App\Models\Module4\TransportElement;
+
+
 
 use App\Models\Person\User;
 use Illuminate\Http\Request;
@@ -99,5 +105,24 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    //recuperation de tous les donnees utiles
+    public function getDonneeUtile(){
+
+        //recuperation de du nombre total
+        $count_transporters =  Stepper_Main::select(Stepper_Main::raw('count(*) as total_transporteur'))->first();
+        $count_drivers =  Stepper_Driver::select(Stepper_Driver::raw('count(*) as tatal_chauffeur'))->first();
+        $count_cars =  steppertree::select(steppertree::raw('count(*) as total_engin'))->first();
+        $count_element =  TransportElement::select(TransportElement::raw('count(*) as total_element'))->first();
+
+        return response()->json([
+
+            "total_transporteur" => $count_transporters,
+            "total_chauffeur" => $count_drivers,
+            "total_engin" => $count_cars,
+            "total_element" => $count_element,
+
+        ]);
     }
 }
