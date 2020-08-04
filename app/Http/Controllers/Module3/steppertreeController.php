@@ -96,7 +96,7 @@ class steppertreeController extends Controller
     public function destroy($number)
     {
         //
-        $stepper = steppertree::whereNumber($number)->first();
+        $stepper = steppertree::find($number);
         if (!$stepper) {
             $apiError = new APIError;
             $apiError->setStatus("404");

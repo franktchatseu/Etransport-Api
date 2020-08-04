@@ -98,6 +98,7 @@ class Info_Entreprise_OneController extends Controller
          if(isset($request->manager_picture)){
              $file = $request->file('manager_picture'); 
              if($file != null){
+                $request->validate(['manager_picture' => 'image|max:20000']);
                  $extension = $file->getClientOriginalExtension();
                  $relativeDestination = "uploads/EntrepriseInfo";
                  $destinationPath = public_path($relativeDestination);
@@ -145,6 +146,7 @@ class Info_Entreprise_OneController extends Controller
            if(isset($request->manager_picture)){
                $file = $request->file('manager_picture'); 
                if($file != null){
+                $request->validate(['manager_picture' => 'image|max:20000']);
                    $extension = $file->getClientOriginalExtension();
                    $relativeDestination = "uploads/EntrepriseInfo";
                    $destinationPath = public_path($relativeDestination);

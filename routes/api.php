@@ -23,11 +23,15 @@ Route::group(['prefix' => 'auth'], function () {
 
     //Route::group(['middleware' => 'auth:api'], function () {
         Route::get('user', 'AuthController@user');
-        Route::delete('token', 'AuthController@logout');
+        Route::delete('token', 'AuthController@logout');      
     //});
 });
 
+Route::group(['prefix' => 'tableau_bord'], function () {
 
+    Route::get('dashboard', 'UserController@getDonneeUtile');     
+    //});
+});
 // Module1 module : 'middleware' => 'auth:api',
 Route::group(['prefix' => 'module1'], function () {
 
