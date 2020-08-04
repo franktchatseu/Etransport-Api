@@ -20,9 +20,10 @@ class Info_Entreprise_OneController extends Controller
     public function findAllInfosEnterprise(Request $request)
     {
         //
-        $entrepriseInfo = Info_Entreprise_One::select('info_entreprise_ones.*','info_entreprise_twos.*')
+        $entrepriseInfo = Info_Entreprise_One::select('info_entreprise_ones.*','info_entreprise_twos.*','stepper_mains.*','info_entreprise_twos.id as info2_id','stepper_mains.id as step_id','info_entreprise_ones.id as info1_id')
                                                ->join('info_entreprise_twos','info_entreprise_ones.stepper_main_id','=','info_entreprise_twos.stepper_main_id')
-                                               ->simplePaginate($request->has('limit') ? $request ->limit : 15);
+                                               ->join('stepper_mains','info_entreprise_ones.stepper_main_id','=','stepper_mains.id')
+                                               ->simplePaginate($request->has('limit') ? $request ->limit : 10);
         return response()->json($entrepriseInfo);
     }
 

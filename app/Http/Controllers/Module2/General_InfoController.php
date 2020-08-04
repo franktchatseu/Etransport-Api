@@ -213,16 +213,15 @@ class General_InfoController extends Controller
     }
 
     public function finds($id, Request $req)
-    {
-        if (!$General_Info = General_Info::find($id)) {
-            abort(404, "No General_Info found with id $id");
-        }
-        
-        $data = General_Info::Select('general_infos.*','nationalities.name','stepper_drivers.*')
+    {  if (!$General_Info = General_Info::where('stepper_id',$id)->first()) {
+        abort(404, "No General_Info found with id $id");
+    }
+       
+        $data = General_Info::Select('general_infos.*','stepper_drivers.*','nationalities.*')
                               ->join('nationalities','general_infos.nationality_id','=','nationalities.id')
                               ->join('stepper_drivers','general_infos.stepper_id','=','stepper_drivers.id')
-                              ->where(['general_infos.id' => $id])
-                              ->simplePaginate($req->has('limit') ? $req->limit : 15);
+                              ->where(['general_infos.stepper_id' => $id])
+                              ->first();
         return response()->json($data);
     }
 }

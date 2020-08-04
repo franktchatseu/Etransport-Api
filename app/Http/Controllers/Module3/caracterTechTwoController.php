@@ -88,6 +88,7 @@ class caracterTechTwoController extends Controller
         return response()->json($data);
     }
 
+
     /**
      * Bill the specified resource.
      *

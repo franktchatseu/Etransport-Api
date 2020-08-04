@@ -169,8 +169,7 @@ class caractertechoneController extends Controller
         return response()->json();
     }
 
-    public function search(Request $req)
-    {
+    public function search(Request $req)    {
         $this->validate($req->all(), [
             'q' => 'present',
             'field' => 'present'
@@ -192,13 +191,18 @@ class caractertechoneController extends Controller
 
     public function findAllCaracterById(Request $req , $id)
     {
-        $data = caractertechone::select('caracter_tech_ones.*','carosseries.color','models.name','marks.name','types.name','models.name as model_name','marks.name as mark_name','types.name as type_name')
-                                 ->join('carosseries','caracter_tech_ones.carosserie_id','=','carosseries.id')
-                                 ->join('models','caracter_tech_ones.model_id','=','models.id')
-                                 ->join('marks','caracter_tech_ones.mark_id','=','marks.id')
-                                 ->join('types','caracter_tech_ones.type_id','=','types.id')
-                                 ->where(['caracter_tech_ones.id' => $id])
-                                 ->simplePaginate($req->has('limit') ? $req->limit : 15);
+        if (!$General_Info = caractertechone::where('stepper_id',$id)->first()) {
+            abort(404, "No caractertechone found with id $id");
+        }
+
+        $data = caractertechone::select('caracter_tech_ones.*','carosseries.*','models.*','marks.*','types.*','models.name as model_name','marks.name as mark_name','types.name as type_name',
+                                 'models.description as model_description','marks.description as mark_description','carosseries.description as carosserie_description','types.description as type_description')
+                                ->join('carosseries','caracter_tech_ones.carosserie_id','=','carosseries.id')
+                                ->join('models','caracter_tech_ones.model_id','=','models.id')
+                                ->join('marks','caracter_tech_ones.mark_id','=','marks.id')
+                                ->join('types','caracter_tech_ones.type_id','=','types.id')
+                                 ->where(['caracter_tech_ones.stepper_id' => $id])
+                                 ->first();
         return response()->json($data);
     }
 
