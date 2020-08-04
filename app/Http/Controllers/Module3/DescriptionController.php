@@ -82,7 +82,7 @@ class DescriptionController extends Controller
      */
     public function find($id)
     {
-        $description = Description::find($id);
+        $description = Description::where('stepper_id',$id)->first();
         if (!$description) {
 
             $apiError = new APIError;

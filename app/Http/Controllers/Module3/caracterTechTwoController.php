@@ -88,6 +88,7 @@ class caracterTechTwoController extends Controller
         return response()->json($data);
     }
 
+
     /**
      * Bill the specified resource.
      *
@@ -96,7 +97,7 @@ class caracterTechTwoController extends Controller
      */
     public function find($id)
     {
-        $taractertechtwo = CaracterTechTwo::find($id);
+        $taractertechtwo = CaracterTechTwo::where('stepper_id',$id)->first();
         if (!$taractertechtwo) {
 
             $apiError = new APIError;
