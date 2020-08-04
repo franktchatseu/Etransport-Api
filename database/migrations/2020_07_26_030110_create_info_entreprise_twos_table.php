@@ -28,7 +28,7 @@ class CreateInfoEntrepriseTwosTable extends Migration
             $table->text('opening_hours'); 
             $table->text('enterprise_partner');
             $table->unsignedBigInteger('stepper_main_id');
-            $table->foreign('stepper_main_id')->references('id')->on('stepper_mains');
+            $table->foreign('stepper_main_id')->references('id')->on('stepper_mains')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

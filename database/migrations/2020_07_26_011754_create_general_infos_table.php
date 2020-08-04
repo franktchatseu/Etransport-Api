@@ -29,8 +29,8 @@ class CreateGeneralInfosTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('stepper_id')->references('id')->on('stepper_drivers');
-            $table->foreign('nationality_id')->references('id')->on('nationalities');
+            $table->foreign('stepper_id')->references('id')->on('stepper_drivers')->onDelete('cascade');
+            $table->foreign('nationality_id')->references('id')->on('nationalities')->onDelete('cascade')->onUpdate('cascade');;
 
         });
     }

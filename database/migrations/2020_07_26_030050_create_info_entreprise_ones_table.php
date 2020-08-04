@@ -26,7 +26,7 @@ class CreateInfoEntrepriseOnesTable extends Migration
             $table->string('manager_phone');
             $table->string('manager_picture');
             $table->unsignedBigInteger('stepper_main_id');
-            $table->foreign('stepper_main_id')->references('id')->on('stepper_mains');
+            $table->foreign('stepper_main_id')->references('id')->on('stepper_mains')->onDelete('cascade');
             $table->timestamps();
         });
     }

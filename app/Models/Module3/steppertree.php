@@ -7,6 +7,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class steppertree extends Model
 {
-    use SoftDeletes;
     protected $table = 'stepper_trees';
 }
