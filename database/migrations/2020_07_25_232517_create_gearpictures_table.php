@@ -25,7 +25,7 @@ class CreateGearpicturesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('stepper_id')->references('id')->on('stepper_trees');
+            $table->foreign('stepper_id')->references('id')->on('stepper_trees')->onDelete('cascade');
 
         });
     }

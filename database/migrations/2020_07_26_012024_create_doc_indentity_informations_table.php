@@ -23,7 +23,7 @@ class CreateDocIndentityInformationsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             
-            $table->foreign('stepper_id')->references('id')->on('stepper_drivers');
+            $table->foreign('stepper_id')->references('id')->on('stepper_drivers')->onDelete('cascade');
         });
     }
 

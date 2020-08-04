@@ -34,11 +34,11 @@ class CreateCaractertechonesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('stepper_id')->references('id')->on('stepper_trees');
-            $table->foreign('type_id')->references('id')->on('types');
-            $table->foreign('model_id')->references('id')->on('models');
-            $table->foreign('mark_id')->references('id')->on('marks');
-            $table->foreign('carosserie_id')->references('id')->on('carosseries');
+            $table->foreign('stepper_id')->references('id')->on('stepper_trees')->onDelete('cascade');
+            $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('model_id')->references('id')->on('models')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('mark_id')->references('id')->on('marks')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('carosserie_id')->references('id')->on('carosseries')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
