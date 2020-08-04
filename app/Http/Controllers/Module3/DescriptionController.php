@@ -116,7 +116,6 @@ class DescriptionController extends Controller
         $data = $request->all();
         
         if ( $data['required_workday'] ?? null) $description->required_workday = $data['required_workday'];
-        if ( $data['stepper_id'] ?? null) $description->stepper_id = $data['stepper_id'];
         if ( $data['time_required'] ?? null) $description->time_required = $data['time_required'];
         if ( $data['equipment'] ?? null) $description->equipment = $data['equipment'];
         if ( $data['usage'] ?? null) $description->usage = $data['usage'];
@@ -127,7 +126,6 @@ class DescriptionController extends Controller
         $description->time_required = $data['time_required'];
         $description->equipment = $data['equipment'];
         $description->usage = $data['usage'];
-        $description->stepper_id = $data['stepper_id'];
         $description->usual_location = $data['usual_location'];
         $description->observation = $data['observation'];
 

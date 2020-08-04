@@ -37,10 +37,13 @@ Route::group(['prefix' => 'module1'], function () {
         Route::match(['post', 'put'], '/{number}', 'Module1\Stepper_MainController@update');
         Route::post('/', 'Module1\Stepper_MainController@store');
         Route::delete('/{number}', 'Module1\Stepper_MainController@destroy');
+        Route::get('/{id}/driversandcars', 'Module1\Stepper_MainController@getDriversAndCars');
     });
 
     Route::group(['prefix' => 'info_entreprise_one'], function () {
         Route::get('/', 'Module1\Info_Entreprise_OneController@index');
+        Route::get('/all', 'Module1\Info_Entreprise_OneController@getAll');
+
         Route::get('/findAllInfosEnterpriseById/{id}', 'Module1\Info_Entreprise_OneController@findAllInfosEnterpriseById');
         Route::get('/findAllInfosEnterprise', 'Module1\Info_Entreprise_OneController@findAllInfosEnterprise');
         Route::get('/{id}', 'Module1\Info_Entreprise_OneController@find');

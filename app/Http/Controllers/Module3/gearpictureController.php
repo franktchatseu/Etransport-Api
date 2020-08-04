@@ -359,7 +359,6 @@ class gearpictureController extends Controller
         if ($data['right_side_gear'] ?? null ) $gearpicture->right_side_gear = $data['right_side_gear'];
         if ($data['insurance_patente'] ?? null ) $gearpicture->insurance_patente = $data['insurance_patente'];
         if ($data['grey_card'] ?? null ) $gearpicture->grey_card = $data['grey_card'];
-        if ($data['stepper_id'] ?? null ) $gearpicture->stepper_id = $data['stepper_id'];
 
         $gearpicture->update();
 

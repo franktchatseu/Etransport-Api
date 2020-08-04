@@ -131,7 +131,6 @@ class caracterTechTwoController extends Controller
         $data = $request->all();
 
         if ( $request->semi_trailer_number) $caracter->semi_trailer_number = $data['semi_trailer_number'];
-        if ( $request->stepper_id) $caracter->stepper_id = $data['stepper_id'];
         if ( $request->essieux_tracteur_porteur_number) $caracter->essieux_tracteur_porteur_number = $data['essieux_tracteur_porteur_number'];
         if ( $request->place_nber) $caracter->place_nber = $data['place_nber'];
         if ( $request->interne_code) $caracter->interne_code = $data['interne_code'];
