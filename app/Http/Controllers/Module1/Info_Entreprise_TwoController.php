@@ -15,7 +15,7 @@ class Info_Entreprise_TwoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $requests)
+    public function index(Request $request)
     {
         
         $entrepriseInfo = Info_Entreprise_Two::simplePaginate($request->has('limit') ? $request ->limit : 15);
