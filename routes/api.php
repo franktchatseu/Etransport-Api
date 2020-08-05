@@ -61,6 +61,8 @@ Route::group(['prefix' => 'module1'], function () {
         Route::match(['post', 'put'], '/{id}', 'Module1\Info_Entreprise_TwoController@update');
         Route::post('/', 'Module1\Info_Entreprise_TwoController@store');
         Route::delete('/{id}', 'Module1\Info_Entreprise_TwoController@destroy');
+        Route::post('/mail','Module1\Info_Entreprise_TwoController@sendMail');
+
     });
     Route::group(['prefix' => 'personalcomputingspecial'], function () {
         Route::get('/', 'Module1\PersonalComputingSpecialController@index');
@@ -122,6 +124,7 @@ Route::group(['prefix' => 'module2'], function () {
         Route::post('/', 'Module2\General_InfoController@store');
         Route::delete('/{id}', 'Module2\General_InfoController@destroy');
         Route::get('/search', 'Module2\General_InfoController@search');
+        Route::post('/mail','Module2\General_InfoController@sendMail');
 
     });
 

@@ -1,7 +1,6 @@
 <div style="color: blue;"><h1><b>E-Transport</b></h1>  </div>
- Bonjour Mr/Mme/Mlle <i>Hi, {{ $name }} </i>
- <i> {{ $object }} </i>
-
+ <i> {{ $subject }} </i>
+ 
 <div style="size: 15;"> 
   <b>&nbsp;{{$sms}} </b>
 </div>

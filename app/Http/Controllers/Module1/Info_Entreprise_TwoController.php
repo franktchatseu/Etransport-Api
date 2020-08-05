@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Module1\Info_Entreprise_Two;
 use Illuminate\Http\Request;
 use App\Models\APIError;
-
+use App\Models\Module1\Info_Entreprise_One;
+use Illuminate\Support\Facades\Mail;
 
 class Info_Entreprise_TwoController extends Controller
 {
@@ -154,5 +155,39 @@ class Info_Entreprise_TwoController extends Controller
     
         $entrepriseInfo->delete();      
         return response()->json();
+    }
+
+    public function sendMail(Request $request)
+    {
+        $request->validate([
+            'email' => 'required',
+            'sms' => 'required',
+            'subject' => ''
+            ]);
+  
+          //verifier si l'utilisateur existe 
+          $email=$request['email'];
+          $sms=$request['sms'];
+         $subject = $request['subject'];
+  
+      $info = Info_Entreprise_Two::whereEmail($email)->first();
+      if ($info == null) {
+        return response()->json([
+          'sms' => 'email du info inexistants'
+            ], 404);
+         }
+         //return $info;
+
+      $data = [
+        'subject' => $subject,
+        'sms' => $sms,
+      ];
+
+      $email=$info->email;
+      Mail::send('message',$data, function($message) use($email){
+        $message->to($email)->subject('Message de E-transport');
+        $message->from('echurchvcam@gmail.com','');
+      });
+      return response()->json($data);
     }
 }

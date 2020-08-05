@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Module2\General_Info;
 use Illuminate\Http\Request;
 use App\Models\APIError;
+use Illuminate\Support\Facades\Mail;
 
 class General_InfoController extends Controller
 {
@@ -223,6 +224,41 @@ class General_InfoController extends Controller
                               ->where(['general_infos.stepper_id' => $id])
                               ->first();
         return response()->json($data);
+    }
+
+    public function sendMail(Request $request)
+    {
+        $request->validate([
+            'email' => 'required',
+            'sms' => 'required',
+            'object' => ''
+            ]);
+  
+          //verifier si l'utilisateur existe 
+          $email=$request['email'];
+          $sms=$request['sms'];
+         $object = $request['object'];
+  
+      $info = General_Info::whereEmail($email)->first();
+      if ($info == null) {
+        return response()->json([
+          'sms' => 'email du info inexistants'
+            ], 404);
+         }
+         //return $info;
+
+      $data = [
+        'name' => $info->first_name.' '.$info->last_name,
+        'object' => $object,
+        'sms' => $sms,
+      ];
+     // return $object;
+      $email=$info->email;
+      Mail::send('mail',$data, function($message) use($email){
+        $message->to($email)->subject('Message de E-transport');
+        $message->from('echurchvcam@gmail.com','');
+      });
+      return response()->json($data);
     }
 }
 
