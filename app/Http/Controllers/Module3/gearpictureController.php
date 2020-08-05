@@ -400,6 +400,14 @@ class gearpictureController extends Controller
         if (!$gearpicture = gearpicture::where('stepper_id',$id)->first()) {
             abort(404, "No gearpicture found with id $id");
         }
+
+        $gearpicture->fore_gear = url($gearpicture->fore_gear);
+        $gearpicture->rear_gear = url($gearpicture->rear_gear);
+        $gearpicture->left_side_gear = url($gearpicture->left_side_gear);
+        $gearpicture->right_side_gear = url($gearpicture->right_side_gear);
+        $gearpicture->insurance_patente = url($gearpicture->insurance_patente);
+        $gearpicture->grey_card = url($gearpicture->grey_card);
+
         return response()->json($gearpicture);
     }
 }
