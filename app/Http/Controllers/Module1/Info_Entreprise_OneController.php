@@ -46,6 +46,10 @@ class Info_Entreprise_OneController extends Controller
                                                ->join('info_entreprise_twos','info_entreprise_ones.stepper_main_id','=','info_entreprise_twos.stepper_main_id')
                                                ->where(['info_entreprise_ones.stepper_main_id' => $id])
                                                ->first();
+
+                                               $entrepriseInfo->manager_picture = url($entrepriseInfo->manager_picture);
+                                               $entrepriseInfo->image = url($entrepriseInfo->image);
+
         return response()->json($entrepriseInfo);
     }
     

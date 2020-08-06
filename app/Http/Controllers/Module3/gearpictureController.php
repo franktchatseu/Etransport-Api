@@ -221,7 +221,7 @@ class gearpictureController extends Controller
                 $destinationPath = public_path($relativeDestination);
                 $safeName = "fore_gear" . time() . '.' . $extension;
                 $file->move($destinationPath, $safeName);
-                $path = url("$relativeDestination/$safeName");
+                $path = ("$relativeDestination/$safeName");
                 if ($gearpicture->fore_gear) {
                     $oldImagePath = public_path($gearpicture->fore_gear);
                     if (file_exists($oldImagePath)) {
@@ -245,7 +245,7 @@ class gearpictureController extends Controller
                 $destinationPath = public_path($relativeDestination);
                 $safeName = "rear_gear" . time() . '.' . $extension;
                 $file->move($destinationPath, $safeName);
-                $path = url("$relativeDestination/$safeName");
+                $path = ("$relativeDestination/$safeName");
                 if ($gearpicture->rear_gear) {
                     $oldImagePath = public_path($gearpicture->rear_gear);
                     if (file_exists($oldImagePath)) {
@@ -269,7 +269,7 @@ class gearpictureController extends Controller
                 $destinationPath = public_path($relativeDestination);
                 $safeName = "left_side_gear" . time() . '.' . $extension;
                 $file->move($destinationPath, $safeName);
-                $path = url("$relativeDestination/$safeName");
+                $path = ("$relativeDestination/$safeName");
                 if ($gearpicture->left_side_gear) {
                     $oldImagePath = public_path($gearpicture->left_side_gear);
                     if (file_exists($oldImagePath)) {
