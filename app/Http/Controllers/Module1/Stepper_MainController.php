@@ -135,4 +135,19 @@ class Stepper_MainController extends Controller
             'cars'=> $cars
         ], 200);
     }
+     //recuperation de tous les vehicule suivants etat pour un transporteur donnee
+     function getCarsByEtat(Request $req,$id, $etat){
+              //recuperation des engins de cet entreprise
+        $cars = caractertechone::select('caracter_tech_ones.*','caracter_tech_twos.etat','carosseries.color','models.name','marks.name','types.name','models.name as model_name','marks.name as mark_name','types.name as type_name','stepper_trees.*')
+        ->join('caracter_tech_twos','caracter_tech_twos.stepper_id','=','caracter_tech_ones.stepper_id')
+        ->join('carosseries','caracter_tech_ones.carosserie_id','=','carosseries.id')
+        ->join('models','caracter_tech_ones.model_id','=','models.id')
+        ->join('marks','caracter_tech_ones.mark_id','=','marks.id')
+        ->join('types','caracter_tech_ones.type_id','=','types.id')
+        ->join('stepper_trees','caracter_tech_ones.stepper_id','=','stepper_trees.id')
+        ->join('stepper_mains','stepper_trees.stepper_main_id','=','stepper_mains.id')
+        ->where('caracter_tech_twos.etat','=',$etat)
+        ->simplePaginate($req->has('limit') ? $req->limit : 15);
+        return response()->json($cars);
+     }
 }

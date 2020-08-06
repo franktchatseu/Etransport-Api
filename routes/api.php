@@ -42,6 +42,8 @@ Route::group(['prefix' => 'module1'], function () {
         Route::post('/', 'Module1\Stepper_MainController@store');
         Route::delete('/{number}', 'Module1\Stepper_MainController@destroy');
         Route::get('/{id}/driversandcars', 'Module1\Stepper_MainController@getDriversAndCars');
+        Route::get('/{id}/cars/{etat}', 'Module1\Stepper_MainController@getCarsByEtat');
+
     });
 
     Route::group(['prefix' => 'info_entreprise_one'], function () {

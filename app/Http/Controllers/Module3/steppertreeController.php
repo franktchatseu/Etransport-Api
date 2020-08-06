@@ -106,4 +106,6 @@ class steppertreeController extends Controller
         $stepper->delete();      
         return response()->json();
     }
+
+   
 }

@@ -111,9 +111,13 @@ class UserController extends Controller
     public function getDonneeUtile(){
 
         //recuperation de du nombre total
-        $count_transporters =  Stepper_Main::select(Stepper_Main::raw('count(*) as total_transporteur'))->first();
-        $count_drivers =  Stepper_Driver::select(Stepper_Driver::raw('count(*) as tatal_chauffeur'))->first();
-        $count_cars =  steppertree::select(steppertree::raw('count(*) as total_engin'))->first();
+        $count_transporters =  Stepper_Main::select(Stepper_Main::raw('count(*) as total_transporteur'))
+        ->join('info_entreprise_ones','info_entreprise_ones.stepper_main_id','=','stepper_mains.id')->first();
+        $count_drivers =  Stepper_Driver::select(Stepper_Driver::raw('count(*) as tatal_chauffeur'))
+        ->join('general_infos','general_infos.stepper_id','=','stepper_drivers.id')->first();
+        $count_cars =  steppertree::select(steppertree::raw('count(*) as total_engin'))
+        ->join('caracter_tech_ones','caracter_tech_ones.stepper_id','=','stepper_trees.id')
+        ->first();
         $count_element =  TransportElement::select(TransportElement::raw('count(*) as total_element'))->first();
 
         return response()->json([
