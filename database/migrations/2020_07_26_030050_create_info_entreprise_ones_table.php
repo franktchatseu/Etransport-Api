@@ -16,8 +16,8 @@ class CreateInfoEntrepriseOnesTable extends Migration
         Schema::create('info_entreprise_ones', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->integer('taxpayer_number');
-            $table->integer('rccm_number');
+            $table->string('taxpayer_number');
+            $table->string('rccm_number');
             $table->string('billing_address');
             $table->integer('gear_number');
             $table->integer('driver_number');

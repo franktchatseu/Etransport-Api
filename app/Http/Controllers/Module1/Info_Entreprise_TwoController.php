@@ -74,13 +74,14 @@ class Info_Entreprise_TwoController extends Controller
         //recuperation de la photo du responsable
          //upload image
          $path = "";
-         if(isset($request->image)){
-             $file = $request->file('image'); 
-             if($file != null){
+         if (isset($request->image)) {
+             $file = $request->file('image');
+             if ($file != null) {
+                 $request->validate(['image' => 'image|max:20000']);
                  $extension = $file->getClientOriginalExtension();
-                 $relativeDestination = "uploads/entrepriseInfoTwo";
+                 $relativeDestination = "uploads/EntrepriseInfo";
                  $destinationPath = public_path($relativeDestination);
-                 $safeName = "ImageInfoTwo".time().'.'.$extension;
+                 $safeName = "image" . time() . '.' . $extension;
                  $file->move($destinationPath, $safeName);
                  $path = "$relativeDestination/$safeName";
              }
@@ -118,19 +119,21 @@ class Info_Entreprise_TwoController extends Controller
         if ( $data['enterprise_partner']) $entrepriseInfoTwo->enterprise_partner = $data['enterprise_partner'];
            //upload image
            $path = "";
-           if(isset($request->image)){
-               $file = $request->file('image'); 
-               if($file != null){
-                   $extension = $file->getClientOriginalExtension();
-                   $relativeDestination = "uploads/entrepriseInfoTwo";
-                   $destinationPath = public_path($relativeDestination);
-                   $safeName = "Image".time().'.'.$extension;
-                   $file->move($destinationPath, $safeName);
-                   $path = "$relativeDestination/$safeName";
-               }
-           }
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            if ($file != null) {
+                $request->validate(['image' => 'image|max:20000']);
+                $extension = $file->getClientOriginalExtension();
+                $relativeDestination = "uploads/EntrepriseInfo";
+                $destinationPath = public_path($relativeDestination);
+                $safeName = "image" . time() . '.' . $extension;
+                $file->move($destinationPath, $safeName);
+                $path = "$relativeDestination/$safeName";
+            }
+            if ($data['image'] ?? null) $entrepriseInfoTwo->image = $path;
+        }
+
         
-        $entrepriseInfoTwo->image = $path;
         $entrepriseInfoTwo->update();
 
         return response()->json($entrepriseInfoTwo);
