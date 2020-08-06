@@ -27,6 +27,7 @@ class caractertechoneController extends Controller
                                  ->join('marks','caracter_tech_ones.mark_id','=','marks.id')
                                  ->join('types','caracter_tech_ones.type_id','=','types.id')
                                  ->join('stepper_trees','caracter_tech_ones.stepper_id','=','stepper_trees.id')
+                                 ->orderBy('stepper_id', 'desc')
                                  ->simplePaginate($req->has('limit') ? $req->limit : 15);
         return response()->json($data);
     }
