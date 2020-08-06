@@ -15,7 +15,7 @@ class CreateCaracterTechTwosTable extends Migration
     {
         Schema::create('caracter_tech_twos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->Integer('semi_trailer_number');
+            $table->string('semi_trailer_number');
             $table->unsignedBigInteger('stepper_id');
             $table->Integer('essieux_tracteur_porteur_number');
             $table->Integer('place_nber');
