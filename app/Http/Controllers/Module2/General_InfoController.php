@@ -20,7 +20,7 @@ class General_InfoController extends Controller
         $data = General_Info::Select('general_infos.*','nationalities.name','stepper_drivers.*')
         ->join('nationalities','general_infos.nationality_id','=','nationalities.id')
         ->join('stepper_drivers','general_infos.stepper_id','=','stepper_drivers.id')
-        ->simplePaginate($req->has('limit') ? $req->limit : 15);
+        ->simplePaginate($req->has('limit') ? $req->limit : 10);
     return response()->json($data);
     }
 
@@ -30,7 +30,7 @@ class General_InfoController extends Controller
                               ->join('nationalities','general_infos.nationality_id','=','nationalities.id')
                               ->join('stepper_drivers','general_infos.stepper_id','=','stepper_drivers.id')
                               ->orderBy('stepper_id', 'desc')
-                              ->simplePaginate($req->has('limit') ? $req->limit : 15);
+                              ->simplePaginate($req->has('limit') ? $req->limit : 10);
         return response()->json($data);
     }
 

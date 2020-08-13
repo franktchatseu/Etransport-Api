@@ -18,7 +18,7 @@ class caracterTechTwoController extends Controller
     public function index(Request $req)
     {
         //
-        $data = CaracterTechTwo::simplePaginate($req->has('limit') ? $req->limit : 15);
+        $data = CaracterTechTwo::simplePaginate($req->has('limit') ? $req->limit : 10);
         return response()->json($data);
     }
 

@@ -17,7 +17,7 @@ class Doc_Indentity_InformationController extends Controller
     public function index(Request $request)
     {
         //
-        $doc = Doc_Indentity_Information::simplePaginate($request->has('limit') ? $request ->limit : 15);
+        $doc = Doc_Indentity_Information::simplePaginate($request->has('limit') ? $request ->limit : 10);
         return response()->json($doc);
     }
 

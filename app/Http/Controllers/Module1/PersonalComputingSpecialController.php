@@ -17,7 +17,7 @@ class PersonalComputingSpecialController extends Controller
     public function index(Request $req)
     {
         //
-        $data = PersonalComputingSpecial::simplePaginate($req->has('limit') ? $req->limit : 15);
+        $data = PersonalComputingSpecial::simplePaginate($req->has('limit') ? $req->limit : 10);
         return response()->json($data);
     }
 

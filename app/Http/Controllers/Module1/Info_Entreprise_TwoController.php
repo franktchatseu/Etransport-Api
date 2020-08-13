@@ -19,7 +19,7 @@ class Info_Entreprise_TwoController extends Controller
     public function index(Request $request)
     {
         
-        $entrepriseInfo = Info_Entreprise_Two::simplePaginate($request->has('limit') ? $request ->limit : 15);
+        $entrepriseInfo = Info_Entreprise_Two::simplePaginate($request->has('limit') ? $request ->limit : 10);
         return response()->json($entrepriseInfo);
     }
 

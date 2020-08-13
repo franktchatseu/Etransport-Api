@@ -15,7 +15,7 @@ class gearpictureController extends Controller
      */
     public function index(Request $req)
     {
-        $data = gearpicture::orderBy('id', 'desc')->simplePaginate($req->has('limit') ? $req->limit : 15);
+        $data = gearpicture::orderBy('id', 'desc')->simplePaginate($req->has('limit') ? $req->limit : 10);
         return response()->json($data);
     }
 

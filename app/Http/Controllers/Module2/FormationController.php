@@ -17,7 +17,7 @@ class FormationController extends Controller
     public function index(Request $request)
     {
         //
-        $data = Formation::simplePaginate($request->has('limit') ? $request->limit : 15);
+        $data = Formation::simplePaginate($request->has('limit') ? $request->limit : 10);
         return response()->json($data);
     }
 

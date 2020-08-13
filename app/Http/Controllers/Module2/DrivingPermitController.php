@@ -17,7 +17,7 @@ class DrivingPermitController extends Controller
     public function index(Request $req)
     {
         //
-        $data = DrivingPermit::simplePaginate($req->has('limit') ? $req->limit : 15);
+        $data = DrivingPermit::simplePaginate($req->has('limit') ? $req->limit : 10);
         return response()->json($data);
     }
 

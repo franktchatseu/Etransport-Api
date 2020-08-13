@@ -18,7 +18,7 @@ class CarPaperController extends Controller
     public function index(Request $req)
     {
         //
-        $data = CarPaper::simplePaginate($req->has('limit') ? $req->limit : 15);
+        $data = CarPaper::simplePaginate($req->has('limit') ? $req->limit : 10);
         return response()->json($data);
     }
 

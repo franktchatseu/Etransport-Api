@@ -17,7 +17,7 @@ class ActorTypeController extends Controller
     public function index(Request $request)
     {
         //
-        $actortype = ActorType::simplePaginate($request->has('limit') ? $request ->limit : 15);
+        $actortype = ActorType::simplePaginate($request->has('limit') ? $request ->limit : 10);
         return response()->json($actortype);
     }
 
