@@ -257,3 +257,11 @@ Route::group(['prefix' => 'module4'], function () {
     });
 
 });
+
+
+
+
+Route::resource('moduleparc/insurance', 'ModuleParc\\InsuranceController', ['except' => ['create', 'edit']]);
+Route::resource('moduleparc/technical-tour', 'ModuleParc\\TechnicalTourController', ['except' => ['create', 'edit']]);
+Route::resource('moduleparc/taxe', 'ModuleParc\\TaxeController', ['except' => ['create', 'edit']]);
+Route::resource('module2/affectation', 'Module2\\AffectationController', ['except' => ['create', 'edit']]);

@@ -1,0 +1,6 @@
+validity date
+end of validity
+bonus
+Policy number
+insurer
+vehicle
