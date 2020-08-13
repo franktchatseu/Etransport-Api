@@ -18,7 +18,7 @@ class CreateCargosTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->integer('mission_order_id')->unsigned();
-            $table->integer('transport_element_id')->unsigned();
+            $table->BigInteger('transport_element_id')->unsigned();
             $table->string('loading_city')->nullable();
             $table->string('product')->nullable();
             $table->string('quantity')->nullable();
