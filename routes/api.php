@@ -265,3 +265,9 @@ Route::resource('moduleparc/insurance', 'ModuleParc\\InsuranceController', ['exc
 Route::resource('moduleparc/technical-tour', 'ModuleParc\\TechnicalTourController', ['except' => ['create', 'edit']]);
 Route::resource('moduleparc/taxe', 'ModuleParc\\TaxeController', ['except' => ['create', 'edit']]);
 Route::resource('module2/affectation', 'Module2\\AffectationController', ['except' => ['create', 'edit']]);
+Route::resource('moduleparc/mission-order', 'ModuleParc\\MissionOrderController', ['except' => ['create', 'edit']]);
+Route::resource('moduleparc/cargo', 'ModuleParc\\CargoController', ['except' => ['create', 'edit']]);
+Route::resource('modulemaintenance/range-action', 'ModuleMaintenance\\RangeActionController', ['except' => ['create', 'edit']]);
+
+Route::resource('modulemaintenance/file-intervention', 'ModuleMaintenance\\FileInterventionController', ['except' => ['create', 'edit']]);
+Route::resource('modulemaintenance/intervention', 'ModuleMaintenance\\InterventionController', ['except' => ['create', 'edit']]);

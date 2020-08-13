@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Module2;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
-
 use App\Models\Module2\Affectation;
 use Illuminate\Http\Request;
 
