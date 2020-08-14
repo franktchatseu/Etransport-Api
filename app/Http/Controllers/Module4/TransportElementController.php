@@ -144,4 +144,24 @@ class TransportElementController extends Controller
             $transport->delete();      
             return response()->json();
     }
+    
+    public function getAssurers(){
+        $data = TransportElement::select('transport_elements.*',
+                                         'actor_types.*','actor_types.name as actor_name')
+                                         ->join('actor_types','transport_elements.type_id','=','actor_types.id')
+                                         ->where('actor_types.name','!=','client')
+                                         ->orderBy('transport_elements.id', 'desc')
+                                         ->get();
+        return response()->json($data);
+    }
+
+    public function getClients(){
+        $data = TransportElement::select('transport_elements.*',
+                                         'actor_types.*','actor_types.name as actor_name')
+                                         ->join('actor_types','transport_elements.type_id','=','actor_types.id')
+                                         ->where('actor_types.name','=','client')
+                                         ->orderBy('transport_elements.id', 'desc')
+                                         ->get();
+        return response()->json($data);
+    }
 }

@@ -1,6 +1,31 @@
-validity date
-end of validity
-bonus
-Policy number
-insurer
-vehicle
+1-mission order
+
+car_id
+driver_id
+conveyor_id
+number
+file number
+subject
+date of departure
+return date
+departure time
+return time
+duration
+start index
+return index
+actual course
+theoretical course
+departure city
+fuel
+factory return
+
+2-cargo 
+mission_order_id
+transport_elements_id
+loading city
+discharge city
+product
+quantity
+voucher number
+park observation
+field observation

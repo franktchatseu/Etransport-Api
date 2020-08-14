@@ -178,6 +178,7 @@ Route::group(['prefix' => 'module3'], function () {
     Route::group(['prefix' => 'caractere_tech_ones'], function () {
         Route::get('/', 'Module3\caractertechoneController@index');
         Route::get('/findAllCaracter', 'Module3\caractertechoneController@findAllCaracter');
+        Route::get('/car', 'Module3\caractertechoneController@findCar');
         Route::get('/{id}', 'Module3\caractertechoneController@find');
         Route::get('/{id}/findAllCaracterById', 'Module3\caractertechoneController@findAllCaracterById');
         Route::match(['post', 'put'], '/{id}', 'Module3\caractertechoneController@update');
@@ -244,6 +245,8 @@ Route::group(['prefix' => 'module4'], function () {
         Route::delete('/{id}', 'Module4\TransportElementController@destroy');
         Route::get('/{id}', 'Module4\TransportElementController@find');
         Route::get('/', 'Module4\TransportElementController@index');
+        Route::get('/client', 'Module4\TransportElementController@getClients');
+        Route::get('/assurer', 'Module4\TransportElementController@getAssurers');
 
     });
 
@@ -265,3 +268,9 @@ Route::resource('moduleparc/insurance', 'ModuleParc\\InsuranceController', ['exc
 Route::resource('moduleparc/technical-tour', 'ModuleParc\\TechnicalTourController', ['except' => ['create', 'edit']]);
 Route::resource('moduleparc/taxe', 'ModuleParc\\TaxeController', ['except' => ['create', 'edit']]);
 Route::resource('module2/affectation', 'Module2\\AffectationController', ['except' => ['create', 'edit']]);
+Route::resource('modulemouvement/mission-order', 'ModuleParc\\MissionOrderController', ['except' => ['create', 'edit']]);
+Route::resource('modulemouvement/cargo', 'ModuleParc\\CargoController', ['except' => ['create', 'edit']]);
+Route::resource('modulemaintenance/range-action', 'ModuleMaintenance\\RangeActionController', ['except' => ['create', 'edit']]);
+
+Route::resource('modulemaintenance/file-intervention', 'ModuleMaintenance\\FileInterventionController', ['except' => ['create', 'edit']]);
+Route::resource('modulemaintenance/intervention', 'ModuleMaintenance\\InterventionController', ['except' => ['create', 'edit']]);

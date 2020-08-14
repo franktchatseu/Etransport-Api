@@ -1,0 +1,1661 @@
+-- phpMyAdmin SQL Dump
+-- version 5.0.2
+-- https://www.phpmyadmin.net/
+--
+-- Hôte : localhost
+-- Généré le : ven. 14 août 2020 à 14:26
+-- Version du serveur :  10.4.11-MariaDB
+-- Version de PHP : 7.4.4
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de données : `e_transport`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `actor_types`
+--
+
+CREATE TABLE `actor_types` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `actor_types`
+--
+
+INSERT INTO `actor_types` (`id`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'hopital', 'centre de sante', '2020-08-14 10:18:31', '2020-08-14 10:18:31', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `affectations`
+--
+
+CREATE TABLE `affectations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `car_id` bigint(20) UNSIGNED NOT NULL,
+  `driver_id` bigint(20) UNSIGNED NOT NULL,
+  `remorque` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `conveyor_id` bigint(20) UNSIGNED NOT NULL,
+  `date` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `caracter_tech_ones`
+--
+
+CREATE TABLE `caracter_tech_ones` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `registration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `country_registration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `stepper_id` bigint(20) UNSIGNED NOT NULL,
+  `type_id` bigint(20) UNSIGNED NOT NULL,
+  `model_id` bigint(20) UNSIGNED NOT NULL,
+  `mark_id` bigint(20) UNSIGNED NOT NULL,
+  `carosserie_id` bigint(20) UNSIGNED NOT NULL,
+  `length` double NOT NULL,
+  `width` double NOT NULL,
+  `height` double NOT NULL,
+  `volume` double NOT NULL,
+  `total_weight` double NOT NULL,
+  `live_load` double NOT NULL,
+  `empty_weight` double NOT NULL,
+  `power` double NOT NULL,
+  `chassis_number` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `caracter_tech_ones`
+--
+
+INSERT INTO `caracter_tech_ones` (`id`, `registration`, `country_registration`, `stepper_id`, `type_id`, `model_id`, `mark_id`, `carosserie_id`, `length`, `width`, `height`, `volume`, `total_weight`, `live_load`, `empty_weight`, `power`, `chassis_number`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, '978937897', 'CMR', 2, 1, 1, 1, 1, 509, 9, 98, 989, 9898, 98, 989, 98, '98', '2020-08-14 10:35:00', '2020-08-14 10:35:00', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `caracter_tech_twos`
+--
+
+CREATE TABLE `caracter_tech_twos` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `semi_trailer_number` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `stepper_id` bigint(20) UNSIGNED NOT NULL,
+  `essieux_tracteur_porteur_number` int(11) NOT NULL,
+  `place_nber` int(11) NOT NULL,
+  `interne_code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `effective_date` date NOT NULL,
+  `fuel` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `color` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `option` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `purchase_value` double NOT NULL,
+  `kilometrage` double NOT NULL,
+  `consommation_min` double NOT NULL,
+  `consommation_max` double NOT NULL,
+  `etat` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `caracter_tech_twos`
+--
+
+INSERT INTO `caracter_tech_twos` (`id`, `semi_trailer_number`, `stepper_id`, `essieux_tracteur_porteur_number`, `place_nber`, `interne_code`, `effective_date`, `fuel`, `color`, `option`, `purchase_value`, `kilometrage`, `consommation_min`, `consommation_max`, `etat`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, '89', 2, 98, 98, '98', '2020-07-28', '908', 'rouge', 'lkjfkljlk', 98, 798, 98, 98, 'En Maintenance', '2020-08-14 10:36:01', '2020-08-14 10:36:01', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `cargos`
+--
+
+CREATE TABLE `cargos` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `mission_order_id` int(10) UNSIGNED NOT NULL,
+  `transport_element_id` bigint(20) UNSIGNED NOT NULL,
+  `loading_city` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `product` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `quantity` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `voucher_number` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `park_observation` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `field_observation` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `carosseries`
+--
+
+CREATE TABLE `carosseries` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `color` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `carosseries`
+--
+
+INSERT INTO `carosseries` (`id`, `color`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'citerne pour pulverants', 'klnclkn', '2020-08-14 10:18:19', '2020-08-14 10:18:19', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `car_papers`
+--
+
+CREATE TABLE `car_papers` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `stepper_id` bigint(20) UNSIGNED NOT NULL,
+  `patent_validation` date NOT NULL,
+  `insurance_validation_date` date NOT NULL,
+  `technical_visit_date` date NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `car_papers`
+--
+
+INSERT INTO `car_papers` (`id`, `stepper_id`, `patent_validation`, `insurance_validation_date`, `technical_visit_date`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 2, '2020-07-27', '2020-07-30', '2020-07-28', '2020-08-14 10:36:30', '2020-08-14 10:36:30', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `descriptions`
+--
+
+CREATE TABLE `descriptions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `stepper_id` bigint(20) UNSIGNED NOT NULL,
+  `required_workday` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `time_required` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `equipment` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `usage` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `usual_location` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `observation` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `owner` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `descriptions`
+--
+
+INSERT INTO `descriptions` (`id`, `stepper_id`, `required_workday`, `time_required`, `equipment`, `usage`, `usual_location`, `observation`, `owner`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 2, '87', '98', 'jnkjdbkj', 'kjbkjbkj', 'kjbkjbkj', 'kjbjkb', 'adam', '2020-08-14 10:36:17', '2020-08-14 10:36:17', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `doc_indentity_informations`
+--
+
+CREATE TABLE `doc_indentity_informations` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `identical_piece` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `piece_number` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `date_issue` date NOT NULL,
+  `place_issue` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `stepper_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `doc_indentity_informations`
+--
+
+INSERT INTO `doc_indentity_informations` (`id`, `identical_piece`, `piece_number`, `date_issue`, `place_issue`, `stepper_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, '349089', '380980', '2020-07-29', 'douala', 2, '2020-08-14 10:38:48', '2020-08-14 10:38:48', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `driving_permits`
+--
+
+CREATE TABLE `driving_permits` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `number` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `date_issue` date NOT NULL,
+  `place_issue` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `stepper_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `driving_permits`
+--
+
+INSERT INTO `driving_permits` (`id`, `number`, `date_issue`, `place_issue`, `stepper_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, '49808', '2020-07-29', 'douala', 2, '2020-08-14 10:38:22', '2020-08-14 10:38:22', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `file_interventions`
+--
+
+CREATE TABLE `file_interventions` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `car_id` bigint(20) UNSIGNED NOT NULL,
+  `card_number` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `receipt` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `index` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `degree_urgency` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `type_intervention` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `date_application` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `service_date` date DEFAULT NULL,
+  `observation` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `initiated_by` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `commencement_date` date DEFAULT NULL,
+  `termination_date` date DEFAULT NULL,
+  `starting_time` time DEFAULT NULL,
+  `end_time` time DEFAULT NULL,
+  `allocated_real_time` time DEFAULT NULL,
+  `down_time` time DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `formations`
+--
+
+CREATE TABLE `formations` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `file` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `stepper_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `formations`
+--
+
+INSERT INTO `formations` (`id`, `name`, `file`, `stepper_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'auto ecole', 'http://localhost:8000/uploads/e-transport/formations/documents/document_composition1597405145.pdf', 2, '2020-08-14 10:39:05', '2020-08-14 10:39:05', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `gear_pictures`
+--
+
+CREATE TABLE `gear_pictures` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `fore_gear` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `rear_gear` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `left_side_gear` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `right_side_gear` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `insurance_patente` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `grey_card` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `stepper_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `gear_pictures`
+--
+
+INSERT INTO `gear_pictures` (`id`, `fore_gear`, `rear_gear`, `left_side_gear`, `right_side_gear`, `insurance_patente`, `grey_card`, `stepper_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'uploads/pictures/cars/fore_gear1597405007.jpeg', 'uploads/pictures/cars/rear_gear1597405007.jpeg', 'uploads/pictures/cars/left_side_gear1597405007.jpeg', 'uploads/pictures/cars/right_side_gear1597405007.jpeg', 'uploads/pictures/cars/insurance_patente1597405007.jpeg', 'uploads/pictures/cars/grey_card1597405007.jpeg', 2, '2020-08-14 10:36:47', '2020-08-14 10:36:47', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `general_infos`
+--
+
+CREATE TABLE `general_infos` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `first_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `date_birth` date NOT NULL,
+  `place_birth` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tel1` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tel2` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `avatar` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nationality_id` bigint(20) UNSIGNED NOT NULL,
+  `stepper_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `general_infos`
+--
+
+INSERT INTO `general_infos` (`id`, `first_name`, `last_name`, `date_birth`, `place_birth`, `email`, `tel1`, `tel2`, `address`, `avatar`, `nationality_id`, `stepper_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'adamu', 'aliyu', '1999-01-01', 'mmen', 'adamualiyu199@gmail.com', '650430202', '650430202', 'foreke', 'http://localhost:8000/uploads/pictures/drivers/avatar1597405089.jpg', 1, 2, '2020-08-14 10:38:09', '2020-08-14 10:38:09', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `info_entreprise_ones`
+--
+
+CREATE TABLE `info_entreprise_ones` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `taxpayer_number` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `rccm_number` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `billing_address` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gear_number` int(11) NOT NULL,
+  `driver_number` int(11) NOT NULL,
+  `manager_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `manager_function` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `manager_phone` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `manager_picture` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `stepper_main_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `info_entreprise_ones`
+--
+
+INSERT INTO `info_entreprise_ones` (`id`, `name`, `taxpayer_number`, `rccm_number`, `billing_address`, `gear_number`, `driver_number`, `manager_name`, `manager_function`, `manager_phone`, `manager_picture`, `stepper_main_id`, `created_at`, `updated_at`) VALUES
+(1, 'transafrique', '9023890', '099308', '90808080', 0, 0, 'adamu aliyu', 'PDG', '650543277', 'uploads/EntrepriseInfo/PictureMAnager1597403370.jpg', 2, '2020-08-14 10:09:30', '2020-08-14 10:09:30');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `info_entreprise_twos`
+--
+
+CREATE TABLE `info_entreprise_twos` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `localisation` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone1` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone2` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `langue` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description_services` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `enterprise_mission` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `enterprise_ambition` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `enterprise_value` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `opening_hours` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `enterprise_partner` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `stepper_main_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `info_entreprise_twos`
+--
+
+INSERT INTO `info_entreprise_twos` (`id`, `localisation`, `phone1`, `phone2`, `email`, `langue`, `description_services`, `image`, `enterprise_mission`, `enterprise_ambition`, `enterprise_value`, `opening_hours`, `enterprise_partner`, `stepper_main_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'foreke', '6505437754', '650490302', 'transafrique@gmail.com', 'francais', 'entreprise de grand', '', 'promouvoir le transport au cameroun', 'devenir les meilleur', 'citoyennete', '8:00', 'western union', 2, '2020-08-14 10:12:41', '2020-08-14 10:12:41', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `insurances`
+--
+
+CREATE TABLE `insurances` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `car_id` bigint(20) UNSIGNED NOT NULL,
+  `insurer_id` bigint(20) UNSIGNED NOT NULL,
+  `validity_date` date NOT NULL,
+  `end_validity` date NOT NULL,
+  `bonus` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `policy_number` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `interventions`
+--
+
+CREATE TABLE `interventions` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `range_id` int(10) UNSIGNED NOT NULL,
+  `file_id` int(10) UNSIGNED NOT NULL,
+  `organ` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `speaker` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cost_maintenance` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `does` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `duration` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `marks`
+--
+
+CREATE TABLE `marks` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `marks`
+--
+
+INSERT INTO `marks` (`id`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'peugeot', 'marque', '2020-08-14 10:14:31', '2020-08-14 10:14:31', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '2014_10_12_000000_create_users_table', 1),
+(2, '2016_06_01_000001_create_oauth_auth_codes_table', 1),
+(3, '2016_06_01_000002_create_oauth_access_tokens_table', 1),
+(4, '2016_06_01_000003_create_oauth_refresh_tokens_table', 1),
+(5, '2016_06_01_000004_create_oauth_clients_table', 1),
+(6, '2016_06_01_000005_create_oauth_personal_access_clients_table', 1),
+(7, '2020_07_25_211059_create_steppertrees_table', 1),
+(8, '2020_07_25_211353_create_models_table', 1),
+(9, '2020_07_25_211415_create_marks_table', 1),
+(10, '2020_07_25_211430_create_types_table', 1),
+(11, '2020_07_25_211502_create_carosseries_table', 1),
+(12, '2020_07_25_211630_create_caractertechones_table', 1),
+(13, '2020_07_25_212042_create_caracter_tech_twos_table', 1),
+(14, '2020_07_25_212154_create_descriptions_table', 1),
+(15, '2020_07_25_212522_create_pictures_table', 1),
+(16, '2020_07_25_212602_create_actortypes_table', 1),
+(17, '2020_07_25_212705_create_car_papers_table', 1),
+(18, '2020_07_25_222013_create_transportelements_table', 1),
+(19, '2020_07_25_232517_create_gearpictures_table', 1),
+(20, '2020_07_26_011101_create_stepper_drivers_table', 1),
+(21, '2020_07_26_011601_create_drivingpermits_table', 1),
+(22, '2020_07_26_011623_create_formations_table', 1),
+(23, '2020_07_26_011716_create_nationalitys_table', 1),
+(24, '2020_07_26_011754_create_general_infos_table', 1),
+(25, '2020_07_26_012024_create_doc_indentity_informations_table', 1),
+(26, '2020_07_26_013559_create_stepper_mains_table', 1),
+(27, '2020_07_26_013911_stepper_main__stepper_driver', 1),
+(28, '2020_07_26_013959_stepper_main__stepper_trees', 1),
+(29, '2020_07_26_030050_create_info_entreprise_ones_table', 1),
+(30, '2020_07_26_030110_create_info_entreprise_twos_table', 1),
+(31, '2020_07_26_032045_create_personal_computing_specials_table', 1),
+(32, '2020_08_13_000323_create_insurances_table', 1),
+(33, '2020_08_13_002118_create_technical_tours_table', 1),
+(34, '2020_08_13_003437_create_taxes_table', 1),
+(35, '2020_08_13_004832_create_affectations_table', 1),
+(36, '2020_08_13_135658_create_mission_orders_table', 1),
+(37, '2020_08_13_141218_create_cargos_table', 1),
+(38, '2020_08_13_141909_create_range_actions_table', 1),
+(39, '2020_08_13_145120_create_file_interventions_table', 1),
+(40, '2020_08_13_151417_create_interventions_table', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `mission_orders`
+--
+
+CREATE TABLE `mission_orders` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `car_id` bigint(20) UNSIGNED NOT NULL,
+  `driver_id` bigint(20) UNSIGNED NOT NULL,
+  `conveyor_id` bigint(20) UNSIGNED NOT NULL,
+  `number` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `file_number` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `subject` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `date_departure` date DEFAULT NULL,
+  `return_date` date DEFAULT NULL,
+  `departure_time` time DEFAULT NULL,
+  `return_time` time DEFAULT NULL,
+  `duration` time DEFAULT NULL,
+  `start_index` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `return_index` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `actual_course` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `theorical_course` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `departure_city` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fuel` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `factory_return` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `mission_orders`
+--
+
+INSERT INTO `mission_orders` (`id`, `created_at`, `updated_at`, `deleted_at`, `car_id`, `driver_id`, `conveyor_id`, `number`, `file_number`, `subject`, `date_departure`, `return_date`, `departure_time`, `return_time`, `duration`, `start_index`, `return_index`, `actual_course`, `theorical_course`, `departure_city`, `fuel`, `factory_return`) VALUES
+(2, '2020-08-13 15:41:56', '2020-08-13 15:41:56', NULL, 1, 1, 1, '10309i0', '13213', 'lkjflk', '2020-03-02', '2020-09-03', '08:00:00', '08:00:09', '08:00:09', 'dfffdf', 'fhikhoi', 'ljlkjldkjlklkn', 'dlkjkljdklj', 'douala', '300', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `models`
+--
+
+CREATE TABLE `models` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `models`
+--
+
+INSERT INTO `models` (`id`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'P40', 'ldknclkn', '2020-08-14 10:13:32', '2020-08-14 10:13:32', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `nationalities`
+--
+
+CREATE TABLE `nationalities` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `nationalities`
+--
+
+INSERT INTO `nationalities` (`id`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'camerounais', 'habitant du cameroun', '2020-08-14 10:18:48', '2020-08-14 10:18:48', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `oauth_access_tokens`
+--
+
+CREATE TABLE `oauth_access_tokens` (
+  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `client_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `scopes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `revoked` tinyint(1) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `expires_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `oauth_access_tokens`
+--
+
+INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
+('3e3fbbb386ea579baa253d78a7913c6feaaa70f657b58a7a7c4558496a3502dac03f0c5a72fd1685', 1, 1, 'GP Personal Access Token', '[]', 0, '2020-08-14 08:21:17', '2020-08-14 08:21:17', '2020-08-15 09:21:17'),
+('6882f9379b8654e33bee46301aaf745c28cb2b01b9620cb622579412325302598aff392714ea7733', 1, 1, 'GP Personal Access Token', '[]', 0, '2020-08-14 11:10:58', '2020-08-14 11:10:58', '2020-08-15 12:10:58'),
+('6cc7894601f759c8df35f99b3ae8e327b1962aadb37b0ca9c3c16a9caa6343377d95937aad8ade5b', 1, 1, 'GP Personal Access Token', '[]', 0, '2020-08-14 10:06:08', '2020-08-14 10:06:08', '2020-08-15 11:06:08'),
+('743eab0df2ec537df7ebc7063dcca17eca99145878ba5c711d90b48223c24c9be0b96e5a42851aac', 1, 1, 'GP Personal Access Token', '[]', 0, '2020-08-14 08:19:19', '2020-08-14 08:19:19', '2020-08-15 09:19:19'),
+('9117360e431b208ee21c363021b9b1ce7c6775d238a4de0a22033fc4d0a45ecc3ab30f3242999c56', 1, 1, 'GP Personal Access Token', '[]', 0, '2020-08-14 07:34:00', '2020-08-14 07:34:00', '2020-08-15 08:34:00'),
+('930096f77b8778cb7a3ea41dacba820b7bc16fc9d9e91b390ed1350629339818ef2729b3a59bc051', 1, 1, 'GP Personal Access Token', '[]', 0, '2020-08-14 07:35:35', '2020-08-14 07:35:35', '2020-08-15 08:35:35'),
+('c457e6037d1fdcda4df45ceaa5ee7d57f5c7ff491ff0131abacbfb69bb79dce45e73918816567c0e', 1, 1, 'GP Personal Access Token', '[]', 0, '2020-08-14 09:53:20', '2020-08-14 09:53:20', '2020-08-15 10:53:20'),
+('da353dec1d05bd04e12cce5d908f25ac866626d55f311120024c2eccbd027f1ad17b104e8630383a', 1, 1, 'GP Personal Access Token', '[]', 0, '2020-08-14 10:33:00', '2020-08-14 10:33:00', '2020-08-15 11:33:00'),
+('fa2584e1a1b37da7ff38a8c3599eab7d52a702b6fdf6e7b3dc3d0ef1de82833c36ef2fc5a42ed20c', 1, 1, 'GP Personal Access Token', '[]', 0, '2020-08-14 11:11:33', '2020-08-14 11:11:33', '2020-08-15 12:11:34');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `oauth_auth_codes`
+--
+
+CREATE TABLE `oauth_auth_codes` (
+  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `client_id` bigint(20) UNSIGNED NOT NULL,
+  `scopes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `revoked` tinyint(1) NOT NULL,
+  `expires_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `oauth_clients`
+--
+
+CREATE TABLE `oauth_clients` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `secret` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `provider` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `redirect` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `personal_access_client` tinyint(1) NOT NULL,
+  `password_client` tinyint(1) NOT NULL,
+  `revoked` tinyint(1) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `oauth_clients`
+--
+
+INSERT INTO `oauth_clients` (`id`, `user_id`, `name`, `secret`, `provider`, `redirect`, `personal_access_client`, `password_client`, `revoked`, `created_at`, `updated_at`) VALUES
+(1, NULL, 'Laravel Personal Access Client', 'ad3GE36ZCcrVWfZxwNMQFk9oFXwlOSEBfHH586s3', NULL, 'http://localhost', 1, 0, 0, '2020-08-14 07:32:50', '2020-08-14 07:32:50'),
+(2, NULL, 'Laravel Password Grant Client', '48XNZ09YioV0FA0Y16E6t6UujzjH4vKzow2rxP1a', 'users', 'http://localhost', 0, 1, 0, '2020-08-14 07:32:51', '2020-08-14 07:32:51');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `oauth_personal_access_clients`
+--
+
+CREATE TABLE `oauth_personal_access_clients` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `client_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `oauth_personal_access_clients`
+--
+
+INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
+(1, 1, '2020-08-14 07:32:51', '2020-08-14 07:32:51');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `oauth_refresh_tokens`
+--
+
+CREATE TABLE `oauth_refresh_tokens` (
+  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `access_token_id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `revoked` tinyint(1) NOT NULL,
+  `expires_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `personal_computing_specials`
+--
+
+CREATE TABLE `personal_computing_specials` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` int(11) NOT NULL,
+  `stepper_id` bigint(20) UNSIGNED NOT NULL,
+  `surmane` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tel2` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `langue` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tel1` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `adress` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gear_count` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `driver_number` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `pictures`
+--
+
+CREATE TABLE `pictures` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `range_actions`
+--
+
+CREATE TABLE `range_actions` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `frequency` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `stepper_drivers`
+--
+
+CREATE TABLE `stepper_drivers` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `number` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `value` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `stepper_main_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `stepper_drivers`
+--
+
+INSERT INTO `stepper_drivers` (`id`, `number`, `value`, `status`, `created_at`, `updated_at`, `deleted_at`, `stepper_main_id`) VALUES
+(1, 'kk809', 1, 1, NULL, NULL, NULL, 1),
+(2, 'stepper_1_status_02020-08-14 11:38:09', 2, 1, '2020-08-14 10:38:09', '2020-08-14 10:38:48', NULL, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `stepper_mains`
+--
+
+CREATE TABLE `stepper_mains` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `number` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `value` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `stepper_mains`
+--
+
+INSERT INTO `stepper_mains` (`id`, `number`, `value`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, '039804kjlk', 1, 1, NULL, NULL, NULL),
+(2, 'stepper_1_status_02020-08-14 11:09:29', 1, 0, '2020-08-14 10:09:29', '2020-08-14 10:09:29', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `stepper_trees`
+--
+
+CREATE TABLE `stepper_trees` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `number` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `value` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `stepper_main_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `stepper_trees`
+--
+
+INSERT INTO `stepper_trees` (`id`, `number`, `value`, `status`, `created_at`, `updated_at`, `deleted_at`, `stepper_main_id`) VALUES
+(1, 'oij43989', 1, 1, NULL, NULL, NULL, 1),
+(2, 'stepper_1_status_02020-08-14 11:35:00', 6, 1, '2020-08-14 10:35:00', '2020-08-14 10:36:30', NULL, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `taxes`
+--
+
+CREATE TABLE `taxes` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `car_id` bigint(20) UNSIGNED NOT NULL,
+  `type_period` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `period` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `year` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `amount` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `technical_tours`
+--
+
+CREATE TABLE `technical_tours` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `car_id` bigint(20) UNSIGNED NOT NULL,
+  `type_intervention` enum('provisoire','definitive') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `validity_date` date NOT NULL,
+  `end_validity` date NOT NULL,
+  `visited_by` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `receipt_number` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `amount` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `transport_elements`
+--
+
+CREATE TABLE `transport_elements` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `type_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `localisation` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone1` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone2` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `function` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `presentation_file` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `transport_elements`
+--
+
+INSERT INTO `transport_elements` (`id`, `type_id`, `name`, `description`, `localisation`, `phone1`, `phone2`, `email`, `function`, `presentation_file`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, 'hopital jamot', 'centre de sante', 'yaounde', '65004030', '65040303', 'jamot@gmail.com', 'guerir les malades', 'uploads/TransportElement/TransportElement1597405290.pdf', '2020-08-14 10:41:30', '2020-08-14 10:41:30', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `types`
+--
+
+CREATE TABLE `types` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `types`
+--
+
+INSERT INTO `types` (`id`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'fourgon', 'lkdlknlfnl', '2020-08-14 10:13:16', '2020-08-14 10:13:16', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `users`
+--
+
+CREATE TABLE `users` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `login` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `first_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_login` timestamp NULL DEFAULT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `users`
+--
+
+INSERT INTO `users` (`id`, `login`, `email`, `password`, `first_name`, `last_name`, `last_login`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Innovtrans', NULL, '$2y$10$bD/9Ae7rfofzAK/lLTFHguzuUzbkRhi.gZIcgFJwaiQxCySzq1xJ.', 'e-transport', 'New', '2020-08-14 11:11:33', NULL, '2020-08-14 07:33:55', '2020-08-14 11:11:33', NULL);
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `actor_types`
+--
+ALTER TABLE `actor_types`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `affectations`
+--
+ALTER TABLE `affectations`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `affectations_car_id_foreign` (`car_id`),
+  ADD KEY `affectations_driver_id_foreign` (`driver_id`),
+  ADD KEY `affectations_conveyor_id_foreign` (`conveyor_id`);
+
+--
+-- Index pour la table `caracter_tech_ones`
+--
+ALTER TABLE `caracter_tech_ones`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `caracter_tech_ones_stepper_id_foreign` (`stepper_id`),
+  ADD KEY `caracter_tech_ones_type_id_foreign` (`type_id`),
+  ADD KEY `caracter_tech_ones_model_id_foreign` (`model_id`),
+  ADD KEY `caracter_tech_ones_mark_id_foreign` (`mark_id`),
+  ADD KEY `caracter_tech_ones_carosserie_id_foreign` (`carosserie_id`);
+
+--
+-- Index pour la table `caracter_tech_twos`
+--
+ALTER TABLE `caracter_tech_twos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `caracter_tech_twos_stepper_id_foreign` (`stepper_id`);
+
+--
+-- Index pour la table `cargos`
+--
+ALTER TABLE `cargos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `cargos_mission_order_id_foreign` (`mission_order_id`),
+  ADD KEY `cargos_transport_element_id_foreign` (`transport_element_id`);
+
+--
+-- Index pour la table `carosseries`
+--
+ALTER TABLE `carosseries`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `car_papers`
+--
+ALTER TABLE `car_papers`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `car_papers_stepper_id_foreign` (`stepper_id`);
+
+--
+-- Index pour la table `descriptions`
+--
+ALTER TABLE `descriptions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `descriptions_stepper_id_foreign` (`stepper_id`);
+
+--
+-- Index pour la table `doc_indentity_informations`
+--
+ALTER TABLE `doc_indentity_informations`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `doc_indentity_informations_stepper_id_foreign` (`stepper_id`);
+
+--
+-- Index pour la table `driving_permits`
+--
+ALTER TABLE `driving_permits`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `driving_permits_stepper_id_foreign` (`stepper_id`);
+
+--
+-- Index pour la table `file_interventions`
+--
+ALTER TABLE `file_interventions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `file_interventions_car_id_foreign` (`car_id`);
+
+--
+-- Index pour la table `formations`
+--
+ALTER TABLE `formations`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `formations_stepper_id_foreign` (`stepper_id`);
+
+--
+-- Index pour la table `gear_pictures`
+--
+ALTER TABLE `gear_pictures`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `gear_pictures_stepper_id_foreign` (`stepper_id`);
+
+--
+-- Index pour la table `general_infos`
+--
+ALTER TABLE `general_infos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `general_infos_stepper_id_foreign` (`stepper_id`),
+  ADD KEY `general_infos_nationality_id_foreign` (`nationality_id`);
+
+--
+-- Index pour la table `info_entreprise_ones`
+--
+ALTER TABLE `info_entreprise_ones`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `info_entreprise_ones_stepper_main_id_foreign` (`stepper_main_id`);
+
+--
+-- Index pour la table `info_entreprise_twos`
+--
+ALTER TABLE `info_entreprise_twos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `info_entreprise_twos_stepper_main_id_foreign` (`stepper_main_id`);
+
+--
+-- Index pour la table `insurances`
+--
+ALTER TABLE `insurances`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `insurances_car_id_foreign` (`car_id`),
+  ADD KEY `insurances_insurer_id_foreign` (`insurer_id`);
+
+--
+-- Index pour la table `interventions`
+--
+ALTER TABLE `interventions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `interventions_range_id_foreign` (`range_id`),
+  ADD KEY `interventions_file_id_foreign` (`file_id`);
+
+--
+-- Index pour la table `marks`
+--
+ALTER TABLE `marks`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `mission_orders`
+--
+ALTER TABLE `mission_orders`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `mission_orders_car_id_foreign` (`car_id`),
+  ADD KEY `mission_orders_driver_id_foreign` (`driver_id`),
+  ADD KEY `mission_orders_conveyor_id_foreign` (`conveyor_id`);
+
+--
+-- Index pour la table `models`
+--
+ALTER TABLE `models`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `nationalities`
+--
+ALTER TABLE `nationalities`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `oauth_access_tokens`
+--
+ALTER TABLE `oauth_access_tokens`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `oauth_access_tokens_user_id_index` (`user_id`);
+
+--
+-- Index pour la table `oauth_auth_codes`
+--
+ALTER TABLE `oauth_auth_codes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `oauth_auth_codes_user_id_index` (`user_id`);
+
+--
+-- Index pour la table `oauth_clients`
+--
+ALTER TABLE `oauth_clients`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `oauth_clients_user_id_index` (`user_id`);
+
+--
+-- Index pour la table `oauth_personal_access_clients`
+--
+ALTER TABLE `oauth_personal_access_clients`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `oauth_refresh_tokens`
+--
+ALTER TABLE `oauth_refresh_tokens`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `oauth_refresh_tokens_access_token_id_index` (`access_token_id`);
+
+--
+-- Index pour la table `personal_computing_specials`
+--
+ALTER TABLE `personal_computing_specials`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `personal_computing_specials_stepper_id_foreign` (`stepper_id`);
+
+--
+-- Index pour la table `pictures`
+--
+ALTER TABLE `pictures`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `range_actions`
+--
+ALTER TABLE `range_actions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `stepper_drivers`
+--
+ALTER TABLE `stepper_drivers`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `stepper_drivers_number_unique` (`number`),
+  ADD KEY `stepper_drivers_stepper_main_id_foreign` (`stepper_main_id`);
+
+--
+-- Index pour la table `stepper_mains`
+--
+ALTER TABLE `stepper_mains`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `stepper_mains_number_unique` (`number`);
+
+--
+-- Index pour la table `stepper_trees`
+--
+ALTER TABLE `stepper_trees`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `stepper_trees_number_unique` (`number`),
+  ADD KEY `stepper_trees_stepper_main_id_foreign` (`stepper_main_id`);
+
+--
+-- Index pour la table `taxes`
+--
+ALTER TABLE `taxes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `taxes_car_id_foreign` (`car_id`);
+
+--
+-- Index pour la table `technical_tours`
+--
+ALTER TABLE `technical_tours`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `technical_tours_car_id_foreign` (`car_id`);
+
+--
+-- Index pour la table `transport_elements`
+--
+ALTER TABLE `transport_elements`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `transport_elements_type_id_foreign` (`type_id`);
+
+--
+-- Index pour la table `types`
+--
+ALTER TABLE `types`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_email_unique` (`email`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `actor_types`
+--
+ALTER TABLE `actor_types`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `affectations`
+--
+ALTER TABLE `affectations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `caracter_tech_ones`
+--
+ALTER TABLE `caracter_tech_ones`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `caracter_tech_twos`
+--
+ALTER TABLE `caracter_tech_twos`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `cargos`
+--
+ALTER TABLE `cargos`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `carosseries`
+--
+ALTER TABLE `carosseries`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `car_papers`
+--
+ALTER TABLE `car_papers`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `descriptions`
+--
+ALTER TABLE `descriptions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `doc_indentity_informations`
+--
+ALTER TABLE `doc_indentity_informations`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `driving_permits`
+--
+ALTER TABLE `driving_permits`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `file_interventions`
+--
+ALTER TABLE `file_interventions`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `formations`
+--
+ALTER TABLE `formations`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `gear_pictures`
+--
+ALTER TABLE `gear_pictures`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `general_infos`
+--
+ALTER TABLE `general_infos`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `info_entreprise_ones`
+--
+ALTER TABLE `info_entreprise_ones`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `info_entreprise_twos`
+--
+ALTER TABLE `info_entreprise_twos`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `insurances`
+--
+ALTER TABLE `insurances`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `interventions`
+--
+ALTER TABLE `interventions`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `marks`
+--
+ALTER TABLE `marks`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+
+--
+-- AUTO_INCREMENT pour la table `mission_orders`
+--
+ALTER TABLE `mission_orders`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT pour la table `models`
+--
+ALTER TABLE `models`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `nationalities`
+--
+ALTER TABLE `nationalities`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `oauth_clients`
+--
+ALTER TABLE `oauth_clients`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT pour la table `oauth_personal_access_clients`
+--
+ALTER TABLE `oauth_personal_access_clients`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `personal_computing_specials`
+--
+ALTER TABLE `personal_computing_specials`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `pictures`
+--
+ALTER TABLE `pictures`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `range_actions`
+--
+ALTER TABLE `range_actions`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `stepper_drivers`
+--
+ALTER TABLE `stepper_drivers`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT pour la table `stepper_mains`
+--
+ALTER TABLE `stepper_mains`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT pour la table `stepper_trees`
+--
+ALTER TABLE `stepper_trees`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT pour la table `taxes`
+--
+ALTER TABLE `taxes`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `technical_tours`
+--
+ALTER TABLE `technical_tours`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `transport_elements`
+--
+ALTER TABLE `transport_elements`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `types`
+--
+ALTER TABLE `types`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `affectations`
+--
+ALTER TABLE `affectations`
+  ADD CONSTRAINT `affectations_car_id_foreign` FOREIGN KEY (`car_id`) REFERENCES `stepper_trees` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `affectations_conveyor_id_foreign` FOREIGN KEY (`conveyor_id`) REFERENCES `stepper_drivers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `affectations_driver_id_foreign` FOREIGN KEY (`driver_id`) REFERENCES `stepper_drivers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `caracter_tech_ones`
+--
+ALTER TABLE `caracter_tech_ones`
+  ADD CONSTRAINT `caracter_tech_ones_carosserie_id_foreign` FOREIGN KEY (`carosserie_id`) REFERENCES `carosseries` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `caracter_tech_ones_mark_id_foreign` FOREIGN KEY (`mark_id`) REFERENCES `marks` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `caracter_tech_ones_model_id_foreign` FOREIGN KEY (`model_id`) REFERENCES `models` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `caracter_tech_ones_stepper_id_foreign` FOREIGN KEY (`stepper_id`) REFERENCES `stepper_trees` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `caracter_tech_ones_type_id_foreign` FOREIGN KEY (`type_id`) REFERENCES `types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `caracter_tech_twos`
+--
+ALTER TABLE `caracter_tech_twos`
+  ADD CONSTRAINT `caracter_tech_twos_stepper_id_foreign` FOREIGN KEY (`stepper_id`) REFERENCES `stepper_trees` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `cargos`
+--
+ALTER TABLE `cargos`
+  ADD CONSTRAINT `cargos_mission_order_id_foreign` FOREIGN KEY (`mission_order_id`) REFERENCES `mission_orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `cargos_transport_element_id_foreign` FOREIGN KEY (`transport_element_id`) REFERENCES `transport_elements` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `car_papers`
+--
+ALTER TABLE `car_papers`
+  ADD CONSTRAINT `car_papers_stepper_id_foreign` FOREIGN KEY (`stepper_id`) REFERENCES `stepper_trees` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `descriptions`
+--
+ALTER TABLE `descriptions`
+  ADD CONSTRAINT `descriptions_stepper_id_foreign` FOREIGN KEY (`stepper_id`) REFERENCES `stepper_trees` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `doc_indentity_informations`
+--
+ALTER TABLE `doc_indentity_informations`
+  ADD CONSTRAINT `doc_indentity_informations_stepper_id_foreign` FOREIGN KEY (`stepper_id`) REFERENCES `stepper_drivers` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `driving_permits`
+--
+ALTER TABLE `driving_permits`
+  ADD CONSTRAINT `driving_permits_stepper_id_foreign` FOREIGN KEY (`stepper_id`) REFERENCES `stepper_drivers` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `file_interventions`
+--
+ALTER TABLE `file_interventions`
+  ADD CONSTRAINT `file_interventions_car_id_foreign` FOREIGN KEY (`car_id`) REFERENCES `stepper_trees` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `formations`
+--
+ALTER TABLE `formations`
+  ADD CONSTRAINT `formations_stepper_id_foreign` FOREIGN KEY (`stepper_id`) REFERENCES `stepper_drivers` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `gear_pictures`
+--
+ALTER TABLE `gear_pictures`
+  ADD CONSTRAINT `gear_pictures_stepper_id_foreign` FOREIGN KEY (`stepper_id`) REFERENCES `stepper_trees` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `general_infos`
+--
+ALTER TABLE `general_infos`
+  ADD CONSTRAINT `general_infos_nationality_id_foreign` FOREIGN KEY (`nationality_id`) REFERENCES `nationalities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `general_infos_stepper_id_foreign` FOREIGN KEY (`stepper_id`) REFERENCES `stepper_drivers` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `info_entreprise_ones`
+--
+ALTER TABLE `info_entreprise_ones`
+  ADD CONSTRAINT `info_entreprise_ones_stepper_main_id_foreign` FOREIGN KEY (`stepper_main_id`) REFERENCES `stepper_mains` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `info_entreprise_twos`
+--
+ALTER TABLE `info_entreprise_twos`
+  ADD CONSTRAINT `info_entreprise_twos_stepper_main_id_foreign` FOREIGN KEY (`stepper_main_id`) REFERENCES `stepper_mains` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `insurances`
+--
+ALTER TABLE `insurances`
+  ADD CONSTRAINT `insurances_car_id_foreign` FOREIGN KEY (`car_id`) REFERENCES `stepper_trees` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `insurances_insurer_id_foreign` FOREIGN KEY (`insurer_id`) REFERENCES `transport_elements` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `interventions`
+--
+ALTER TABLE `interventions`
+  ADD CONSTRAINT `interventions_file_id_foreign` FOREIGN KEY (`file_id`) REFERENCES `file_interventions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `interventions_range_id_foreign` FOREIGN KEY (`range_id`) REFERENCES `range_actions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `mission_orders`
+--
+ALTER TABLE `mission_orders`
+  ADD CONSTRAINT `mission_orders_car_id_foreign` FOREIGN KEY (`car_id`) REFERENCES `stepper_trees` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `mission_orders_conveyor_id_foreign` FOREIGN KEY (`conveyor_id`) REFERENCES `stepper_drivers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `mission_orders_driver_id_foreign` FOREIGN KEY (`driver_id`) REFERENCES `stepper_drivers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `personal_computing_specials`
+--
+ALTER TABLE `personal_computing_specials`
+  ADD CONSTRAINT `personal_computing_specials_stepper_id_foreign` FOREIGN KEY (`stepper_id`) REFERENCES `stepper_mains` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `stepper_drivers`
+--
+ALTER TABLE `stepper_drivers`
+  ADD CONSTRAINT `stepper_drivers_stepper_main_id_foreign` FOREIGN KEY (`stepper_main_id`) REFERENCES `stepper_mains` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `stepper_trees`
+--
+ALTER TABLE `stepper_trees`
+  ADD CONSTRAINT `stepper_trees_stepper_main_id_foreign` FOREIGN KEY (`stepper_main_id`) REFERENCES `stepper_mains` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `taxes`
+--
+ALTER TABLE `taxes`
+  ADD CONSTRAINT `taxes_car_id_foreign` FOREIGN KEY (`car_id`) REFERENCES `stepper_trees` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `technical_tours`
+--
+ALTER TABLE `technical_tours`
+  ADD CONSTRAINT `technical_tours_car_id_foreign` FOREIGN KEY (`car_id`) REFERENCES `stepper_trees` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `transport_elements`
+--
+ALTER TABLE `transport_elements`
+  ADD CONSTRAINT `transport_elements_type_id_foreign` FOREIGN KEY (`type_id`) REFERENCES `actor_types` (`id`) ON DELETE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
