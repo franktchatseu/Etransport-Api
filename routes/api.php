@@ -262,16 +262,31 @@ Route::group(['prefix' => 'module4'], function () {
 });
 
 
-
-Route::match(['post', 'put'],'moduleparc/insurance/{id}', 'ModuleParc\InsuranceController@update');
-
+//module parc
 Route::resource('moduleparc/insurance', 'ModuleParc\\InsuranceController', ['except' => ['create', 'edit']]);
 Route::resource('moduleparc/technical-tour', 'ModuleParc\\TechnicalTourController', ['except' => ['create', 'edit']]);
 Route::resource('moduleparc/taxe', 'ModuleParc\\TaxeController', ['except' => ['create', 'edit']]);
+Route::match(['post', 'put'],'moduleparc/insurance/{id}', 'ModuleParc\InsuranceController@update');
+Route::match(['post', 'put'],'moduleparc/technical-tour/{id}', 'ModuleParc\TechnicalTourController@update');
+Route::match(['post', 'put'],'moduleparc/taxe/{id}', 'ModuleParc\TaxeController@update');
+
+
+//module affectation
 Route::resource('module2/affectation', 'Module2\\AffectationController', ['except' => ['create', 'edit']]);
+Route::match(['post', 'put'],'module2/affectation/{id}', 'Module2\AffectationController@update');
+
+
+//module mouvement
 Route::resource('modulemouvement/mission-order', 'ModuleParc\\MissionOrderController', ['except' => ['create', 'edit']]);
 Route::resource('modulemouvement/cargo', 'ModuleParc\\CargoController', ['except' => ['create', 'edit']]);
-Route::resource('modulemaintenance/range-action', 'ModuleMaintenance\\RangeActionController', ['except' => ['create', 'edit']]);
+Route::match(['post', 'put'],'modulemouvement/mission-order/{id}', 'ModuleParc\MissionOrderController@update');
+Route::match(['post', 'put'],'modulemouvement/cargo/{id}', 'ModuleParc\CargoController@update');
 
+
+//module maintenance
+Route::resource('modulemaintenance/range-action', 'ModuleMaintenance\\RangeActionController', ['except' => ['create', 'edit']]);
 Route::resource('modulemaintenance/file-intervention', 'ModuleMaintenance\\FileInterventionController', ['except' => ['create', 'edit']]);
 Route::resource('modulemaintenance/intervention', 'ModuleMaintenance\\InterventionController', ['except' => ['create', 'edit']]);
+Route::match(['post', 'put'],'modulemaintenance/range-action/{id}', 'ModuleMaintenance\RangeActionController@update');
+Route::match(['post', 'put'],'modulemouvement/file-intervention/{id}', 'ModuleMaintenance\FileInterventionController@update');
+Route::match(['post', 'put'],'modulemouvement/intervention/{id}', 'ModuleMaintenance\InterventionController@update');
