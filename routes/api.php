@@ -263,6 +263,7 @@ Route::group(['prefix' => 'module4'], function () {
 
 
 
+Route::match(['post', 'put'],'moduleparc/insurance/{id}', 'ModuleParc\InsuranceController@update');
 
 Route::resource('moduleparc/insurance', 'ModuleParc\\InsuranceController', ['except' => ['create', 'edit']]);
 Route::resource('moduleparc/technical-tour', 'ModuleParc\\TechnicalTourController', ['except' => ['create', 'edit']]);
