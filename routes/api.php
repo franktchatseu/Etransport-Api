@@ -244,6 +244,8 @@ Route::group(['prefix' => 'module4'], function () {
         Route::delete('/{id}', 'Module4\TransportElementController@destroy');
         Route::get('/{id}', 'Module4\TransportElementController@find');
         Route::get('/', 'Module4\TransportElementController@index');
+        Route::get('/client', 'Module4\TransportElementController@getClients');
+        Route::get('/assurer', 'Module4\TransportElementController@getAssurers');
 
     });
 
