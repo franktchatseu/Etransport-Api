@@ -51,8 +51,14 @@ class InsuranceController extends Controller
      */
     public function show($id)
     {
-        $insurance = Insurance::findOrFail($id);
-
+       // $insurance = Insurance::findOrFail($id);
+        $insurance = Insurance::select('insurances.*',
+                                        'caracter_tech_ones.registration',
+                                        'transport_elements.name')
+                                        ->join('caracter_tech_ones','insurances.car_id','=','caracter_tech_ones.stepper_id')
+                                        ->join('transport_elements','insurances.insurer_id','=','transport_elements.id')
+                                        ->where('insurances.id','=',$id)
+                                        ->first();
         return $insurance;
     }
 

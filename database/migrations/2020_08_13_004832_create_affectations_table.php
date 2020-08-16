@@ -20,7 +20,7 @@ class CreateAffectationsTable extends Migration
             $table->bigInteger('car_id')->unsigned();
             $table->bigInteger('driver_id')->unsigned();
             $table->string('remorque')->nullable();
-            $table->bigInteger('conveyor_id')->unsigned();
+            $table->bigInteger('conveyor_id')->unsigned()->nullable();
             $table->date('date')->nullable();
             $table->foreign('car_id')->references('id')->on('stepper_trees')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('driver_id')->references('id')->on('stepper_drivers')->onDelete('cascade')->onUpdate('cascade');

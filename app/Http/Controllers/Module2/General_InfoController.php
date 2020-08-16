@@ -34,6 +34,16 @@ class General_InfoController extends Controller
         return response()->json($data);
     }
 
+    public function driver(Request $req)
+    {
+        $data = General_Info::Select('general_infos.*','nationalities.name','stepper_drivers.number','stepper_drivers.value','stepper_drivers.status','nationalities.description')
+                              ->join('nationalities','general_infos.nationality_id','=','nationalities.id')
+                              ->join('stepper_drivers','general_infos.stepper_id','=','stepper_drivers.id')
+                              ->orderBy('stepper_id', 'desc')
+                              ->get();
+        return response()->json($data);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

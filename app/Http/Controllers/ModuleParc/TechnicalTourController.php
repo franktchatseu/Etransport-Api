@@ -16,7 +16,13 @@ class TechnicalTourController extends Controller
      */
     public function index(Request $request)
     {
-        $technicaltour = TechnicalTour::latest()->paginate($request->has('limit') ? $request ->limit : 10);
+        $technicaltour = TechnicalTour::select(
+            'technical_tours.*',
+            'caracter_tech_ones.registration'
+        )
+            ->join('caracter_tech_ones', 'technical_tours.car_id', '=', 'caracter_tech_ones.stepper_id')
+            ->latest()
+            ->paginate($request->has('limit') ? $request->limit : 10);
 
         return $technicaltour;
     }
@@ -30,7 +36,7 @@ class TechnicalTourController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $technicaltour = TechnicalTour::create($request->all());
 
         return response()->json($technicaltour, 201);
@@ -45,7 +51,14 @@ class TechnicalTourController extends Controller
      */
     public function show($id)
     {
-        $technicaltour = TechnicalTour::findOrFail($id);
+        //$technicaltour = TechnicalTour::findOrFail($id);
+        $technicaltour = TechnicalTour::select(
+            'technical_tours.*',
+            'caracter_tech_ones.registration'
+        )
+            ->join('caracter_tech_ones', 'technical_tours.car_id', '=', 'caracter_tech_ones.stepper_id')
+            ->where('technical_tours.id', '=', $id)
+            ->first();
 
         return $technicaltour;
     }
@@ -60,7 +73,7 @@ class TechnicalTourController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $technicaltour = TechnicalTour::findOrFail($id);
         $technicaltour->update($request->all());
 

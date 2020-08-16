@@ -15,8 +15,18 @@ class AffectationController extends Controller
      */
     public function index(Request $request)
     {
-        $affectation = Affectation::latest()->paginate($request->has('limit') ? $request ->limit : 10);
-
+       // $affectation = Affectation::latest()->paginate($request->has('limit') ? $request->limit : 10);
+        $affectation = Affectation::select(
+            'affectations.*',
+            'caracter_tech_ones.registration',
+            'general_infos.first_name',
+            'general_infos.last_name'
+        )
+            ->join('caracter_tech_ones', 'affectations.car_id', '=', 'caracter_tech_ones.stepper_id')
+            ->join('general_infos', 'affectations.driver_id', '=', 'general_infos.stepper_id')
+            ->latest()
+            ->paginate($request->has('limit') ? $request->limit : 10);
+       
         return $affectation;
     }
 
@@ -32,8 +42,8 @@ class AffectationController extends Controller
         $data = $req->except('photo');
 
         $this->validate($data, [
-            'car_id'=>'required',
-            'driver_id'=>'required'
+            'car_id' => 'required',
+            'driver_id' => 'required'
         ]);
 
         $affectation = new Affectation();
@@ -45,7 +55,7 @@ class AffectationController extends Controller
         $affectation->save();
 
         return response()->json($affectation);
-       // return response()->json($request);
+        // return response()->json($request);
         // $affectation = Affectation::create($request->all());
         // return response()->json($affectation, 201);
     }
@@ -72,11 +82,23 @@ class AffectationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $req, $id)
     {
-        
         $affectation = Affectation::findOrFail($id);
-        $affectation->update($request->all());
+
+
+        $data = $req->except('photo');
+
+        if ($data['car_id'] ?? null) $affectation->car_id = $data['car_id'];
+        if ($data['driver_id'] ?? null) $affectation->driver_id = $data['driver_id'];
+        if ($data['conveyor_id'] ?? null) $affectation->conveyor_id = $data['conveyor_id'];
+        if ($data['remorque'] ?? null) $affectation->remorque = $data['remorque'];
+        if ($data['date'] ?? null) $affectation->date = $data['date'];
+
+
+        $affectation->update();
+
+        //$affectation->update($req->all());
 
         return response()->json($affectation, 200);
     }

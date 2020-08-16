@@ -20,6 +20,7 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::post('token', 'AuthController@login');
     Route::post('users', 'UserController@store');
+    Route::post('users/reset','UserController@forgotPassword');
 
     //Route::group(['middleware' => 'auth:api'], function () {
         Route::get('user', 'AuthController@user');
@@ -120,6 +121,7 @@ Route::group(['prefix' => 'module2'], function () {
     Route::group(['prefix' => 'general_informations'], function () {
         Route::get('/', 'Module2\General_InfoController@index');
         Route::get('/allWithName', 'Module2\General_InfoController@allWithName');
+        Route::get('/driver', 'Module2\General_InfoController@driver');
         Route::get('/{id}', 'Module2\General_InfoController@find');
         Route::get('/finds/{id}', 'Module2\General_InfoController@finds');
         Route::match(['post', 'put'], '/{id}', 'Module2\General_InfoController@update');

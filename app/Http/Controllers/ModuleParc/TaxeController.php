@@ -17,7 +17,11 @@ class TaxeController extends Controller
      */
     public function index(Request $request)
     {
-        $taxe = Taxe::latest()->paginate($request->has('limit') ? $request ->limit : 10);
+        $taxe = Taxe::select('taxes.*',
+                             'caracter_tech_ones.registration')
+                             ->join('caracter_tech_ones','taxes.car_id','=','caracter_tech_ones.stepper_id')
+                             ->latest()
+                             ->paginate($request->has('limit') ? $request ->limit : 10);
 
         return $taxe;
     }
@@ -46,8 +50,12 @@ class TaxeController extends Controller
      */
     public function show($id)
     {
-        $taxe = Taxe::findOrFail($id);
-
+       // $taxe = Taxe::findOrFail($id);
+        $taxe = Taxe::select('taxes.*',
+                                       'caracter_tech_ones.registration')
+                                     ->join('caracter_tech_ones','taxes.car_id','=','caracter_tech_ones.stepper_id')
+                                     ->where('taxes.id','=',$id)
+                                     ->first();
         return $taxe;
     }
 
